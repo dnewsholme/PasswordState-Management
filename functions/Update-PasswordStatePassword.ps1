@@ -22,14 +22,17 @@
     Daryl Newsholme 2018
 #>
 function Update-PasswordStatePassword {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSAvoidUsingPlainTextForPassword', '', Justification = 'API requires password be passed as plain text'
+    )]
     [CmdletBinding()]
     param (
         [parameter(ValueFromPipelineByPropertyName)]$passwordlistID,
         [parameter(ValueFromPipelineByPropertyName)]$passwordID,
-        $password,
+        [string]$password,
         [parameter(ValueFromPipelineByPropertyName)]$title
     )
-    
+
     begin {
         $result = Get-PasswordStateResource  -uri "/api/passwords/$($PasswordListID)?QueryAll&ExcludePassword=true" | Where-Object {$_.Title -eq "$title"}
         if ($result.PasswordID -eq $passwordID) {
@@ -37,7 +40,7 @@ function Update-PasswordStatePassword {
             $continue = $true
         }
     }
-    
+
     process {
         if ($continue -eq $true) {
             $body = [pscustomobject]@{
@@ -47,7 +50,7 @@ function Update-PasswordStatePassword {
             $output = Set-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
         }
     }
-    
+
     end {
         return $output
     }

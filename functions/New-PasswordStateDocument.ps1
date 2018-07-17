@@ -43,11 +43,11 @@ function New-PasswordStateDocument {
         [parameter(ValueFromPipelineByPropertyName, Position = 3)]$DocumentDescription = $null,
         [parameter(ValueFromPipelineByPropertyName, Position = 4)]$Path
     )
-    
+
     begin {
         $output = @()
     }
-    
+
     process {
         try {
             $output += New-PasswordStateResource `
@@ -61,7 +61,7 @@ function New-PasswordStateDocument {
         }
 
     }
-    
+
     end {
         return $output
     }

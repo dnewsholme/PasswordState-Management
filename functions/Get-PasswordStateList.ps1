@@ -11,14 +11,17 @@
     Daryl Newsholme 2018
 #>
 function Get-PasswordStateList {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password just an ID'
+    )]
     [CmdletBinding()]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$PasswordListID
     )
-    
+
     begin {
     }
-    
+
     process {
         # Get all lists from the API
         if (!$PasswordListID) {
@@ -28,7 +31,7 @@ function Get-PasswordStateList {
             $lists = Get-PasswordStateResource -uri "/api/passwordlists/$passwordListID"
         }
     }
-    
+
     end {
         return $lists
     }

@@ -31,11 +31,11 @@ function Save-PasswordStateDocument {
         [parameter(ValueFromPipelineByPropertyName, Position = 2)]$DocumentID,
         [parameter(ValueFromPipelineByPropertyName, Position = 4)]$Path
     )
-    
+
     begin {
         $output = @()
     }
-    
+
     process {
         try {
             $output += Get-PasswordStateResource `
@@ -49,7 +49,7 @@ function Save-PasswordStateDocument {
         }
 
     }
-    
+
     end {
         return (Get-Item $Path)
     }

@@ -13,9 +13,9 @@
 function Get-PasswordStateEnvironment {
     [CmdletBinding()]
     param (
-        
+
     )
-    
+
     begin {
         try {
             # Read in the password state environment json config file.
@@ -25,7 +25,7 @@ function Get-PasswordStateEnvironment {
             throw "No environment has been set. Run Set-PasswordStateEnvironment to create first."
         }
     }
-    
+
     process {
         # Convert from json and decrypt the api key if the api key is used.
         $output = $content | ConvertFrom-Json
@@ -38,9 +38,9 @@ function Get-PasswordStateEnvironment {
             $apikey = $cred.GetNetworkCredential().Password
             $output.apikey = $apikey
         }
-    
+
     }
-    
+
     end {
         Return $output
     }

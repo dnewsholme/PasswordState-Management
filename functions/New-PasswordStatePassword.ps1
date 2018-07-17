@@ -34,6 +34,9 @@
     Daryl Newsholme 2018
 #>
 function New-PasswordStatePassword {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSAvoidUsingPlainTextForPassword', '', Justification = 'Password can only be passed to api in plaintext due to passwordstate api'
+    )]
     [CmdletBinding()]
     param (
         [parameter(ValueFromPipelineByPropertyName)]$passwordlistID,
@@ -44,7 +47,7 @@ function New-PasswordStatePassword {
         [parameter(ValueFromPipelineByPropertyName)]$notes,
         [parameter(ValueFromPipelineByPropertyName)]$url
     )
-    
+
     begin {
         # Check to see if the requested password entry exists before continuing.
         $result = Get-PasswordStateResource  -uri "/api/passwords/$($PasswordListID)?QueryAll&ExcludePassword=true" | Where-Object {$_.Title -eq "$title"}
@@ -53,7 +56,7 @@ function New-PasswordStatePassword {
             $continue = $false
         }
     }
-    
+
     process {
         # Build the Custom object to convert to json and send to the api.
         if ($continue -ne $false) {
@@ -69,7 +72,7 @@ function New-PasswordStatePassword {
             $output = New-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
         }
     }
-    
+
     end {
         return $output
     }

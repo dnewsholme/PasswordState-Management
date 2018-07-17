@@ -71,7 +71,7 @@ Describe "Remove-PasswordStatePassword" {
         Mock -CommandName Get-PasswordStateEnvironment -MockWith {return [PSCustomObject]@{
                 "Baseuri" = "https://passwordstateserver.co.uk"
                 "APIKey"  = "WindowsAuth"
-            
+
             }
         }
         Mock -CommandName Remove-PasswordStateResource -MockWith {return $null

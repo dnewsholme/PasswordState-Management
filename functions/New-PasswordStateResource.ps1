@@ -31,26 +31,24 @@ function New-PasswordStateResource {
         [hashtable]$extraparams = $null
 
     )
-    
+
     begin {
         # Force TLS 1.2
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
         $passwordstateenvironment = $(Get-PasswordStateEnvironment)
         Switch ($passwordstateenvironment.AuthType) {
             WindowsIntegrated {
-                $winauth = $true
                 $uri = $uri.Replace("api", "winapi")
             }
             WindowsCustom {
-                $winauth = $true
                 $uri = $uri.Replace("api", "winapi")
             }
             APIKey {
-                $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"} 
+                $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
             }
         }
     }
-    
+
     process {
         $params = @{
             "UseBasicParsing" = $true
@@ -79,7 +77,7 @@ function New-PasswordStateResource {
             }
         }
     }
-    
+
     end {
         return $result
     }

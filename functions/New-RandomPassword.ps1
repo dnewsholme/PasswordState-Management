@@ -15,18 +15,21 @@
     Daryl Newsholme 2019
 #>
 function New-RandomPassword {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password just an ID'
+    )]
     [CmdletBinding()]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0)]$passwordGeneratorID
     )
-    
+
     begin {
     }
-    
+
     process {
         $output = Get-PasswordStateResource -uri "/api/generatepassword"
     }
-    
+
     end {
         return $output
     }

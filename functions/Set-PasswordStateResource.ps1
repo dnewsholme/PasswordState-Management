@@ -30,26 +30,24 @@ function Set-PasswordStateResource {
         [string]$ContentType = "application/json",
         [hashtable]$extraparams = $null
     )
-    
+
     begin {
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
         $passwordstateenvironment = $(Get-PasswordStateEnvironment)
         # If the apikey is windowsauth then rebuild the uri string to match the windows auth apis, otherwise just build the api headers.
         Switch ($passwordstateenvironment.AuthType) {
             WindowsIntegrated {
-                $winauth = $true
                 $uri = $uri.Replace("api", "winapi")
             }
             WindowsCustom {
-                $winauth = $true
                 $uri = $uri.Replace("api", "winapi")
             }
             APIKey {
-                $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"} 
+                $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
             }
         }
     }
-    
+
     process {
         $params = @{
             "UseBasicParsing" = $true
@@ -78,7 +76,7 @@ function Set-PasswordStateResource {
             }
         }
     }
-    
+
     end {
         return $result
     }

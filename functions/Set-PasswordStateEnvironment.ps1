@@ -28,6 +28,7 @@
     Daryl Newsholme 2018
 #>
 function Set-PasswordStateEnvironment {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'all passwords stored encrypted')]
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)][string]$Baseuri,
@@ -35,7 +36,7 @@ function Set-PasswordStateEnvironment {
         [Parameter(ParameterSetName = 'Two')][switch]$WindowsAuthOnly,
         [Parameter(ParameterSetName = 'Three')][pscredential]$customcredentials
     )
-    
+
     begin {
         # Trim any trailing slashes.
         if ($Baseuri[-1] -eq "/") {
@@ -51,7 +52,7 @@ function Set-PasswordStateEnvironment {
             $AuthType = "APIKey"
         }
     }
-    
+
     process {
         # Build the custom object to be converted to JSON. Set APIKey as WindowsAuth if we are to use windows authentication.
         $json = New-Object psobject -Property @{
@@ -62,7 +63,7 @@ function Set-PasswordStateEnvironment {
                 }
                 WindowsCustom {
                     [pscustomobject]@{
-                        "username" = $customcredentials.UserName  
+                        "username" = $customcredentials.UserName
                         "Password" = ($customcredentials.Password | ConvertFrom-SecureString)
                     }
                 }
@@ -73,7 +74,7 @@ function Set-PasswordStateEnvironment {
             "AuthType" = $AuthType
         }| ConvertTo-Json
     }
-    
+
     end {
         $json | Out-File "$($env:USERPROFILE)\passwordstate.json"
     }
