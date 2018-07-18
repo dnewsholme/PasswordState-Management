@@ -35,11 +35,11 @@ Describe "Find-PasswordStatePassword" {
         Mock -CommandName Get-PasswordStateEnvironment -MockWith {return [PSCustomObject]@{
                 "Baseuri" = "https://passwordstateserver.co.uk"
                 "APIKey"  = "WindowsAuth"
-            
+
             }
         }
 
         (Find-PasswordStatePassword -Title "testuser").PasswordId | Should -BeExactly 3
-        (Find-PasswordStatePassword -Title "testuser").Password | Should -not -BeNullOrEmpty 
+        (Find-PasswordStatePassword -Title "testuser").Password | Should -not -BeNullOrEmpty
     }
 }

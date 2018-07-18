@@ -1,14 +1,10 @@
-<#
+﻿<#
 .SYNOPSIS
     Updates the password of an existing password state entry.
 .DESCRIPTION
     Updates the password of an existing password state entry.
-.PARAMETER PasswordListID
-    The password list in which the entry resides.
 .PARAMETER PasswordID
     The ID of the password to be updated.
-.PARAMETER title
-    The title of the password to be updated.
 .PARAMETER Password
     The new password to be added to the entry.
 .EXAMPLE
@@ -27,28 +23,34 @@ function Update-PasswordStatePassword {
     )]
     [CmdletBinding()]
     param (
-        [parameter(ValueFromPipelineByPropertyName)]$passwordlistID,
-        [parameter(ValueFromPipelineByPropertyName)]$passwordID,
-        [string]$password,
-        [parameter(ValueFromPipelineByPropertyName)]$title
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)]$passwordID,
+        [parameter(Mandatory = $true)][string]$password
     )
 
     begin {
-        $result = Get-PasswordStateResource  -uri "/api/passwords/$($PasswordListID)?QueryAll&ExcludePassword=true" | Where-Object {$_.Title -eq "$title"}
-        if ($result.PasswordID -eq $passwordID) {
-            Write-Verbose "Found Matching Password Entry"
-            $continue = $true
-        }
+
     }
 
     process {
-        if ($continue -eq $true) {
-            $body = [pscustomobject]@{
-                "PasswordID" = $passwordID
-                "Password"   = $password
+        if ($passwordID) {
+            try {
+                $result = Find-PasswordStatePassword -PasswordID $passwordID -ErrorAction Stop
+                Write-Verbose "[$(Get-Date -format G)] updating $($result.title)"
             }
-            $output = Set-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
+            Catch {
+                throw "Password ID $passwordID not found"
+            }
         }
+        else {
+            throw "Must use password ID to update passwords"
+        }
+
+        $body = [pscustomobject]@{
+            "PasswordID" = $result.passwordID
+            "Password"   = $password
+        }
+        $output = Set-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
+
     }
 
     end {

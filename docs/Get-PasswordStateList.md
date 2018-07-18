@@ -5,43 +5,40 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-PasswordStatePasswordHistory
+# Get-PasswordStateList
 
 ## SYNOPSIS
-Gets a password state entry historical password entries.
+Gets all password lists from the API (Only those you have permissions to.)
 
 ## SYNTAX
 
 ```
-Get-PasswordStatePasswordHistory [[-PasswordID] <Object>] [<CommonParameters>]
+Get-PasswordStateList [[-PasswordListID] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets a password state entry historical password entries..
+Gets all password lists from the API (Only those you have permissions to.)
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-PasswordStatePassword -PasswordID 5
+Get-PasswordStateList
 ```
-
-Returns the test user object including password.
 
 ## PARAMETERS
 
-### -PasswordID
-ID value of the entry to find history for.
-Int32 value
+### -PasswordListID
+{{Fill PasswordListID Description}}
 
 ```yaml
-Type: Object
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 1
-Default value: None
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -51,11 +48,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### PasswordID - ID of the Password entry (Integer)
-
 ## OUTPUTS
 
-### Returns the Object from the API as a powershell object.
+### Returns the lists including their names and IDs.
 
 ## NOTES
 Daryl Newsholme 2018

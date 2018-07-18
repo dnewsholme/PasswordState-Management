@@ -4,12 +4,14 @@
 .DESCRIPTION
     Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
 .EXAMPLE
-    PS C:\> Find-PasswordStatePassword -title "testuser" 
+    PS C:\> Find-PasswordStatePassword -title "testuser"
     Returns the test user object including password.
 .PARAMETER title
     A string value which should match the passwordstate entry exactly(Not case sensitive)
 .PARAMETER Username
     An optional parameter to filter searches to those with a certain username as multiple titles may have the same value.
+.PARAMETER PasswordID
+    An ID of a specific password resource to return.
 .INPUTS
     Title - The title of the entry (string)
     Username - The username you need the password for. If multiple entries have the same name this is useful to get the one you want only. (String)(Optional)
@@ -19,10 +21,15 @@
     Daryl Newsholme 2018
 #>
 function Find-PasswordStatePassword {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSAvoidUsingPlainTextForPassword', '', Justification = 'No Password is used only ID.'
+    )]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'PasswordID isnt a password')]
     [CmdletBinding()]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0)]$title,
-        [parameter(ValueFromPipelineByPropertyName, Position = 1)]$username
+        [parameter(ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = 1)]$title,
+        [parameter(ValueFromPipelineByPropertyName, Position = 1, ParameterSetName = 1)]$username,
+        [parameter(ValueFromPipelineByPropertyName, Position = 2, ParameterSetName = 2)]$PasswordID
     )
     begin {
         # Initialize the array for output
@@ -31,7 +38,12 @@ function Find-PasswordStatePassword {
 
     process {
         # search each list for the password title (exclude the passwords so it doesn't spam audit logs with lots of read passwords)
-        if (!$username) {
+        if ($PasswordID) {
+            $tempobj = [PSCustomObject]@{
+                PasswordID = $PasswordID
+            }
+        }
+        elseif (!$username) {
             try {
                 $tempobj = Get-PasswordStateResource -uri "/api/searchpasswords/?search=$title&ExcludePassword=true" -ErrorAction stop
             }
@@ -63,7 +75,7 @@ function Find-PasswordStatePassword {
             Return $output
         }
         Else {
-            throw "No Password found for $title $username"
+            throw "No Password found for $passwordID $title $username"
         }
     }
 }

@@ -37,6 +37,7 @@ function New-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Password can only be passed to api in plaintext due to passwordstate api'
     )]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'Credential would break cmdlet flow')]
     [CmdletBinding()]
     param (
         [parameter(ValueFromPipelineByPropertyName)]$passwordlistID,

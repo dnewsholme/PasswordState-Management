@@ -54,10 +54,10 @@ Task Build -Depends Clean {
     $Functions = (Get-ChildItem $ProjectRoot\functions\*.ps1) | Where-Object {$_.Name -notlike "*.Tests.ps1"}
     Write-Verbose "ProjectName is $($Projectname)"
     try {
-        $global:buildversion = $((Find-Module -Name $($Projectname) -ErrorAction Stop).Version) | step-version
+        $global:buildversion = $((Find-Module -Name $($Projectname) -ErrorAction Stop).Version)| Sort-Object version |Select-Object -Last 1 | step-version
     }
     Catch {
-        $v = ([Version]::new(0,0,1))
+        $v = ([Version]::new(0, 0, 1))
         $global:buildversion = $v
     }
     #Should just use plaster...

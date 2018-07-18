@@ -1,4 +1,4 @@
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+﻿$here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 Import-Module "$here\..\passwordstate-management.psm1"
@@ -19,6 +19,6 @@ Describe "Get-PasswordStatePasswordHistory" {
             }
         } -ParameterFilter {$uri -eq "/api/passwordhistory/3"}
 
-        (Get-PasswordStatePasswordHistory -PasswordID 3).DateChanged | Should -Not -BeNullOrEmpty  
+        (Get-PasswordStatePasswordHistory -PasswordID 3).DateChanged | Should -Not -BeNullOrEmpty
     }
 }

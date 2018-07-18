@@ -13,8 +13,7 @@ Updates the password of an existing password state entry.
 ## SYNTAX
 
 ```
-Update-PasswordStatePassword [[-passwordlistID] <Object>] [[-passwordID] <Object>] [[-password] <Object>]
- [[-title] <Object>] [<CommonParameters>]
+Update-PasswordStatePassword [-passwordID] <Object> [-password] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,21 +30,6 @@ Updates the password to "76y288uneeko%%%2A" for the entry named testuser01
 
 ## PARAMETERS
 
-### -passwordlistID
-The password list in which the entry resides.
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 1
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -passwordID
 The ID of the password to be updated.
 
@@ -54,8 +38,8 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: 2
+Required: True
+Position: 1
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -65,29 +49,14 @@ Accept wildcard characters: False
 The new password to be added to the entry.
 
 ```yaml
-Type: Object
+Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: 3
+Required: True
+Position: 2
 Default value: None
 Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -title
-The title of the password to be updated.
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
-Default value: None
-Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

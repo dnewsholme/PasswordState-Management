@@ -13,8 +13,14 @@ If multiple matches it will return multiple entries.
 
 ## SYNTAX
 
+### 1
 ```
 Find-PasswordStatePassword [[-title] <Object>] [[-username] <Object>] [<CommonParameters>]
+```
+
+### 2
+```
+Find-PasswordStatePassword [[-PasswordID] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -37,7 +43,7 @@ A string value which should match the passwordstate entry exactly(Not case sensi
 
 ```yaml
 Type: Object
-Parameter Sets: (All)
+Parameter Sets: 1
 Aliases:
 
 Required: False
@@ -52,11 +58,26 @@ An optional parameter to filter searches to those with a certain username as mul
 
 ```yaml
 Type: Object
-Parameter Sets: (All)
+Parameter Sets: 1
 Aliases:
 
 Required: False
 Position: 2
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -PasswordID
+{{Fill PasswordID Description}}
+
+```yaml
+Type: Object
+Parameter Sets: 2
+Aliases:
+
+Required: False
+Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

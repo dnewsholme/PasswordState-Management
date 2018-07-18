@@ -11,6 +11,7 @@ after_script:
 stages:
   - dependencycheck
   - test
+  - analyze
   - build
   - deploy
   - document
@@ -21,9 +22,9 @@ dependency:
       - powershell.exe -command "if(!(Get-Module PSdepend)) {Install-Module PSDepend -force}"
       - powershell.exe -command "if(!(Get-Module buildhelpers)){Install-Module buildhelpers -force}"
       - powershell.exe -command "if(!(Get-Module pester)){Install-Module pester -force}"
-      - powershell.exe -command "if(!(Get-Module)){Install-Module PSScriptAnalyzer -force}"
-      - powershell.exe -command "if(!(Get-Module)){Install-Module psake -force}"
-      - powershell.exe -command "if(!(Get-Module)){Install-Module PlatyPS -force}"
+      - powershell.exe -command "if(!(Get-Module PSScriptAnalyzer)){Install-Module PSScriptAnalyzer -force}"
+      - powershell.exe -command "if(!(Get-Module psake)){Install-Module psake -force}"
+      - powershell.exe -command "if(!(Get-Module PlatyPS)){Install-Module PlatyPS -force}"
 
 Tests:
   stage: test
@@ -32,6 +33,11 @@ Tests:
   artifacts:
     paths:
      - testResults.xml
+
+Analyze:
+  stage: analyze
+  script:
+    - powershell.exe -file ".\build\4.Analyze.ps1"
 
 build:
   stage: build
