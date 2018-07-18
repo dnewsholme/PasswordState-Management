@@ -63,7 +63,7 @@ Accept wildcard characters: False
 ```
 
 ### -description
-{{Fill description Description}}
+custom description to be added to the password..
 
 ```yaml
 Type: Object
@@ -138,7 +138,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -148,6 +149,7 @@ password - Password value for the entry (String)
 title - Title for the entry (String)
 notes - Notes for the entry (String)(Optional)
 url - URL for the entry (String)(Optional)
+description - description for entyr (Optional)
 
 ## OUTPUTS
 

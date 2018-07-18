@@ -5,67 +5,62 @@ online version:
 schema: 2.0.0
 ---
 
-# New-PasswordStateDocument
+# New-PasswordStateList
 
 ## SYNOPSIS
-Adds a new document to an existing PasswordState Resource.
+Creates a passwordstate List.
 
 ## SYNTAX
 
 ```
-New-PasswordStateDocument [[-ID] <Int32>] [[-resourcetype] <String>] [[-DocumentName] <Object>]
- [[-DocumentDescription] <Object>] [[-Path] <Object>] [<CommonParameters>]
+New-PasswordStateList [-Name] <Object> [-description] <Object> [[-CopySettingsFromPasswordListID] <Object>]
+ [-FolderID] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Adds a new document to an existing PasswordState Resource.
+Creates a passwordstate List.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-New-PasswordStateDocument -ID 36 -resourcetype Password -DocumentName Testdoc.csv -DocumentDescription Important Document -Path C:\temp\1.csv
-```
-
-### EXAMPLE 2
-```
-Find-PasswordStatePassword test | New-PasswordStateDocument -resourcetype Password -DocumentName Testdoc.csv -DocumentDescription Important Document -Path C:\temp\1.csv
+New-PasswordStateList -Name TestList -Description "A Test List" -FolderID 4
 ```
 
 ## PARAMETERS
 
-### -ID
-The ID of the resource to be updated.
+### -Name
+Name of the Passwordstate list
 
 ```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases: PasswordId
-
-Required: False
-Position: 1
-Default value: 0
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -resourcetype
-The resource type to add the document to.
-
-```yaml
-Type: String
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: 2
-Default value: Password
+Required: True
+Position: 1
+Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -DocumentName
-Name of the document when it's uploaded.
+### -description
+Description fro the list
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -CopySettingsFromPasswordListID
+Optionally copy the settings from another list.
 
 ```yaml
 Type: Object
@@ -79,31 +74,16 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -DocumentDescription
-Description to be added to the document.
+### -FolderID
+Folder ID that the list should be placed under
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Path
-File path to the document to be uploaded.
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 5
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

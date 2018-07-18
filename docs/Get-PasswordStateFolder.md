@@ -5,40 +5,44 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-PasswordStateList
+# Get-PasswordStateFolder
 
 ## SYNOPSIS
-Gets all password lists from the API (Only those you have permissions to.)
+Finds a password state entry and returns the object.
+If multiple matches it will return multiple entries.
 
 ## SYNTAX
 
 ```
-Get-PasswordStateList [[-PasswordListID] <Int32>] [<CommonParameters>]
+Get-PasswordStateFolder [[-Name] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets all password lists from the API (Only those you have permissions to.)
+Finds a password state entry and returns the object.
+If multiple matches it will return multiple entries.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-PasswordStateList
+Find-PasswordStateFolder -Name "test"
 ```
+
+Returns the test folder object.
 
 ## PARAMETERS
 
-### -PasswordListID
-{{Fill PasswordListID Description}}
+### -Name
+A string value which should match the passwordstate entry exactly(Not case sensitive)
 
 ```yaml
-Type: Int32
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 1
-Default value: 0
+Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -49,9 +53,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### Name - The title of the entry (string)
+
 ## OUTPUTS
 
-### Returns the lists including their names and IDs.
+### Returns the Object from the API as a powershell object.
 
 ## NOTES
 Daryl Newsholme 2018

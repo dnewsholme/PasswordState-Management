@@ -51,10 +51,9 @@ function New-PasswordStatePassword {
 
     begin {
         # Check to see if the requested password entry exists before continuing.
-        $result = Get-PasswordStateResource  -uri "/api/passwords/$($PasswordListID)?QueryAll&ExcludePassword=true" | Where-Object {$_.Title -eq "$title"}
+        $result = Find-PasswordStatePassword -title "$title" -username $username
         if ($result.Username -eq $username) {
-            Write-Verbose "Found Existing Password Entry"
-            $continue = $false
+            throw "Found Existing Password Entry with Title:$title and username:$username"
         }
     }
 

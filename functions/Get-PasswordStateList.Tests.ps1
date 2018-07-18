@@ -41,6 +41,12 @@ Describe "Get-PasswordStateList" {
                 "SiteLocation"                  = $null
             }
         } -ParameterFilter {$uri -eq "/api/passwordlists"}
+
+        Mock -CommandName Get-PasswordStateEnvironment -MockWith {return [PSCustomObject]@{
+                "Baseuri" = "https://passwordstateserver.co.uk"
+                "APIKey"  = "WindowsAuth"
+            }
+        }
         (Get-PasswordStateList).PasswordListID | Should -BeOfType Int32
     }
 }
