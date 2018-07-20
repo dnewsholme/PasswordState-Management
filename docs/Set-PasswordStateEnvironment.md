@@ -12,19 +12,20 @@ Saves your password state environment configuration to be used when calling the 
 
 ## SYNTAX
 
-### One
+### Two (Default)
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-Apikey <String>] [<CommonParameters>]
+Set-PasswordStateEnvironment -Baseuri <String[]> [-WindowsAuthOnly] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Two
+### One
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-WindowsAuthOnly] [<CommonParameters>]
+Set-PasswordStateEnvironment -Baseuri <String[]> [-Apikey <String[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Three
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-customcredentials <PSCredential>] [<CommonParameters>]
+Set-PasswordStateEnvironment -Baseuri <String[]> [-customcredentials <PSCredential[]>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -55,7 +56,7 @@ The base url of the passwordstate server.
 eg https://passwordstate
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -70,7 +71,7 @@ Accept wildcard characters: False
 For use if APIKey is the preferred authentication method.
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: One
 Aliases:
 
@@ -100,7 +101,7 @@ Accept wildcard characters: False
 For use if windows custom credentials is the preferred authentication method.
 
 ```yaml
-Type: PSCredential
+Type: PSCredential[]
 Parameter Sets: Three
 Aliases:
 
@@ -111,9 +112,38 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -WhatIf
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

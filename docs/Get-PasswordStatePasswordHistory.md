@@ -13,7 +13,7 @@ Gets a password state entry historical password entries.
 ## SYNTAX
 
 ```
-Get-PasswordStatePasswordHistory [[-PasswordID] <Object>] [<CommonParameters>]
+Get-PasswordStatePasswordHistory [[-PasswordID] <Int32[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,7 +35,7 @@ ID value of the entry to find history for.
 Int32 value
 
 ```yaml
-Type: Object
+Type: Int32[]
 Parameter Sets: (All)
 Aliases:
 
@@ -47,8 +47,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

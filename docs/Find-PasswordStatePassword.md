@@ -13,14 +13,14 @@ If multiple matches it will return multiple entries.
 
 ## SYNTAX
 
-### 1
+### 1 (Default)
 ```
-Find-PasswordStatePassword [[-title] <Object>] [[-username] <Object>] [<CommonParameters>]
+Find-PasswordStatePassword [[-title] <String[]>] [[-username] <String[]>] [<CommonParameters>]
 ```
 
 ### 2
 ```
-Find-PasswordStatePassword [[-PasswordID] <Object>] [<CommonParameters>]
+Find-PasswordStatePassword [[-PasswordID] <Int32[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,7 +42,7 @@ Returns the test user object including password.
 A string value which should match the passwordstate entry exactly(Not case sensitive)
 
 ```yaml
-Type: Object
+Type: String[]
 Parameter Sets: 1
 Aliases:
 
@@ -57,7 +57,7 @@ Accept wildcard characters: False
 An optional parameter to filter searches to those with a certain username as multiple titles may have the same value.
 
 ```yaml
-Type: Object
+Type: String[]
 Parameter Sets: 1
 Aliases:
 
@@ -72,7 +72,7 @@ Accept wildcard characters: False
 An ID of a specific password resource to return.
 
 ```yaml
-Type: Object
+Type: Int32[]
 Parameter Sets: 2
 Aliases:
 
@@ -84,8 +84,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

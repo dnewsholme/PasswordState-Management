@@ -13,8 +13,9 @@ Creates a New Password State entry in the password list specified.
 ## SYNTAX
 
 ```
-New-PasswordStatePassword [[-passwordlistID] <Object>] [[-username] <Object>] [[-description] <Object>]
- [[-password] <Object>] [[-title] <Object>] [[-notes] <Object>] [[-url] <Object>] [<CommonParameters>]
+New-PasswordStatePassword [[-passwordlistID] <Int32[]>] [[-username] <String[]>] [[-description] <String[]>]
+ [[-password] <String[]>] [[-title] <String[]>] [[-notes] <String[]>] [[-url] <String[]>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,7 +37,7 @@ The ID of the password list which to place the entry in.
 Int32 value.
 
 ```yaml
-Type: Object
+Type: Int32[]
 Parameter Sets: (All)
 Aliases:
 
@@ -51,7 +52,7 @@ Accept wildcard characters: False
 The username to be added to the entry (Optional)
 
 ```yaml
-Type: Object
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -66,7 +67,7 @@ Accept wildcard characters: False
 custom description to be added to the password..
 
 ```yaml
-Type: Object
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -81,7 +82,7 @@ Accept wildcard characters: False
 The password to be added to the entry.
 
 ```yaml
-Type: Object
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -96,7 +97,7 @@ Accept wildcard characters: False
 Name of the entry to be created.
 
 ```yaml
-Type: Object
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -111,7 +112,7 @@ Accept wildcard characters: False
 Any notes to be added.
 
 ```yaml
-Type: Object
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -126,7 +127,7 @@ Accept wildcard characters: False
 URL to be added to the entry if relevant.
 
 ```yaml
-Type: Object
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -137,9 +138,38 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -WhatIf
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

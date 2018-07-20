@@ -13,8 +13,8 @@ A function to simplify the Retrieval of password state resources via the rest AP
 ## SYNTAX
 
 ```
-Get-PasswordStateResource [[-uri] <String>] [[-method] <String>] [[-ContentType] <String>]
- [[-extraparams] <Hashtable>] [<CommonParameters>]
+Get-PasswordStateResource [[-uri] <String[]>] [[-method] <String[]>] [[-ContentType] <String[]>]
+ [[-extraparams] <Hashtable[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,7 +35,7 @@ Sets a password on the password api.
 The api resource to access such as /api/lists
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -50,7 +50,7 @@ Accept wildcard characters: False
 Optional Parameter to override the method from GET.
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -65,7 +65,7 @@ Accept wildcard characters: False
 Optional Parameter to override the default content type from application/json.
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -81,7 +81,7 @@ Optional Parameter to allow extra parameters to be passed to invoke-restmethod.
 Should be passed as a hashtable.
 
 ```yaml
-Type: Hashtable
+Type: Hashtable[]
 Parameter Sets: (All)
 Aliases:
 
@@ -93,8 +93,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

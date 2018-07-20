@@ -13,7 +13,7 @@ Adds a new document to an existing PasswordState Resource.
 ## SYNTAX
 
 ```
-Save-PasswordStateDocument [[-resourcetype] <String>] [[-DocumentID] <Object>] [[-Path] <Object>]
+Save-PasswordStateDocument [[-resourcetype] <String[]>] [[-DocumentID] <Int32[]>] [[-Path] <String[]>]
  [<CommonParameters>]
 ```
 
@@ -38,7 +38,7 @@ Find-PasswordStatePassword test | Save-PasswordStateDocument -Path C:\temp\1.csv
 The resource type to add the document to.
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -53,7 +53,7 @@ Accept wildcard characters: False
 {{Fill DocumentID Description}}
 
 ```yaml
-Type: Object
+Type: Int32[]
 Parameter Sets: (All)
 Aliases:
 
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 File path to the document to be uploaded.
 
 ```yaml
-Type: Object
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -80,8 +80,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
