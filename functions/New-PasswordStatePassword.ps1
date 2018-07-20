@@ -38,15 +38,15 @@ function New-PasswordStatePassword {
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Password can only be passed to api in plaintext due to passwordstate api'
     )]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'Credential would break cmdlet flow')]
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName)]$passwordlistID,
-        [parameter(ValueFromPipelineByPropertyName)]$username = "",
-        [parameter(ValueFromPipelineByPropertyName)]$description,
-        [parameter(ValueFromPipelineByPropertyName)]$password,
-        [parameter(ValueFromPipelineByPropertyName)]$title,
-        [parameter(ValueFromPipelineByPropertyName)]$notes,
-        [parameter(ValueFromPipelineByPropertyName)]$url
+        [parameter(ValueFromPipelineByPropertyName)][int32[]]$passwordlistID,
+        [parameter(ValueFromPipelineByPropertyName)][string[]]$username = "",
+        [parameter(ValueFromPipelineByPropertyName)][string[]]$description,
+        [parameter(ValueFromPipelineByPropertyName)][string[]]$password,
+        [parameter(ValueFromPipelineByPropertyName)][string[]]$title,
+        [parameter(ValueFromPipelineByPropertyName)][string[]]$notes,
+        [parameter(ValueFromPipelineByPropertyName)][string[]]$url
     )
 
     begin {
@@ -69,7 +69,9 @@ function New-PasswordStatePassword {
                 "Notes"          = $notes
                 "URL"            = $url
             }
-            $output = New-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
+            if ($PSCmdlet.ShouldProcess("PasswordList:$passwordListID Title:$title Username:$username")) {
+                $output = New-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
+            }
         }
     }
 

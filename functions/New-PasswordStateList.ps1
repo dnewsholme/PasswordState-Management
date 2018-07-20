@@ -27,11 +27,12 @@ function New-PasswordStateList {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password field.'
     )]
+    [cmdletbinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)]$Name,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)]$description,
-        [parameter(ValueFromPipelineByPropertyName)]$CopySettingsFromPasswordListID = $null,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)]$FolderID
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string[]]$Name,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string[]]$description,
+        [parameter(ValueFromPipelineByPropertyName)][int32[]]$CopySettingsFromPasswordListID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][int32[]]$FolderID
 
     )
 
@@ -47,7 +48,9 @@ function New-PasswordStateList {
             "CopySettingsFromPasswordListID" = $CopySettingsFromPasswordListID
             "NestUnderFolderID"              = $FolderID
         }
-        $output = New-PasswordStateResource  -uri "/api/passwordlists" -body "$($body|convertto-json)"
+        if ($PSCmdlet.ShouldProcess("$Name under folder $folderid")) {
+            $output = New-PasswordStateResource  -uri "/api/passwordlists" -body "$($body|convertto-json)"
+        }
     }
 
     end {

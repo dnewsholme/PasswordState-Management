@@ -19,7 +19,7 @@
 function Get-PasswordStateFolder {
     [CmdletBinding()]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = 1)]$Name
+        [parameter(ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = 1)][string[]]$Name
     )
     begin {
         # Initialize the array for output

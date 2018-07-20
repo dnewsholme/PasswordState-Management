@@ -21,10 +21,10 @@ function Update-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'API requires password be passed as plain text'
     )]
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)]$passwordID,
-        [parameter(Mandatory = $true)][string]$password
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][int32[]]$passwordID,
+        [parameter(Mandatory = $true)][string[]]$password
     )
 
     begin {
@@ -44,12 +44,14 @@ function Update-PasswordStatePassword {
         else {
             throw "Must use password ID to update passwords"
         }
+        if ($PSCmdlet.ShouldProcess("PasswordID:$($result.PasswordID) Title:$($result.title)")) {
+            $body = [pscustomobject]@{
+                "PasswordID" = $result.passwordID
+                "Password"   = $password
+            }
 
-        $body = [pscustomobject]@{
-            "PasswordID" = $result.passwordID
-            "Password"   = $password
+            $output = Set-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
         }
-        $output = Set-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
 
     }
 

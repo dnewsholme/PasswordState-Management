@@ -27,9 +27,9 @@ function Save-PasswordStateDocument {
             "password",
             "passwordlist",
             "folder"
-        )][string]$resourcetype = "password",
-        [parameter(ValueFromPipelineByPropertyName, Position = 2)]$DocumentID,
-        [parameter(ValueFromPipelineByPropertyName, Position = 4)]$Path
+        )][string[]]$resourcetype = "password",
+        [parameter(ValueFromPipelineByPropertyName, Position = 2)][int32[]]$DocumentID,
+        [parameter(ValueFromPipelineByPropertyName, Position = 4)][string[]]$Path
     )
 
     begin {

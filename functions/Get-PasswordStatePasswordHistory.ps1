@@ -21,7 +21,7 @@ function Get-PasswordStatePasswordHistory {
     )]
     [CmdletBinding()]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0)]$PasswordID
+        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32[]]$PasswordID
     )
 
     begin {

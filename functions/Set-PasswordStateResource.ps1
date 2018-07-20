@@ -22,13 +22,13 @@
     Daryl Newsholme 2018
 #>
 function Set-PasswordStateResource {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [string]$uri,
-        [string]$method = "PUT",
-        $body = $null,
-        [string]$ContentType = "application/json",
-        [hashtable]$extraparams = $null
+        [string[]]$uri,
+        [string[]]$method = "PUT",
+        [string[]]$body = $null,
+        [string[]]$ContentType = "application/json",
+        [hashtable[]]$extraparams = $null
     )
 
     begin {
@@ -59,20 +59,22 @@ function Set-PasswordStateResource {
         if ($extraparams) {
             $params += $extraparams
         }
-        Switch ($passwordstateenvironment.AuthType) {
-            APIKey {
-                # Hit the API with the headers
-                Write-Verbose "using uri $($params.uri)"
-                $result = Invoke-RestMethod @params -Headers $headers -TimeoutSec 60
-            }
-            WindowsCustom {
-                Write-Verbose "using uri $($params.uri)"
-                $result = Invoke-RestMethod @params -Headers $headers -Credential $passwordstateenvironment.apikey -TimeoutSec 60
-            }
-            WindowsIntegrated {
-                # Hit the api with windows auth
-                Write-Verbose "using uri $($params.uri)"
-                $result = Invoke-RestMethod @params -UseDefaultCredentials -TimeoutSec 60
+        if ($PSCmdlet.ShouldProcess("[$($params.Method)] uri:$($params.uri) Headers:$($headers) Body:$($params.body)")) {
+            Switch ($passwordstateenvironment.AuthType) {
+                APIKey {
+                    # Hit the API with the headers
+                    Write-Verbose "using uri $($params.uri)"
+                    $result = Invoke-RestMethod @params -Headers $headers -TimeoutSec 60
+                }
+                WindowsCustom {
+                    Write-Verbose "using uri $($params.uri)"
+                    $result = Invoke-RestMethod @params -Headers $headers -Credential $passwordstateenvironment.apikey -TimeoutSec 60
+                }
+                WindowsIntegrated {
+                    # Hit the api with windows auth
+                    Write-Verbose "using uri $($params.uri)"
+                    $result = Invoke-RestMethod @params -UseDefaultCredentials -TimeoutSec 60
+                }
             }
         }
     }

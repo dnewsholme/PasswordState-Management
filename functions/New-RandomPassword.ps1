@@ -18,16 +18,18 @@ function New-RandomPassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password just an ID'
     )]
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0)]$passwordGeneratorID
+        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32[]]$passwordGeneratorID
     )
 
     begin {
     }
 
     process {
-        $output = Get-PasswordStateResource -uri "/api/generatepassword"
+        if ($PSCmdlet.ShouldProcess("")) {
+            $output = Get-PasswordStateResource -uri "/api/generatepassword"
+        }
     }
 
     end {

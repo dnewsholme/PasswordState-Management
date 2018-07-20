@@ -22,9 +22,9 @@ function Remove-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password just an ID'
     )]
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName)]$PasswordID,
+        [parameter(ValueFromPipelineByPropertyName)][int32[]]$PasswordID,
         [Switch]$SendToRecycleBin
     )
 
@@ -32,11 +32,13 @@ function Remove-PasswordStatePassword {
     }
 
     process {
-        if ($SendToRecycleBin) {
-            $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=$sendtorecyclebin"
-        }
-        Else {
-            $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=False"
+        if ($PSCmdlet.ShouldProcess("PasswordID:$($PasswordID) Recycle:$Sendtorecyclebin")) {
+            if ($SendToRecycleBin) {
+                $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=$sendtorecyclebin"
+            }
+            Else {
+                $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=False"
+            }
         }
     }
 

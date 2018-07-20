@@ -25,11 +25,11 @@ function Find-PasswordStatePassword {
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'No Password is used only ID.'
     )]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'PasswordID isnt a password')]
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = "1")]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = 1)]$title,
-        [parameter(ValueFromPipelineByPropertyName, Position = 1, ParameterSetName = 1)]$username,
-        [parameter(ValueFromPipelineByPropertyName, Position = 2, ParameterSetName = 2)]$PasswordID
+        [parameter(ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = 1)][string[]]$title,
+        [parameter(ValueFromPipelineByPropertyName, Position = 1, ParameterSetName = 1)][string[]]$username,
+        [parameter(ValueFromPipelineByPropertyName, Position = 2, ParameterSetName = 2)][int32[]]$PasswordID
     )
     begin {
         # Initialize the array for output

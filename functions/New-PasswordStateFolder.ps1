@@ -27,11 +27,12 @@ function New-PasswordStateFolder {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password field.'
     )]
+    [cmdletbinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)]$Name,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)]$description,
-        [parameter(ValueFromPipelineByPropertyName)]$CopySettingsFromPasswordListID = $null,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false)]$FolderID = 0
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string[]]$Name,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string[]]$description,
+        [parameter(ValueFromPipelineByPropertyName)][int32[]]$CopySettingsFromPasswordListID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false)][int32[]]$FolderID = 0
 
     )
 
@@ -47,7 +48,9 @@ function New-PasswordStateFolder {
             "CopySettingsFromPasswordListID" = $CopySettingsFromPasswordListID
             "NestUnderFolderID"              = $FolderID
         }
-        $output = New-PasswordStateResource  -uri "/api/Folders" -body "$($body|convertto-json)"
+        if ($PSCmdlet.ShouldProcess("$Name under folder $folderID")) {
+            $output = New-PasswordStateResource  -uri "/api/Folders" -body "$($body|convertto-json)"
+        }
     }
 
     end {

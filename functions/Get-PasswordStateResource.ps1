@@ -22,10 +22,10 @@
 function Get-PasswordStateResource {
     [CmdletBinding()]
     param (
-        [string]$uri,
-        [string]$method = "GET",
-        [string]$ContentType = "application/json",
-        [hashtable]$extraparams = $null
+        [string[]]$uri,
+        [string[]]$method = "GET",
+        [string[]]$ContentType = "application/json",
+        [hashtable[]]$extraparams = $null
     )
 
     begin {
