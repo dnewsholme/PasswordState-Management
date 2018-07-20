@@ -20,7 +20,7 @@ function New-RandomPassword {
     )]
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32[]]$passwordGeneratorID
+        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$passwordGeneratorID
     )
 
     begin {

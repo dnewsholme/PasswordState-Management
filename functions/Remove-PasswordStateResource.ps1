@@ -22,10 +22,10 @@
 function Remove-PasswordStateResource {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [string[]]$uri,
-        [string[]]$method = "DELETE",
-        [string[]]$ContentType = "application/json",
-        [hashtable[]]$extraparams = $null
+        [string]$uri,
+        [string]$method = "DELETE",
+        [string]$ContentType = "application/json",
+        [hashtable]$extraparams = $null
     )
 
     begin {

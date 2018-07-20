@@ -31,10 +31,10 @@ function Set-PasswordStateEnvironment {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'all passwords stored encrypted')]
     [CmdletBinding(DefaultParameterSetName = "Two", SupportsShouldProcess = $true)]
     param (
-        [Parameter(Mandatory = $true)][string[]]$Baseuri,
-        [Parameter(ParameterSetName = 'One')][string[]]$Apikey,
+        [Parameter(Mandatory = $true)][string]$Baseuri,
+        [Parameter(ParameterSetName = 'One')][string]$Apikey,
         [Parameter(ParameterSetName = 'Two')][switch]$WindowsAuthOnly,
-        [Parameter(ParameterSetName = 'Three')][pscredential[]]$customcredentials
+        [Parameter(ParameterSetName = 'Three')][pscredential]$customcredentials
     )
 
     begin {

@@ -16,7 +16,7 @@ function Get-PasswordStateList {
     )]
     [CmdletBinding()]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32[]]$PasswordListID
+        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$PasswordListID
     )
 
     begin {

@@ -23,8 +23,8 @@ function Update-PasswordStatePassword {
     )]
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][int32[]]$passwordID,
-        [parameter(Mandatory = $true)][string[]]$password
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][int32]$passwordID,
+        [parameter(Mandatory = $true)][string]$password
     )
 
     begin {

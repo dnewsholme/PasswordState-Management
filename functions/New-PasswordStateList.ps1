@@ -29,10 +29,10 @@ function New-PasswordStateList {
     )]
     [cmdletbinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string[]]$Name,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string[]]$description,
-        [parameter(ValueFromPipelineByPropertyName)][int32[]]$CopySettingsFromPasswordListID = $null,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][int32[]]$FolderID
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string]$Name,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string]$description,
+        [parameter(ValueFromPipelineByPropertyName)][int32]$CopySettingsFromPasswordListID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][int32]$FolderID
 
     )
 

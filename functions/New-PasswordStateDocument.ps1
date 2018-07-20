@@ -33,15 +33,15 @@ Daryl Newsholme 2018
 function New-PasswordStateDocument {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [Alias("PasswordId")][parameter(ValueFromPipelineByPropertyName, Position = 0)][int32[]]$ID,
+        [Alias("PasswordId")][parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$ID,
         [parameter(ValueFromPipelineByPropertyName, Position = 1)][ValidateSet(
             "password",
             "passwordlist",
             "folder"
-        )][string[]]$resourcetype = "password",
-        [parameter(ValueFromPipelineByPropertyName, Position = 2)][string[]]$DocumentName,
-        [parameter(ValueFromPipelineByPropertyName, Position = 3)][string[]]$DocumentDescription = $null,
-        [parameter(ValueFromPipelineByPropertyName, Position = 4)][string[]]$Path
+        )][string]$resourcetype = "password",
+        [parameter(ValueFromPipelineByPropertyName, Position = 2)][string]$DocumentName,
+        [parameter(ValueFromPipelineByPropertyName, Position = 3)][string]$DocumentDescription = $null,
+        [parameter(ValueFromPipelineByPropertyName, Position = 4)][string]$Path
     )
 
     begin {

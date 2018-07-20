@@ -40,13 +40,13 @@ function New-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'Credential would break cmdlet flow')]
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName)][int32[]]$passwordlistID,
-        [parameter(ValueFromPipelineByPropertyName)][string[]]$username = "",
-        [parameter(ValueFromPipelineByPropertyName)][string[]]$description,
-        [parameter(ValueFromPipelineByPropertyName)][string[]]$password,
-        [parameter(ValueFromPipelineByPropertyName)][string[]]$title,
-        [parameter(ValueFromPipelineByPropertyName)][string[]]$notes,
-        [parameter(ValueFromPipelineByPropertyName)][string[]]$url
+        [parameter(ValueFromPipelineByPropertyName)][int32]$passwordlistID,
+        [parameter(ValueFromPipelineByPropertyName)][string]$username = "",
+        [parameter(ValueFromPipelineByPropertyName)][string]$description,
+        [parameter(ValueFromPipelineByPropertyName)][string]$password,
+        [parameter(ValueFromPipelineByPropertyName)][string]$title,
+        [parameter(ValueFromPipelineByPropertyName)][string]$notes,
+        [parameter(ValueFromPipelineByPropertyName)][string]$url
     )
 
     begin {

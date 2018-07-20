@@ -24,7 +24,7 @@ function Remove-PasswordStatePassword {
     )]
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName)][int32[]]$PasswordID,
+        [parameter(ValueFromPipelineByPropertyName)][int32]$PasswordID,
         [Switch]$SendToRecycleBin
     )
 

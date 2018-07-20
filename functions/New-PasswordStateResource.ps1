@@ -24,11 +24,11 @@
 function New-PasswordStateResource {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [string[]]$uri,
-        [string[]]$method = "POST",
-        [string[]]$body = $null,
-        [string[]]$ContentType = "application/json",
-        [hashtable[]]$extraparams = $null
+        [string]$uri,
+        [string]$method = "POST",
+        [string]$body = $null,
+        [string]$ContentType = "application/json",
+        [hashtable]$extraparams = $null
 
     )
 
