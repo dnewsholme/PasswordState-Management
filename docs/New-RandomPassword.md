@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -13,7 +13,7 @@ Generates a random Password from the Password state generator API
 ## SYNTAX
 
 ```
-New-RandomPassword [[-passwordGeneratorID] <Int32[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-RandomPassword [[-passwordGeneratorID] <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,7 +32,7 @@ New-RandomPassword
 The ID to of the password generator settings (optional)
 
 ```yaml
-Type: Int32[]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 

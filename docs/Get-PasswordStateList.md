@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -13,7 +13,7 @@ Gets all password lists from the API (Only those you have permissions to.)
 ## SYNTAX
 
 ```
-Get-PasswordStateList [[-PasswordListID] <Int32[]>] [<CommonParameters>]
+Get-PasswordStateList [[-PasswordListID] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,7 +32,7 @@ Get-PasswordStateList
 {{Fill PasswordListID Description}}
 
 ```yaml
-Type: Int32[]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 

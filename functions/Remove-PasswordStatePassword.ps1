@@ -7,6 +7,8 @@
     ID value of the entry to delete. Int32 value
 .PARAMETER sendtorecyclebin
     Send the password to the recyclebin or permenant delete.
+.PARAMETER Reason
+    A reason which can be logged for auditing of why a password was removed.
 .EXAMPLE
     PS C:\> Remove-PasswordStatePassword -PasswordID 5 -sendtorecyclebin
     Returns the test user object including password.
@@ -24,20 +26,24 @@ function Remove-PasswordStatePassword {
     )]
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName)][int32]$PasswordID,
-        [Switch]$SendToRecycleBin
+        [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][int32]$PasswordID,
+        [parameter(ValueFromPipeline, Position = 1, Mandatory = $false)][Switch]$SendToRecycleBin,
+        [parameter(ValueFromPipelineByPropertyName, Position = 2, Mandatory = $false)][string]$reason
     )
 
     begin {
     }
 
     process {
+        if ($reason) {
+            $headerreason = @{"Reason" = "$reason"}
+        }
         if ($PSCmdlet.ShouldProcess("PasswordID:$($PasswordID) Recycle:$Sendtorecyclebin")) {
             if ($SendToRecycleBin) {
-                $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=$sendtorecyclebin"
+                $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=$sendtorecyclebin" -extraparams @{"Headers" = $headerreason}
             }
             Else {
-                $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=False"
+                $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=False" -extraparams @{"Headers" = $headerreason}
             }
         }
     }

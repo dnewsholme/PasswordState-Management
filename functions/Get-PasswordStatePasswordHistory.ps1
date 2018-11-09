@@ -5,6 +5,8 @@
     Gets a password state entry historical password entries..
 .PARAMETER PasswordID
     ID value of the entry to find history for. Int32 value
+.PARAMETER Reason
+    A reason which can be logged for auditing of why a password was retrieved.
 .EXAMPLE
     Get-PasswordStatePassword -PasswordID 5
     Returns the test user object including password.
@@ -21,15 +23,18 @@ function Get-PasswordStatePasswordHistory {
     )]
     [CmdletBinding()]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$PasswordID
+        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$PasswordID,
+        [parameter(ValueFromPipelineByPropertyName, Position = 1, Mandatory = $false)][string]$reason
     )
 
     begin {
     }
 
     process {
-
-        $result = Get-PasswordStateResource -uri "/api/passwordhistory/$($PasswordID)"
+        if ($reason) {
+            $headerreason = @{"Reason" = "$reason"}
+        }
+        $result = Get-PasswordStateResource -uri "/api/passwordhistory/$($PasswordID)" -extraparams @{"Headers" = $headerreason}
 
     }
 

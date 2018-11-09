@@ -11,7 +11,6 @@ after_script:
 stages:
   - dependencycheck
   - test
-  - analyze
   - build
   - deploy
   - document
@@ -29,13 +28,13 @@ dependency:
 Tests:
   stage: test
   script:
-    - powershell.exe -command "if ((Invoke-Pester -Script .\functions\*.ps1 -passthru -show all -OutputFile .\testResults.xml -OutputFormat NUnitXml).FailedCount -gt 0){Throw 'Unit Tests Failed'}"
+    - powershell.exe -file ".\build\pester.ps1"
   artifacts:
-    paths:
-     - testResults.xml
+    reports:
+      junit: "./build/junitreport.xml"
 
 Analyze:
-  stage: analyze
+  stage: test
   script:
     - powershell.exe -file ".\build\4.Analyze.ps1"
 

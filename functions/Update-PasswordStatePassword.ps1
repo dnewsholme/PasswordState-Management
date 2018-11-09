@@ -7,6 +7,8 @@
     The ID of the password to be updated.
 .PARAMETER Password
     The new password to be added to the entry.
+.PARAMETER Reason
+    A reason which can be logged for auditing of why a password was updated.
 .EXAMPLE
     PS C:\> Update-PasswordStatePassword -PasswordlistID 5 -PasswordID 1 -Password "76y288uneeko%%%2A" -title "testuser01"
     Updates the password to "76y288uneeko%%%2A" for the entry named testuser01
@@ -23,8 +25,9 @@ function Update-PasswordStatePassword {
     )]
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][int32]$passwordID,
-        [parameter(Mandatory = $true)][string]$password
+        [parameter(Position = 0, ValueFromPipelineByPropertyName, Mandatory = $true)][int32]$passwordID,
+        [parameter(Position = 1, Mandatory = $true)][string]$password,
+        [parameter(ValueFromPipelineByPropertyName, Position = 2, Mandatory = $false)][string]$reason
     )
 
     begin {
@@ -32,6 +35,9 @@ function Update-PasswordStatePassword {
     }
 
     process {
+        if ($reason) {
+            $headerreason = @{"Reason" = "$reason"}
+        }
         if ($passwordID) {
             try {
                 $result = Find-PasswordStatePassword -PasswordID $passwordID -ErrorAction Stop
@@ -50,7 +56,7 @@ function Update-PasswordStatePassword {
                 "Password"   = $password
             }
 
-            $output = Set-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
+            $output = Set-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)" -extraparams @{"Headers" = $headerreason}
         }
 
     }

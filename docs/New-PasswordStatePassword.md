@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -13,8 +13,8 @@ Creates a New Password State entry in the password list specified.
 ## SYNTAX
 
 ```
-New-PasswordStatePassword [[-passwordlistID] <Int32[]>] [[-username] <String[]>] [[-description] <String[]>]
- [[-password] <String[]>] [[-title] <String[]>] [[-notes] <String[]>] [[-url] <String[]>] [-WhatIf] [-Confirm]
+New-PasswordStatePassword [[-passwordlistID] <Int32>] [[-username] <String>] [[-description] <String>]
+ [[-password] <String>] [[-title] <String>] [[-notes] <String>] [[-url] <String>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -37,7 +37,7 @@ The ID of the password list which to place the entry in.
 Int32 value.
 
 ```yaml
-Type: Int32[]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
@@ -52,7 +52,7 @@ Accept wildcard characters: False
 The username to be added to the entry (Optional)
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -67,7 +67,7 @@ Accept wildcard characters: False
 custom description to be added to the password..
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -82,7 +82,7 @@ Accept wildcard characters: False
 The password to be added to the entry.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -97,7 +97,7 @@ Accept wildcard characters: False
 Name of the entry to be created.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -112,7 +112,7 @@ Accept wildcard characters: False
 Any notes to be added.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -127,7 +127,7 @@ Accept wildcard characters: False
 URL to be added to the entry if relevant.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 

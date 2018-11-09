@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -13,7 +13,7 @@ Gets a password state entry historical password entries.
 ## SYNTAX
 
 ```
-Get-PasswordStatePasswordHistory [[-PasswordID] <Int32[]>] [<CommonParameters>]
+Get-PasswordStatePasswordHistory [[-PasswordID] <Int32>] [[-reason] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,12 +35,25 @@ ID value of the entry to find history for.
 Int32 value
 
 ```yaml
-Type: Int32[]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 1
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -reason
+A reason which can be logged for auditing of why a password was retrieved.```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

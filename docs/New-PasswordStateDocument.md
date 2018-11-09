@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -13,8 +13,8 @@ Adds a new document to an existing PasswordState Resource.
 ## SYNTAX
 
 ```
-New-PasswordStateDocument [[-ID] <Int32[]>] [[-resourcetype] <String[]>] [[-DocumentName] <String[]>]
- [[-DocumentDescription] <String[]>] [[-Path] <String[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PasswordStateDocument [[-ID] <Int32>] [[-resourcetype] <String>] [[-DocumentName] <String>]
+ [[-DocumentDescription] <String>] [[-Path] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,7 +38,7 @@ Find-PasswordStatePassword test | New-PasswordStateDocument -resourcetype Passwo
 The ID of the resource to be updated.
 
 ```yaml
-Type: Int32[]
+Type: Int32
 Parameter Sets: (All)
 Aliases: PasswordId
 
@@ -53,7 +53,7 @@ Accept wildcard characters: False
 The resource type to add the document to.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 Name of the document when it's uploaded.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -83,7 +83,7 @@ Accept wildcard characters: False
 Description to be added to the document.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -98,7 +98,7 @@ Accept wildcard characters: False
 File path to the document to be uploaded.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 

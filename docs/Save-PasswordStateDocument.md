@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -13,7 +13,7 @@ Adds a new document to an existing PasswordState Resource.
 ## SYNTAX
 
 ```
-Save-PasswordStateDocument [[-resourcetype] <String[]>] [[-DocumentID] <Int32[]>] [[-Path] <String[]>]
+Save-PasswordStateDocument [[-resourcetype] <String>] [[-DocumentID] <Int32>] [[-Path] <String>]
  [<CommonParameters>]
 ```
 
@@ -38,7 +38,7 @@ Find-PasswordStatePassword test | Save-PasswordStateDocument -Path C:\temp\1.csv
 The resource type to add the document to.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -53,7 +53,7 @@ Accept wildcard characters: False
 {{Fill DocumentID Description}}
 
 ```yaml
-Type: Int32[]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 File path to the document to be uploaded.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 

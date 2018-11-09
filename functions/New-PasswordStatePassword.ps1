@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Creates a New Password State entry in the password list specified.
 .DESCRIPTION
@@ -51,7 +51,12 @@ function New-PasswordStatePassword {
 
     begin {
         # Check to see if the requested password entry exists before continuing.
-        $result = Find-PasswordStatePassword -title "$title" -username $username
+        try {
+            $result = Find-PasswordStatePassword -title "$title" -username $username -ErrorAction stop
+        }
+        Catch {
+            Write-Verbose "No existing password...Continuing."
+        }
         if ($result.Username -eq $username) {
             throw "Found Existing Password Entry with Title:$title and username:$username"
         }

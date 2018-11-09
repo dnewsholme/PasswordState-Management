@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -14,7 +14,7 @@ If multiple matches it will return multiple entries.
 ## SYNTAX
 
 ```
-Get-PasswordStateFolder [[-Name] <String[]>] [<CommonParameters>]
+Get-PasswordStateFolder [[-Name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,7 +36,7 @@ Returns the test folder object.
 A string value which should match the passwordstate entry exactly(Not case sensitive)
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 

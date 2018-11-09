@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -13,8 +13,8 @@ Updates the password of an existing password state entry.
 ## SYNTAX
 
 ```
-Update-PasswordStatePassword [-passwordID] <Int32[]> [-password] <String[]> [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Update-PasswordStatePassword [-passwordID] <Int32> [-password] <String> [[-reason] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,7 +35,7 @@ Updates the password to "76y288uneeko%%%2A" for the entry named testuser01
 The ID of the password to be updated.
 
 ```yaml
-Type: Int32[]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
@@ -50,7 +50,7 @@ Accept wildcard characters: False
 The new password to be added to the entry.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -58,6 +58,19 @@ Required: True
 Position: 2
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -reason
+A reason which can be logged for auditing of why a password was updated.```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

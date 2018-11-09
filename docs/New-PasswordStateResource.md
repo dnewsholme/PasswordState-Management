@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -13,8 +13,8 @@ A function to simplify the Creation of password state resources via the rest API
 ## SYNTAX
 
 ```
-New-PasswordStateResource [[-uri] <String[]>] [[-method] <String[]>] [[-body] <String[]>]
- [[-ContentType] <String[]>] [[-extraparams] <Hashtable[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PasswordStateResource [[-uri] <String>] [[-method] <String>] [[-body] <String>] [[-ContentType] <String>]
+ [[-extraparams] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,7 +35,7 @@ Sets a password on the password api.
 The api resource to access such as /api/lists
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -50,7 +50,7 @@ Accept wildcard characters: False
 Optional Parameter to override the method from POST.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -65,7 +65,7 @@ Accept wildcard characters: False
 The body to be submitted in the rest request it should be in JSON format.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -80,7 +80,7 @@ Accept wildcard characters: False
 Optional Parameter to override the default content type from application/json.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -96,7 +96,7 @@ Optional Parameter to allow extra parameters to be passed to invoke-restmethod.
 Should be passed as a hashtable.
 
 ```yaml
-Type: Hashtable[]
+Type: Hashtable
 Parameter Sets: (All)
 Aliases:
 

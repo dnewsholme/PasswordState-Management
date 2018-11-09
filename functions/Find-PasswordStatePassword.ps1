@@ -12,6 +12,8 @@
     An optional parameter to filter searches to those with a certain username as multiple titles may have the same value.
 .PARAMETER PasswordID
     An ID of a specific password resource to return.
+.PARAMETER Reason
+    A reason which can be logged for auditing of why a password was retrieved.
 .INPUTS
     Title - The title of the entry (string)
     Username - The username you need the password for. If multiple entries have the same name this is useful to get the one you want only. (String)(Optional)
@@ -29,7 +31,9 @@ function Find-PasswordStatePassword {
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = 1)][string]$title,
         [parameter(ValueFromPipelineByPropertyName, Position = 1, ParameterSetName = 1)][string]$username,
-        [parameter(ValueFromPipelineByPropertyName, Position = 2, ParameterSetName = 2)][int32]$PasswordID
+        [parameter(ValueFromPipelineByPropertyName, Position = 2, ParameterSetName = 2)][int32]$PasswordID,
+        [parameter(ValueFromPipelineByPropertyName, Position = 3, ParameterSetName = 1)][switch]$exactmatchonly,
+        [parameter(ValueFromPipelineByPropertyName, Position = 4, Mandatory = $false)][string]$reason
     )
     begin {
         # Initialize the array for output
@@ -37,6 +41,9 @@ function Find-PasswordStatePassword {
     }
 
     process {
+        if ($reason) {
+            $headerreason = @{"Reason" = "$reason"}
+        }
         # search each list for the password title (exclude the passwords so it doesn't spam audit logs with lots of read passwords)
         if ($PasswordID) {
             $tempobj = [PSCustomObject]@{
@@ -45,7 +52,7 @@ function Find-PasswordStatePassword {
         }
         elseif (!$username) {
             try {
-                $tempobj = Get-PasswordStateResource -uri "/api/searchpasswords/?search=$title&ExcludePassword=true" -ErrorAction stop
+                $tempobj = Get-PasswordStateResource -uri "/api/searchpasswords/?search=$title&ExcludePassword=true"  -ErrorAction stop
             }
             Catch [System.Net.WebException] {
                 throw $_.Exception
@@ -54,7 +61,7 @@ function Find-PasswordStatePassword {
 
         elseif ($username) {
             try {
-                $tempobj = Get-PasswordStateResource -uri "/api/searchpasswords/?title=$title&username=$username&ExcludePassword=true" -ErrorAction Stop
+                $tempobj = Get-PasswordStateResource -uri "/api/searchpasswords/?title=$title&username=$username&ExcludePassword=true"  -ErrorAction Stop
                 $tempobj = $tempobj | Where-Object {$_.Title -eq $title -and $_.Username -eq $username}
 
             }
@@ -64,14 +71,16 @@ function Find-PasswordStatePassword {
         }
 
         foreach ($item in $tempobj) {
-            $obj = Get-PasswordStateResource -uri "/api/passwords/$($item.PasswordID)" -method GET
+            $obj = Get-PasswordStateResource -uri "/api/passwords/$($item.PasswordID)" -extraparams @{"Headers" = $headerreason} -method GET
             $output += $obj
         }
     }
 
     end {
-        # Use select to make sure output is returned in a sensible order.
-        if ($output) {
+        if ($output -and $exactmatchonly -eq $true) {
+            Return $output | Where-Object {$_.title -eq $title}
+        }
+        elseif ($output) {
             Return $output
         }
         Else {

@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -13,8 +13,8 @@ Creates a passwordstate List.
 ## SYNTAX
 
 ```
-New-PasswordStateList [-Name] <String[]> [-description] <String[]>
- [[-CopySettingsFromPasswordListID] <Int32[]>] [-FolderID] <Int32[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PasswordStateList [-Name] <String> [-description] <String> [[-CopySettingsFromPasswordListID] <Int32>]
+ [-FolderID] <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -33,7 +33,7 @@ New-PasswordStateList -Name TestList -Description "A Test List" -FolderID 4
 Name of the Passwordstate list
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -48,7 +48,7 @@ Accept wildcard characters: False
 Description fro the list
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -63,7 +63,7 @@ Accept wildcard characters: False
 Optionally copy the settings from another list.
 
 ```yaml
-Type: Int32[]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
@@ -78,7 +78,7 @@ Accept wildcard characters: False
 Folder ID that the list should be placed under
 
 ```yaml
-Type: Int32[]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 

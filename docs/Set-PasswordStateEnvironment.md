@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -14,17 +14,17 @@ Saves your password state environment configuration to be used when calling the 
 
 ### Two (Default)
 ```
-Set-PasswordStateEnvironment -Baseuri <String[]> [-WindowsAuthOnly] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-PasswordStateEnvironment -Baseuri <String> [-WindowsAuthOnly] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### One
 ```
-Set-PasswordStateEnvironment -Baseuri <String[]> [-Apikey <String[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-PasswordStateEnvironment -Baseuri <String> [-Apikey <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Three
 ```
-Set-PasswordStateEnvironment -Baseuri <String[]> [-customcredentials <PSCredential[]>] [-WhatIf] [-Confirm]
+Set-PasswordStateEnvironment -Baseuri <String> [-customcredentials <PSCredential>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -56,7 +56,7 @@ The base url of the passwordstate server.
 eg https://passwordstate
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -71,7 +71,7 @@ Accept wildcard characters: False
 For use if APIKey is the preferred authentication method.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: One
 Aliases:
 
@@ -101,7 +101,7 @@ Accept wildcard characters: False
 For use if windows custom credentials is the preferred authentication method.
 
 ```yaml
-Type: PSCredential[]
+Type: PSCredential
 Parameter Sets: Three
 Aliases:
 

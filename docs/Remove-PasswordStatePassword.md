@@ -1,5 +1,5 @@
 ---
-external help file: passwordstate-management-help.xml
+external help file: PasswordState-Management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -13,8 +13,8 @@ Deletes a password state entry.
 ## SYNTAX
 
 ```
-Remove-PasswordStatePassword [[-PasswordID] <Int32[]>] [-SendToRecycleBin] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Remove-PasswordStatePassword [-PasswordID] <Int32> [-SendToRecycleBin] [[-reason] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,11 +36,11 @@ ID value of the entry to delete.
 Int32 value
 
 ```yaml
-Type: Int32[]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 1
 Default value: None
 Accept pipeline input: True (ByPropertyName)
@@ -56,9 +56,22 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 2
 Default value: False
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -reason
+A reason which can be logged for auditing of why a password was removed.```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
