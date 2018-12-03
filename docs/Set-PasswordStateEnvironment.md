@@ -1,5 +1,5 @@
 ---
-external help file: PasswordState-Management-help.xml
+external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -113,7 +113,8 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
-Shows what would happen if the cmdlet runs. The cmdlet is not run.
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
@@ -148,13 +149,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### Baseuri - Should be the Password State URL without any parameters on it.
-UseWindowsAuthOnly - A switch value. (Don't use in conjunction with APIkey)
-APIkey - The APIkey for the passwordstate API
-
+### UseWindowsAuthOnly - A switch value. (Don't use in conjunction with APIkey)
+### APIkey - The APIkey for the passwordstate API
 ## OUTPUTS
 
 ### No Output
-
 ## NOTES
 Daryl Newsholme 2018
 

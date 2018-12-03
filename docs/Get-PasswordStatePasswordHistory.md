@@ -1,5 +1,5 @@
 ---
-external help file: PasswordState-Management-help.xml
+external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -41,13 +41,15 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: None
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -reason
-A reason which can be logged for auditing of why a password was retrieved.```yaml
+A reason which can be logged for auditing of why a password was retrieved.
+
+```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
@@ -65,11 +67,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### PasswordID - ID of the Password entry (Integer)
-
 ## OUTPUTS
 
 ### Returns the Object from the API as a powershell object.
-
 ## NOTES
 Daryl Newsholme 2018
 

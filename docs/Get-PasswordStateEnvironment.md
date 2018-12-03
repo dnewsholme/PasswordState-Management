@@ -1,5 +1,5 @@
 ---
-external help file: PasswordState-Management-help.xml
+external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -36,7 +36,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### Retrieves the base uri and APIKey.
-
 ## NOTES
 Daryl Newsholme 2018
 

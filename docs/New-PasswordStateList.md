@@ -1,5 +1,5 @@
 ---
-external help file: PasswordState-Management-help.xml
+external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -84,13 +84,14 @@ Aliases:
 
 Required: True
 Position: 4
-Default value: None
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -WhatIf
-Shows what would happen if the cmdlet runs. The cmdlet is not run.
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter

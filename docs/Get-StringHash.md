@@ -5,75 +5,55 @@ online version:
 schema: 2.0.0
 ---
 
-# Save-PasswordStateDocument
+# Get-StringHash
 
 ## SYNOPSIS
-Adds a new document to an existing PasswordState Resource.
+Returns a hash of a string value
 
 ## SYNTAX
 
 ```
-Save-PasswordStateDocument [[-resourcetype] <String>] [[-DocumentID] <Int32>] [[-Path] <String>]
- [<CommonParameters>]
+Get-StringHash [-String] <String> [-HashName] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Adds a new document to an existing PasswordState Resource.
+Returns a hash of a string value
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Save-PasswordStateDocument -DocumentID 36 -resourcetype Password -Path C:\temp\1.csv
-```
-
-### EXAMPLE 2
-```
-Find-PasswordStatePassword test | Save-PasswordStateDocument -Path C:\temp\1.csv
+Get-StringHash -string "qwerty" -hashname SHA1
 ```
 
 ## PARAMETERS
 
-### -resourcetype
-The resource type to add the document to.
+### -String
+String value to be converted to a hash.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -HashName
+Hash type to be generated.
+Valid values are "MD5", "RIPEMD160", "SHA1", "SHA256", "SHA384", "SHA512"
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
 Position: 2
-Default value: Password
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -DocumentID
-{{Fill DocumentID Description}}
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 0
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Path
-File path to the document to be uploaded.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 5
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -86,6 +66,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### b1b3773a05c0ed0176787a4f1574ff0075f7521e
 ## NOTES
 Daryl Newsholme 2018
 

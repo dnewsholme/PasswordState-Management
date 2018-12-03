@@ -1,5 +1,5 @@
 ---
-external help file: PasswordState-Management-help.xml
+external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -42,7 +42,7 @@ Aliases:
 
 Required: True
 Position: 1
-Default value: None
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -63,7 +63,9 @@ Accept wildcard characters: False
 ```
 
 ### -reason
-A reason which can be logged for auditing of why a password was removed.```yaml
+A reason which can be logged for auditing of why a password was removed.
+
+```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
@@ -76,7 +78,8 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
-Shows what would happen if the cmdlet runs. The cmdlet is not run.
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
@@ -111,12 +114,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### PasswordID - ID of the Password entry (Integer)
-SendtoRecyclebin - Optionally soft delete to the reyclebin
-
+### SendtoRecyclebin - Optionally soft delete to the reyclebin
 ## OUTPUTS
 
 ### Returns the Object from the API as a powershell object.
-
 ## NOTES
 Daryl Newsholme 2018
 

@@ -5,90 +5,88 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-PasswordStateResource
+# New-PasswordStateFolder
 
 ## SYNOPSIS
-A function to simplify the deletion of password state resources via the rest API
+Creates a passwordstate Folder.
 
 ## SYNTAX
 
 ```
-Remove-PasswordStateResource [[-uri] <String>] [[-method] <String>] [[-ContentType] <String>]
- [[-extraparams] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PasswordStateFolder [-Name] <String> [-description] <String> [[-CopySettingsFromPasswordListID] <Int32>]
+ [[-FolderID] <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-A function to simplify the deletion of password state resources via the rest API.
+Creates a passwordstate Folder.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Remove-PasswordStateResource -uri "/api/lists?LISTID"
+New-PasswordStateFolder -Name TestFolder -Description "A Test Folder" -FolderID 4
 ```
-
-Removes a password list on the password api.
 
 ## PARAMETERS
 
-### -uri
-The api resource to access such as /api/lists
+### -Name
+Name of the Passwordstate Folder
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 1
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -method
-Optional Parameter to override the method from Delete.
+### -description
+Description fro the Folder
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 2
-Default value: DELETE
-Accept pipeline input: False
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -ContentType
-Optional Parameter to override the default content type from application/json.
+### -CopySettingsFromPasswordListID
+{{Fill CopySettingsFromPasswordListID Description}}
 
 ```yaml
-Type: String
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 3
-Default value: Application/json
-Accept pipeline input: False
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -extraparams
-Optional Parameter to allow extra parameters to be passed to invoke-restmethod.
-Should be passed as a hashtable.
+### -FolderID
+Folder ID that the Folder should be placed under.
+Will default to root if left blank
 
 ```yaml
-Type: Hashtable
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 4
-Default value: None
-Accept pipeline input: False
+Default value: 0
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -130,7 +128,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Will return the response from the rest API.
 ## NOTES
 Daryl Newsholme 2018
 

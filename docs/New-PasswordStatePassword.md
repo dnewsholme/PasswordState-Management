@@ -1,5 +1,5 @@
 ---
-external help file: PasswordState-Management-help.xml
+external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
 online version:
 schema: 2.0.0
@@ -43,7 +43,7 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: None
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -139,7 +139,8 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
-Shows what would happen if the cmdlet runs. The cmdlet is not run.
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
@@ -174,17 +175,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### passwordlistID - The ID of the password list to create the password in. (Integer)
-username - Username for the entry (String)
-password - Password value for the entry (String)
-title - Title for the entry (String)
-notes - Notes for the entry (String)(Optional)
-url - URL for the entry (String)(Optional)
-description - description for entyr (Optional)
-
+### username - Username for the entry (String)
+### password - Password value for the entry (String)
+### title - Title for the entry (String)
+### notes - Notes for the entry (String)(Optional)
+### url - URL for the entry (String)(Optional)
+### description - description for entyr (Optional)
 ## OUTPUTS
 
 ### The entry is returned from the Password State Server.
-
 ## NOTES
 Daryl Newsholme 2018
 
