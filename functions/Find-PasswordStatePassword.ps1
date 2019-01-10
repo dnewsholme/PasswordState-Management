@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
 .DESCRIPTION
@@ -36,7 +36,36 @@ function Find-PasswordStatePassword {
         [parameter(ValueFromPipelineByPropertyName, Position = 4, Mandatory = $false)][string]$reason
     )
     begin {
-        # Initialize the array for output
+        # Create Class
+        class PasswordResult {
+            # Properties
+            [int]$PasswordID
+            [String]$Title
+            [String]$Username
+            [String]$Password
+            [String]$Description
+            [String]$Domain
+            # Hidden Properties
+            hidden [String]$hostname
+            hidden [String]$GenericField1
+            hidden [String]$GenericField2
+            hidden [String]$GenericField3
+            hidden [String]$GenericField4
+            hidden [String]$GenericField5
+            hidden [String]$GenericField6
+            hidden [String]$GenericField7
+            hidden [String]$GenericField8
+            hidden [String]$GenericField9
+            hidden [String]$GenericField10
+            hidden [int]$AccountTypeID
+            hidden [string]$notes
+            hidden [string]$URL
+            hidden [string]$ExpiryDate
+            hidden [string]$allowExport
+            hidden [string]$accounttype
+
+        }
+        #Initalize output Array
         $output = @()
     }
 
@@ -71,7 +100,7 @@ function Find-PasswordStatePassword {
         }
 
         foreach ($item in $tempobj) {
-            $obj = Get-PasswordStateResource -uri "/api/passwords/$($item.PasswordID)" -extraparams @{"Headers" = $headerreason} -method GET
+            [PasswordResult]$obj = Get-PasswordStateResource -uri "/api/passwords/$($item.PasswordID)" -extraparams @{"Headers" = $headerreason} -method GET
             $output += $obj
         }
     }

@@ -5,30 +5,26 @@ Import-Module "$here\..\passwordstate-management.psm1"
 Describe "Find-PasswordStatePassword" {
     It "Finds a Password From Password State" {
         Mock -CommandName Get-PasswordStateResource -MockWith {return [PSCustomObject]@{
-                "Title"          = "testuser"
-                "Username"       = "test"
-                "Domain"         = ""
-                "Description"    = ""
-                "PasswordId"     = 3
-                "AccountType"    = ""
-                "URL"            = ""
-                "Passwordlist"   = "MockedList"
-                "PasswordListID" = 7
-                "Password"       = "testpassword"
+                "Title"       = "testuser"
+                "Username"    = "test"
+                "Domain"      = ""
+                "Description" = ""
+                "PasswordId"  = 3
+                "AccountType" = ""
+                "URL"         = ""
+                "Password"    = "testpassword"
             }
         } -ParameterFilter {$uri -eq "/api/passwords/3"}
 
         Mock -CommandName Get-PasswordStateResource -MockWith {return [PSCustomObject]@{
-                "Title"          = "testuser"
-                "Username"       = "test"
-                "Domain"         = ""
-                "Description"    = ""
-                "PasswordId"     = 3
-                "AccountType"    = ""
-                "URL"            = ""
-                "Passwordlist"   = "MockedList"
-                "PasswordListID" = 7
-                "Password"       = ""
+                "Title"       = "testuser"
+                "Username"    = "test"
+                "Domain"      = ""
+                "Description" = ""
+                "PasswordId"  = 3
+                "AccountType" = ""
+                "URL"         = ""
+                "Password"    = ""
             }
         } -ParameterFilter {$uri -eq "/api/searchpasswords/?search=testuser&ExcludePassword=true"}
 
