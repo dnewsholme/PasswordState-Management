@@ -11,7 +11,14 @@ Describe "Get-PasswordStateFolder" {
                 "Description" = ""
             }
         } -ParameterFilter {$uri -eq "/api/folders/?FolderName=Test"}
+        (Get-PasswordStateFolder -Name "Test").FolderID | Should -BeExactly 4
     }
-    (Get-PasswordStateFolder -Name "Test").FolderID | Should -BeExactly 4
+    
 
+    It "Generates a web exception" {
+        Mock -CommandName Get-PasswordStateResource -MockWith {throw [System.Net.WebException]"Resource Not Found"
+        } -ParameterFilter {$uri -eq "/api/folders/?FolderName=Test"}
+        {Get-PasswordStateFolder -Name "Test"} | Should -Throw
+    }
+   
 }

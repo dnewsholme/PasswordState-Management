@@ -77,6 +77,10 @@ Task Build -Depends Clean {
         -ModuleVersion "$global:buildversion" `
         -Description "Powershell Module for managing Password State" `
         -FunctionsToExport $exportedfunctions `
+        -ProjectUri "https://github.com/dnewsholme/PasswordState-Management" `
+        -IconUri "https://github.com/dnewsholme/PasswordState-Management/blob/master/images/passwordstate.png?raw=true" `
+        -HelpInfoUri "https://github.com/dnewsholme/PasswordState-Management/blob/master/readme.md" `
+        -ReleaseNotes "$((Get-Content $projectroot\Changelog.md -raw | select-string -pattern '(\+[\sA-z0-9\.]+[\sA-z0-9\.]+){1,}(?=\n)').Matches.Value)" `
         -Tags $tags
 
     $PSD1 = Get-Content $PSD1Path -Raw

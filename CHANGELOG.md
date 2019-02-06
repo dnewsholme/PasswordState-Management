@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.77
+
++ Fix
+  + Update module manifest.
+
 ## 0.0.76
 
 + Fix
