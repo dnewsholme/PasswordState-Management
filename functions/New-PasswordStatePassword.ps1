@@ -4,7 +4,7 @@
 .DESCRIPTION
     Creates a New Password State entry in the password list specified.
 .EXAMPLE
-    PS C:\> New-PasswordStatePassword -Title "testpassword" -PasswordListID 1 -username "newuser" -Password "CorrectHorseStapleBattery" -notes "development website" -url "http://somegoodwebsite.com"
+    PS C:\> New-PasswordStatePassword -Title "testpassword" -PasswordListID 1 -username "newuser" -Password "CorrectHorseStapleBattery" -notes "development website" -url "http://somegoodwebsite.com" -customfields @{GenericField1 = 'value for GenericField1';GenericField2 = 'value2'}
     Creates a new password entry called testpassword
 .PARAMETER passwordlistid
     The ID of the password list which to place the entry in. Int32 value.
@@ -20,6 +20,8 @@
     URL to be added to the entry if relevant.
 .PARAMETER description
     custom description to be added to the password..
+.PARAMETER GenericFields
+    Hashtable with a key/value pair, that accepts GenercFields1-10 as the key, with any value. Can be omitted
 .INPUTS
     passwordlistID - The ID of the password list to create the password in. (Integer)
     username - Username for the entry (String)
@@ -32,6 +34,7 @@
     The entry is returned from the Password State Server.
 .NOTES
     Daryl Newsholme 2018
+    Willem R 2019
 #>
 function New-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
@@ -46,7 +49,8 @@ function New-PasswordStatePassword {
         [parameter(ValueFromPipelineByPropertyName)][string]$password,
         [parameter(ValueFromPipelineByPropertyName)][string]$title,
         [parameter(ValueFromPipelineByPropertyName)][string]$notes,
-        [parameter(ValueFromPipelineByPropertyName)][string]$url
+        [parameter(ValueFromPipelineByPropertyName)][string]$url,
+        [parameter(ValueFromPipelineByPropertyName)][hashtable]$genericfields
     )
 
     begin {
@@ -59,6 +63,14 @@ function New-PasswordStatePassword {
         }
         if ($result.Username -eq $username) {
             throw "Found Existing Password Entry with Title:$title and username:$username"
+        }
+        # Check if hashtable has valid values
+        IF($genericfields) {
+            $genericfields.keys | %{
+                if(!($($_) -match "GenericField\d" -and !($($_ -replace "[^0-9]" , '') -le 10))){
+                    throw "genericfield array is not between boundaries or has invalid key names genericfield[1-10]"
+                }
+            }
         }
     }
 
@@ -73,6 +85,12 @@ function New-PasswordStatePassword {
                 "Title"          = $Title
                 "Notes"          = $notes
                 "URL"            = $url
+            }
+            
+            if($genericfields){
+                $genericfields.keys | %{
+                    $body | add-member -notepropertyname $_ -notepropertyvalue $genericfields.Item($_)
+                }
             }
             if ($PSCmdlet.ShouldProcess("PasswordList:$passwordListID Title:$title Username:$username")) {
                 $output = New-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
