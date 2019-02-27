@@ -47,6 +47,6 @@ Describe "Get-PasswordStateList" {
                 "APIKey"  = "WindowsAuth"
             }
         }
-        (Get-PasswordStateList).PasswordListID | Should -BeOfType Int32
+        (Get-PasswordStateList -Searchby ID).PasswordListID | Should -BeOfType Int32
     }
 }
