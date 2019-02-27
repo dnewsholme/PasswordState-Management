@@ -14,8 +14,8 @@ Creates a New Password State entry in the password list specified.
 
 ```
 New-PasswordStatePassword [[-passwordlistID] <Int32>] [[-username] <String>] [[-description] <String>]
- [[-password] <String>] [[-title] <String>] [[-notes] <String>] [[-url] <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-password] <String>] [[-title] <String>] [[-notes] <String>] [[-url] <String>]
+ [[-genericfields] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -25,7 +25,7 @@ Creates a New Password State entry in the password list specified.
 
 ### EXAMPLE 1
 ```
-New-PasswordStatePassword -Title "testpassword" -PasswordListID 1 -username "newuser" -Password "CorrectHorseStapleBattery" -notes "development website" -url "http://somegoodwebsite.com"
+New-PasswordStatePassword -Title "testpassword" -PasswordListID 1 -username "newuser" -Password "CorrectHorseStapleBattery" -notes "development website" -url "http://somegoodwebsite.com" -customfields @{GenericField1 = 'value for GenericField1';GenericField2 = 'value2'}
 ```
 
 Creates a new password entry called testpassword
@@ -138,6 +138,22 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -genericfields
+Hashtable with a key/value pair, that accepts GenercFields1-10 as the key, with any value.
+Can be omitted
+
+```yaml
+Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 8
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
@@ -170,7 +186,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -186,5 +203,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### The entry is returned from the Password State Server.
 ## NOTES
 Daryl Newsholme 2018
+Willem R 2019
 
 ## RELATED LINKS

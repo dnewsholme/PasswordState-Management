@@ -28,10 +28,15 @@ Generates a random Password from the Password state generator API
 New-RandomPassword
 ```
 
+### EXAMPLE 2
+```
+New-RandomPassword -length 60 -includenumbers -includeuppercase -includelowercase -includespecialcharacters -includebrackets -Quantity 1
+```
+
 ## PARAMETERS
 
 ### -length
-{{Fill length Description}}
+Length for the generated password
 
 ```yaml
 Type: Int32
@@ -40,13 +45,13 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: 0
+Default value: 12
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -includebrackets
-{{Fill includebrackets Description}}
+If brackets should be included such as {}()
 
 ```yaml
 Type: SwitchParameter
@@ -61,7 +66,7 @@ Accept wildcard characters: False
 ```
 
 ### -includespecialcharacters
-{{Fill includespecialcharacters Description}}
+If special characters such as ^_\> should be included.
 
 ```yaml
 Type: SwitchParameter
@@ -76,7 +81,7 @@ Accept wildcard characters: False
 ```
 
 ### -includenumbers
-{{Fill includenumbers Description}}
+If numbers should be included.
 
 ```yaml
 Type: SwitchParameter
@@ -91,7 +96,7 @@ Accept wildcard characters: False
 ```
 
 ### -includelowercase
-{{Fill includelowercase Description}}
+If lowercase characters should be included.
 
 ```yaml
 Type: SwitchParameter
@@ -106,7 +111,7 @@ Accept wildcard characters: False
 ```
 
 ### -includeuppercase
-{{Fill includeuppercase Description}}
+If uppercase should be included.
 
 ```yaml
 Type: SwitchParameter
@@ -130,13 +135,13 @@ Aliases:
 
 Required: False
 Position: 7
-Default value: *
+Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -Quantity
-{{Fill Quantity Description}}
+The quantity of passwords to generate.
 
 ```yaml
 Type: Int32
@@ -182,7 +187,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
