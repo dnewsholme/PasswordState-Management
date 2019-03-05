@@ -18,7 +18,7 @@ function Get-PasswordStatePasswords {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'PasswordID isnt a password')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Only returns multiple')] 
     param (
-        [Parameter(ParameterSetName = 'GetAllPasswordsFromList', Mandatory = $false)][int32]$PasswordlistID
+        [Parameter(ParameterSetName='GetAllPasswordsFromList', Mandatory = $false,ValueFromPipeline=$True,ValueFromPipelinebyPropertyName=$True)][int32[]]$PasswordlistID
     )
 
     begin {

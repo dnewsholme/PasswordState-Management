@@ -22,9 +22,9 @@ function Get-PasswordStateList {
     )]
     [CmdletBinding()]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0,ParameterSetName='SearchByID')][int32]$PasswordListID,
-        [parameter(ValueFromPipelineByPropertyName, Position = 0,ParameterSetName='SearchBy')][ValidateSet('ID','Name')][string]$Searchby = 'ID',
-        [parameter(ValueFromPipelineByPropertyName, Position = 1,ParameterSetName='SearchBy')][string]$SearchName
+        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$PasswordListID,
+        [parameter(ValueFromPipelineByPropertyName, Position = 1,ParameterSetName='SearchBy')][ValidateSet('ID','Name')][string]$Searchby = 'ID',
+        [parameter(ValueFromPipelineByPropertyName, Position = 2,ParameterSetName='SearchBy')][string]$SearchName
     )
 
     begin {
