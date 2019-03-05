@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.80
+
++ Feature
+  + Return all passwords for a particular list with Get-PasswordStatePasswords, and allow setting of customproperties on new passwords. Thanks [2dman](https://github.com/2Dman)
+
 ## 0.0.77
 
 + Fix

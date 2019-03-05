@@ -86,9 +86,9 @@ function New-PasswordStatePassword {
                 "Notes"          = $notes
                 "URL"            = $url
             }
-            
+
             if($genericfields){
-                $genericfields.keys | %{
+                $genericfields.keys | ForEach-Object{
                     $body | add-member -notepropertyname $_ -notepropertyvalue $genericfields.Item($_)
                 }
             }

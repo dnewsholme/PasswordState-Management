@@ -44,7 +44,7 @@ function New-RandomPassword {
     )]
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$length,
+        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$length = 12,
         [parameter(ValueFromPipelineByPropertyName, Position = 1)][switch]$includebrackets,
         [parameter(ValueFromPipelineByPropertyName, Position = 2)][switch]$includespecialcharacters,
         [parameter(ValueFromPipelineByPropertyName, Position = 3)][switch]$includenumbers,
