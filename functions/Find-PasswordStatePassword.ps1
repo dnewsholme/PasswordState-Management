@@ -1,26 +1,79 @@
 <#
     .SYNOPSIS
     Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
+
     .DESCRIPTION
     Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
+
     .EXAMPLE
-    PS C:\> Find-PasswordStatePassword -title "testuser"
+    PS C:\> Find-PasswordStatePassword "testuser"
     Returns the test user object including password.
-    .PARAMETER title
-    A string value which should match the passwordstate entry exactly(Not case sensitive)
-    .PARAMETER Username
-    An optional parameter to filter searches to those with a certain username as multiple titles may have the same value.
+    .EXAMPLE
+    PS C:\> Find-PasswordStatePassword -Title '"testuser"'
+    Returns the object including password, which is an exact match with the title (Requires double quotes for exact match).
+    .EXAMPLE
+    PS C:\> Find-PasswordStatePassword -Username "testuser2" -Notes "Test"
+    Returns the test user 2 object, where the notes contain "Test", including password.
+    .EXAMPLE
+    PS C:\> Find-PasswordStatePassword -PasswordID "3456"
+    Returns the object with the PasswordID 3456 including password.
+
+    .PARAMETER Search
+    A string value which will be matched with most fields in the database table.
+
     .PARAMETER PasswordID
     An ID of a specific password resource to return.
+
+    .PARAMETER Title
+    A string value which should match the passwordstate entry.
+    .PARAMETER Username
+    An optional parameter to filter searches to those with a certain username as multiple titles may have the same value.
+    .PARAMETER HostName
+    An optional parameter to filter the search on hostname.
+    .PARAMETER Domain
+    An optional parameter to filter the search on domain.
+    .PARAMETER AccountType
+    An optional parameter to filter the search on account type.
+    .PARAMETER Description
+    An optional parameter to filter the search on description.
+    .PARAMETER Notes
+    An optional parameter to filter the search on notes.
+    .PARAMETER URL
+    An optional parameter to filter the search on the URL.
+    .PARAMETER SiteID
+    An optional parameter to filter the search on the site ID.
+    .PARAMETER SiteLocation
+    An optional parameter to filter the search on the site location.
+    .PARAMETER GenericField1
+    An optional parameter to filter the search on a generic field.
+    .PARAMETER GenericField2
+    An optional parameter to filter the search on a generic field.
+    .PARAMETER GenericField3
+    An optional parameter to filter the search on a generic field.
+    .PARAMETER GenericField4
+    An optional parameter to filter the search on a generic field.
+    .PARAMETER GenericField5
+    An optional parameter to filter the search on a generic field.
+    .PARAMETER GenericField6
+    An optional parameter to filter the search on a generic field.
+    .PARAMETER GenericField7
+    An optional parameter to filter the search on a generic field.
+    .PARAMETER GenericField8
+    An optional parameter to filter the search on a generic field.
+    .PARAMETER GenericField9
+    An optional parameter to filter the search on a generic field.
+    .PARAMETER GenericField10
+    An optional parameter to filter the search on a generic field.
+
     .PARAMETER Reason
     A reason which can be logged for auditing of why a password was retrieved.
-    .INPUTS
-    Title - The title of the entry (string)
-    Username - The username you need the password for. If multiple entries have the same name this is useful to get the one you want only. (String)(Optional)
+
     .OUTPUTS
     Returns the Object from the API as a powershell object.
+
     .NOTES
-    Daryl Newsholme 2018
+    2018 - Daryl Newsholme
+    2019 - Jarno Colombeen
 #>
 Function Find-PasswordStatePassword
 {
@@ -86,33 +139,31 @@ Function Find-PasswordStatePassword
       hidden [string]$accounttype
 
     }
-    #Initalize output Array
+    # Initalize output Array
     $output = @()
   }
 
   Process
   {
+    # Add a reason to the audit log
     If ($Reason)
     {
       $headerreason = @{"Reason" = "$reason"}
     }
-    # search each list for the password title (exclude the passwords so it doesn't spam audit logs with lots of read passwords)
-    <#if ($PasswordID) {
-      $tempobj = [PSCustomObject]@{
-        PasswordID = $PasswordID
-      }
-    }#>
     
     Switch ($PSCmdlet.ParameterSetName)
     {
+      # General search
       'General'
       {
         $uri += "/api/searchpasswords/?Search=$([System.Web.HttpUtility]::UrlEncode($Search))&ExcludePassword=true"
       }
+      # Search on a specific password ID
       'PasswordID'
       {
         $uri += "/api/passwords/$($PasswordID)?ExcludePassword=true"
       }
+      # Search with a variety of filters
       'Specific'
       {
         $BuildURL = '?'
