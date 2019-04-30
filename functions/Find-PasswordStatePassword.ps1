@@ -51,7 +51,7 @@ Function Find-PasswordStatePassword
     [Parameter(ParameterSetName='Specific',ValueFromPipelineByPropertyName,Position=17)][string]$GenericField8,
     [Parameter(ParameterSetName='Specific',ValueFromPipelineByPropertyName,Position=18)][string]$GenericField9,
     [Parameter(ParameterSetName='Specific',ValueFromPipelineByPropertyName,Position=19)][string]$GenericField10,
-    [parameter(ValueFromPipelineByPropertyName, Position = 5)][string]$Reason
+    [parameter(ValueFromPipelineByPropertyName, Position = 20)][string]$Reason
   )
   
   Begin
