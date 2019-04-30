@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
 .DESCRIPTION
@@ -27,13 +27,14 @@ function Find-PasswordStatePassword {
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'No Password is used only ID.'
     )]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'PasswordID isnt a password')]
-    [CmdletBinding(DefaultParameterSetName = "1")]
+    [CmdletBinding(DefaultParameterSetName = "0")]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = 1)][string]$title,
-        [parameter(ValueFromPipelineByPropertyName, Position = 1, ParameterSetName = 1)][string]$username,
-        [parameter(ValueFromPipelineByPropertyName, Position = 2, ParameterSetName = 2)][int32]$PasswordID,
-        [parameter(ValueFromPipelineByPropertyName, Position = 3, ParameterSetName = 1)][switch]$exactmatchonly,
-        [parameter(ValueFromPipelineByPropertyName, Position = 4, Mandatory = $false)][string]$reason
+        [parameter(ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = 0)][string]$searchterm,
+        [parameter(ValueFromPipelineByPropertyName, Position = 1, ParameterSetName = 1)][string]$title,
+        [parameter(ValueFromPipelineByPropertyName, Position = 2, ParameterSetName = 1)][string]$username,
+        [parameter(ValueFromPipelineByPropertyName, Position = 3, ParameterSetName = 2)][int32]$PasswordID,
+        [parameter(ValueFromPipelineByPropertyName, Position = 4, ParameterSetName = 1)][switch]$exactmatchonly,
+        [parameter(ValueFromPipelineByPropertyName, Position = 5, Mandatory = $false)][string]$reason
     )
     begin {
         # Create Class
@@ -79,23 +80,22 @@ function Find-PasswordStatePassword {
                 PasswordID = $PasswordID
             }
         }
-        elseif (!$username) {
-            try {
-                $tempobj = Get-PasswordStateResource -uri "/api/searchpasswords/?search=$title&ExcludePassword=true"  -ErrorAction stop
-            }
-            Catch [System.Net.WebException] {
-                throw $_.Exception
-            }
+        if ($searchterm){
+            $uri = "/api/searchpasswords/?search=$searchterm&ExcludePassword=true"
+        }
+        elseif ($title) {
+            $uri = "/api/searchpasswords/?title=$title&ExcludePassword=true"
+        }
+        elseif ($username) {
+            $uri = "/api/searchpasswords/?username=$username&ExcludePassword=true"
+        }
+        
+        try {
+            $tempobj = Get-PasswordStateResource -uri $uri -ErrorAction stop
         }
 
-        elseif ($username) {
-            try {
-                $tempobj = Get-PasswordStateResource -uri "/api/searchpasswords/?username=$username&ExcludePassword=true"  -ErrorAction Stop
-
-            }
-            Catch [System.Net.WebException] {
-                throw $_.Exception
-            }
+        Catch {
+            throw $_.Exception
         }
 
         foreach ($item in $tempobj) {

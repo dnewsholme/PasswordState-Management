@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.0.89
+
++ Fix
+  + Search by title now correctly searches across title field only instead of all fields. A New parameter called searchterm has been created to replicate the old search and made the default first parameter to replicate the old use.
+
+## 0.0.85
+
++ Fix
+  + Fix for searching for entries by username only.
+
 ## 0.0.80
 
 + Feature
