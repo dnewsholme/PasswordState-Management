@@ -90,8 +90,7 @@ function Find-PasswordStatePassword {
 
         elseif ($username) {
             try {
-                $tempobj = Get-PasswordStateResource -uri "/api/searchpasswords/?title=$title&username=$username&ExcludePassword=true"  -ErrorAction Stop
-                $tempobj = $tempobj | Where-Object {$_.Title -eq $title -and $_.Username -eq $username}
+                $tempobj = Get-PasswordStateResource -uri "/api/searchpasswords/?username=$username&ExcludePassword=true"  -ErrorAction Stop
 
             }
             Catch [System.Net.WebException] {
