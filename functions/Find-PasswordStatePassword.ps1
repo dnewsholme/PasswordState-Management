@@ -143,41 +143,6 @@ Function Find-PasswordStatePassword
     $output = @()
   }
 
-<<<<<<< HEAD
-    process {
-        if ($reason) {
-            $headerreason = @{"Reason" = "$reason"}
-        }
-        # search each list for the password title (exclude the passwords so it doesn't spam audit logs with lots of read passwords)
-        if ($PasswordID) {
-            $tempobj = [PSCustomObject]@{
-                PasswordID = $PasswordID
-            }
-        }
-        Else {
-            if ($searchterm) {
-                $uri = "/api/searchpasswords/?search=$searchterm&ExcludePassword=true"
-            }
-            elseif ($title) {
-                $uri = "/api/searchpasswords/?title=$title&ExcludePassword=true"
-            }
-            elseif ($username) {
-                $uri = "/api/searchpasswords/?username=$username&ExcludePassword=true"
-            }
-
-            try {
-                $tempobj = Get-PasswordStateResource -uri $uri -ErrorAction stop
-            }
-
-            Catch {
-                throw $_.Exception
-            }
-        }
-        foreach ($item in $tempobj) {
-            [PasswordResult]$obj = Get-PasswordStateResource -uri "/api/passwords/$($item.PasswordID)" -extraparams @{"Headers" = $headerreason} -method GET
-            $output += $obj
-        }
-=======
   Process
   {
     # Add a reason to the audit log
@@ -242,7 +207,6 @@ Function Find-PasswordStatePassword
     {
       [PasswordResult]$obj = Get-PasswordStateResource -URI "/api/passwords/$($item.PasswordID)" -ExtraParams @{"Headers" = $headerreason} -Method GET
       $output += $obj
->>>>>>> 78dd3b45922bb011c092a9de04ea3c0a7e579182
     }
   }
 
