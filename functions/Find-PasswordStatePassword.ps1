@@ -80,24 +80,25 @@ function Find-PasswordStatePassword {
                 PasswordID = $PasswordID
             }
         }
-        if ($searchterm){
-            $uri = "/api/searchpasswords/?search=$searchterm&ExcludePassword=true"
-        }
-        elseif ($title) {
-            $uri = "/api/searchpasswords/?title=$title&ExcludePassword=true"
-        }
-        elseif ($username) {
-            $uri = "/api/searchpasswords/?username=$username&ExcludePassword=true"
-        }
-        
-        try {
-            $tempobj = Get-PasswordStateResource -uri $uri -ErrorAction stop
-        }
+        Else {
+            if ($searchterm) {
+                $uri = "/api/searchpasswords/?search=$searchterm&ExcludePassword=true"
+            }
+            elseif ($title) {
+                $uri = "/api/searchpasswords/?title=$title&ExcludePassword=true"
+            }
+            elseif ($username) {
+                $uri = "/api/searchpasswords/?username=$username&ExcludePassword=true"
+            }
 
-        Catch {
-            throw $_.Exception
-        }
+            try {
+                $tempobj = Get-PasswordStateResource -uri $uri -ErrorAction stop
+            }
 
+            Catch {
+                throw $_.Exception
+            }
+        }
         foreach ($item in $tempobj) {
             [PasswordResult]$obj = Get-PasswordStateResource -uri "/api/passwords/$($item.PasswordID)" -extraparams @{"Headers" = $headerreason} -method GET
             $output += $obj
