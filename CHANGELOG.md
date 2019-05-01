@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.91
+
++ Fix
+  + Search across multiple fields. Thanks [Colombeen](https://github.com/colombeen)
+
 ## 0.0.89
 
 + Fix

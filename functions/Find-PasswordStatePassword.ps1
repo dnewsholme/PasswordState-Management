@@ -1,4 +1,4 @@
-<#
+﻿<#
     .SYNOPSIS
     Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
 
@@ -106,7 +106,7 @@ Function Find-PasswordStatePassword
     [Parameter(ParameterSetName='Specific',ValueFromPipelineByPropertyName,Position=19)][string]$GenericField10,
     [parameter(ValueFromPipelineByPropertyName, Position = 20)][string]$Reason
   )
-  
+
   Begin
   {
     # Create Class
@@ -139,45 +139,11 @@ Function Find-PasswordStatePassword
       hidden [string]$accounttype
 
     }
+    Add-Type -AssemblyName System.Web
     # Initalize output Array
     $output = @()
   }
 
-<<<<<<< HEAD
-    process {
-        if ($reason) {
-            $headerreason = @{"Reason" = "$reason"}
-        }
-        # search each list for the password title (exclude the passwords so it doesn't spam audit logs with lots of read passwords)
-        if ($PasswordID) {
-            $tempobj = [PSCustomObject]@{
-                PasswordID = $PasswordID
-            }
-        }
-        Else {
-            if ($searchterm) {
-                $uri = "/api/searchpasswords/?search=$searchterm&ExcludePassword=true"
-            }
-            elseif ($title) {
-                $uri = "/api/searchpasswords/?title=$title&ExcludePassword=true"
-            }
-            elseif ($username) {
-                $uri = "/api/searchpasswords/?username=$username&ExcludePassword=true"
-            }
-
-            try {
-                $tempobj = Get-PasswordStateResource -uri $uri -ErrorAction stop
-            }
-
-            Catch {
-                throw $_.Exception
-            }
-        }
-        foreach ($item in $tempobj) {
-            [PasswordResult]$obj = Get-PasswordStateResource -uri "/api/passwords/$($item.PasswordID)" -extraparams @{"Headers" = $headerreason} -method GET
-            $output += $obj
-        }
-=======
   Process
   {
     # Add a reason to the audit log
@@ -185,7 +151,7 @@ Function Find-PasswordStatePassword
     {
       $headerreason = @{"Reason" = "$reason"}
     }
-    
+
     Switch ($PSCmdlet.ParameterSetName)
     {
       # General search
@@ -222,13 +188,13 @@ Function Find-PasswordStatePassword
         If ($GenericField8) {  $BuildURL += "GenericField8=$([System.Web.HttpUtility]::UrlEncode($GenericField8))&" }
         If ($GenericField9) {  $BuildURL += "GenericField9=$([System.Web.HttpUtility]::UrlEncode($GenericField9))&" }
         If ($GenericField10) { $BuildURL += "GenericField10=$([System.Web.HttpUtility]::UrlEncode($GenericField10))&" }
-        
+
         $BuildURL = $BuildURL -Replace ".$"
-        
+
         $uri += "/api/searchpasswords/$($BuildURL)&ExcludePassword=true"
       }
     }
-    
+
     Try
     {
       $tempobj = Get-PasswordStateResource -URI $uri -ErrorAction stop
@@ -242,7 +208,6 @@ Function Find-PasswordStatePassword
     {
       [PasswordResult]$obj = Get-PasswordStateResource -URI "/api/passwords/$($item.PasswordID)" -ExtraParams @{"Headers" = $headerreason} -Method GET
       $output += $obj
->>>>>>> 78dd3b45922bb011c092a9de04ea3c0a7e579182
     }
   }
 

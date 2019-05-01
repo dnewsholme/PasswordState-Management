@@ -14,7 +14,7 @@ Use Get-PasswordStateList to search for a name and return the ID
 ## SYNTAX
 
 ```
-Get-PasswordStatePasswords [-PasswordlistID <Int32>] [<CommonParameters>]
+Get-PasswordStatePasswords [-PasswordlistID <Int32[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,20 +36,19 @@ Returns all user objects including password.
 An ID of a specific passwordlist resource to return.
 
 ```yaml
-Type: Int32
+Type: Int32[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
