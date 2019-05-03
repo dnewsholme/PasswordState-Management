@@ -1,4 +1,4 @@
-<#
+﻿<#
     .SYNOPSIS
     Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
 
@@ -106,7 +106,7 @@ Function Find-PasswordStatePassword
     [Parameter(ParameterSetName='Specific',ValueFromPipelineByPropertyName,Position=19)][string]$GenericField10,
     [parameter(ValueFromPipelineByPropertyName, Position = 20)][string]$Reason
   )
-  
+
   Begin
   {
     # Create Class
@@ -139,6 +139,7 @@ Function Find-PasswordStatePassword
       hidden [string]$accounttype
 
     }
+    Add-Type -AssemblyName System.Web
     # Initalize output Array
     $output = @()
   }
@@ -150,7 +151,7 @@ Function Find-PasswordStatePassword
     {
       $headerreason = @{"Reason" = "$reason"}
     }
-    
+
     Switch ($PSCmdlet.ParameterSetName)
     {
       # General search
@@ -187,13 +188,13 @@ Function Find-PasswordStatePassword
         If ($GenericField8) {  $BuildURL += "GenericField8=$([System.Web.HttpUtility]::UrlEncode($GenericField8))&" }
         If ($GenericField9) {  $BuildURL += "GenericField9=$([System.Web.HttpUtility]::UrlEncode($GenericField9))&" }
         If ($GenericField10) { $BuildURL += "GenericField10=$([System.Web.HttpUtility]::UrlEncode($GenericField10))&" }
-        
+
         $BuildURL = $BuildURL -Replace ".$"
-        
+
         $uri += "/api/searchpasswords/$($BuildURL)&ExcludePassword=true"
       }
     }
-    
+
     Try
     {
       $tempobj = Get-PasswordStateResource -URI $uri -ErrorAction stop

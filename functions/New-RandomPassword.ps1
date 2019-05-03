@@ -69,6 +69,19 @@ function New-RandomPassword {
                 else {
                     $excludedcharacters = [uri]::EscapeDataString(" $excludedcharacters")
                 }
+                if (
+                    $length -and
+                    $includelowercase -eq $false -and
+                    $includeuppercase -eq $false -and
+                    $includenumbers -eq $false -and
+                    $includebrackets -eq $false -and
+                    $includespecialcharacters -eq $false
+                ) {
+                    $includelowercase = $true
+                    $includenumbers = $true
+                    $includeuppercase = $true
+
+                }
                 [string]$includebrackets = ([string]$includebrackets).ToLower()
                 [string]$includelowercase = ([string]$includelowercase).ToLower()
                 [string]$includeuppercase = ([string]$includeuppercase).ToLower()

@@ -26,7 +26,7 @@ Describe "Find-PasswordStatePassword" {
                 "URL"         = ""
                 "Password"    = ""
             }
-        } -ParameterFilter {$uri -eq "/api/searchpasswords/?search=testuser&ExcludePassword=true"}
+        } -ParameterFilter {$uri -eq "/api/searchpasswords/?title=testuser&ExcludePassword=true"}
 
         Mock -CommandName Get-PasswordStateEnvironment -MockWith {return [PSCustomObject]@{
                 "Baseuri" = "https://passwordstateserver.co.uk"

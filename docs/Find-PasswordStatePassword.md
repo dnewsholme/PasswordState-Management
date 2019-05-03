@@ -13,15 +13,24 @@ If multiple matches it will return multiple entries.
 
 ## SYNTAX
 
-### 1 (Default)
+### General (Default)
 ```
-Find-PasswordStatePassword [[-title] <String>] [[-username] <String>] [-exactmatchonly] [[-reason] <String>]
- [<CommonParameters>]
+Find-PasswordStatePassword [-Search] <String> [[-Reason] <String>] [<CommonParameters>]
 ```
 
-### 2
+### PasswordID
 ```
-Find-PasswordStatePassword [[-PasswordID] <Int32>] [[-reason] <String>] [<CommonParameters>]
+Find-PasswordStatePassword [-PasswordID] <Int32> [[-Reason] <String>] [<CommonParameters>]
+```
+
+### Specific
+```
+Find-PasswordStatePassword [[-Title] <String>] [[-UserName] <String>] [[-HostName] <String>]
+ [[-Domain] <String>] [[-AccountType] <String>] [[-Description] <String>] [[-Notes] <String>] [[-URL] <String>]
+ [[-SiteID] <String>] [[-SiteLocation] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>]
+ [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
+ [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [[-Reason] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -39,12 +48,42 @@ Returns the test user object including password.
 
 ## PARAMETERS
 
-### -title
+### -Search
+A string value which will be matched with most fields in the database table.
+
+```yaml
+Type: String
+Parameter Sets: General
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -PasswordID
+An ID of a specific password resource to return.
+
+```yaml
+Type: Int32
+Parameter Sets: PasswordID
+Aliases:
+
+Required: True
+Position: 1
+Default value: 0
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Title
 A string value which should match the passwordstate entry exactly(Not case sensitive)
 
 ```yaml
 Type: String
-Parameter Sets: 1
+Parameter Sets: Specific
 Aliases:
 
 Required: False
@@ -54,12 +93,12 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -username
+### -UserName
 An optional parameter to filter searches to those with a certain username as multiple titles may have the same value.
 
 ```yaml
 Type: String
-Parameter Sets: 1
+Parameter Sets: Specific
 Aliases:
 
 Required: False
@@ -69,42 +108,42 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -PasswordID
-An ID of a specific password resource to return.
+### -HostName
+An optional parameter to filter the search on hostname.
 
 ```yaml
-Type: Int32
-Parameter Sets: 2
+Type: String
+Parameter Sets: Specific
 Aliases:
 
 Required: False
 Position: 3
-Default value: 0
+Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -exactmatchonly
-{{Fill exactmatchonly Description}}
+### -Domain
+An optional parameter to filter the search on domain.
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: 1
+Type: String
+Parameter Sets: Specific
 Aliases:
 
 Required: False
 Position: 4
-Default value: False
+Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -reason
-A reason which can be logged for auditing of why a password was retrieved.
+### -AccountType
+An optional parameter to filter the search on account type.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Specific
 Aliases:
 
 Required: False
@@ -114,9 +153,248 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -Description
+An optional parameter to filter the search on description.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 6
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Notes
+An optional parameter to filter the search on notes.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 7
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -URL
+An optional parameter to filter the search on the URL.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 8
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SiteID
+An optional parameter to filter the search on the site ID.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 9
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SiteLocation
+An optional parameter to filter the search on the site location.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 10
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField1
+An optional parameter to filter the search on a generic field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 11
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField2
+An optional parameter to filter the search on a generic field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 12
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField3
+An optional parameter to filter the search on a generic field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 13
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField4
+An optional parameter to filter the search on a generic field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 14
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField5
+An optional parameter to filter the search on a generic field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 15
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField6
+An optional parameter to filter the search on a generic field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 16
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField7
+An optional parameter to filter the search on a generic field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 17
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField8
+An optional parameter to filter the search on a generic field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 18
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField9
+An optional parameter to filter the search on a generic field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 19
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField10
+An optional parameter to filter the search on a generic field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: 20
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Reason
+A reason which can be logged for auditing of why a password was retrieved.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 21
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

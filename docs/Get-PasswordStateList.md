@@ -12,14 +12,9 @@ Gets all password lists from the API (Only those you have permissions to.)
 
 ## SYNTAX
 
-### SearchByID
 ```
-Get-PasswordStateList [[-PasswordListID] <Int32>] [<CommonParameters>]
-```
-
-### SearchBy
-```
-Get-PasswordStateList [[-Searchby] <String>] [[-SearchName] <String>] [<CommonParameters>]
+Get-PasswordStateList [[-PasswordListID] <Int32>] [[-Searchby] <String>] [[-SearchName] <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -39,7 +34,7 @@ Gets the passwordlist based on ID, when omitted, gets all the passord lists
 
 ```yaml
 Type: Int32
-Parameter Sets: SearchByID
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -54,11 +49,11 @@ Indication when you want to search based on ID or Name
 
 ```yaml
 Type: String
-Parameter Sets: SearchBy
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: 2
 Default value: ID
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -69,19 +64,18 @@ The name to search
 
 ```yaml
 Type: String
-Parameter Sets: SearchBy
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
