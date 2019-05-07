@@ -14,7 +14,7 @@ Use Get-PasswordStateList to search for a name and return the ID
 ## SYNTAX
 
 ```
-Get-PasswordStatePasswords [-PasswordlistID <Int32[]>] [<CommonParameters>]
+Get-PasswordStatePasswords [[-PasswordlistID] <Int32[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,7 +41,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: 0
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False

@@ -28,6 +28,7 @@ function Get-PasswordStateList {
     )
 
     begin {
+        . "$PSScriptRoot\PasswordstateClass.ps1"
     }
 
     process {

@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Creates a passwordstate List.
 
@@ -31,15 +31,14 @@ function New-PasswordStateList {
     param (
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string]$Name,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string]$description,
-        [parameter(ValueFromPipelineByPropertyName)][int32]$CopySettingsFromPasswordListID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][int32]$CopySettingsFromPasswordListID,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][int32]$FolderID
 
     )
 
     begin {
-
+        . "$PSScriptRoot\PasswordstateClass.ps1"
     }
-
     process {
         # Build the Custom object to convert to json and send to the api.
         $body = [pscustomobject]@{
@@ -47,9 +46,18 @@ function New-PasswordStateList {
             "Description"                    = $description
             "CopySettingsFromPasswordListID" = $CopySettingsFromPasswordListID
             "NestUnderFolderID"              = $FolderID
+            "LinkToTemplate" = $false
+            "CopySettingsFromTemplateID" = ""
+            "SiteID" = "0"
+        }
+        $penv = Get-PasswordStateEnvironment
+        if ($penv.AuthType -eq "APIKey"){
+            $body | Add-Member -MemberType NoteProperty -Name "APIKey" -Value $penv.Apikey
         }
         if ($PSCmdlet.ShouldProcess("$Name under folder $folderid")) {
-            $output = New-PasswordStateResource  -uri "/api/passwordlists" -body "$($body|convertto-json)"
+            $body = "$($body|convertto-json)"
+            Write-Verbose "$body"
+            $output = New-PasswordStateResource  -uri "/api/passwordlists" -body $body
         }
     }
 

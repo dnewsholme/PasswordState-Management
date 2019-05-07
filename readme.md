@@ -13,6 +13,40 @@ Contains various functions for the management of passwordstate via powershell.
 | passwordstate | 8.0+    |
 | Powershell    | 4.0+    |
 
+## IMPORTANT NOTE
+
+As of version 0.94 Passwords are no longer output in plaintext by default and kept as secure strings instead. Passwords can be obtained by calling the .GetPassword() Method on the result which will decrypt the secure string.
+eg.
+
+```powershell
+    Find-PasswordStatePassword
+```
+
+This will return:
+
+    PasswordID  : 1
+    Title       : test
+    Username    : test
+    Password    : EncryptedPassword
+    Description :
+    Domain      :
+
+```powershell
+    (Find-PasswordStatePassword test).GetPassword()
+```
+
+This will return the actual password as a string.
+
+    Password.1
+
+To maintain backward compatability with scripts that have already been created you can force passwords to always output as plaintext for the duration of your powershell session by setting the following global variable `$global:PasswordStateShowPasswordsPlainText` to `$true`.
+
+If you would like to set it forever then add the following to your powershell profile.
+
+```powershell
+$global:PasswordStateShowPasswordsPlainText = $true
+```
+
 ## How to use
 
 First you will need to setup the environment for PasswordState. This prevents you having to enter the api key all the time as it's stored in an encrypted format. Or you can use Windows authentication using the currently logged on user.
@@ -78,7 +112,7 @@ Create a new password entry.
 Create a new entry to a PasswordList if you know the name of the list.
 
 ```powershell
-    Get-PasswordStateLists | ? {$_.PasswordList -eq "passwordlistname"} | New-PasswordStatePassword -Title "testpassword" -username "newuser" -Password "CorrectHorseStapleBattery" -notes "development website" -url "http://somegoodwebsite.com"
+    Get-PasswordStateList | ? {$_.PasswordList -eq "passwordlistname"} | New-PasswordStatePassword -Title "testpassword" -username "newuser" -Password "CorrectHorseStapleBattery" -notes "development website" -url "http://somegoodwebsite.com"
 ```
 
 #### Get All Password Lists
@@ -88,7 +122,7 @@ Useful to return the `listID` for use in other commands such as creating a new e
 **NOTE: due to an api limitation when using APIKeys only the system key can return lists** This is not an issue using Windows Authentication.
 
 ```powershell
-    Get-PasswordStateLists
+    Get-PasswordStateList
 ```
 
 #### Deleting a password entry
@@ -107,6 +141,6 @@ Or find the password and pipe it acrosss to remove.
 
 ##### Additional Info
 
-Functions all contain Pester tests with mocked data to ensure no changes are made to the environment but ensuring that the code works.
+Functions all contain Pester tests ensuring that the code works.
 
 Full documentation under `.\docs`

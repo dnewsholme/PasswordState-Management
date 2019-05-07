@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Saves your password state environment configuration to be used when calling the rest api.
 .DESCRIPTION
@@ -29,10 +29,12 @@
 #>
 function Set-PasswordStateEnvironment {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'all passwords stored encrypted')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlaintextForPassword', '', Justification = 'no password')]
     [CmdletBinding(DefaultParameterSetName = "Two", SupportsShouldProcess = $true)]
     param (
         [Parameter(Mandatory = $true)][string]$Baseuri,
         [Parameter(ParameterSetName = 'One')][string]$Apikey,
+        [Parameter(ParameterSetName = 'One')][string]$PasswordGeneratorAPIkey,
         [Parameter(ParameterSetName = 'Two')][switch]$WindowsAuthOnly,
         [Parameter(ParameterSetName = 'Three')][pscredential]$customcredentials
     )
@@ -55,7 +57,7 @@ function Set-PasswordStateEnvironment {
 
     process {
         # Build the custom object to be converted to JSON. Set APIKey as WindowsAuth if we are to use windows authentication.
-        $json = New-Object psobject -Property @{
+        $json = [pscustomobject] @{
             "Baseuri"  = $Baseuri
             "Apikey"   = switch ($AuthType) {
                 WindowsIntegrated {
@@ -69,10 +71,15 @@ function Set-PasswordStateEnvironment {
                 }
                 APIKey {
                     ($Apikey | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString)
+
                 }
             }
             "AuthType" = $AuthType
-        }| ConvertTo-Json
+        }
+        if ($PasswordGeneratorAPIkey){
+            $json | Add-Member -MemberType NoteProperty -Name PasswordGeneratorAPIKey -Value ($PasswordGeneratorAPIkey | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString)
+        }
+        $json = $json | ConvertTo-Json
     }
 
     end {
