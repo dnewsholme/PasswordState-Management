@@ -55,6 +55,7 @@ function New-RandomPassword {
     )
 
     begin {
+        . "$PSScriptRoot\PasswordstateClass.ps1"
     }
 
     process {

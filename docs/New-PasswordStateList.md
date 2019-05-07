@@ -13,7 +13,7 @@ Creates a passwordstate List.
 ## SYNTAX
 
 ```
-New-PasswordStateList [-Name] <String> [-description] <String> [[-CopySettingsFromPasswordListID] <Int32>]
+New-PasswordStateList [-Name] <String> [-description] <String> [-CopySettingsFromPasswordListID] <Int32>
  [-FolderID] <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -67,7 +67,7 @@ Type: Int32
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)

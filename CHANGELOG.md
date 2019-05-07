@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.94
+
++ Feature
+  + Passwords now returned as secure string. Use .GetPassword() method to retrieve plaintext
+  + Global variable for returning plain text passwords $global:PasswordStateShowPasswordsPlainText = $true
++ Fixes
+  + Added support for APIKey auth to generate passwords as this was broken.
+  + Various bugfixes when using apikeys.
+
 ## 0.0.91
 
 + Fix

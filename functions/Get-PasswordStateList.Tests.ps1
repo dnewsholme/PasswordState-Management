@@ -4,49 +4,31 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 Import-Module "$here\..\passwordstate-management.psm1"
 Describe "Get-PasswordStateList" {
     It "Returns All Password State Password Lists" {
-        Mock -CommandName Get-PasswordStateResource -MockWith {return [PSCustomObject]@{
-                "PasswordListID"                = 7
-                "PasswordList"                  = "MockedList"
-                "Description"                   = ""
-                "ImageFileName"                 = ""
-                "Guide"                         = ""
-                "AllowExport"                   = $true
-                "PrivatePasswordList"           = $false
-                "TimeBasedAccessRequired"       = $false
-                "HandshakeApprovalRequired"     = $false
-                "PasswordStrengthPolicyID"      = 1
-                "PasswordGeneratorID"           = 0
-                "CodePage"                      = "Using Passwordstate Default Code Page"
-                "PreventPasswordReuse"          = 5
-                "AuthenticationType"            = "None Required"
-                "AuthenticationPerSession"      = $false
-                "PreventExpiryDateModification" = $false
-                "SetExpiryDate"                 = 0
-                "ResetExpiryDate"               = 0
-                "PreventDragDrop"               = $true
-                "PreventBadPasswordUse"         = $true
-                "ProvideAccessReason"           = $false
-                "TreePath"                      = "\\SomePath\\Somesubpath"
-                "TotalPasswords"                = 2
-                "GeneratorName"                 = "Using user\u0027s personal Password Generator Options"
-                "PolicyName"                    = "Default Policy"
-                "PasswordResetEnabled"          = $false
-                "ForcePasswordGenerator"        = $false
-                "HidePasswords"                 = $false
-                "ShowGuide"                     = $false
-                "EnablePasswordResetSchedule"   = $false
-                "PasswordResetSchedule"         = "00:00"
-                "AddDaysToExpiryDate"           = 90
-                "SiteID"                        = 0
-                "SiteLocation"                  = $null
-            }
-        } -ParameterFilter {$uri -eq "/api/passwordlists"}
-
-        Mock -CommandName Get-PasswordStateEnvironment -MockWith {return [PSCustomObject]@{
-                "Baseuri" = "https://passwordstateserver.co.uk"
-                "APIKey"  = "WindowsAuth"
-            }
+        (Get-PasswordStateList).PasswordListID | Should -not -BeNullOrEmpty
+    }
+    It "Search Password State Password Lists by ID" {
+        (Get-PasswordStateList -Searchby ID -PasswordListID 1).PasswordListID | Should -BeExactly 1
+    }
+    It "Search Password State Password Lists by Name" {
+        (Get-PasswordStateList -Searchby Name -SearchName "test2").PasswordList | Should -BeExactly "test2"
+    }
+    BeforeEach {
+        # Create Test Environment
+        try {
+            $globalsetting = Get-Variable PasswordStateShowPasswordsPlainText -ErrorAction stop -Verbose -ValueOnly
+            $global:PasswordStateShowPasswordsPlainText = $false
         }
-        (Get-PasswordStateList -Searchby ID).PasswordListID | Should -BeOfType Int32
+        Catch {
+            New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
+        }
+        Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+        Set-PasswordStateEnvironment -Apikey "$env:pwsapikey" -Baseuri  "$env:pwsuri"
+    }
+    
+    AfterEach {
+        # Remove Test Environment
+        Move-Item  "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force
+        $global:PasswordStateShowPasswordsPlainText = $globalsetting 
+        #
     }
 }

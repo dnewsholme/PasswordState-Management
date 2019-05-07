@@ -35,6 +35,7 @@
 function Update-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'API requires password be passed as plain text')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'API requires password be passed as plain text')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
         [parameter(Position = 0, ValueFromPipelineByPropertyName, Mandatory = $true)][int32]$passwordID,
@@ -49,13 +50,15 @@ function Update-PasswordStatePassword {
     )
 
     begin {
-
+        . "$PSScriptRoot\PasswordstateClass.ps1"
     }
 
     process {
-        if ($reason) {
+        If ($Reason) {
             $headerreason = @{"Reason" = "$reason"}
+            $parms = @{ExtraParams = @{"Headers" = $headerreason}}
         }
+        Else {$parms = @{}}
         if ($passwordID) {
             try {
                 $result = Find-PasswordStatePassword -PasswordID $passwordID -ErrorAction Stop
@@ -74,7 +77,12 @@ function Update-PasswordStatePassword {
                 # Replace Result property with that of the bound parameter
                 $notprocess = "reason", "verbose", "erroraction", "debug", "whatif", "confirm"
                 if ($notprocess -notcontains $i) {
-                    $result.$($i) = $PSBoundParameters.$($i)
+                    if ($i -eq "Password" -and $PSBoundParameters.$($i).Gettype().Name -eq "EncryptedPassword"){
+                        $result.$($i) = $result.GetPassword()
+                    }
+                    Else {
+                        $result.$($i) = $PSBoundParameters.$($i)
+                    }
                 }
             }
             # Store in a new variable and remove all null values as password state doesn't like nulls.
@@ -92,12 +100,20 @@ function Update-PasswordStatePassword {
             # Update body variable to contain only the properties with data.
             $body = $body | Select-Object $selections
             # Write back to password state.
-            $output = Set-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)" -extraparams @{"Headers" = $headerreason}
+            [PasswordResult]$output = Set-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)" @parms
+            foreach ($i in $output){
+                $i.Password = [EncryptedPassword]$i.Password
+            }
         }
 
     }
 
     end {
-        return $output
+        switch ($global:PasswordStateShowPasswordsPlainText) {
+            True {
+                $output.DecryptPassword()
+            }
+        }
+        Return $output
     }
 }

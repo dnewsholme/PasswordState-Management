@@ -45,6 +45,7 @@ function New-PasswordStateDocument {
     )
 
     begin {
+        . "$PSScriptRoot\PasswordstateClass.ps1"
         $output = @()
     }
 

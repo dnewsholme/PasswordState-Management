@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Gets a password state entry historical password entries.
 .DESCRIPTION
@@ -18,28 +18,42 @@
     Daryl Newsholme 2018
 #>
 function Get-PasswordStatePasswordHistory {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
-        'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password just an ID'
-    )]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password just an ID')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
     [CmdletBinding()]
+    [OutputType('System.Object[]')]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$PasswordID,
         [parameter(ValueFromPipelineByPropertyName, Position = 1, Mandatory = $false)][string]$reason
     )
 
     begin {
+        . "$PSScriptRoot\PasswordstateClass.ps1"
+        $output = @()
     }
 
     process {
-        if ($reason) {
+        If ($Reason) {
             $headerreason = @{"Reason" = "$reason"}
+            $parms = @{ExtraParams = @{"Headers" = $headerreason}}
         }
-        $result = Get-PasswordStateResource -uri "/api/passwordhistory/$($PasswordID)" -extraparams @{"Headers" = $headerreason}
-
+        Else {
+            $parms = @{}
+        }
+        $results = Get-PasswordStateResource -uri "/api/passwordhistory/$($PasswordID)" @parms
+        Foreach ($result in $results) {
+            $result = [PasswordHistory]$result
+            $result.Password = [EncryptedPassword]$result.Password
+            $output += $result
+        }
     }
 
     end {
-        # Use select to make sure output is returned in a sensible order.
-        Return $result
+        switch ($global:PasswordStateShowPasswordsPlainText) {
+            True {
+                $output.DecryptPassword()
+            }
+        }
+        Return $output
     }
 }

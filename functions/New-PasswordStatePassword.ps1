@@ -41,6 +41,7 @@ function New-PasswordStatePassword {
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Password can only be passed to api in plaintext due to passwordstate api'
     )]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'Credential would break cmdlet flow')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
         [parameter(ValueFromPipelineByPropertyName)][int32]$passwordlistID,
@@ -54,6 +55,7 @@ function New-PasswordStatePassword {
     )
 
     begin {
+        . "$PSScriptRoot\PasswordstateClass.ps1"
         # Check to see if the requested password entry exists before continuing.
         try {
             $result = Find-PasswordStatePassword -title "$title" -username $username -ErrorAction stop
@@ -72,6 +74,7 @@ function New-PasswordStatePassword {
                 }
             }
         }
+        . "$PSScriptRoot\PasswordstateClass.ps1"
     }
 
     process {
@@ -93,12 +96,20 @@ function New-PasswordStatePassword {
                 }
             }
             if ($PSCmdlet.ShouldProcess("PasswordList:$passwordListID Title:$title Username:$username")) {
-                $output = New-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
+                [PasswordResult]$output = New-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
+                foreach ($i in $output){
+                    $i.Password = [EncryptedPassword]$i.Password
+                }
             }
         }
     }
 
     end {
-        return $output
+        switch ($global:PasswordStateShowPasswordsPlainText) {
+            True {
+                $output.DecryptPassword()
+            }
+        }
+        Return $output
     }
 }

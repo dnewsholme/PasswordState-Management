@@ -3,11 +3,29 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 Import-Module "$here\..\passwordstate-management.psm1"
 Describe "New-RandomPassword" {
-    It "Returns A Random Complex Password" {
-        Mock -CommandName Get-PasswordStateResource -MockWith {return [PSCustomObject]@{
-                "Password" = "92839jidhiuwmdowkled-"
-            }
-        } -ParameterFilter {$uri -eq "/api/generatepassword"}
-        (New-RandomPassword).Password | Should -BeOfType String
+    It "Generates a default Password" {
+        (New-RandomPassword) | Should -not -BeNullOrEmpty
+    }
+
+    It "Generates a default Password of length 20" {
+        (New-RandomPassword -length 20).Password.length | Should -BeExactly 20
+    }
+    BeforeEach {
+        # Create Test Environment
+        try {
+            $globalsetting = Get-Variable PasswordStateShowPasswordsPlainText -ErrorAction stop -Verbose -ValueOnly
+            $global:PasswordStateShowPasswordsPlainText = $false
+        }
+        Catch {
+            New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
+        }
+        Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+        Set-PasswordStateEnvironment -Apikey "$env:pwsapikey" -Baseuri  "$env:pwsuri" -PasswordGeneratorAPIkey "$env:pwsgenapikey"
+    }
+    
+    AfterEach {
+        # Remove Test Environment
+        Move-Item  "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force
+        $global:PasswordStateShowPasswordsPlainText = $globalsetting
     }
 }

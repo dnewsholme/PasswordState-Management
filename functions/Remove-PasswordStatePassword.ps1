@@ -35,15 +35,16 @@ function Remove-PasswordStatePassword {
     }
 
     process {
-        if ($reason) {
+        If ($Reason) {
             $headerreason = @{"Reason" = "$reason"}
+            $parms = @{ExtraParams = @{"Headers" = $headerreason}}
         }
         if ($PSCmdlet.ShouldProcess("PasswordID:$($PasswordID) Recycle:$Sendtorecyclebin")) {
             if ($SendToRecycleBin) {
-                $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=$sendtorecyclebin" -extraparams @{"Headers" = $headerreason}
+                $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=$sendtorecyclebin" @parms -method Delete
             }
             Else {
-                $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=False" -extraparams @{"Headers" = $headerreason}
+                $result = Remove-PasswordStateResource -uri "/api/passwords/$($PasswordID)?MoveToRecycleBin=False" @parms -method Delete
             }
         }
     }
