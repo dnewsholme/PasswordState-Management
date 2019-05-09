@@ -14,14 +14,20 @@ class PasswordResult {
     [String]$Username
     $Password
     [String]GetPassword() {
-        $SecureString = $this.Password.Password
-        $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
-        return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        If ($this.Password.GetType().Name -ne 'String') {
+            $SecureString = $this.Password.Password
+            $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
+            return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        } Else {
+            return $this.Password
+        }
     }
     DecryptPassword(){
-        $SecureString = $this.Password.Password
-        $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
-        $this.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        If ($this.Password.GetType().Name -ne 'String') {
+            $SecureString = $this.Password.Password
+            $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
+            $this.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        }
     }
     [String]$Description
     [String]$Domain
@@ -54,13 +60,19 @@ class PasswordHistory : PasswordResult {
     [int32]$PasswordHistoryID
     [String]$PasswordList
     [String]GetPassword() {
-        $SecureString = $this.Password.Password
-        $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
-        return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        If ($this.Password.GetType().Name -ne 'String') {
+            $SecureString = $this.Password.Password
+            $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
+            return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        } Else {
+            return $this.Password
+        }
     }
     DecryptPassword(){
-        $SecureString = $this.Password.Password
-        $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
-        $this.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        If ($this.Password.GetType().Name -ne 'String') {
+            $SecureString = $this.Password.Password
+            $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
+            $this.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        }
     }
 }
