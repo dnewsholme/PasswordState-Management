@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.95
+
++ Feature
+  + New cmdlet ConvertTO-PSCredential which will convert password state entry to powershell credential object. Thanks [Colombeen](https://github.com/colombeen)
+
++ Fixes
+  + Fixed issue when calling .GetPassword() against and already decrypted password. Thanks [Colombeen](https://github.com/colombeen)
+
 ## 0.0.94
 
 + Feature
