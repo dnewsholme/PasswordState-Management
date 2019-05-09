@@ -30,18 +30,17 @@ Function ConvertTo-PasswordStateCredential {
     Process {
       If ($PasswordResult.GetType().Name -eq 'PasswordResult') {
         $User = ''
-        $Password = ''
+        $Password = $null
         
         If (-not ([string]::IsNullOrWhiteSpace($PasswordResult.Domain))) {
           $User += "$($PasswordResult.Domain)\"
         }
         
         $User += $PasswordResult.UserName
-        
-        $Password = $PasswordResult.GetPassword()
+        $Password = $PasswordResult.Password.Password
         
         Try {
-          New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User,($Password | ConvertTo-SecureString -AsPlainText -Force)
+          New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User,$Password
         } Catch {
           $_
         }
