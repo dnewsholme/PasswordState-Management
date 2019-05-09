@@ -6,10 +6,10 @@
     Verify the input object as a PasswordResult and convert the object to a PSCredential.
 
     .EXAMPLE
-    PS C:\> ConvertTo-PasswordStateCredential -PasswordResult (Find-PasswordStatePassword '"testuser"')
+    PS C:\> ConvertTo-PSCredential -PasswordResult (Find-PasswordStatePassword '"testuser"')
     Returns the test user object including password as a PSCredential object.
     .EXAMPLE
-    PS C:\> Find-PasswordStatePassword "testuser" | ConvertTo-PasswordStateCredential
+    PS C:\> Find-PasswordStatePassword "testuser" | ConvertTo-PSCredential
     Returns the test user object including password as a PSCredential object.
 
     .PARAMETER PasswordResult
@@ -21,7 +21,7 @@
     .NOTES
     2019 - Jarno Colombeen
 #>
-Function ConvertTo-PasswordStateCredential {
+Function ConvertTo-PSCredential {
     Param
     (
         [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][ValidateNotNullOrEmpty()][Object]$PasswordResult
