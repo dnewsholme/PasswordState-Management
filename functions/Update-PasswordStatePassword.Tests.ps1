@@ -3,54 +3,26 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 Import-Module "$here\..\passwordstate-management.psm1"
 Describe "Update-PasswordStatePassword" {
-    It "Finds a Password From Password State and passes it to be changed to Password.1" {
-        Mock -CommandName Get-PasswordStateResource -MockWith {return [PSCustomObject]@{
-                "Title"          = "testuser"
-                "Username"       = "test"
-                "Domain"         = ""
-                "Description"    = ""
-                "PasswordId"     = 3
-                "AccountType"    = ""
-                "URL"            = ""
-                "Passwordlist"   = "MockedList"
-                "PasswordListID" = 7
-            }
-        } -ParameterFilter {$uri -eq "/api/passwords/7?QueryAll&ExcludePassword=true"}
-
-        Mock -CommandName Find-PasswordStatePassword -MockWith {return [PSCustomObject]@{
-                "Title"          = "testuser"
-                "Username"       = "test"
-                "Password"       = "Password"
-                "Domain"         = ""
-                "Description"    = ""
-                "PasswordId"     = 3
-                "AccountType"    = ""
-                "URL"            = ""
-                "Passwordlist"   = "MockedList"
-                "PasswordListID" = 7
-            }
-        } -ParameterFilter {$passwordID -eq 3}
-
-        Mock -CommandName Get-PasswordStateEnvironment -MockWith {return [PSCustomObject]@{
-                "Baseuri" = "https://passwordstateserver.co.uk"
-                "APIKey"  = "WindowsAuth"
-
-            }
-        }
-        Mock -CommandName Set-PasswordStateResource -MockWith {return [PSCustomObject]@{
-                "Title"          = "testuser"
-                "Password"       = "Password.1"
-                "Username"       = "test"
-                "Domain"         = ""
-                "Description"    = ""
-                "PasswordId"     = 3
-                "AccountType"    = ""
-                "URL"            = ""
-                "Passwordlist"   = "MockedList"
-                "PasswordListID" = 7
-            }
-        } -ParameterFilter {$uri -eq "/api/passwords" -and $body -notlike $null}
-
-        (Update-PasswordStatePassword -passwordID 3 -Password "Password.1").Password | Should -BeExactly "Password.1"
+    it "Updates an existing password" {
+        (Update-PasswordStatePassword -passwordID 1 -Password "Password.1").GetPassword() | Should -BeExactly "Password.1"
     }
+    BeforeEach {
+        # Create Test Environment
+        try {
+            $globalsetting = Get-Variable PasswordStateShowPasswordsPlainText -ErrorAction stop -Verbose -ValueOnly
+            $global:PasswordStateShowPasswordsPlainText = $false
+        }
+        Catch {
+            New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
+        }
+        Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+        Set-PasswordStateEnvironment -Apikey "$env:pwsapikey" -Baseuri  "$env:pwsuri"
+    }
+    
+    AfterEach {
+        # Remove Test Environment
+        Move-Item  "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force
+        $global:PasswordStateShowPasswordsPlainText = $globalsetting
+    }
+
 }

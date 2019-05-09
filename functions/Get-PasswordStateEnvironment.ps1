@@ -38,7 +38,11 @@ function Get-PasswordStateEnvironment {
             $apikey = $cred.GetNetworkCredential().Password
             $output.apikey = $apikey
         }
-
+        if ($output.PasswordGeneratorAPIKey){
+            $cred2 = New-Object System.Management.Automation.PSCredential -ArgumentList "username", $($output.PasswordGeneratorAPIKey | ConvertTo-SecureString)
+            $pwgen = $cred2.GetNetworkCredential().Password
+            $output.PasswordGeneratorAPIKey = $pwgen
+        }
     }
 
     end {

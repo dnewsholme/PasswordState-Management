@@ -22,6 +22,7 @@ function Get-PasswordStateFolder {
         [parameter(ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = 1)][string]$Name
     )
     begin {
+        . "$PSScriptRoot\PasswordstateClass.ps1"
         # Initialize the array for output
         $output = @()
     }

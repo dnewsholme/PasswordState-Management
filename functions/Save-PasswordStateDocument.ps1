@@ -33,6 +33,7 @@ function Save-PasswordStateDocument {
     )
 
     begin {
+        . "$PSScriptRoot\PasswordstateClass.ps1"
         $output = @()
     }
 
