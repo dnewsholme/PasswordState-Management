@@ -22,6 +22,9 @@
     2019 - Jarno Colombeen
 #>
 Function ConvertTo-PSCredential {
+  [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'Converting to secure string')]
+  [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'Not actually a password')]
+
     Param
     (
         [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][ValidateNotNullOrEmpty()][Object]$PasswordResult
@@ -31,15 +34,15 @@ Function ConvertTo-PSCredential {
       If ($PasswordResult.GetType().Name -eq 'PasswordResult') {
         $User = ''
         $Password = ''
-        
+
         If (-not ([string]::IsNullOrWhiteSpace($PasswordResult.Domain))) {
           $User += "$($PasswordResult.Domain)\"
         }
-        
+
         $User += $PasswordResult.UserName
-        
+
         $Password = $PasswordResult.GetPassword()
-        
+
         Try {
           New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User,($Password | ConvertTo-SecureString -AsPlainText -Force)
         } Catch {
