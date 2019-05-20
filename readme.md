@@ -1,6 +1,7 @@
 # PasswordState Management
 
 ![PasswordState Logo](https://www.clickstudios.com.au/assets/images/Feature-Block2.png)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdnewsholme%2FPasswordState-Management.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdnewsholme%2FPasswordState-Management?ref=badge_shield)
 
 ## Introduction
 
@@ -144,3 +145,6 @@ Or find the password and pipe it acrosss to remove.
 Functions all contain Pester tests ensuring that the code works.
 
 Full documentation under `.\docs`
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdnewsholme%2FPasswordState-Management.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdnewsholme%2FPasswordState-Management?ref=badge_large)
