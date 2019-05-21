@@ -19,7 +19,8 @@ Set-PasswordStateEnvironment -Baseuri <String> [-WindowsAuthOnly] [-WhatIf] [-Co
 
 ### One
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-Apikey <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-PasswordStateEnvironment -Baseuri <String> [-Apikey <String>] [-PasswordGeneratorAPIkey <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### Three
@@ -69,6 +70,21 @@ Accept wildcard characters: False
 
 ### -Apikey
 For use if APIKey is the preferred authentication method.
+
+```yaml
+Type: String
+Parameter Sets: One
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PasswordGeneratorAPIkey
+{{Fill PasswordGeneratorAPIkey Description}}
 
 ```yaml
 Type: String
