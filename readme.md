@@ -12,7 +12,7 @@ Contains various functions for the management of passwordstate via powershell.
 | Requirement   | Version |
 |---------------|---------|
 | passwordstate | 8.0+    |
-| Powershell    | 4.0+    |
+| Powershell    | 5.0+    |
 
 ## IMPORTANT NOTE
 
