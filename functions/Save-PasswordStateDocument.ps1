@@ -33,7 +33,7 @@ function Save-PasswordStateDocument {
     )
 
     begin {
-        . "$PSScriptRoot\PasswordstateClass.ps1"
+        . $(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordstateClass.ps1")
         $output = @()
     }
 
