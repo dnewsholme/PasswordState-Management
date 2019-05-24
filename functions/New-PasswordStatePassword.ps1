@@ -55,7 +55,7 @@ function New-PasswordStatePassword {
     )
 
     begin {
-        & $(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordstateClass.ps1")
+        . $(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordstateClass.ps1")
         # Check to see if the requested password entry exists before continuing.
         try {
             $result = Find-PasswordStatePassword -title "$title" -username $username -ErrorAction stop

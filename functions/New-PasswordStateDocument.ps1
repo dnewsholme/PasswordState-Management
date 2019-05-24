@@ -45,7 +45,7 @@ function New-PasswordStateDocument {
     )
 
     begin {
-        & $(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordstateClass.ps1")
+        . $(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordstateClass.ps1")
         $output = @()
     }
 
