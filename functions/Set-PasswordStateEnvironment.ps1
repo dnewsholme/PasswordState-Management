@@ -53,6 +53,8 @@ function Set-PasswordStateEnvironment {
         Else {
             $AuthType = "APIKey"
         }
+        
+        $profilepath = [Environment]::GetFolderPath('UserProfile')
     }
 
     process {
@@ -83,8 +85,8 @@ function Set-PasswordStateEnvironment {
     }
 
     end {
-        if ($PSCmdlet.ShouldProcess("$($env:USERPROFILE)\passwordstate.json")) {
-            $json | Out-File "$($env:USERPROFILE)\passwordstate.json"
+        if ($PSCmdlet.ShouldProcess("$($profilepath)\passwordstate.json")) {
+            $json | Out-File "$($profilepath)\passwordstate.json"
         }
     }
 }
