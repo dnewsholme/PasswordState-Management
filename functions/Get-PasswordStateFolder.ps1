@@ -22,7 +22,7 @@ function Get-PasswordStateFolder {
         [parameter(ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = 1)][string]$Name
     )
     begin {
-        . $(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordstateClass.ps1")
+        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
         # Initialize the array for output
         $output = @()
     }
