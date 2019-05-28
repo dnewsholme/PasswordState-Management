@@ -108,7 +108,7 @@ Function Find-PasswordStatePassword {
     )
 
     Begin {
-        . "$PSScriptRoot\PasswordstateClass.ps1"
+        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
         Add-Type -AssemblyName System.Web
         # Initalize output Array
         $output = @()

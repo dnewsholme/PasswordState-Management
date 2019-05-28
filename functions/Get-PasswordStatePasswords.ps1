@@ -23,7 +23,7 @@ function Get-PasswordStatePasswords {
     )
 
     begin {
-        . "$PSScriptRoot\PasswordstateClass.ps1"
+        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
         $output = @()
     }
 
