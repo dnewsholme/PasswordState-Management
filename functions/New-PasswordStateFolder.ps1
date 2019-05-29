@@ -37,7 +37,7 @@ function New-PasswordStateFolder {
     )
 
     begin {
-        . "$PSScriptRoot\PasswordstateClass.ps1"
+        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
     }
 
     process {

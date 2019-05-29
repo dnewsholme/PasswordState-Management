@@ -37,7 +37,7 @@ function New-PasswordStateList {
     )
 
     begin {
-        . "$PSScriptRoot\PasswordstateClass.ps1"
+        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
     }
     process {
         # Build the Custom object to convert to json and send to the api.

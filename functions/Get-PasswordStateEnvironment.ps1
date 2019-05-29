@@ -18,8 +18,9 @@ function Get-PasswordStateEnvironment {
 
     begin {
         try {
+            $profilepath = [Environment]::GetFolderPath('UserProfile')
             # Read in the password state environment json config file.
-            $content = Get-Content "$($env:USERPROFILE)\passwordstate.json" -ErrorAction Stop
+            $content = Get-Content "$($profilepath)\passwordstate.json" -ErrorAction Stop
         }
         Catch {
             throw "No environment has been set. Run Set-PasswordStateEnvironment to create first."
