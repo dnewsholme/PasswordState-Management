@@ -53,7 +53,7 @@ function Set-PasswordStateEnvironment {
         Else {
             $AuthType = "APIKey"
         }
-        
+
         $profilepath = [Environment]::GetFolderPath('UserProfile')
     }
 

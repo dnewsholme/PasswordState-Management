@@ -13,6 +13,8 @@ Contains various functions for the management of passwordstate via powershell.
 | passwordstate | 8.0+    |
 | Powershell    | 5.1+    |
 
+Powershell Core 6.0 Compatible.
+
 ## IMPORTANT NOTE
 
 As of version 0.94 Passwords are no longer output in plaintext by default and kept as secure strings instead. Passwords can be obtained by calling the .GetPassword() Method on the result which will decrypt the secure string.
