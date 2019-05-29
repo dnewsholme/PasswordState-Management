@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.97
+
++ Added initial support for linux with fix for kerberos auth on winapi.
+
 ## 0.0.95
 
 + Feature
