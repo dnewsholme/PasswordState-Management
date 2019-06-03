@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.98
+
++ Fix for get-Passwordstatepasswords not correctly casting to secure type.
+
 ## 0.0.97
 
 + Added initial support for linux with fix for kerberos auth on winapi.
