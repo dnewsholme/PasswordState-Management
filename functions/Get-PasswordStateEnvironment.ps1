@@ -17,7 +17,12 @@ function Get-PasswordStateEnvironment {
     )
 
     begin {
+        # Check to see if machine is running linux if so implement a fix for kerberos auth.
+        if ($invokeIsLinux -eq $true){
+            $env:DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=0
+        }
         try {
+            # Get Profile path
             $profilepath = [Environment]::GetFolderPath('UserProfile')
             # Read in the password state environment json config file.
             $content = Get-Content "$($profilepath)\passwordstate.json" -ErrorAction Stop
