@@ -28,10 +28,10 @@ function Get-PasswordStatePasswords {
     }
 
     process {
-        [PasswordResult]$results = Get-PasswordStateResource -uri $("/api/passwords/" + $PasswordlistID + "?QueryAll")
-        Foreach ($result in $results){
+        $results = Get-PasswordStateResource -uri $("/api/passwords/" + $PasswordlistID + "?QueryAll")
+        $output = Foreach ($result in $results){
             $result.Password = [EncryptedPassword]$result.Password
-            $output += $result
+            [PasswordResult]$result
         }
     }
 
