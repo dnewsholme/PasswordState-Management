@@ -1,6 +1,6 @@
 # PasswordState Management
 
-![PasswordState Logo](https://www.clickstudios.com.au/assets/images/Feature-Block2.png)
+![PasswordState Logo](https://www.clickstudios.com.au/assets/images/laptop-1.png)
 
 ## Introduction
 
