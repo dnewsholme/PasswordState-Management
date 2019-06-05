@@ -11,6 +11,7 @@ Describe "New-RandomPassword" {
         (New-RandomPassword -length 20).Password.length | Should -BeExactly 20
     }
     BeforeEach {
+        It "Generates a Password from a policy" { (New-RandomPassword -PolicyID 1).Password | Should -not -BeNullOrEmpty }
         # Create Test Environment
         try {
             $globalsetting = Get-Variable PasswordStateShowPasswordsPlainText -ErrorAction stop -Verbose -ValueOnly
