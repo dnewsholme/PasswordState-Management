@@ -2,6 +2,10 @@ version: 1.0.{build}
 pull_requests:
   do_not_increment_build_number: true
 skip_tags: true
+image: "WMF 5"
+install:
+  - cinst pester
+  - cinst PSScriptAnalyzer
 init:
 - ps: >-
     $env:pwsapikey = $pwsapikey
