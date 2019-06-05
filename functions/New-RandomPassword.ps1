@@ -31,7 +31,6 @@
     .EXAMPLE
     PS C:\> New-RandomPassword -PolicyID 2
 
-
     .INPUTS
     PasswordGeneratorID - Optional parameter if you want to generate a more or less secure password.
     .OUTPUTS
@@ -66,7 +65,7 @@ Function New-RandomPassword {
       'General' {
         If ($PSCmdlet.ShouldProcess("")) {
           If ($PSBoundParameters.Count -lt 1) {
-            $output = Get-PasswordStateResource -uri "/api/generatepassword"
+            $uri = "/api/generatepassword"
           }
           Else {
             If (!$excludedcharacters) {
@@ -105,8 +104,4 @@ Function New-RandomPassword {
     Write-Verbose "[$(Get-Date -format G)] [GET] $uri"
     Get-PasswordStateResource -uri $uri
   }
-
-    End {
-        Return $output
-    }
 }
