@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.105
+
++ Allow password generation using PasswordPolicyID's from New-RandomPassword. Thanks [Colombeen](https://github.com/colombeen)
+
 ## 0.0.101
 
 + Allow generation of password when creating a new password and fixes issue with casting blank passwords to the \[PasswordResult\] type.
