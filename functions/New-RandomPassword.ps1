@@ -44,28 +44,24 @@ Function New-RandomPassword {
   )]
   [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'General')]
   Param (
-    [parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 0)][int32]$length = 12,
-    [parameter(ParameterSetName = 'PolicyID', Mandatory = $true, ValueFromPipelineByPropertyName, Position = 0)][ValidateNotNullOrEmpty()][int32]$PolicyID,
-    [parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][switch]$includebrackets,
-    [parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 2)][switch]$includespecialcharacters,
-    [parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 3)][switch]$includenumbers,
-    [parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 4)][switch]$includelowercase,
-    [parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 5)][switch]$includeuppercase,
-    [parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 6)][string]$excludedcharacters,
-    [parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 7)][int32]$Quantity = 1
+    [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 0)][int32]$length = 12,
+    [Parameter(ParameterSetName = 'PolicyID', Mandatory = $true, ValueFromPipelineByPropertyName, Position = 0)][int32]$PolicyID,
+    [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][switch]$includebrackets,
+    [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 2)][switch]$includespecialcharacters,
+    [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 3)][switch]$includenumbers,
+    [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 4)][switch]$includelowercase,
+    [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 5)][switch]$includeuppercase,
+    [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 6)][string]$excludedcharacters,
+    [Parameter(ValueFromPipelineByPropertyName)][int32]$Quantity = 1
   )
-
-  Begin {
-    . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
-  }
 
   Process {
     Switch ($PSCmdlet.ParameterSetName) {
       # Specify every part of the rule with params
       'General' {
         If ($PSCmdlet.ShouldProcess("")) {
-          If ($PSBoundParameters.Count -lt 1) {
-            $uri = "/api/generatepassword"
+          If ($PSBoundParameters.Count -eq 0 -or ($PSBoundParameters.Count -eq 1 -and $PSBoundParameters.ContainsKey('Quantity'))) {
+            $uri = "/api/generatepassword/?Qty=$Quantity"
           }
           Else {
             If (!$excludedcharacters) {
@@ -98,7 +94,7 @@ Function New-RandomPassword {
       }
       # Generate a password using an existing Password Generator ID
       'PolicyID' {
-        $uri = "/api/generatepassword/?PasswordGeneratorID=$PolicyID"
+        $uri = "/api/generatepassword/?PasswordGeneratorID=$PolicyID&Qty=$Quantity"
       }
     }
     Write-Verbose "[$(Get-Date -format G)] [GET] $uri"
