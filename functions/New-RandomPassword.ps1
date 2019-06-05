@@ -94,18 +94,16 @@ Function New-RandomPassword {
             [string]$includenumbers = ([string]$includenumbers).ToLower()
 
             $uri = "/api/generatepassword/?IncludeAlphaSpecial=true&IncludeWordPhrases=false&minLength=$length&maxLength=$length&lowerCaseChars=$includelowercase&upperCaseChars=$includeuppercase&numericChars=$includenumbers&higherAlphaRatio=true&ambiguousChars=true&specialChars=$includespecialcharacters&specialCharsText=!$%+-_=^&bracketChars=$includebrackets&bracketCharsText={}()&NumberOfWords=0&MaxWordLength=0&PrefixAppend=P&SeparateWords=N&ExcludeChars=$excludedcharacters&GeneratePattern=false&Pattern=null&Qty=$quantity"
-            Write-Verbose "[$(Get-Date -format G)] [GET] $uri"
-            Get-PasswordStateResource -uri $uri
           }
         }
       }
       # Generate a password using an existing Password Generator ID
       'PolicyID' {
         $uri = "/api/generatepassword/?PasswordGeneratorID=$PolicyID"
-        Write-Verbose "[$(Get-Date -format G)] [GET] $uri"
-        Get-PasswordStateResource -uri $uri
       }
     }
+    Write-Verbose "[$(Get-Date -format G)] [GET] $uri"
+    Get-PasswordStateResource -uri $uri
   }
 
     End {
