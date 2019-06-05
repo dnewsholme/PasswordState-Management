@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.101
+
++ Allow generation of password when creating a new password and fixes issue with casting blank passwords to the \[PasswordResult\] type.
+
 ## 0.0.98
 
 + Fix for get-Passwordstatepasswords not correctly casting to secure type.
