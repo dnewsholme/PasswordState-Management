@@ -3,7 +3,13 @@
 # Create Class
 Class EncryptedPassword {
     EncryptedPassword ($Password) {
-        $this.Password = ConvertTo-SecureString -String $Password -AsPlainText -Force
+        $result = [string]::IsNullOrEmpty($Password)
+        if ($result -eq $false){
+            $this.Password = ConvertTo-SecureString -String $Password -AsPlainText -Force
+        }
+        Else {
+            $this.Password = $null
+        }
     }
    [SecureString]$Password
 }
@@ -14,16 +20,22 @@ class PasswordResult {
     [String]$Username
     $Password
     [String]GetPassword() {
-        If ($this.Password.GetType().Name -ne 'String') {
+        $result = [string]::IsNullOrEmpty($this.Password.Password)
+        If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
             $SecureString = $this.Password.Password
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
             return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
-        } Else {
+        }
+        if ($result -eq $true){
+            return $null
+        }
+        Else {
             return $this.Password
         }
     }
     DecryptPassword(){
-        If ($this.Password.GetType().Name -ne 'String') {
+        $result = [string]::IsNullOrEmpty($this.Password.Password)
+        If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
             $SecureString = $this.Password.Password
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
             $this.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
@@ -60,16 +72,22 @@ class PasswordHistory : PasswordResult {
     [int32]$PasswordHistoryID
     [String]$PasswordList
     [String]GetPassword() {
-        If ($this.Password.GetType().Name -ne 'String') {
+        $result = [string]::IsNullOrEmpty($this.Password.Password)
+        If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
             $SecureString = $this.Password.Password
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
             return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
-        } Else {
+        }
+        if ($result -eq $true){
+            return $null
+        }
+        Else {
             return $this.Password
         }
     }
     DecryptPassword(){
-        If ($this.Password.GetType().Name -ne 'String') {
+        $result = [string]::IsNullOrEmpty($this.Password.Password)
+        If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
             $SecureString = $this.Password.Password
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
             $this.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)

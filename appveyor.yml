@@ -1,0 +1,20 @@
+version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+skip_tags: true
+image: "WMF 5"
+install:
+  - cinst pester
+  - cinst PSScriptAnalyzer
+environment:
+  pwsapikey: 83e24d7c9a35bf6954a6e38f3bd7c2f5
+  pwsgenapikey: e2f8b673d43ac95c539b8d6e7af32437
+  pwsuri: https://devpws01.northeurope.cloudapp.azure.com
+
+build: "off"
+
+test_script:
+  - ps: .\build\4.Analyze.ps1
+  - ps: $res = Invoke-Pester -Path ".\Functions\" -OutputFormat NUnitXml -OutputFile TestsResults.xml -PassThru
+  - ps: (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\TestsResults.xml))
+  - ps: if ($res.FailedCount -gt 0) { throw "$($res.FailedCount) tests failed."}
