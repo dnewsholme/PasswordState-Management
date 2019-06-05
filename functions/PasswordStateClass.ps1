@@ -20,7 +20,7 @@ class PasswordResult {
     [String]$Username
     $Password
     [String]GetPassword() {
-        $result = [string]::IsNullOrEmpty($this.Password.Password) 
+        $result = [string]::IsNullOrEmpty($this.Password.Password)
         If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
             $SecureString = $this.Password.Password
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
@@ -34,7 +34,7 @@ class PasswordResult {
         }
     }
     DecryptPassword(){
-        $result = [string]::IsNullOrEmpty($this.Password.Password) 
+        $result = [string]::IsNullOrEmpty($this.Password.Password)
         If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
             $SecureString = $this.Password.Password
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
@@ -72,7 +72,7 @@ class PasswordHistory : PasswordResult {
     [int32]$PasswordHistoryID
     [String]$PasswordList
     [String]GetPassword() {
-        $result = [string]::IsNullOrEmpty($this.Password.Password) 
+        $result = [string]::IsNullOrEmpty($this.Password.Password)
         If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
             $SecureString = $this.Password.Password
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
@@ -80,13 +80,13 @@ class PasswordHistory : PasswordResult {
         }
         if ($result -eq $true){
             return $null
-        } 
+        }
         Else {
             return $this.Password
         }
     }
     DecryptPassword(){
-        $result = [string]::IsNullOrEmpty($this.Password.Password) 
+        $result = [string]::IsNullOrEmpty($this.Password.Password)
         If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
             $SecureString = $this.Password.Password
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
