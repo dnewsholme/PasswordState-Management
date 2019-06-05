@@ -8,8 +8,8 @@ Describe "New-PasswordStatePassword" {
         ($result).GetPassword() | Should -BeExactly "Password.1"
     }
     It "Creates a new passworsdstate entry with generated Password" {
-        $result = New-PasswordStatePassword -title "bob2" -username "test2" -passwordlistID "1" -GeneratePassword
-        ($result).GetPassword() | Should -not -BeNullOrEmpty
+        $result = New-PasswordStatePassword -title "bob" -username "test" -passwordlistID "1" -GeneratePassword
+        ($result).GetPassword() | Should -Not -BeNullOrEmpty
     }
     It "Checks a new password state entry Password Entry returns an encrypted string" {
         $result = New-PasswordStatePassword -title "bob" -username "test" -passwordlistID "1" -Password "Password.1"
@@ -48,7 +48,7 @@ Describe "New-PasswordStatePassword" {
         Move-Item  "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force
         $global:PasswordStateShowPasswordsPlainText = $globalsetting
         try {
-            Find-PasswordStatePassword bob -ErrorAction stop |Remove-PasswordStatePassword -ErrorAction stop
+            Find-PasswordStatePassword bob -ErrorAction stop | Remove-PasswordStatePassword -ErrorAction stop
         }
         Catch{
 

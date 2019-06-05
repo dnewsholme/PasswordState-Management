@@ -97,7 +97,7 @@ function New-PasswordStatePassword {
                 }
             }
             if ($password){
-                $body | add-member -notepropertyname $password -notepropertyvalue $password
+                $body | add-member -notepropertyname "Password" -notepropertyvalue $password
             }
             if ($GeneratePassword){
                 $body | add-member -notepropertyname GeneratePassword -NotePropertyValue $true
