@@ -1,5 +1,7 @@
 # PasswordState Management
 
+[![Build status](https://ci.appveyor.com/api/projects/status/uitb02g8iig9gbga?svg=true)](https://ci.appveyor.com/project/dnewsholme/passwordstate-management)
+
 ![PasswordState Logo](https://www.clickstudios.com.au/assets/images/laptop-1.png)
 
 ## Introduction
