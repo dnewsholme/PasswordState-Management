@@ -3,9 +3,13 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 Import-Module "$here\..\passwordstate-management.psm1"
 Describe "New-PasswordStatePassword" {
-    It "Creates a new passwors state entry Password Entry" {
+    It "Creates a new password state entry Password Entry" {
         $result = New-PasswordStatePassword -title "bob" -username "test" -passwordlistID "1" -Password "Password.1"
         ($result).GetPassword() | Should -BeExactly "Password.1"
+    }
+    It "Creates a new passworsdstate entry with generated Password" {
+        $result = New-PasswordStatePassword -title "bob2" -username "test2" -passwordlistID "1" -GeneratePassword
+        ($result).GetPassword() | Should -not -BeNullOrEmpty
     }
     It "Checks a new password state entry Password Entry returns an encrypted string" {
         $result = New-PasswordStatePassword -title "bob" -username "test" -passwordlistID "1" -Password "Password.1"

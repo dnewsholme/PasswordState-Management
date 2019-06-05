@@ -12,6 +12,8 @@
     The username to be added to the entry (Optional)
 .PARAMETER password
     The password to be added to the entry.
+.PARAMETER Generatepassword
+    A switch parameter to generate the password based off the PasswordList Policy.
 .PARAMETER title
     Name of the entry to be created.
 .PARAMETER notes
@@ -47,7 +49,8 @@ function New-PasswordStatePassword {
         [parameter(ValueFromPipelineByPropertyName)][int32]$passwordlistID,
         [parameter(ValueFromPipelineByPropertyName)][string]$username = "",
         [parameter(ValueFromPipelineByPropertyName)][string]$description,
-        [parameter(ValueFromPipelineByPropertyName)][string]$password,
+        [parameter(ValueFromPipelineByPropertyName,ParameterSetName="password")][string]$password,
+        [parameter(ValueFromPipelineByPropertyName,ParameterSetName="GeneratePassword")][switch]$GeneratePassword,
         [parameter(ValueFromPipelineByPropertyName)][string]$title,
         [parameter(ValueFromPipelineByPropertyName)][string]$notes,
         [parameter(ValueFromPipelineByPropertyName)][string]$url,
@@ -83,7 +86,6 @@ function New-PasswordStatePassword {
                 "PasswordListID" = $passwordListID
                 "Username"       = $username
                 "Description"    = $description
-                "Password"       = $password
                 "Title"          = $Title
                 "Notes"          = $notes
                 "URL"            = $url
@@ -93,6 +95,12 @@ function New-PasswordStatePassword {
                 $genericfields.keys | ForEach-Object{
                     $body | add-member -notepropertyname $_ -notepropertyvalue $genericfields.Item($_)
                 }
+            }
+            if ($password){
+                $body | add-member -notepropertyname $password -notepropertyvalue $password
+            }
+            if ($GeneratePassword){
+                $body | add-member -notepropertyname GeneratePassword -NotePropertyValue $true
             }
             if ($PSCmdlet.ShouldProcess("PasswordList:$passwordListID Title:$title Username:$username")) {
                 [PasswordResult]$output = New-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
