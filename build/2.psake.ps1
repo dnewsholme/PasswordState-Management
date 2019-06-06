@@ -60,13 +60,13 @@ Task Build -Depends Clean {
         $global:buildversion = $(((Find-Module -Name $($Projectname) -ErrorAction Stop))| Sort-Object version |Select-Object -Last 1 ).Version
         switch -Wildcard ($commitmsg){
             "*major*"{
-                $global:buildversion | Step-Version -By Major
+                $global:buildversion = $global:buildversion | Step-Version -By Major
             }
             "*minor*"{
-                $global:buildversion | Step-Version -By Minor
+                $global:buildversion =  $global:buildversion | Step-Version -By Minor
             }
             Default {
-                $global:buildversion | Step-Version -By Patch
+                $global:buildversion = $global:buildversion | Step-Version -By Patch
             }
         }
         $global:buildversion
