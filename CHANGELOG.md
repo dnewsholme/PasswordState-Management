@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
++ Changed output of default properties for \[PasswordResult\] typed items.
+
 ## 0.0.105
 
 + Allow password generation using PasswordPolicyID's from New-RandomPassword. Thanks [Colombeen](https://github.com/colombeen)

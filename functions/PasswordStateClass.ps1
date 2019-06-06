@@ -44,24 +44,32 @@ class PasswordResult {
     [String]$Description
     [String]$Domain
     # Hidden Properties
-    hidden [String]$hostname
-    hidden [String]$GenericField1
-    hidden [String]$GenericField2
-    hidden [String]$GenericField3
-    hidden [String]$GenericField4
-    hidden [String]$GenericField5
-    hidden [String]$GenericField6
-    hidden [String]$GenericField7
-    hidden [String]$GenericField8
-    hidden [String]$GenericField9
-    hidden [String]$GenericField10
-    hidden [int]$AccountTypeID
-    hidden [string]$notes
-    hidden [string]$URL
-    hidden [string]$ExpiryDate
-    hidden [string]$allowExport
-    hidden [string]$accounttype
+    [String]$hostname
+    [String]$GenericField1
+    [String]$GenericField2
+    [String]$GenericField3
+    [String]$GenericField4
+    [String]$GenericField5
+    [String]$GenericField6
+    [String]$GenericField7
+    [String]$GenericField8
+    [String]$GenericField9
+    [String]$GenericField10
+    [int]$AccountTypeID
+    [string]$notes
+    [string]$URL
+    [string]$ExpiryDate
+    [string]$allowExport
+    [string]$accounttype
+    # Constructor used to initiate the default property set.
+    PasswordResult() {
+        [string[]]$DefaultProperties = 'PasswordID', 'Title','Username','Password','Description','Domain'
 
+        #Create a propertyset name DefaultDisplayPropertySet, with properties we care about
+    $propertyset = New-Object System.Management.Automation.PSPropertySet DefaultDisplayPropertySet, $DefaultProperties
+    $PSStandardMembers = [System.Management.Automation.PSMemberInfo[]]$propertyset
+    Add-Member -InputObject $this -MemberType MemberSet -Name PSStandardMembers -Value $PSStandardMembers
+    }
 
 }
 class PasswordHistory : PasswordResult {
