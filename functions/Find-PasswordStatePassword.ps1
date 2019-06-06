@@ -107,8 +107,7 @@ Function Find-PasswordStatePassword {
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 17)][string]$GenericField8,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 18)][string]$GenericField9,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 19)][string]$GenericField10,
-        [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)]
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 20)][int32]$PasswordListID,
+        [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 20)][int32]$PasswordListID,
         [parameter(ValueFromPipelineByPropertyName, Position = 21)][string]$Reason
     )
 
@@ -125,7 +124,7 @@ Function Find-PasswordStatePassword {
             $headerreason = @{"Reason" = "$reason"}
             $parms = @{ExtraParams = @{"Headers" = $headerreason}}
         }
-        
+
         # If PasswordListID wasn't set, make the variable an empty string
         If (!($PSBoundParameters.ContainsKey('PasswordListID')))
         {
