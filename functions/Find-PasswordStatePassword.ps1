@@ -65,6 +65,9 @@
     .PARAMETER GenericField10
     An optional parameter to filter the search on a generic field.
 
+    .PARAMETER PasswordListID
+    An optional parameter to filter the search on a specific password list.
+
     .PARAMETER Reason
     A reason which can be logged for auditing of why a password was retrieved.
 
@@ -104,7 +107,9 @@ Function Find-PasswordStatePassword {
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 17)][string]$GenericField8,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 18)][string]$GenericField9,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 19)][string]$GenericField10,
-        [parameter(ValueFromPipelineByPropertyName, Position = 20)][string]$Reason
+        [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)]
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 20)][int32]$PasswordListID,
+        [parameter(ValueFromPipelineByPropertyName, Position = 21)][string]$Reason
     )
 
     Begin {
@@ -124,7 +129,7 @@ Function Find-PasswordStatePassword {
         Switch ($PSCmdlet.ParameterSetName) {
             # General search
             'General' {
-                $uri += "/api/searchpasswords/?Search=$([System.Web.HttpUtility]::UrlEncode($Search))&ExcludePassword=true"
+                $uri += "/api/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))&ExcludePassword=true"
             }
             # Search on a specific password ID
             'PasswordID' {
@@ -156,7 +161,7 @@ Function Find-PasswordStatePassword {
 
                 $BuildURL = $BuildURL -Replace ".$"
 
-                $uri += "/api/searchpasswords/$($BuildURL)&ExcludePassword=true"
+                $uri += "/api/searchpasswords/$($PasswordListID)$($BuildURL)&ExcludePassword=true"
             }
         }
 
