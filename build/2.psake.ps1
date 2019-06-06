@@ -33,6 +33,7 @@ Task Init {
     "Build System Details:"
     Get-Item ENV:BH*
     "`n"
+    Get-BuildEnvironment
 }
 
 
@@ -53,9 +54,11 @@ Task Build -Depends Clean {
     $lines
     $Functions = (Get-ChildItem $ProjectRoot\functions\*.ps1) | Where-Object {$_.Name -notlike "*.Tests.ps1"}
     Write-Verbose "ProjectName is $($Projectname)"
+    $commitmsg = (Get-BuildEnvironment).CommitMessage
+    $commitmsg
     try {
         $global:buildversion = $(((Find-Module -Name $($Projectname) -ErrorAction Stop))| Sort-Object version |Select-Object -Last 1 ).Version
-        switch -Wildcard ($ENV:BHCommitMessage){
+        switch -Wildcard ($commitmsg){
             "*major*"{
                 $global:buildversion | Step-Version -By Major
             }
