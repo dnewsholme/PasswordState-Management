@@ -20,7 +20,7 @@ Properties {
         $Verbose = @{Verbose = $True}
     }
     $excludedrules = "PSAvoidUsingPlainTextForPassword", "PSUseShouldProcessForStateChangingFunctions", "PSAvoidUsingConvertToSecureStringWithPlainText", "PSAvoidUsingUserNameAndPassWordParams", "PSUseSingularNouns"
-    $tags = 'PasswordState', 'Password', 'Management'
+    $tags = 'PasswordState', 'Password', 'Management','PSEdition_Desktop','PSEdition_Core','Windows','Linux','MacOS'
     $Guid = '752125dd-c0e4-4f87-bad9-dd7dc9b45b58'
 }
 
@@ -33,6 +33,7 @@ Task Init {
     "Build System Details:"
     Get-Item ENV:BH*
     "`n"
+    Get-BuildEnvironment
 }
 
 
@@ -53,8 +54,21 @@ Task Build -Depends Clean {
     $lines
     $Functions = (Get-ChildItem $ProjectRoot\functions\*.ps1) | Where-Object {$_.Name -notlike "*.Tests.ps1"}
     Write-Verbose "ProjectName is $($Projectname)"
+    $commitmsg = (Get-BuildEnvironment).CommitMessage
+    $commitmsg
     try {
-        $global:buildversion = $(((Find-Module -Name $($Projectname) -ErrorAction Stop))| Sort-Object version |Select-Object -Last 1 ).Version| step-version
+        $global:buildversion = $(((Find-Module -Name $($Projectname) -ErrorAction Stop))| Sort-Object version |Select-Object -Last 1 ).Version
+        switch -Wildcard ($commitmsg){
+            "*major*"{
+                $global:buildversion = $global:buildversion | Step-Version -By Major
+            }
+            "*minor*"{
+                $global:buildversion =  $global:buildversion | Step-Version -By Minor
+            }
+            Default {
+                $global:buildversion = $global:buildversion | Step-Version -By Patch
+            }
+        }
         $global:buildversion
     }
     Catch {
