@@ -125,6 +125,12 @@ Function Find-PasswordStatePassword {
             $headerreason = @{"Reason" = "$reason"}
             $parms = @{ExtraParams = @{"Headers" = $headerreason}}
         }
+        
+        # If PasswordListID wasn't set, make the variable an empty string
+        If (!($PSBoundParameters.ContainsKey('PasswordListID')))
+        {
+          [string]$PasswordListID = ''
+        }
 
         Switch ($PSCmdlet.ParameterSetName) {
             # General search
