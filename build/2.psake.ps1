@@ -55,6 +55,7 @@ Task Build -Depends Clean {
     $Functions = (Get-ChildItem $ProjectRoot\functions\*.ps1) | Where-Object {$_.Name -notlike "*.Tests.ps1"}
     Write-Verbose "ProjectName is $($Projectname)"
     $commitmsg = (Get-BuildEnvironment).CommitMessage
+    $commitmsg
     try {
         $global:buildversion = $(((Find-Module -Name $($Projectname) -ErrorAction Stop))| Sort-Object version |Select-Object -Last 1 ).Version
         switch -Wildcard ($commitmsg){
