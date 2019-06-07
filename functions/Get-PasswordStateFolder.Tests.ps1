@@ -4,12 +4,16 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 Import-Module "$here\..\passwordstate-management.psm1"
 
 Describe "Get-PasswordStateFolder" {
-    It "Finds a Folder From Password State" {
-        (Get-PasswordStateFolder -Name "Test").FolderID | Should -not -BeNullOrEmpty
+    It "Finds a Folder From Password State on FolderName" {
+        (Get-PasswordStateFolder -FolderName "Test").FolderID | Should -not -BeNullOrEmpty
+    }
+    
+    It "Finds a Folder From Password State on Description" {
+        (Get-PasswordStateFolder -Description "Test").FolderID | Should -not -BeNullOrEmpty
     }
     
     It "Generates a web exception" {
-        {Get-PasswordStateFolder -Name "DoesntExist"} | Should -Throw
+        {Get-PasswordStateFolder -FolderName "DoesntExist"} | Should -Throw
     }
 
     BeforeAll {
