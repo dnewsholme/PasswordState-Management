@@ -12,13 +12,13 @@ Remove-Item "$modulepath\$modulename" -Recurse -Force -erroraction silentlyconti
 Copy-Item ".\$modulename" -Recurse -Destination $modulepath
 $commitmsg = (Get-BuildEnvironment).CommitMessage
 if ($commitmsg -like "*nobuild*"){
-    exit
+    $skip = $true
 }
-if ($($env:repotype) -eq "psgallery") {
+if ($($env:repotype) -eq "psgallery" -and $skip -ne $true) {
     Publish-Module -Name $modulename -NuGetApiKey $($env:apikey) -Verbose
 }
 
-Elseif ($env:repotype -eq "local") {
+Elseif ($env:repotype -eq "local" -and $skip -ne $true) {
     Register-PSRepository -name $($env:reponame) -sourcelocation $($env:sourcelocation) -publishlocation $($env:publishlocation) -erroraction silentlycontinue
 
     try {
@@ -28,7 +28,7 @@ Elseif ($env:repotype -eq "local") {
         throw "An error occurred publishing the module $modulename"
     }
 }
-Elseif ($env:repotype -eq "nuget") {
+Elseif ($env:repotype -eq "nuget" -and $skip -ne $true) {
     Register-PSRepository -name $($env:reponame) -sourcelocation $($env:sourcelocation) -publishlocation $($env:publishlocation) -erroraction silentlycontinue
     try {
         Publish-Module -Name $modulename -Repository $env:reponame -NuGetApiKey $env:apikey -Verbose -Force
