@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
++ Added extra parameters for Get-PasswordStateFolder. Thanks [Colombeen](https://github.com/colombeen)
+
 ## 2.0.0
 
 + Breaking Change. Get-PasswordstateList parameters have changed to be more consistent with the rest of the module. Thanks [Colombeen](https://github.com/colombeen)
