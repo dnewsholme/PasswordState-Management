@@ -15,7 +15,8 @@ If multiple matches it will return multiple entries.
 
 ### General (Default)
 ```
-Find-PasswordStatePassword [-Search] <String> [[-Reason] <String>] [<CommonParameters>]
+Find-PasswordStatePassword [-Search] <String> [[-PasswordListID] <Int32>] [[-Reason] <String>]
+ [<CommonParameters>]
 ```
 
 ### PasswordID
@@ -30,7 +31,8 @@ Find-PasswordStatePassword [[-Title] <String>] [[-UserName] <String>] [[-HostNam
  [[-SiteID] <String>] [[-SiteLocation] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>]
  [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
  [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
- [[-GenericField9] <String>] [[-GenericField10] <String>] [[-Reason] <String>] [<CommonParameters>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [[-PasswordListID] <Int32>] [[-Reason] <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,10 +43,31 @@ If multiple matches it will return multiple entries.
 
 ### EXAMPLE 1
 ```
-Find-PasswordStatePassword -title "testuser"
+Find-PasswordStatePassword "testuser"
 ```
 
 Returns the test user object including password.
+
+### EXAMPLE 2
+```
+Find-PasswordStatePassword -Title '"testuser"'
+```
+
+Returns the object including password, which is an exact match with the title (Requires double quotes for exact match).
+
+### EXAMPLE 3
+```
+Find-PasswordStatePassword -Username "testuser2" -Notes "Test"
+```
+
+Returns the test user 2 object, where the notes contain "Test", including password.
+
+### EXAMPLE 4
+```
+Find-PasswordStatePassword -PasswordID "3456"
+```
+
+Returns the object with the PasswordID 3456 including password.
 
 ## PARAMETERS
 
@@ -79,7 +102,7 @@ Accept wildcard characters: False
 ```
 
 ### -Title
-A string value which should match the passwordstate entry exactly(Not case sensitive)
+A string value which should match the passwordstate entry.
 
 ```yaml
 Type: String
@@ -378,6 +401,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -PasswordListID
+An optional parameter to filter the search on a specific password list.
+
+```yaml
+Type: Int32
+Parameter Sets: General, Specific
+Aliases:
+
+Required: False
+Position: 2
+Default value: 0
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -Reason
 A reason which can be logged for auditing of why a password was retrieved.
 
@@ -387,23 +425,23 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 21
+Position: 22
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### Title - The title of the entry (string)
-### Username - The username you need the password for. If multiple entries have the same name this is useful to get the one you want only. (String)(Optional)
 ## OUTPUTS
 
 ### Returns the Object from the API as a powershell object.
 ## NOTES
-Daryl Newsholme 2018
+2018 - Daryl Newsholme
+2019 - Jarno Colombeen
 
 ## RELATED LINKS

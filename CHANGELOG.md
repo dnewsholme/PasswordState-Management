@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.0
+
++ Breaking Change. Get-PasswordstateList parameters have changed to be more consistent with the rest of the module. Thanks [Colombeen](https://github.com/colombeen)
+
+## 1.1.0
+
++ Added support to search a particular list only with Find-Passwordstatepassword. Thanks [Colombeen](https://github.com/colombeen)
+
 ## 1.0.1
 
 + Changed output of default properties for \[PasswordResult\] typed items.

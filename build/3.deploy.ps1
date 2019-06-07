@@ -10,7 +10,10 @@ $modulename = $($env:CI_PROJECT_NAME).tolower()
 
 Remove-Item "$modulepath\$modulename" -Recurse -Force -erroraction silentlycontinue
 Copy-Item ".\$modulename" -Recurse -Destination $modulepath
-
+$commitmsg = (Get-BuildEnvironment).CommitMessage
+if ($commitmsg -like "*nobuild*"){
+    exit
+}
 if ($($env:repotype) -eq "psgallery") {
     Publish-Module -Name $modulename -NuGetApiKey $($env:apikey) -Verbose
 }

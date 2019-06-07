@@ -65,6 +65,9 @@ Task Build -Depends Clean {
             "*minor*"{
                 $global:buildversion =  $global:buildversion | Step-Version -By Minor
             }
+            "*nobuild*"{
+                exit 0
+            }
             Default {
                 $global:buildversion = $global:buildversion | Step-Version -By Patch
             }
