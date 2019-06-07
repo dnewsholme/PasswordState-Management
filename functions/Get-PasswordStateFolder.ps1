@@ -33,7 +33,7 @@ Function Get-PasswordStateFolder
   [CmdletBinding()]
   Param
   (
-    [Parameter(ValueFromPipelineByPropertyName, Position = 0)][string]$FolderName,
+    [Parameter(ValueFromPipelineByPropertyName, Position = 0)][Alias('Name')][string]$FolderName,
     [Parameter(ValueFromPipelineByPropertyName, Position = 1)][string]$Description,
     [Parameter(ValueFromPipelineByPropertyName, Position = 2)][string]$TreePath,
     [Parameter(ValueFromPipelineByPropertyName, Position = 3)][int32]$SiteID,
