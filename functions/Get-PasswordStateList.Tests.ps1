@@ -7,10 +7,10 @@ Describe "Get-PasswordStateList" {
         (Get-PasswordStateList).PasswordListID | Should -not -BeNullOrEmpty
     }
     It "Search Password State Password Lists by ID" {
-        (Get-PasswordStateList -Searchby ID -PasswordListID 1).PasswordListID | Should -BeExactly 1
+        (Get-PasswordStateList -PasswordListID 1).PasswordListID | Should -BeExactly 1
     }
     It "Search Password State Password Lists by Name" {
-        (Get-PasswordStateList -Searchby Name -SearchName "test2").PasswordList | Should -BeExactly "test2"
+        (Get-PasswordStateList -PasswordList "test2").PasswordList | Should -BeExactly "test2"
     }
     BeforeEach {
         # Create Test Environment
