@@ -12,10 +12,18 @@ Creates a New Password State entry in the password list specified.
 
 ## SYNTAX
 
+### password
 ```
-New-PasswordStatePassword [[-passwordlistID] <Int32>] [[-username] <String>] [[-description] <String>]
- [[-password] <String>] [[-title] <String>] [[-notes] <String>] [[-url] <String>]
- [[-genericfields] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PasswordStatePassword [-passwordlistID <Int32>] [-username <String>] [-description <String>]
+ [-password <String>] [-title <String>] [-notes <String>] [-url <String>] [-genericfields <Hashtable>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### GeneratePassword
+```
+New-PasswordStatePassword [-passwordlistID <Int32>] [-username <String>] [-description <String>]
+ [-GeneratePassword] [-title <String>] [-notes <String>] [-url <String>] [-genericfields <Hashtable>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,7 +50,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: Named
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -57,7 +65,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -72,7 +80,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -83,12 +91,27 @@ The password to be added to the entry.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: password
 Aliases:
 
 Required: False
-Position: 4
+Position: Named
 Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GeneratePassword
+A switch parameter to generate the password based off the PasswordList Policy.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: GeneratePassword
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -102,7 +125,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -117,7 +140,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 6
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -132,7 +155,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 7
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -148,7 +171,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 8
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -186,7 +209,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
