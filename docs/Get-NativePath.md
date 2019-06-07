@@ -5,28 +5,45 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-PasswordStateEnvironment
+# Get-NativePath
 
 ## SYNOPSIS
-Retrieves the saved Passwordstate environment and decrypts it.
+{{Fill in the Synopsis}}
 
 ## SYNTAX
 
 ```
-Get-PasswordStateEnvironment [<CommonParameters>]
+Get-NativePath [[-PathAsStringArray] <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrieves the saved Passwordstate environment and decrypts it.
+{{Fill in the Description}}
 
 ## EXAMPLES
 
-### EXAMPLE 1
-```
-Get-PasswordStateEnvironment
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
 ```
 
+{{ Add example description here }}
+
 ## PARAMETERS
+
+### -PathAsStringArray
+{{Fill PathAsStringArray Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
@@ -34,10 +51,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
-### Retrieves the base uri and APIKey.
+### System.Object
 ## NOTES
-Daryl Newsholme 2018
 
 ## RELATED LINKS
