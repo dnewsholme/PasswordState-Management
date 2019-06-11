@@ -115,7 +115,6 @@ Function Find-PasswordStatePassword {
         . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
         Add-Type -AssemblyName System.Web
         # Initalize output Array
-        $output = @()
     }
 
     Process {
@@ -179,16 +178,16 @@ Function Find-PasswordStatePassword {
                         $i.DecryptPassword()
                     }
                     Default {
-                        
+
                     }
                 }
                 Write-Output $i
             }
-            
+
         }
         Catch {
             Throw $_.Exception
         }
-        
+
     }
 }
