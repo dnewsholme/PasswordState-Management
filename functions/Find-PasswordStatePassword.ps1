@@ -164,7 +164,7 @@ Function Find-PasswordStatePassword {
 
                 $BuildURL = $BuildURL -Replace ".$"
 
-                $uri += "/api/searchpasswords/$($PasswordListID)$($BuildURL)&ExcludePassword=true"
+                $uri += "/api/searchpasswords/$($PasswordListID)$($BuildURL)"
             }
         }
 
