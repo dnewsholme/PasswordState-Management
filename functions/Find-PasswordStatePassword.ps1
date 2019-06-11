@@ -115,7 +115,6 @@ Function Find-PasswordStatePassword {
         . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
         Add-Type -AssemblyName System.Web
         # Initalize output Array
-        $output = @()
     }
 
     Process {
@@ -126,19 +125,18 @@ Function Find-PasswordStatePassword {
         }
 
         # If PasswordListID wasn't set, make the variable an empty string
-        If (!($PSBoundParameters.ContainsKey('PasswordListID')))
-        {
-          [string]$PasswordListID = ''
+        If (!($PSBoundParameters.ContainsKey('PasswordListID'))) {
+            [string]$PasswordListID = ''
         }
 
         Switch ($PSCmdlet.ParameterSetName) {
             # General search
             'General' {
-                $uri += "/api/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))&ExcludePassword=true"
+                $uri += "/api/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))"
             }
             # Search on a specific password ID
             'PasswordID' {
-                $uri += "/api/passwords/$($PasswordID)?ExcludePassword=true"
+                $uri += "/api/passwords/$($PasswordID)"
             }
             # Search with a variety of filters
             'Specific' {
@@ -166,35 +164,30 @@ Function Find-PasswordStatePassword {
 
                 $BuildURL = $BuildURL -Replace ".$"
 
-                $uri += "/api/searchpasswords/$($PasswordListID)$($BuildURL)&ExcludePassword=true"
+                $uri += "/api/searchpasswords/$($PasswordListID)$($BuildURL)"
             }
         }
 
         Try {
-            $tempobj = Get-PasswordStateResource -URI $uri -ErrorAction stop
+            $obj = Get-PasswordStateResource -URI $uri @parms  -Method GET
+            foreach ($i in $obj) {
+                [PasswordResult]$i = $i
+                $i.Password = [EncryptedPassword]$i.Password
+                switch ($global:PasswordStateShowPasswordsPlainText) {
+                    True {
+                        $i.DecryptPassword()
+                    }
+                    Default {
+
+                    }
+                }
+                Write-Output $i
+            }
+
         }
         Catch {
             Throw $_.Exception
         }
 
-        Foreach ($item in $tempobj) {
-            [PasswordResult]$obj = Get-PasswordStateResource -URI "/api/passwords/$($item.PasswordID)" @parms  -Method GET
-            $obj.Password = [EncryptedPassword]$obj.Password
-            $output += $obj
-        }
-    }
-
-    End {
-        If ($output.count -gt 0) {
-            switch ($global:PasswordStateShowPasswordsPlainText) {
-                True {
-                    $output.DecryptPassword()
-                }
-            }
-            Return $output
-        }
-        Else {
-            Throw "No Password found"
-        }
     }
 }

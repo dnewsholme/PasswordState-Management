@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.0
+
++ Performance improvements to Find-PasswordStatePassword.
+
 ## 2.1.0
 
 + Added extra parameters for Get-PasswordStateFolder. Thanks [Colombeen](https://github.com/colombeen)
