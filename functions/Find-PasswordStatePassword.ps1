@@ -171,7 +171,7 @@ Function Find-PasswordStatePassword {
 
         Try {
             $obj = Get-PasswordStateResource -URI $uri @parms  -Method GET
-            $output = foreach ($i in $obj) {              
+            $output = foreach ($i in $obj) {
                 switch ($global:PasswordStateShowPasswordsPlainText) {
                     True {
                         $i.DecryptPassword()
@@ -180,14 +180,14 @@ Function Find-PasswordStatePassword {
                         $i.Password = [EncryptedPassword]$i.Password
                     }
                 }
-                [PasswordResult]$i   
+                [PasswordResult]$i
             }
         }
         Catch {
             Throw $_.Exception
         }
     }
-    
+
     End {
         Return $output
     }
