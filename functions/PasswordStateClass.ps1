@@ -17,6 +17,8 @@ class PasswordResult {
     # Properties
     [int]$PasswordID
     [String]$Title
+    [int]$PasswordListID
+    [String]$Passwordlist
     [String]$Username
     $Password
     [String]GetPassword() {

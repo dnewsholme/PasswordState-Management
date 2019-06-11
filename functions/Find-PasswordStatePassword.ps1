@@ -126,19 +126,18 @@ Function Find-PasswordStatePassword {
         }
 
         # If PasswordListID wasn't set, make the variable an empty string
-        If (!($PSBoundParameters.ContainsKey('PasswordListID')))
-        {
-          [string]$PasswordListID = ''
+        If (!($PSBoundParameters.ContainsKey('PasswordListID'))) {
+            [string]$PasswordListID = ''
         }
 
         Switch ($PSCmdlet.ParameterSetName) {
             # General search
             'General' {
-                $uri += "/api/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))&ExcludePassword=true"
+                $uri += "/api/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))"
             }
             # Search on a specific password ID
             'PasswordID' {
-                $uri += "/api/passwords/$($PasswordID)?ExcludePassword=true"
+                $uri += "/api/passwords/$($PasswordID)"
             }
             # Search with a variety of filters
             'Specific' {
@@ -171,30 +170,25 @@ Function Find-PasswordStatePassword {
         }
 
         Try {
-            $tempobj = Get-PasswordStateResource -URI $uri -ErrorAction stop
+            $obj = Get-PasswordStateResource -URI $uri @parms  -Method GET
+            $output = foreach ($i in $obj) {              
+                switch ($global:PasswordStateShowPasswordsPlainText) {
+                    True {
+                        $i.DecryptPassword()
+                    }
+                    Default {
+                        $i.Password = [EncryptedPassword]$i.Password
+                    }
+                }
+                [PasswordResult]$i   
+            }
         }
         Catch {
             Throw $_.Exception
         }
-
-        Foreach ($item in $tempobj) {
-            [PasswordResult]$obj = Get-PasswordStateResource -URI "/api/passwords/$($item.PasswordID)" @parms  -Method GET
-            $obj.Password = [EncryptedPassword]$obj.Password
-            $output += $obj
-        }
     }
-
+    
     End {
-        If ($output.count -gt 0) {
-            switch ($global:PasswordStateShowPasswordsPlainText) {
-                True {
-                    $output.DecryptPassword()
-                }
-            }
-            Return $output
-        }
-        Else {
-            Throw "No Password found"
-        }
+        Return $output
     }
 }
