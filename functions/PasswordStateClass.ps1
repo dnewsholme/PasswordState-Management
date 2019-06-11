@@ -80,7 +80,6 @@ class PasswordHistory : PasswordResult {
     [String]$FirstName
     [String]$Surname
     [int32]$PasswordHistoryID
-    [String]$PasswordList
     [String]GetPassword() {
         $result = [string]::IsNullOrEmpty($this.Password.Password)
         If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
@@ -102,5 +101,14 @@ class PasswordHistory : PasswordResult {
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
             $this.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
         }
+    }
+    # Constructor used to initiate the default property set.
+    PasswordHistory() {
+    [string[]]$DefaultProperties = 'PasswordID','PasswordHistoryID','USERID','DateChanged','Title','Username','Password','Description','Domain'
+
+        #Create a propertyset name DefaultDisplayPropertySet, with properties we care about
+    $propertyset = New-Object System.Management.Automation.PSPropertySet DefaultDisplayPropertySet, $DefaultProperties
+    $PSStandardMembers = [System.Management.Automation.PSMemberInfo[]]$propertyset
+    Add-Member -InputObject $this -MemberType MemberSet -Name PSStandardMembers -Value $PSStandardMembers -Force
     }
 }
