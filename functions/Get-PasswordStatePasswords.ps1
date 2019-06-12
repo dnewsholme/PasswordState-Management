@@ -35,7 +35,7 @@ function Get-PasswordStatePasswords {
                 $uri += "&PreventAuditing=true"
             }
             Default {
-    
+
             }
         }
         $results = Get-PasswordStateResource -uri $uri
