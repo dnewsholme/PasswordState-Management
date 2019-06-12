@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Deletes a password state entry.
 .DESCRIPTION
@@ -43,10 +43,10 @@ function Remove-PasswordStatePassword {
 
         $BuildURL = '?'
         IF($SendToRecycleBin) {$BuildURL += "MoveToRecycleBin=$([System.Web.HttpUtility]::UrlEncode('True'))&"}
-        Else{$BuildURL += "MoveToRecycleBin=$([System.Web.HttpUtility]::UrlEncode('False'))&"}    
+        Else{$BuildURL += "MoveToRecycleBin=$([System.Web.HttpUtility]::UrlEncode('False'))&"}
         If ($PreventAuditing) {$BuildURL += "PreventAuditing=$([System.Web.HttpUtility]::UrlEncode('True'))&"}
         $BuildURL = $BuildURL -Replace ".$"
-        
+
         $uri = "/api/passwords/$($PasswordID)$($BuildURL)"
 
         if ($PSCmdlet.ShouldProcess("PasswordID:$($PasswordID) Recycle:$Sendtorecyclebin")) {
