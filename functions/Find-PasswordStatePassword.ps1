@@ -108,7 +108,8 @@ Function Find-PasswordStatePassword {
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 18)][string]$GenericField9,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 19)][string]$GenericField10,
         [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 20)][int32]$PasswordListID,
-        [parameter(ValueFromPipelineByPropertyName, Position = 21)][string]$Reason
+        [parameter(ValueFromPipelineByPropertyName, Position = 21)][string]$Reason,
+        [parameter(ValueFromPipelineByPropertyName, Position = 22)][switch]$PreventAuditing
     )
 
     Begin {
@@ -167,7 +168,14 @@ Function Find-PasswordStatePassword {
                 $uri += "/api/searchpasswords/$($PasswordListID)$($BuildURL)"
             }
         }
+        Switch ($PreventAuditing){
+            $True {
+              $uri +=  "&PreventAuditing=true"
+            }
+            Default{
 
+            }
+        }
         Try {
             $obj = Get-PasswordStateResource -URI $uri @parms  -Method GET
             foreach ($i in $obj) {
