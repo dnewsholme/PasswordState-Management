@@ -58,9 +58,4 @@ function Remove-PasswordStatePassword {
             }
         }
     }
-
-    end {
-        # Use select to make sure output is returned in a sensible order.
-        Return $result
-    }
 }
