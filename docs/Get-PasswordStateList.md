@@ -14,13 +14,13 @@ Gets all password lists from the API (Only those you have permissions to.)
 
 ### ID (Default)
 ```
-Get-PasswordStateList [[-PasswordListID] <Int32>] [<CommonParameters>]
+Get-PasswordStateList [[-PasswordListID] <Int32>] [-PreventAuditing] [<CommonParameters>]
 ```
 
 ### Specific
 ```
 Get-PasswordStateList [[-PasswordList] <String>] [[-Description] <String>] [[-TreePath] <String>]
- [[-SiteID] <Int32>] [[-SiteLocation] <String>] [<CommonParameters>]
+ [[-SiteID] <Int32>] [[-SiteLocation] <String>] [-PreventAuditing] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -135,8 +135,24 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -PreventAuditing
+{{Fill PreventAuditing Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 6
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

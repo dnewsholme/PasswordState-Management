@@ -63,7 +63,7 @@ function Update-PasswordStatePassword {
         Else {$parms = @{}}
         if ($passwordID) {
             try {
-                $result = Find-PasswordStatePassword -PasswordID $passwordID -ErrorAction Stop
+                $result = Get-PasswordStatePassword -PasswordID $passwordID -ErrorAction Stop
                 Write-Verbose "[$(Get-Date -format G)] updating $($result.title)"
             }
             Catch {

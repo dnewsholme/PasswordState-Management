@@ -15,7 +15,7 @@ If multiple matches it will return multiple entries.
 
 ```
 Get-PasswordStateFolder [[-FolderName] <String>] [[-Description] <String>] [[-TreePath] <String>]
- [[-SiteID] <Int32>] [[-SiteLocation] <String>] [<CommonParameters>]
+ [[-SiteID] <Int32>] [[-SiteLocation] <String>] [-PreventAuditing] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,10 +26,17 @@ If multiple matches it will return multiple entries.
 
 ### EXAMPLE 1
 ```
-Find-PasswordStateFolder -Name "test"
+Find-PasswordStateFolder -FolderName "test"
 ```
 
 Returns the test folder object.
+
+### EXAMPLE 2
+```
+Find-PasswordStateFolder -Description "testfolder"
+```
+
+Returns the folder objects that contain testfolder in the description.
 
 ## PARAMETERS
 
@@ -108,16 +115,32 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -PreventAuditing
+{{Fill PreventAuditing Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 6
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### Name - The title of the entry (string)
 ## OUTPUTS
 
 ### Returns the Object from the API as a powershell object.
 ## NOTES
-Daryl Newsholme 2018
+2018 - Daryl Newsholme
+2019 - Jarno Colombeen
 
 ## RELATED LINKS

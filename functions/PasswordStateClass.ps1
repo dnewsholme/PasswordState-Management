@@ -46,6 +46,7 @@ class PasswordResult {
     [String]$Description
     [String]$Domain
     # Hidden Properties
+    [String]$TreePath
     [String]$hostname
     [String]$GenericField1
     [String]$GenericField2

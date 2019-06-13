@@ -26,7 +26,7 @@ As of version 0.94 Passwords are no longer output in plaintext by default and ke
 eg.
 
 ```powershell
-    Find-PasswordStatePassword
+    Get-PasswordStatePassword
 ```
 
 This will return:
@@ -39,7 +39,7 @@ This will return:
     Domain      :
 
 ```powershell
-    (Find-PasswordStatePassword test).GetPassword()
+    (Get-PasswordStatePassword test).GetPassword()
 ```
 
 This will return the actual password as a string.
@@ -85,13 +85,13 @@ Once the environment has been set up it can be used by other functions.
 Find and existing password entry and retrieve the password.
 
 ```powershell
-    Find-PasswordStatePassword -Title "testpassword"
+    Get-PasswordStatePassword -Title "testpassword"
 ```
 
 Or optionally include the username as well.
 
 ```powershell
-    Find-PasswordStatePassword -Title "testpassword" -username "someuser"
+    Get-PasswordStatePassword -Title "testpassword" -username "someuser"
 ```
 
 #### Update a password
@@ -105,7 +105,7 @@ Update an existing entry with a new password
 Or pipe in the result from finding one.
 
 ```powershell
-    Find-PasswordStatePassword -Title "testpassword" | Update-PasswordStatePassword -password "CorrectHorseStapleBattery"
+    Get-PasswordStatePassword -Title "testpassword" | Update-PasswordStatePassword -password "CorrectHorseStapleBattery"
 ```
 
 #### Create a New Password Entry
@@ -143,7 +143,7 @@ Deletes an existing password entry.
 Or find the password and pipe it acrosss to remove.
 
 ```powershell
-   Find-PasswordStatePassword -title "testuser" | Remove-PasswordStatePassword -SendToRecycleBin
+   Get-PasswordStatePassword -title "testuser" | Remove-PasswordStatePassword -SendToRecycleBin
 ```
 
 ##### Additional Info
