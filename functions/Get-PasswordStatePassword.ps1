@@ -6,16 +6,20 @@
     Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
 
     .EXAMPLE
-    PS C:\> Find-PasswordStatePassword "testuser"
+    PS C:\> Get-PasswordStatePassword
+    Returns all passwords you have access to.
+
+    .EXAMPLE
+    PS C:\> Get-PasswordStatePassword "testuser"
     Returns the test user object including password.
     .EXAMPLE
-    PS C:\> Find-PasswordStatePassword -Title '"testuser"'
+    PS C:\> Get-PasswordStatePassword -Title '"testuser"'
     Returns the object including password, which is an exact match with the title (Requires double quotes for exact match).
     .EXAMPLE
-    PS C:\> Find-PasswordStatePassword -Username "testuser2" -Notes "Test"
+    PS C:\> Get-PasswordStatePassword -Username "testuser2" -Notes "Test"
     Returns the test user 2 object, where the notes contain "Test", including password.
     .EXAMPLE
-    PS C:\> Find-PasswordStatePassword -PasswordID "3456"
+    PS C:\> Get-PasswordStatePassword -PasswordID "3456"
     Returns the object with the PasswordID 3456 including password.
 
     .PARAMETER Search
@@ -78,14 +82,14 @@
     2018 - Daryl Newsholme
     2019 - Jarno Colombeen
 #>
-Function Find-PasswordStatePassword {
+Function Get-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'No Password is used only ID.')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'PasswordID isnt a password')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
     [CmdletBinding(DefaultParameterSetName = 'General')]
     Param
     (
-        [Parameter(ParameterSetName = 'General', ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][ValidateNotNullOrEmpty()][string]$Search,
+        [Parameter(ParameterSetName = 'General', ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory = $false)][string]$Search,
         [Parameter(ParameterSetName = 'PasswordID', ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][ValidateNotNullOrEmpty()][int32]$PasswordID,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 0)][string]$Title,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 1)][string]$UserName,
@@ -108,7 +112,8 @@ Function Find-PasswordStatePassword {
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 18)][string]$GenericField9,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 19)][string]$GenericField10,
         [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 20)][int32]$PasswordListID,
-        [parameter(ValueFromPipelineByPropertyName, Position = 21)][string]$Reason
+        [parameter(ValueFromPipelineByPropertyName, Position = 21)][string]$Reason,
+        [parameter(ValueFromPipelineByPropertyName, Position = 22)][switch]$PreventAuditing
     )
 
     Begin {
@@ -132,11 +137,17 @@ Function Find-PasswordStatePassword {
         Switch ($PSCmdlet.ParameterSetName) {
             # General search
             'General' {
-                $uri += "/api/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))"
+                if ([string]::IsNullOrEmpty($Search)) {
+                    # Return all Passwords
+                    $uri = "/api/passwords/$($PasswordlistID)?QueryAll"
+                }
+                Else {
+                    $uri = "/api/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))"
+                }
             }
             # Search on a specific password ID
             'PasswordID' {
-                $uri += "/api/passwords/$($PasswordID)"
+                $uri = "/api/passwords/$($PasswordID)"
             }
             # Search with a variety of filters
             'Specific' {
@@ -164,10 +175,17 @@ Function Find-PasswordStatePassword {
 
                 $BuildURL = $BuildURL -Replace ".$"
 
-                $uri += "/api/searchpasswords/$($PasswordListID)$($BuildURL)"
+                $uri = "/api/searchpasswords/$($PasswordListID)$($BuildURL)"
             }
         }
+        Switch ($PreventAuditing){
+            $True {
+              $uri +=  "&PreventAuditing=true"
+            }
+            Default{
 
+            }
+        }
         Try {
             $obj = Get-PasswordStateResource -URI $uri @parms  -Method GET
             foreach ($i in $obj) {

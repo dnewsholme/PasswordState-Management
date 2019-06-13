@@ -36,7 +36,7 @@ Describe "New-PasswordStatePassword" {
         Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
         Set-PasswordStateEnvironment -Apikey "$env:pwsapikey" -Baseuri  "$env:pwsuri"
         try {
-            Find-PasswordStatePassword bob -ErrorAction stop |Remove-PasswordStatePassword -ErrorAction stop
+            Get-PasswordStatePassword bob -ErrorAction stop |Remove-PasswordStatePassword -ErrorAction stop
         }
         Catch{
 
@@ -48,7 +48,7 @@ Describe "New-PasswordStatePassword" {
         Move-Item  "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force
         $global:PasswordStateShowPasswordsPlainText = $globalsetting
         try {
-            Find-PasswordStatePassword bob -ErrorAction stop | Remove-PasswordStatePassword -ErrorAction stop
+            Get-PasswordStatePassword bob -ErrorAction stop | Remove-PasswordStatePassword -ErrorAction stop
         }
         Catch{
 

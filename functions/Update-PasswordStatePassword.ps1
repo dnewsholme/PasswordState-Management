@@ -46,7 +46,9 @@ function Update-PasswordStatePassword {
         [parameter(Position = 5, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$hostname,
         [parameter(Position = 6, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$notes,
         [parameter(Position = 7, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$url,
-        [parameter(Position = 8, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$reason
+        [parameter(Position = 8, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$reason,
+        [parameter(ValueFromPipelineByPropertyName, Position = 9)][switch]$PreventAuditing
+
     )
 
     begin {
@@ -61,7 +63,7 @@ function Update-PasswordStatePassword {
         Else {$parms = @{}}
         if ($passwordID) {
             try {
-                $result = Find-PasswordStatePassword -PasswordID $passwordID -ErrorAction Stop
+                $result = Get-PasswordStatePassword -PasswordID $passwordID -ErrorAction Stop
                 Write-Verbose "[$(Get-Date -format G)] updating $($result.title)"
             }
             Catch {
@@ -100,7 +102,9 @@ function Update-PasswordStatePassword {
             # Update body variable to contain only the properties with data.
             $body = $body | Select-Object $selections
             # Write back to password state.
-            [PasswordResult]$output = Set-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)" @parms
+            $uri = "/api/passwords"
+            If ($PreventAuditing) {$uri += "PreventAuditing=$([System.Web.HttpUtility]::UrlEncode('True'))&"}
+            [PasswordResult]$output = Set-PasswordStateResource -uri $uri  -body "$($body|convertto-json)" @parms
             foreach ($i in $output){
                 $i.Password = [EncryptedPassword]$i.Password
             }
