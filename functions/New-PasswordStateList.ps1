@@ -9,7 +9,7 @@ Creates a passwordstate List.
 Name of the Passwordstate list
 
 .PARAMETER description
-Description fro the list
+Description for the list
 
 .PARAMETER CopySettingsFromPasswordListID
 Optionally copy the settings from another list.

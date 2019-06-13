@@ -24,7 +24,9 @@ function Get-PasswordStatePasswordHistory {
     [OutputType('System.Object[]')]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$PasswordID,
-        [parameter(ValueFromPipelineByPropertyName, Position = 1, Mandatory = $false)][string]$reason
+        [parameter(ValueFromPipelineByPropertyName, Position = 1, Mandatory = $false)][string]$reason,
+        [parameter(ValueFromPipelineByPropertyName, Position = 2)][switch]$PreventAuditing
+
     )
 
     begin {
@@ -40,7 +42,16 @@ function Get-PasswordStatePasswordHistory {
         Else {
             $parms = @{}
         }
-        $results = Get-PasswordStateResource -uri "/api/passwordhistory/$($PasswordID)" @parms
+        $uri = "/api/passwordhistory/$($PasswordID)"
+        Switch ($PreventAuditing) {
+            $True {
+                $uri += "&PreventAuditing=true"
+            }
+            Default {
+
+            }
+        }
+        $results = Get-PasswordStateResource -uri $uri @parms
         Foreach ($result in $results) {
             $result = [PasswordHistory]$result
             $result.Password = [EncryptedPassword]$result.Password

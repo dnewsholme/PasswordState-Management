@@ -19,16 +19,26 @@ function Get-PasswordStatePasswords {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Only returns multiple')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
     param (
-        [Parameter(ParameterSetName='GetAllPasswordsFromList', Mandatory = $false,ValueFromPipeline=$True,ValueFromPipelinebyPropertyName=$True, Position = 0)][int32[]]$PasswordlistID
+        [Parameter(ParameterSetName='GetAllPasswordsFromList', Mandatory = $false,ValueFromPipeline=$True,ValueFromPipelinebyPropertyName=$True, Position = 0)][int32[]]$PasswordlistID,
+        [parameter(ValueFromPipelineByPropertyName, Position = 1)][switch]$PreventAuditing
     )
 
     begin {
         . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
-        $output = @()
     }
 
     process {
-        $results = Get-PasswordStateResource -uri $("/api/passwords/" + $PasswordlistID + "?QueryAll")
+
+        $uri = $("/api/passwords/" + $PasswordlistID + "?QueryAll")
+        Switch ($PreventAuditing) {
+            $True {
+                $uri += "&PreventAuditing=true"
+            }
+            Default {
+
+            }
+        }
+        $results = Get-PasswordStateResource -uri $uri
         $output = Foreach ($result in $results){
             $result.Password = [EncryptedPassword]$result.Password
             [PasswordResult]$result

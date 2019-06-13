@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.0
+
++ Added support for preventing audit records being written.
+
 ## 2.2.0
 
 + Performance improvements to Find-PasswordStatePassword.
