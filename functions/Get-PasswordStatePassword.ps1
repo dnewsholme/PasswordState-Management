@@ -89,7 +89,7 @@ Function Get-PasswordStatePassword {
     [CmdletBinding(DefaultParameterSetName = 'General')]
     Param
     (
-        [Parameter(ParameterSetName = 'General', ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory = $false)][string]$Search='%',
+        [Parameter(ParameterSetName = 'General', ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory = $false)][string]$Search,
         [Parameter(ParameterSetName = 'PasswordID', ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][ValidateNotNullOrEmpty()][int32]$PasswordID,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 0)][string]$Title,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 1)][string]$UserName,
@@ -137,11 +137,17 @@ Function Get-PasswordStatePassword {
         Switch ($PSCmdlet.ParameterSetName) {
             # General search
             'General' {
-                $uri += "/api/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))"
+                if ([string]::IsNullOrEmpty($Search)) {
+                    # Return all Passwords
+                    $uri = "/api/passwords/$($PasswordlistID)?QueryAll"
+                }
+                Else {
+                    $uri = "/api/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))"
+                }
             }
             # Search on a specific password ID
             'PasswordID' {
-                $uri += "/api/passwords/$($PasswordID)"
+                $uri = "/api/passwords/$($PasswordID)"
             }
             # Search with a variety of filters
             'Specific' {
@@ -169,7 +175,7 @@ Function Get-PasswordStatePassword {
 
                 $BuildURL = $BuildURL -Replace ".$"
 
-                $uri += "/api/searchpasswords/$($PasswordListID)$($BuildURL)"
+                $uri = "/api/searchpasswords/$($PasswordListID)$($BuildURL)"
             }
         }
         Switch ($PreventAuditing){
