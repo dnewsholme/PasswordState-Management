@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Find-PasswordStatePassword
+# Get-PasswordStatePassword
 
 ## SYNOPSIS
 Finds a password state entry and returns the object.
@@ -15,24 +15,24 @@ If multiple matches it will return multiple entries.
 
 ### General (Default)
 ```
-Find-PasswordStatePassword [-Search] <String> [[-PasswordListID] <Int32>] [[-Reason] <String>]
- [<CommonParameters>]
+Get-PasswordStatePassword [[-Search] <String>] [[-PasswordListID] <Int32>] [[-Reason] <String>]
+ [-PreventAuditing] [<CommonParameters>]
 ```
 
 ### PasswordID
 ```
-Find-PasswordStatePassword [-PasswordID] <Int32> [[-Reason] <String>] [<CommonParameters>]
+Get-PasswordStatePassword [-PasswordID] <Int32> [[-Reason] <String>] [-PreventAuditing] [<CommonParameters>]
 ```
 
 ### Specific
 ```
-Find-PasswordStatePassword [[-Title] <String>] [[-UserName] <String>] [[-HostName] <String>]
+Get-PasswordStatePassword [[-Title] <String>] [[-UserName] <String>] [[-HostName] <String>]
  [[-Domain] <String>] [[-AccountType] <String>] [[-Description] <String>] [[-Notes] <String>] [[-URL] <String>]
  [[-SiteID] <String>] [[-SiteLocation] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>]
  [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
  [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
  [[-GenericField9] <String>] [[-GenericField10] <String>] [[-PasswordListID] <Int32>] [[-Reason] <String>]
- [<CommonParameters>]
+ [-PreventAuditing] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -43,28 +43,28 @@ If multiple matches it will return multiple entries.
 
 ### EXAMPLE 1
 ```
-Find-PasswordStatePassword "testuser"
+Get-PasswordStatePassword "testuser"
 ```
 
 Returns the test user object including password.
 
 ### EXAMPLE 2
 ```
-Find-PasswordStatePassword -Title '"testuser"'
+Get-PasswordStatePassword -Title '"testuser"'
 ```
 
 Returns the object including password, which is an exact match with the title (Requires double quotes for exact match).
 
 ### EXAMPLE 3
 ```
-Find-PasswordStatePassword -Username "testuser2" -Notes "Test"
+Get-PasswordStatePassword -Username "testuser2" -Notes "Test"
 ```
 
 Returns the test user 2 object, where the notes contain "Test", including password.
 
 ### EXAMPLE 4
 ```
-Find-PasswordStatePassword -PasswordID "3456"
+Get-PasswordStatePassword -PasswordID "3456"
 ```
 
 Returns the object with the PasswordID 3456 including password.
@@ -79,9 +79,9 @@ Type: String
 Parameter Sets: General
 Aliases:
 
-Required: True
+Required: False
 Position: 1
-Default value: None
+Default value: %
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
@@ -431,8 +431,24 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -PreventAuditing
+{{Fill PreventAuditing Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 23
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

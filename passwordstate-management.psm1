@@ -1,1 +1,2 @@
 get-childitem $psscriptroot/Functions/*.ps1 -recurse | Where-Object {$_.fullname -notlike "*.Tests*"} | ForEach-Object {. $_.Fullname }
+New-Alias -Name Find-PasswordStatePassword -Value Get-PasswordStatePassword -force

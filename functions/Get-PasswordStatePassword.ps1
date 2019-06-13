@@ -6,16 +6,20 @@
     Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
 
     .EXAMPLE
-    PS C:\> Find-PasswordStatePassword "testuser"
+    PS C:\> Get-PasswordStatePassword
+    Returns all passwords you have access to.
+
+    .EXAMPLE
+    PS C:\> Get-PasswordStatePassword "testuser"
     Returns the test user object including password.
     .EXAMPLE
-    PS C:\> Find-PasswordStatePassword -Title '"testuser"'
+    PS C:\> Get-PasswordStatePassword -Title '"testuser"'
     Returns the object including password, which is an exact match with the title (Requires double quotes for exact match).
     .EXAMPLE
-    PS C:\> Find-PasswordStatePassword -Username "testuser2" -Notes "Test"
+    PS C:\> Get-PasswordStatePassword -Username "testuser2" -Notes "Test"
     Returns the test user 2 object, where the notes contain "Test", including password.
     .EXAMPLE
-    PS C:\> Find-PasswordStatePassword -PasswordID "3456"
+    PS C:\> Get-PasswordStatePassword -PasswordID "3456"
     Returns the object with the PasswordID 3456 including password.
 
     .PARAMETER Search
@@ -78,14 +82,14 @@
     2018 - Daryl Newsholme
     2019 - Jarno Colombeen
 #>
-Function Find-PasswordStatePassword {
+Function Get-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'No Password is used only ID.')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'PasswordID isnt a password')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
     [CmdletBinding(DefaultParameterSetName = 'General')]
     Param
     (
-        [Parameter(ParameterSetName = 'General', ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][ValidateNotNullOrEmpty()][string]$Search,
+        [Parameter(ParameterSetName = 'General', ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory = $false)][string]$Search='%',
         [Parameter(ParameterSetName = 'PasswordID', ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][ValidateNotNullOrEmpty()][int32]$PasswordID,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 0)][string]$Title,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 1)][string]$UserName,
