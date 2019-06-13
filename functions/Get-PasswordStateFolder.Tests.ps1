@@ -16,9 +16,6 @@ Describe "Get-PasswordStateFolder" {
         {Get-PasswordStateFolder -FolderName "DoesntExist"} | Should -Throw
     }
 
-    BeforeAll {
-        New-PasswordStateFolder -Name Test -description Test
-    }
     BeforeEach {
         # Create Test Environment
         try {
@@ -30,6 +27,7 @@ Describe "Get-PasswordStateFolder" {
         }
         Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
         Set-PasswordStateEnvironment -Apikey "$env:pwsapikey" -Baseuri  "$env:pwsuri"
+        New-PasswordStateFolder -Name Test -description Test
     }
     
     AfterEach {
