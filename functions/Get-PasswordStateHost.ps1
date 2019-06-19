@@ -9,13 +9,13 @@
     PS C:\> Get-PasswordStateHost
     Returns all hosts you have access to.
     .EXAMPLE
-    PS C:\> Get-PasswordStatePassword 'testhost'
+    PS C:\> Get-PasswordStateHost 'testhost'
     Returns the test host object.
     .EXAMPLE
-    PS C:\> Get-PasswordStatePassword -OperatingSystem 'Windows Server 2012'
+    PS C:\> Get-PasswordStateHost -OperatingSystem 'Windows Server 2012'
     Returns the hosts that are using the Windows Server 2012 operating system.
     .EXAMPLE
-    PS C:\> Get-PasswordStatePassword -DatabaseServerType 'SQL Server,Oracle'
+    PS C:\> Get-PasswordStateHost -DatabaseServerType 'SQL Server,Oracle'
     Returns the hosts that are of the database server type SQL Servers and Oracle
 
     .PARAMETER HostName
