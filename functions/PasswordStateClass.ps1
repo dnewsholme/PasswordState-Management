@@ -35,12 +35,22 @@ class PasswordResult {
             return $this.Password
         }
     }
-    DecryptPassword(){
+    DecryptPassword(){  
+            $this.Password = $this.GetPassword()
+    }
+    [PSCredential]ToPSCredential(){
         $result = [string]::IsNullOrEmpty($this.Password.Password)
         If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
-            $SecureString = $this.Password.Password
-            $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
-            $this.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+            $output = [pscredential]::new($this.Username,$this.Password.Password)
+            return $output
+        }
+        if ($result -eq $true){
+            return $null
+        }
+        Else {
+            $this.Password = [EncryptedPassword]$this.Password
+            $output = [pscredential]::new($this.Username,$this.Password.Password)
+            return $output
         }
     }
     [String]$Description
@@ -81,28 +91,6 @@ class PasswordHistory : PasswordResult {
     [String]$FirstName
     [String]$Surname
     [int32]$PasswordHistoryID
-    [String]GetPassword() {
-        $result = [string]::IsNullOrEmpty($this.Password.Password)
-        If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
-            $SecureString = $this.Password.Password
-            $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
-            return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
-        }
-        if ($result -eq $true){
-            return $null
-        }
-        Else {
-            return $this.Password
-        }
-    }
-    DecryptPassword(){
-        $result = [string]::IsNullOrEmpty($this.Password.Password)
-        If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
-            $SecureString = $this.Password.Password
-            $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
-            $this.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
-        }
-    }
     # Constructor used to initiate the default property set.
     PasswordHistory() {
     [string[]]$DefaultProperties = 'PasswordID','PasswordHistoryID','USERID','DateChanged','Title','Username','Password','Description','Domain'

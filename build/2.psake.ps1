@@ -98,7 +98,8 @@ Task Build -Depends Clean {
         -IconUri "https://github.com/dnewsholme/PasswordState-Management/blob/master/images/passwordstate.png?raw=true" `
         -HelpInfoUri "https://github.com/dnewsholme/PasswordState-Management/blob/master/readme.md" `
         -ReleaseNotes "$((Get-Content $projectroot\Changelog.md -raw | select-string -pattern '(\+[\sA-z0-9\.]+[\sA-z0-9\.]+){1,}(?=\n)').Matches.Value)" `
-        -Tags $tags
+        -Tags $tags `
+        -LicenseUri "https://raw.githubusercontent.com/dnewsholme/PasswordState-Management/master/LICENSE"
 
     $PSD1 = Get-Content $PSD1Path -Raw
     $PSD1 = $PSD1 -replace 'RootModule', 'ModuleToProcess'
