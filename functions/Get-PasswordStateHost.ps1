@@ -72,7 +72,7 @@ Function Get-PasswordStateHost {
     
     Try
     {
-      Get-PasswordStateResource -URI $uri @parms  -Method GET
+      Get-PasswordStateResource -URI $uri -Method GET
     }
     Catch
     {
