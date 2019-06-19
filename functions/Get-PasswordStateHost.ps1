@@ -40,7 +40,8 @@
     .NOTES
     2019 - Jarno Colombeen
 #>
-Function Get-PasswordStateHost {
+Function Get-PasswordStateHost
+{
   [CmdletBinding()]
   Param
   (
