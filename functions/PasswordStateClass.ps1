@@ -35,7 +35,7 @@ class PasswordResult {
             return $this.Password
         }
     }
-    DecryptPassword(){  
+    DecryptPassword(){
             $this.Password = $this.GetPassword()
     }
     [PSCredential]ToPSCredential(){
