@@ -38,7 +38,7 @@ Function Remove-PasswordStateHost {
       $parms = @{ExtraParams = @{'Headers' = $headerreason}}
     }
 
-    $uri = "api/hosts/$HostName"
+    $uri = "/api/hosts/$HostName"
 
     If ($PreventAuditing.IsPresent)
     {
