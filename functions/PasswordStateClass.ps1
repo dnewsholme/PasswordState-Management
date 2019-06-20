@@ -4,14 +4,14 @@
 Class EncryptedPassword {
     EncryptedPassword ($Password) {
         $result = [string]::IsNullOrEmpty($Password)
-        if ($result -eq $false){
+        if ($result -eq $false) {
             $this.Password = ConvertTo-SecureString -String $Password -AsPlainText -Force
         }
         Else {
             $this.Password = $null
         }
     }
-   [SecureString]$Password
+    [SecureString]$Password
 }
 class PasswordResult {
     # Properties
@@ -28,28 +28,28 @@ class PasswordResult {
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
             return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
         }
-        if ($result -eq $true){
+        if ($result -eq $true) {
             return $null
         }
         Else {
             return $this.Password
         }
     }
-    DecryptPassword(){
-            $this.Password = $this.GetPassword()
+    DecryptPassword() {
+        $this.Password = $this.GetPassword()
     }
-    [PSCredential]ToPSCredential(){
+    [PSCredential]ToPSCredential() {
         $result = [string]::IsNullOrEmpty($this.Password.Password)
         If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
-            $output = [pscredential]::new($this.Username,$this.Password.Password)
+            $output = [pscredential]::new($this.Username, $this.Password.Password)
             return $output
         }
-        if ($result -eq $true){
+        if ($result -eq $true) {
             return $null
         }
         Else {
             $this.Password = [EncryptedPassword]$this.Password
-            $output = [pscredential]::new($this.Username,$this.Password.Password)
+            $output = [pscredential]::new($this.Username, $this.Password.Password)
             return $output
         }
     }
@@ -76,12 +76,12 @@ class PasswordResult {
     [string]$accounttype
     # Constructor used to initiate the default property set.
     PasswordResult() {
-        [string[]]$DefaultProperties = 'PasswordID', 'Title','Username','Password','Description','Domain'
+        [string[]]$DefaultProperties = 'PasswordID', 'Title', 'Username', 'Password', 'Description', 'Domain'
 
         #Create a propertyset name DefaultDisplayPropertySet, with properties we care about
-    $propertyset = New-Object System.Management.Automation.PSPropertySet DefaultDisplayPropertySet, $DefaultProperties
-    $PSStandardMembers = [System.Management.Automation.PSMemberInfo[]]$propertyset
-    Add-Member -InputObject $this -MemberType MemberSet -Name PSStandardMembers -Value $PSStandardMembers
+        $propertyset = New-Object System.Management.Automation.PSPropertySet DefaultDisplayPropertySet, $DefaultProperties
+        $PSStandardMembers = [System.Management.Automation.PSMemberInfo[]]$propertyset
+        Add-Member -InputObject $this -MemberType MemberSet -Name PSStandardMembers -Value $PSStandardMembers
     }
 
 }
@@ -93,11 +93,11 @@ class PasswordHistory : PasswordResult {
     [int32]$PasswordHistoryID
     # Constructor used to initiate the default property set.
     PasswordHistory() {
-    [string[]]$DefaultProperties = 'PasswordID','PasswordHistoryID','USERID','DateChanged','Title','Username','Password','Description','Domain'
+        [string[]]$DefaultProperties = 'PasswordID', 'PasswordHistoryID', 'USERID', 'DateChanged', 'Title', 'Username', 'Password', 'Description', 'Domain'
 
         #Create a propertyset name DefaultDisplayPropertySet, with properties we care about
-    $propertyset = New-Object System.Management.Automation.PSPropertySet DefaultDisplayPropertySet, $DefaultProperties
-    $PSStandardMembers = [System.Management.Automation.PSMemberInfo[]]$propertyset
-    Add-Member -InputObject $this -MemberType MemberSet -Name PSStandardMembers -Value $PSStandardMembers -Force
+        $propertyset = New-Object System.Management.Automation.PSPropertySet DefaultDisplayPropertySet, $DefaultProperties
+        $PSStandardMembers = [System.Management.Automation.PSMemberInfo[]]$propertyset
+        Add-Member -InputObject $this -MemberType MemberSet -Name PSStandardMembers -Value $PSStandardMembers -Force
     }
 }
