@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0
+
++ Added new functions for managing hosts within PasswordState Get-PasswordstateHost, New-PassswordStateHost and Remove-PasswordStateHost.Thanks [Colombeen](https://github.com/colombeen)
+
 ## 3.0.0
 
 + Breaking change. Merged Find-PasswordstatePassword and Get-PassswordStatePasswords into Get-PasswordStatePassword with the functionality of both. Find-PasswordstatePassword is Aliased to Get-PasswordstatePassword.
