@@ -56,7 +56,7 @@ Function Get-PasswordStateHost
 
   Process {
     $uri = "/api/hosts/"
-      
+
     If ($PSBoundParameters.Count -gt 0)
     {
       $BuildURL = '?'
@@ -70,7 +70,7 @@ Function Get-PasswordStateHost
 
       $uri += ($BuildURL -Replace ".$")
     }
-    
+
     Try
     {
       Get-PasswordStateResource -URI $uri -Method GET

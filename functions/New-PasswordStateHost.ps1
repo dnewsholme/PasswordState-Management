@@ -96,13 +96,13 @@ Function New-PasswordStateHost
         'VNC'        { $RemoteConnectionPortNumber = 5901 }
       }
     }
-    
+
     $uri = ''
     If ($PreventAuditing.IsPresent)
     {
       $uri = '?PreventAuditing=true'
     }
-    
+
     # Create the post object
     $Body = [PSCustomObject] @{
       'HostName'                   = $HostName
