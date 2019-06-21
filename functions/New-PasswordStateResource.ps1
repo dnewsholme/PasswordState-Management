@@ -34,6 +34,7 @@ function New-PasswordStateResource {
 
     begin {
         # Force TLS 1.2
+        $SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
         $passwordstateenvironment = $(Get-PasswordStateEnvironment)
         Switch ($passwordstateenvironment.AuthType) {
@@ -96,6 +97,7 @@ function New-PasswordStateResource {
     }
 
     end {
+	    [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }

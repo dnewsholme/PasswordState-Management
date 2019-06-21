@@ -30,6 +30,7 @@ function Remove-PasswordStateResource {
 
     begin {
         # Force TLS 1.2
+        $SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
         # Import the environment
         $passwordstateenvironment = $(Get-PasswordStateEnvironment)
@@ -94,6 +95,7 @@ function Remove-PasswordStateResource {
     }
 
     end {
+	    [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }
