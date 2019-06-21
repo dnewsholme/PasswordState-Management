@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.0
+
++ Removed the function ConvertTo-PScredential and replaced with a method on the Password returned. Use .ToPSCredential() to convert.
+
 ## 3.1.0
 
 + Added new functions for managing hosts within PasswordState Get-PasswordstateHost, New-PassswordStateHost and Remove-PasswordStateHost.Thanks [Colombeen](https://github.com/colombeen)
