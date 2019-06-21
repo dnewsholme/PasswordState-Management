@@ -71,8 +71,8 @@ function New-PasswordStatePassword {
         }
         # Check if hashtable has valid values
         IF($genericfields) {
-            $genericfields.keys | ForEach-Object -process {
-                if(!($($_) -match "GenericField\d" -and $($_ -replace "[^0-9]" , '') -le 10)){
+            $genericfields.keys | ForEach-Object  {
+                if(!($($_) -match "GenericField\d" -and [int]$($_ -replace "[^0-9]" , '') -le 10)){
                     throw "GenericField array is not between boundaries or has invalid key names GenericField[1-10]"
                 }
             }
