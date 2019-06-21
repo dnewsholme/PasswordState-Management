@@ -30,7 +30,8 @@ function Get-PasswordStateResource {
 
     begin {
         # Force TLS 1.2
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        $SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
         # Import the environment
         $passwordstateenvironment = Get-PasswordStateEnvironment
         # If the apikey is windowsauth then rebuild the uri string to match the windows auth apis, otherwise just build the api headers.
@@ -99,6 +100,7 @@ function Get-PasswordStateResource {
     }
 
     end {
+	    [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }
