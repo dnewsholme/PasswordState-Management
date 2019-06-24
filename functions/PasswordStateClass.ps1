@@ -39,9 +39,15 @@ class PasswordResult {
         $this.Password = $this.GetPassword()
     }
     [PSCredential]ToPSCredential() {
-        $result = [string]::IsNullOrEmpty($this.Password.Password)
+        $user = ''
+        If (-not ([String]::IsNullOrEmpty($this.Domain)))
+        {
+          $user += "$($this.Domain)\"
+        }
+        $user += "$($this.Username)"
+        $result = [String]::IsNullOrEmpty($this.Password.Password)
         If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
-            $output = [pscredential]::new($this.Username, $this.Password.Password)
+            $output = [PSCredential]::new($user, $this.Password.Password)
             return $output
         }
         if ($result -eq $true) {
@@ -49,7 +55,7 @@ class PasswordResult {
         }
         Else {
             $this.Password = [EncryptedPassword]$this.Password
-            $output = [pscredential]::new($this.Username, $this.Password.Password)
+            $output = [PSCredential]::new($user, $this.Password.Password)
             return $output
         }
     }
