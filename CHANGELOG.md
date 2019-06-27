@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.0
+
++ Added support for updating genericfields on existing passwords with Update-PasswordStatePassword.
+
 ## 4.0.0
 
 + Removed the function ConvertTo-PScredential and replaced with a method on the Password returned. Use .ToPSCredential() to convert.
