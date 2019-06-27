@@ -47,7 +47,17 @@ function Update-PasswordStatePassword {
         [parameter(Position = 6, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$notes,
         [parameter(Position = 7, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$url,
         [parameter(Position = 8, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$reason,
-        [parameter(ValueFromPipelineByPropertyName, Position = 9)][switch]$PreventAuditing
+        [Parameter(Position = 9, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$GenericField1,
+        [Parameter(Position = 10, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$GenericField2,
+        [Parameter(Position = 11, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$GenericField3,
+        [Parameter(Position = 12, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$GenericField4,
+        [Parameter(Position = 13, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$GenericField5,
+        [Parameter(Position = 14, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$GenericField6,
+        [Parameter(Position = 15, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$GenericField7,
+        [Parameter(Position = 16, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$GenericField8,
+        [Parameter(Position = 17, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$GenericField9,
+        [Parameter(Position = 18, ValueFromPipelineByPropertyName, Mandatory = $false)][string]$GenericField10,
+        [parameter(Position = 19, ValueFromPipelineByPropertyName, Mandatory = $false)][switch]$PreventAuditing
 
     )
 
