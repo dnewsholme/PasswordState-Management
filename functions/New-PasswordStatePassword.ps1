@@ -46,15 +46,24 @@ function New-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName)][int32]$passwordlistID,
-        [parameter(ValueFromPipelineByPropertyName)][string]$username = "",
-        [parameter(ValueFromPipelineByPropertyName)][string]$description,
-        [parameter(ValueFromPipelineByPropertyName,ParameterSetName="password")][string]$password,
-        [parameter(ValueFromPipelineByPropertyName,ParameterSetName="GeneratePassword")][switch]$GeneratePassword,
-        [parameter(ValueFromPipelineByPropertyName)][string]$title,
-        [parameter(ValueFromPipelineByPropertyName)][string]$notes,
-        [parameter(ValueFromPipelineByPropertyName)][string]$url,
-        [parameter(ValueFromPipelineByPropertyName)][hashtable]$genericfields
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, Position = 0)][int32]$passwordlistID,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, Position = 1)][string]$title,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 2)][string]$username = "",
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "password", Position = 3)][string]$password,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 4)][string]$description,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "GeneratePassword", Position = 5)][switch]$GeneratePassword,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 6)][string]$notes,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 7)][string]$url,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 8)][string]$GenericField1,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 10)][string]$GenericField2,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 11)][string]$GenericField3,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 12)][string]$GenericField4,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 13)][string]$GenericField5,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 14)][string]$GenericField6,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 15)][string]$GenericField7,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 16)][string]$GenericField8,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 17)][string]$GenericField9,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 18)][string]$GenericField10
     )
 
     begin {
@@ -69,14 +78,14 @@ function New-PasswordStatePassword {
         if ($result.Username -eq $username) {
             throw "Found Existing Password Entry with Title:$title and username:$username"
         }
-        # Check if hashtable has valid values
-        IF($genericfields) {
-            $genericfields.keys | ForEach-Object  {
-                if(!($($_) -match "GenericField\d" -and [int]$($_ -replace "[^0-9]" , '') -le 10)){
-                    throw "GenericField array is not between boundaries or has invalid key names GenericField[1-10]"
-                }
-            }
+
+        try {
+            $genericfields = Get-Variable genericfield*
         }
+        Catch {
+            Write-Verbose "[$(Get-Date -format G)] no generic fields specified"
+        }
+        
     }
 
     process {
@@ -91,20 +100,20 @@ function New-PasswordStatePassword {
                 "URL"            = $url
             }
 
-            if($genericfields){
-                $genericfields.keys | ForEach-Object{
-                    $body | add-member -notepropertyname $_ -notepropertyvalue $genericfields.Item($_)
+            if ($genericfields) {
+                $genericfields | ForEach-Object {
+                    $body | add-member -notepropertyname $_.Name -notepropertyvalue $_.Value
                 }
             }
-            if ($password){
+            if ($password) {
                 $body | add-member -notepropertyname "Password" -notepropertyvalue $password
             }
-            if ($GeneratePassword){
+            if ($GeneratePassword) {
                 $body | add-member -notepropertyname GeneratePassword -NotePropertyValue $true
             }
             if ($PSCmdlet.ShouldProcess("PasswordList:$passwordListID Title:$title Username:$username")) {
                 [PasswordResult]$output = New-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
-                foreach ($i in $output){
+                foreach ($i in $output) {
                     $i.Password = [EncryptedPassword]$i.Password
                 }
             }
