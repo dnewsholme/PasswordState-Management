@@ -85,7 +85,7 @@ function New-PasswordStatePassword {
         Catch {
             Write-Verbose "[$(Get-Date -format G)] no generic fields specified"
         }
-        
+
     }
 
     process {
