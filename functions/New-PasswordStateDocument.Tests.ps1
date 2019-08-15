@@ -6,8 +6,9 @@ Describe "New-PasswordDocument" {
     BeforeAll{
         "Test" | Out-File "TestDrive:\1.txt"
     }
+    $password = (Get-passwordstatePassword) | select -first 1
     It "Adds a document to a password" {
-        (New-PasswordStateDocument -ID 1 -resourcetype password -DocumentName "Test" -DocumentDescription "Test" -Path "TestDrive:\1.txt").DocumentID | Should -not -BeNullOrEmpty
+        (New-PasswordStateDocument -ID $password.PasswordID -resourcetype password -DocumentName "Test" -DocumentDescription "Test" -Path "TestDrive:\1.txt").DocumentID | Should -not -BeNullOrEmpty
     }
     
     BeforeEach {
@@ -19,13 +20,23 @@ Describe "New-PasswordDocument" {
         Catch {
             New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
         }
-        Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+        try{
+            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force -ErrorAction stop
+        }
+        Catch{
+            
+        }
         Set-PasswordStateEnvironment -Apikey "$env:pwsapikey" -Baseuri  "$env:pwsuri"
     }
     
     AfterEach {
         # Remove Test Environment
-        Move-Item  "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force
+        try{
+            Move-Item "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force -ErrorAction stop
+        }
+        Catch{
+            
+        }
         $global:PasswordStateShowPasswordsPlainText = $globalsetting 
         #
     }

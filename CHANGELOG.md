@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.0
+
++ Updating genericfields method on New-PasswordStatePassword to match that of other cmdlets.
+
 ## 4.1.0
 
 + Added support for updating genericfields on existing passwords with Update-PasswordStatePassword.
