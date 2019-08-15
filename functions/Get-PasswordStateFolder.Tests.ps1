@@ -25,14 +25,24 @@ Describe "Get-PasswordStateFolder" {
         Catch {
             New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
         }
-        Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+        try{
+            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+        }
+        Catch{
+            
+        }
         Set-PasswordStateEnvironment -Apikey "$env:pwsapikey" -Baseuri  "$env:pwsuri"
         New-PasswordStateFolder -Name Test -description Test
     }
     
     AfterEach {
         # Remove Test Environment
-        Move-Item  "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force
+        try{
+            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+        }
+        Catch{
+            
+        }
         $global:PasswordStateShowPasswordsPlainText = $globalsetting 
         #
     }
