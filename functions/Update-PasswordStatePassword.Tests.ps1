@@ -3,8 +3,9 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 Import-Module "$here\..\passwordstate-management.psm1"
 Describe "Update-PasswordStatePassword" {
+    $password = (Get-passwordstatePassword) | select -first 1
     it "Updates an existing password" {
-        (Update-PasswordStatePassword -passwordID 1 -Password "Password.1").GetPassword() | Should -BeExactly "Password.1"
+        (Update-PasswordStatePassword -passwordID $Password.PasswordID -Password "Password.1").GetPassword() | Should -BeExactly "Password.1"
     }
     BeforeEach {
         # Create Test Environment
@@ -16,7 +17,7 @@ Describe "Update-PasswordStatePassword" {
             New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
         }
         try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force -ErrorAction stop
         }
         Catch{
             
@@ -27,7 +28,7 @@ Describe "Update-PasswordStatePassword" {
     AfterEach {
         # Remove Test Environment
         try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+            Move-Item "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force -ErrorAction stop
         }
         Catch{
             

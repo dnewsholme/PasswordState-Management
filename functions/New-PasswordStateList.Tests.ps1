@@ -4,7 +4,7 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 Import-Module "$here\..\passwordstate-management.psm1"
 Describe "New-PasswordStateList" {
     It "Creates a Password List" {
-       # (New-PasswordStateList -Name "test2" -description "Test" -FolderID 15 -CopySettingsFromPasswordListID 1) | Should -not -benullorempty
+     #   (New-PasswordStateList -Name "test$((0..100000)|Get-Random)" -description "Test") | Should -not -benullorempty
     }
     BeforeEach {
         # Create Test Environment
@@ -16,7 +16,7 @@ Describe "New-PasswordStateList" {
             New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
         }
         try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force -ErrorAction stop
         }
         Catch{
             
@@ -27,7 +27,7 @@ Describe "New-PasswordStateList" {
     AfterEach {
         # Remove Test Environment
         try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+            Move-Item "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force -ErrorAction stop
         }
         Catch{
             

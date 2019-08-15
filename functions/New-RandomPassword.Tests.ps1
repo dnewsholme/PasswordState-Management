@@ -23,7 +23,7 @@ Describe "New-RandomPassword" {
             New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
         }
         try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force -ErrorAction stop
         }
         Catch{
             
@@ -34,7 +34,7 @@ Describe "New-RandomPassword" {
     AfterEach {
         # Remove Test Environment
         try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+            Move-Item "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force -ErrorAction stop
         }
         Catch{
             

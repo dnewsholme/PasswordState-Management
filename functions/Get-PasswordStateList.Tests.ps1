@@ -3,14 +3,15 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 Import-Module "$here\..\passwordstate-management.psm1"
 Describe "Get-PasswordStateList" {
+    $list = ((Get-PasswordStateList)) | select -First 1
     It "Returns All Password State Password Lists" {
         (Get-PasswordStateList).PasswordListID | Should -not -BeNullOrEmpty
     }
     It "Search Password State Password Lists by ID" {
-        (Get-PasswordStateList -PasswordListID 1).PasswordListID | Should -BeExactly 1
+        (Get-PasswordStateList -PasswordListID $list.PasswordListID).PasswordListID | should -BeExactly $list.PasswordListID
     }
     It "Search Password State Password Lists by Name" {
-        (Get-PasswordStateList -PasswordList "test2").PasswordList | Should -BeExactly "test2"
+        (Get-PasswordStateList -PasswordList $list.PasswordList).PasswordList | Should -BeExactly $list.PasswordList
     }
     BeforeEach {
         # Create Test Environment
@@ -22,7 +23,7 @@ Describe "Get-PasswordStateList" {
             New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
         }
         try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force -ErrorAction stop
         }
         Catch{
 
@@ -33,7 +34,7 @@ Describe "Get-PasswordStateList" {
     AfterEach {
         # Remove Test Environment
         try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+            Move-Item "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force -ErrorAction stop -ErrorAction stop
         }
         Catch{
             

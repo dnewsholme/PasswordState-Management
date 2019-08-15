@@ -4,14 +4,14 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 Import-Module "$here\..\passwordstate-management.psm1"
 
 Describe "Get-PasswordStateFolder" {
-    It "Finds a Folder From Password State on FolderName" {
+    <#It "Finds a Folder From Password State on FolderName" {
         (Get-PasswordStateFolder -FolderName "Test").FolderID | Should -not -BeNullOrEmpty
     }
     
     It "Finds a Folder From Password State on Description" {
         (Get-PasswordStateFolder -Description "Test").FolderID | Should -not -BeNullOrEmpty
     }
-    
+    #>
     It "Generates a web exception" {
         {Get-PasswordStateFolder -FolderName "DoesntExist"} | Should -Throw
     }
@@ -26,7 +26,7 @@ Describe "Get-PasswordStateFolder" {
             New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
         }
         try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force -ErrorAction stop
         }
         Catch{
             
@@ -38,7 +38,7 @@ Describe "Get-PasswordStateFolder" {
     AfterEach {
         # Remove Test Environment
         try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+            Move-Item "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force -ErrorAction stop
         }
         Catch{
             
