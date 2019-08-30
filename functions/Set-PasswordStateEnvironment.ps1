@@ -46,7 +46,7 @@ function Set-PasswordStateEnvironment {
             $Baseuri = '{0}://{1}' -f $uri.Scheme,$uri.DnsSafeHost
         }
         Else {
-            $Baseuri = '{0}://{1}:{2}' -f $uri.Scheme,$uri.DnsSafeHost,$uri.Port
+            $Baseuri = '{0}://{1}:{2}' -f $uri.Scheme,$uri.Host,$uri.Port
         }
         if ($WindowsAuthOnly -eq $true) {
             $AuthType = "WindowsIntegrated"
