@@ -40,9 +40,13 @@ function Set-PasswordStateEnvironment {
     )
 
     begin {
-        # Trim any trailing slashes.
-        if ($Baseuri[-1] -eq "/") {
-            $baseuri = $Baseuri.Trim("/")
+        # ensure the uri is always in the correct format.
+        $uri = ([uri]$Baseuri)
+        if ($uri.IsDefaultPort -eq $true){
+            $Baseuri = '{0}://{1}' -f $uri.Scheme,$uri.DnsSafeHost
+        }
+        Else {
+            $Baseuri = '{0}://{1}:{2}' -f $uri.Scheme,$uri.Host,$uri.Port
         }
         if ($WindowsAuthOnly -eq $true) {
             $AuthType = "WindowsIntegrated"
