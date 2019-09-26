@@ -28,11 +28,12 @@ class PasswordResult {
             $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
             return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
         }
-        if ($result -eq $true) {
-            return $null
+        Elseif ($this.Password.GetType().Name -eq 'String') {
+            return $this.Password
         }
         Else {
-            return $this.Password
+            # input was null so return null
+            return $null
         }
     }
     DecryptPassword() {
