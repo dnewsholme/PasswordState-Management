@@ -1,10 +1,14 @@
 # Changelog
 
-## 4.2.0
+## 4.0.6
+
++ Bug fix for where using .GetPassword() method on an already decrypted password returned $null.
+
+## 4.02
 
 + Updating genericfields method on New-PasswordStatePassword to match that of other cmdlets.
 
-## 4.1.0
+## 4.0.1
 
 + Added support for updating genericfields on existing passwords with Update-PasswordStatePassword.
 
