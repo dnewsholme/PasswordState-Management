@@ -37,7 +37,7 @@ function Set-PasswordStateEnvironment {
         [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'One')][string]$PasswordGeneratorAPIkey,
         [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'Two')][switch]$WindowsAuthOnly,
         [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'Three')][pscredential]$customcredentials,
-        [Parameter(ValueFromPipelineByPropertyName,Mandatory = $false)][path]$path = [Environment]::GetFolderPath('UserProfile')
+        [Parameter(ValueFromPipelineByPropertyName,Mandatory = $false)][string]$path = [Environment]::GetFolderPath('UserProfile')
 
     )
 
