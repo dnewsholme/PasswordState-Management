@@ -13,7 +13,7 @@
 function Get-PasswordStateEnvironment {
     [CmdletBinding()]
     param (
-
+        [Parameter(ValueFromPipelineByPropertyName,Mandatory = $false)][string]$path = [Environment]::GetFolderPath('UserProfile')
     )
 
     begin {
@@ -21,9 +21,12 @@ function Get-PasswordStateEnvironment {
         if ($invokeIsLinux -eq $true){
             $env:DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=0
         }
+        if ($env:PASSWORDSTATEPROFILE){
+            $path = $env:PASSWORDSTATEPROFILE
+        }
         try {
             # Get Profile path
-            $profilepath = [Environment]::GetFolderPath('UserProfile')
+            $profilepath = $path
             # Read in the password state environment json config file.
             $content = Get-Content "$($profilepath)\passwordstate.json" -ErrorAction Stop
         }
