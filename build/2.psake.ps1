@@ -94,6 +94,7 @@ Task Build -Depends Clean {
         -ModuleVersion "$global:buildversion" `
         -Description "Powershell Module for managing Password State" `
         -FunctionsToExport $exportedfunctions `
+        -AliasesToExport "*" `
         -ProjectUri "https://github.com/dnewsholme/PasswordState-Management" `
         -IconUri "https://github.com/dnewsholme/PasswordState-Management/blob/master/images/passwordstate.png?raw=true" `
         -HelpInfoUri "https://github.com/dnewsholme/PasswordState-Management/blob/master/readme.md" `

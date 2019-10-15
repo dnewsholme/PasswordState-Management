@@ -3,26 +3,27 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 Describe "Get-PasswordStatePassword" {
+    $password = (Get-passwordstatePassword) | select -first 1
     It "Finds a Password by generic search" {
-        (Get-PasswordStatePassword "test").Title | Should -BeExactly "test"
+        (Get-PasswordStatePassword $Password.Title).Title | Should -BeExactly $Password.Title
     }
     It "Finds a Password by ID" {
-        (Get-PasswordStatePassword -PasswordID "1").PasswordID | Should -BeExactly 1
+        (Get-PasswordStatePassword -PasswordID $Password.PasswordID).PasswordID | Should -not -BeNullOrEmpty
     }
     It "Finds a Password with a reason" {
-        (Get-PasswordStatePassword -PasswordID "1" -Reason "Unit Test").PasswordID | Should -BeExactly 1
+        (Get-PasswordStatePassword -PasswordID $Password.PasswordID -Reason "Unit Test").PasswordID | Should -not -BeNullOrEmpty
     }
     It "Finds a Password by Username Search" {
-        (Get-PasswordStatePassword -UserName "test").Username | Should -BeExactly "test"
+        (Get-PasswordStatePassword -UserName $Password.Username).Username | Should -not -BeNullOrEmpty
     }
     It "Checks Password is returned as type [System.Security.SecureString]" {
-        (Get-PasswordStatePassword -PasswordID "1").Password.Password | Should -BeOfType [System.Security.SecureString]
+        (Get-PasswordStatePassword -PasswordID $Password.PasswordID).Password.Password | Should -BeOfType [System.Security.SecureString]
     }
     It "Checks Password is decrypted by method .GetPassword()" {
-        (Get-PasswordStatePassword -PasswordID "1").GetPassword() | Should -BeOfType [String]
+        (Get-PasswordStatePassword -PasswordID $Password.PasswordID).GetPassword() | Should -BeOfType [String]
     }
     It "Checks Password is decrypted by method .DecryptPassword()" {
-        $result = (Get-PasswordStatePassword -PasswordID "1")
+        $result = (Get-PasswordStatePassword -PasswordID $Password.PasswordID)
         $result.DecryptPassword()
         $result.Password | Should -BeOfType [String]
     }
@@ -40,13 +41,23 @@ Describe "Get-PasswordStatePassword" {
         Catch {
             New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
         }
-        Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+        try{
+            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force -ErrorAction stop
+        }
+        Catch{
+            
+        }
         Set-PasswordStateEnvironment -Apikey "$env:pwsapikey" -Baseuri  "$env:pwsuri"
     }
     
     AfterEach {
         # Remove Test Environment
-        Move-Item  "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force
+        try{
+            Move-Item "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force -ErrorAction stop
+        }
+        Catch{
+            
+        }
         $global:PasswordStateShowPasswordsPlainText = $globalsetting 
         #
     }

@@ -7,8 +7,8 @@ install:
   - cinst pester
   - cinst PSScriptAnalyzer
 environment:
-  pwsapikey: 83e24d7c9a35bf6954a6e38f3bd7c2f5
-  pwsgenapikey: e2f8b673d43ac95c539b8d6e7af32437
+  pwsapikey: b38d7a253c46ef9ad2b8f76439e5c3fe
+  pwsgenapikey: b39e2f43a5c8d768cba5629fd3e734ea
   pwsuri: https://devpws01.northeurope.cloudapp.azure.com
 
 build: "off"

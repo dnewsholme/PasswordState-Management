@@ -32,17 +32,23 @@ function Set-PasswordStateEnvironment {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlaintextForPassword', '', Justification = 'no password')]
     [CmdletBinding(DefaultParameterSetName = "Two", SupportsShouldProcess = $true)]
     param (
-        [Parameter(Mandatory = $true)][string]$Baseuri,
-        [Parameter(ParameterSetName = 'One')][string]$Apikey,
-        [Parameter(ParameterSetName = 'One')][string]$PasswordGeneratorAPIkey,
-        [Parameter(ParameterSetName = 'Two')][switch]$WindowsAuthOnly,
-        [Parameter(ParameterSetName = 'Three')][pscredential]$customcredentials
+        [Parameter(ValueFromPipelineByPropertyName,Mandatory = $true)][string]$Baseuri,
+        [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'One')][string]$Apikey,
+        [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'One')][string]$PasswordGeneratorAPIkey,
+        [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'Two')][switch]$WindowsAuthOnly,
+        [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'Three')][pscredential]$customcredentials,
+        [Parameter(ValueFromPipelineByPropertyName,Mandatory = $false)][string]$path = [Environment]::GetFolderPath('UserProfile')
+
     )
 
     begin {
-        # Trim any trailing slashes.
-        if ($Baseuri[-1] -eq "/") {
-            $baseuri = $Baseuri.Trim("/")
+        # ensure the uri is always in the correct format.
+        $uri = ([uri]$Baseuri)
+        if ($uri.IsDefaultPort -eq $true){
+            $Baseuri = '{0}://{1}' -f $uri.Scheme,$uri.DnsSafeHost
+        }
+        Else {
+            $Baseuri = '{0}://{1}:{2}' -f $uri.Scheme,$uri.Host,$uri.Port
         }
         if ($WindowsAuthOnly -eq $true) {
             $AuthType = "WindowsIntegrated"
@@ -53,8 +59,10 @@ function Set-PasswordStateEnvironment {
         Else {
             $AuthType = "APIKey"
         }
-
-        $profilepath = [Environment]::GetFolderPath('UserProfile')
+        if ($env:PASSWORDSTATEPROFILE){
+            $path = $env:PASSWORDSTATEPROFILE
+        }
+        $profilepath = $path
     }
 
     process {

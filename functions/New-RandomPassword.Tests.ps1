@@ -22,13 +22,23 @@ Describe "New-RandomPassword" {
         Catch {
             New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
         }
-        Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force
+        try{
+            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force -ErrorAction stop
+        }
+        Catch{
+            
+        }
         Set-PasswordStateEnvironment -Apikey "$env:pwsapikey" -Baseuri  "$env:pwsuri" -PasswordGeneratorAPIkey "$env:pwsgenapikey"
     }
     
     AfterEach {
         # Remove Test Environment
-        Move-Item  "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force
+        try{
+            Move-Item "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force -ErrorAction stop
+        }
+        Catch{
+            
+        }
         $global:PasswordStateShowPasswordsPlainText = $globalsetting
     }
 }
