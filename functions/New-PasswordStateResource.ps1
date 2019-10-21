@@ -39,10 +39,10 @@ function New-PasswordStateResource {
         $passwordstateenvironment = $(Get-PasswordStateEnvironment)
         Switch ($passwordstateenvironment.AuthType) {
             WindowsIntegrated {
-                $uri = $uri.Replace("/api/", "/winapi/")
+                $uri = $uri -Replace "^/api/", "/winapi/"
             }
             WindowsCustom {
-                $uri = $uri.Replace("/api/", "/winapi/")
+                $uri = $uri -Replace "^/api/", "/winapi/"
             }
             APIKey {
                 $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
