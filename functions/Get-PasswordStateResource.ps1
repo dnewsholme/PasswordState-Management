@@ -37,10 +37,10 @@ function Get-PasswordStateResource {
         # If the apikey is windowsauth then rebuild the uri string to match the windows auth apis, otherwise just build the api headers.
         Switch ($passwordstateenvironment.AuthType) {
             WindowsIntegrated {
-                $uri = $uri.Replace("api", "winapi")
+                $uri = $uri -Replace "^/api/", "/winapi/"
             }
             WindowsCustom {
-                $uri = $uri.Replace("api", "winapi")
+                $uri = $uri -Replace "^/api/", "/winapi/"
             }
             APIKey {
                 switch -Wildcard ($uri){
