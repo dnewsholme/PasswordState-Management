@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.0
+
++ Fix searching for a password with the word api in it being changed to winapi.
+
 ## 4.1.0
 
 + Allow Passwordstate profiles to be stored in non default locations. Allow for environment variables to configure location or use of -path parameter.
