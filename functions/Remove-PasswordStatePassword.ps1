@@ -47,7 +47,7 @@ function Remove-PasswordStatePassword {
         If ($PreventAuditing) {$BuildURL += "PreventAuditing=$([System.Web.HttpUtility]::UrlEncode('True'))&"}
         $BuildURL = $BuildURL -Replace ".$"
 
-        $uri = "/api/passwords/$($PasswordID)$($BuildURL)"
+        $uri = "/passwords/$($PasswordID)$($BuildURL)"
 
         if ($PSCmdlet.ShouldProcess("PasswordID:$($PasswordID) Recycle:$Sendtorecyclebin")) {
             try {

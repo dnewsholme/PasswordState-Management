@@ -40,7 +40,7 @@ function Save-PasswordStateDocument {
     process {
         try {
             $output += Get-PasswordStateResource `
-                -uri "/api/document/$($resourcetype)/$($ID)/$documentID" `
+                -uri "/document/$($resourcetype)/$($ID)/$documentID" `
                 -extraparams @{"OutFile" = "$Path"} `
                 -contenttype 'multipart/form-data' `
                 -ErrorAction stop

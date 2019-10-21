@@ -4,10 +4,10 @@
 .DESCRIPTION
        A function to simplify the Retrieval of password state resources via the rest API.
 .EXAMPLE
-    PS C:\> Get-PasswordStateResource -uri "/api/lists"
+    PS C:\> Get-PasswordStateResource -uri "/lists"
     Sets a password on the password api.
 .PARAMETER URI
-    The api resource to access such as /api/lists
+    The api resource to access such as /lists
 .PARAMETER Method
     Optional Parameter to override the method from GET.
 .OUTPUTS
@@ -35,16 +35,17 @@ function Get-PasswordStateResource {
         # Import the environment
         $passwordstateenvironment = Get-PasswordStateEnvironment
         # If the apikey is windowsauth then rebuild the uri string to match the windows auth apis, otherwise just build the api headers.
+        $api = "/api"
         Switch ($passwordstateenvironment.AuthType) {
             WindowsIntegrated {
-                $uri = $uri.Replace("api", "winapi")
+                $api = "/winapi"
             }
             WindowsCustom {
-                $uri = $uri.Replace("api", "winapi")
+                $api = "/winapi"
             }
             APIKey {
                 switch -Wildcard ($uri){
-                    /api/generatepassword* {
+                    /generatepassword* {
                         Write-Verbose "[$(Get-Date -format G)] Using generate password api key"
                         $headers = @{"APIKey" = "$($passwordstateenvironment.PasswordGeneratorAPIKey)"}
                     }
@@ -59,7 +60,7 @@ function Get-PasswordStateResource {
     process {
         $params = @{
             "UseBasicParsing" = $true
-            "URI"             = "$($passwordstateenvironment.baseuri)$uri"
+            "URI"             = "$($passwordstateenvironment.baseuri)$($api)$($uri)"
             "ContentType"     = $ContentType
             "Method"          = $method.ToUpper()
         }
@@ -100,7 +101,7 @@ function Get-PasswordStateResource {
     }
 
     end {
-	    [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
+      [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }

@@ -4,10 +4,10 @@
 .DESCRIPTION
        A function to simplify the modification/updates of password state resources via the rest API.
 .EXAMPLE
-    PS C:\> Set-PasswordStateResource -uri "/api/passwords" -body "{"Password":"somevalue","PasswordID":"7"}
+    PS C:\> Set-PasswordStateResource -uri "/passwords" -body "{"Password":"somevalue","PasswordID":"7"}
     Sets a password on the password api.
 .PARAMETER URI
-    The api resource to access such as /api/lists
+    The api resource to access such as /lists
 .PARAMETER Body
     The body to be submitted in the rest request it should be in JSON format.
 .PARAMETER Method
@@ -37,12 +37,13 @@ function Set-PasswordStateResource {
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
         $passwordstateenvironment = $(Get-PasswordStateEnvironment)
         # If the apikey is windowsauth then rebuild the uri string to match the windows auth apis, otherwise just build the api headers.
+        $api = "/api"
         Switch ($passwordstateenvironment.AuthType) {
             WindowsIntegrated {
-                $uri = $uri.Replace("api", "winapi")
+                $api = "/winapi"
             }
             WindowsCustom {
-                $uri = $uri.Replace("api", "winapi")
+                $api = "/winapi"
             }
             APIKey {
                 $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
@@ -53,7 +54,7 @@ function Set-PasswordStateResource {
     process {
         $params = @{
             "UseBasicParsing" = $true
-            "URI"             = "$($passwordstateenvironment.baseuri)$uri"
+            "URI"             = "$($passwordstateenvironment.baseuri)$($api)$($uri)"
             "Method"          = $method.ToUpper()
             "ContentType"     = $ContentType
             "Body"            = $body
@@ -97,7 +98,7 @@ function Set-PasswordStateResource {
     }
 
     end {
-	    [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
+      [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }

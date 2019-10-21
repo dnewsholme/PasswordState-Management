@@ -130,7 +130,7 @@ Function New-PasswordStateHost
     {
       Try
       {
-        New-PasswordStateResource -uri "/api/hosts/$($uri)" -body "$($Body | ConvertTo-Json)" -method POST
+        New-PasswordStateResource -uri "/hosts/$($uri)" -body "$($Body | ConvertTo-Json)" -method POST
       }
       Catch
       {

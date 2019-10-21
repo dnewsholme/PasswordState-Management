@@ -49,7 +49,7 @@ function New-PasswordStateFolder {
             "NestUnderFolderID"              = $FolderID
         }
         if ($PSCmdlet.ShouldProcess("$Name under folder $folderID")) {
-            $output = New-PasswordStateResource  -uri "/api/Folders" -body "$($body|convertto-json)"
+            $output = New-PasswordStateResource  -uri "/Folders" -body "$($body|convertto-json)"
         }
     }
 

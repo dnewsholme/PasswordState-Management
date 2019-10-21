@@ -10,7 +10,7 @@ Describe "New-PasswordStateFolder" {
                 "TreePath"    = "\Root\Test"
                 "Description" = ""
             }
-        } -ParameterFilter {$uri -eq "/api/Folders" -and $body -ne $null}
+        } -ParameterFilter {$uri -eq "/Folders" -and $body -ne $null}
 
         Mock -CommandName Get-PasswordStateEnvironment -MockWith {return [PSCustomObject]@{
                 "Baseuri" = "https://passwordstateserver.co.uk"

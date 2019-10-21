@@ -53,7 +53,7 @@ function New-PasswordStateDocument {
         try {
             if ($PSCmdlet.ShouldProcess($path, "upload $DocumentName on $resourcetype with id $ID")) {
                 $output += New-PasswordStateResource `
-                    -uri "/api/document/$($resourcetype)/$($ID)?DocumentName=$($documentname)&DocumentDescription=$($documentdescription)" `
+                    -uri "/document/$($resourcetype)/$($ID)?DocumentName=$($documentname)&DocumentDescription=$($documentdescription)" `
                     -extraparams @{"InFile" = "$Path"} `
                     -contenttype 'multipart/form-data' `
                     -ErrorAction stop

@@ -61,7 +61,7 @@ Function New-RandomPassword {
       'General' {
         If ($PSCmdlet.ShouldProcess("")) {
           If ($PSBoundParameters.Count -eq 0 -or ($PSBoundParameters.Count -eq 1 -and $PSBoundParameters.ContainsKey('Quantity'))) {
-            $uri = "/api/generatepassword/?Qty=$Quantity"
+            $uri = "/generatepassword/?Qty=$Quantity"
           }
           Else {
             If (!$excludedcharacters) {
@@ -88,13 +88,13 @@ Function New-RandomPassword {
             [string]$includespecialcharacters = ([string]$includespecialcharacters).ToLower()
             [string]$includenumbers = ([string]$includenumbers).ToLower()
 
-            $uri = "/api/generatepassword/?IncludeAlphaSpecial=true&IncludeWordPhrases=false&minLength=$length&maxLength=$length&lowerCaseChars=$includelowercase&upperCaseChars=$includeuppercase&numericChars=$includenumbers&higherAlphaRatio=true&ambiguousChars=true&specialChars=$includespecialcharacters&specialCharsText=!$%+-_=^&bracketChars=$includebrackets&bracketCharsText={}()&NumberOfWords=0&MaxWordLength=0&PrefixAppend=P&SeparateWords=N&ExcludeChars=$excludedcharacters&GeneratePattern=false&Pattern=null&Qty=$quantity"
+            $uri = "/generatepassword/?IncludeAlphaSpecial=true&IncludeWordPhrases=false&minLength=$length&maxLength=$length&lowerCaseChars=$includelowercase&upperCaseChars=$includeuppercase&numericChars=$includenumbers&higherAlphaRatio=true&ambiguousChars=true&specialChars=$includespecialcharacters&specialCharsText=!$%+-_=^&bracketChars=$includebrackets&bracketCharsText={}()&NumberOfWords=0&MaxWordLength=0&PrefixAppend=P&SeparateWords=N&ExcludeChars=$excludedcharacters&GeneratePattern=false&Pattern=null&Qty=$quantity"
           }
         }
       }
       # Generate a password using an existing Password Generator ID
       'PolicyID' {
-        $uri = "/api/generatepassword/?PasswordGeneratorID=$PolicyID&Qty=$Quantity"
+        $uri = "/generatepassword/?PasswordGeneratorID=$PolicyID&Qty=$Quantity"
       }
     }
     Write-Verbose "[$(Get-Date -format G)] [GET] $uri"

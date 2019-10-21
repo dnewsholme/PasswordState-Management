@@ -4,10 +4,10 @@
 .DESCRIPTION
     A function to simplify the deletion of password state resources via the rest API.
 .EXAMPLE
-    PS C:\> Remove-PasswordStateResource -uri "/api/lists?LISTID"
+    PS C:\> Remove-PasswordStateResource -uri "/lists?LISTID"
     Removes a password list on the password api.
 .PARAMETER URI
-    The api resource to access such as /api/lists
+    The api resource to access such as /lists
 .PARAMETER Method
     Optional Parameter to override the method from Delete.
 .PARAMETER ContentType
@@ -35,12 +35,13 @@ function Remove-PasswordStateResource {
         # Import the environment
         $passwordstateenvironment = $(Get-PasswordStateEnvironment)
         # If the apikey is windowsauth then rebuild the uri string to match the windows auth apis, otherwise just build the api headers.
+        $api = "/api"
         Switch ($passwordstateenvironment.AuthType) {
             WindowsIntegrated {
-                $uri = $uri.Replace("api", "winapi")
+                $api = "/winapi"
             }
             WindowsCustom {
-                $uri = $uri.Replace("api", "winapi")
+                $api = "/winapi"
             }
             APIKey {
                 $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
@@ -52,12 +53,9 @@ function Remove-PasswordStateResource {
     process {
         $params = @{
             "UseBasicParsing" = $true
-            "URI"             = "$($passwordstateenvironment.baseuri)$uri"
+            "URI"             = "$($passwordstateenvironment.baseuri)$($api)$($uri)"
             "Method"          = $method.ToUpper()
             "ContentType"     = $ContentType
-        }
-        if (!$body){
-            $params.Remove("Body")
         }
         if ($headers -and $null -ne $extraparams.Headers) {
             Write-Verbose "[$(Get-Date -format G)] Adding API Headers and extra param headers"
@@ -95,7 +93,7 @@ function Remove-PasswordStateResource {
     }
 
     end {
-	    [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
+      [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }

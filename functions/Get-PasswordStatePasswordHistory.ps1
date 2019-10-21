@@ -42,7 +42,7 @@ function Get-PasswordStatePasswordHistory {
         Else {
             $parms = @{}
         }
-        $uri = "/api/passwordhistory/$($PasswordID)"
+        $uri = "/passwordhistory/$($PasswordID)"
         Switch ($PreventAuditing) {
             $True {
                 $uri += "&PreventAuditing=true"

@@ -139,15 +139,15 @@ Function Get-PasswordStatePassword {
             'General' {
                 if ([string]::IsNullOrEmpty($Search)) {
                     # Return all Passwords
-                    $uri = "/api/passwords/$($PasswordlistID)?QueryAll"
+                    $uri = "/passwords/$($PasswordlistID)?QueryAll"
                 }
                 Else {
-                    $uri = "/api/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))"
+                    $uri = "/searchpasswords/$($PasswordListID)?Search=$([System.Web.HttpUtility]::UrlEncode($Search))"
                 }
             }
             # Search on a specific password ID
             'PasswordID' {
-                $uri = "/api/passwords/$($PasswordID)"
+                $uri = "/passwords/$($PasswordID)"
             }
             # Search with a variety of filters
             'Specific' {
@@ -175,7 +175,7 @@ Function Get-PasswordStatePassword {
 
                 $BuildURL = $BuildURL -Replace ".$"
 
-                $uri = "/api/searchpasswords/$($PasswordListID)$($BuildURL)"
+                $uri = "/searchpasswords/$($PasswordListID)$($BuildURL)"
             }
         }
         Switch ($PreventAuditing){

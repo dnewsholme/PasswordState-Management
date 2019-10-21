@@ -111,7 +111,7 @@ function New-PasswordStatePassword {
                 $body | add-member -notepropertyname GeneratePassword -NotePropertyValue $true
             }
             if ($PSCmdlet.ShouldProcess("PasswordList:$passwordListID Title:$title Username:$username")) {
-                [PasswordResult]$output = New-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
+                [PasswordResult]$output = New-PasswordStateResource -uri "/passwords" -body "$($body|convertto-json)"
                 foreach ($i in $output) {
                     $i.Password = [EncryptedPassword]$i.Password
                 }

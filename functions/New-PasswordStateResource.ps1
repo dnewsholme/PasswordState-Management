@@ -4,10 +4,10 @@
 .DESCRIPTION
     A function to simplify the Creation of password state resources via the rest API.
 .EXAMPLE
-    PS C:\> New-PasswordStateResource -uri "/api/passwords" -body $body
+    PS C:\> New-PasswordStateResource -uri "/passwords" -body $body
     Sets a password on the password api.
 .PARAMETER URI
-    The api resource to access such as /api/lists
+    The api resource to access such as /lists
 .PARAMETER Body
     The body to be submitted in the rest request it should be in JSON format.
 .PARAMETER Method
@@ -37,12 +37,13 @@ function New-PasswordStateResource {
         $SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
         $passwordstateenvironment = $(Get-PasswordStateEnvironment)
+        $api = "/api"
         Switch ($passwordstateenvironment.AuthType) {
             WindowsIntegrated {
-                $uri = $uri.Replace("api", "winapi")
+                $api = "/winapi"
             }
             WindowsCustom {
-                $uri = $uri.Replace("api", "winapi")
+                $api = "/winapi"
             }
             APIKey {
                 $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
@@ -53,7 +54,7 @@ function New-PasswordStateResource {
     process {
         $params = @{
             "UseBasicParsing" = $true
-            "URI"             = "$($passwordstateenvironment.baseuri)$uri"
+            "URI"             = "$($passwordstateenvironment.baseuri)$($api)$($uri)"
             "Method"          = $method.ToUpper()
             "ContentType"     = $ContentType
             "Body"            = $body
@@ -97,7 +98,7 @@ function New-PasswordStateResource {
     }
 
     end {
-	    [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
+      [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }

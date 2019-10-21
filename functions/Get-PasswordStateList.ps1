@@ -54,7 +54,7 @@ Function Get-PasswordStateList {
                 If (!($PSBoundParameters.ContainsKey('PasswordListID'))) {
                     [string]$PasswordListID = ''
                 }
-                $uri = "/api/passwordlists/$($PasswordListID)"
+                $uri = "/passwordlists/$($PasswordListID)"
             }
             'Specific' {
                 $BuildURL = '?'
@@ -66,7 +66,7 @@ Function Get-PasswordStateList {
 
                 $BuildURL = $BuildURL -Replace ".$"
 
-                $uri = "/api/searchpasswordlists/$($BuildURL)"
+                $uri = "/searchpasswordlists/$($BuildURL)"
             }
         }
         Switch ($PreventAuditing) {

@@ -112,7 +112,7 @@ function Update-PasswordStatePassword {
             # Update body variable to contain only the properties with data.
             $body = $body | Select-Object $selections
             # Write back to password state.
-            $uri = "/api/passwords"
+            $uri = "/passwords"
             If ($PreventAuditing) {$uri += "PreventAuditing=$([System.Web.HttpUtility]::UrlEncode('True'))&"}
             [PasswordResult]$output = Set-PasswordStateResource -uri $uri  -body "$($body|convertto-json)" @parms
             foreach ($i in $output){

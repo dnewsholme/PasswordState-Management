@@ -42,7 +42,7 @@ Function Get-PasswordStateFolder {
 
     Process {
         If ($PSBoundParameters.Count -eq 0) {
-            $uri = "/api/folders"
+            $uri = "/folders"
         }
         Else {
             $BuildURL = '?'
@@ -54,7 +54,7 @@ Function Get-PasswordStateFolder {
 
             $BuildURL = $BuildURL -Replace ".$"
 
-            $uri = "/api/folders/$($BuildURL)"
+            $uri = "/folders/$($BuildURL)"
         }
         Switch ($PreventAuditing) {
             $True {

@@ -55,7 +55,7 @@ Function Get-PasswordStateHost
   )
 
   Process {
-    $uri = "/api/hosts/"
+    $uri = "/hosts/"
 
     If ($PSBoundParameters.Count -gt 0)
     {
