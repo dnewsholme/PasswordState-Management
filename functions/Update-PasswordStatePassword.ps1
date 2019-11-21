@@ -89,11 +89,8 @@ function Update-PasswordStatePassword {
                 # Replace Result property with that of the bound parameter
                 $notprocess = "reason", "verbose", "erroraction", "debug", "whatif", "confirm"
                 if ($notprocess -notcontains $i) {
-                    if ($i -eq "Password" -and $PSBoundParameters.$($i).Gettype().Name -eq "EncryptedPassword"){
-                        $result.$($i) = $result.GetPassword()
-                    }
-                    Else {
-                        $result.$($i) = $PSBoundParameters.$($i)
+                    if ($i -eq "Password"){
+                        $result.DecryptPassword()
                     }
                 }
             }
