@@ -2,6 +2,16 @@
 
 ## 4.3.0
 
++ Resolve an issue where when passing a password resource via the pipeline to Update-PasswordStatePassword the password could be inadvently changed to EncryptedPassword, when the intention was only to change another field.
+
+eg:
+
+```powershell
+Get-PasswordStatePassword -PasswordID 1 | Update-PasswordStatePassword -url "https://google.com"
+```
+
+## 4.2.1
+
 + Fix searching for a password with the word api in it being changed to winapi.
 
 ## 4.1.0
