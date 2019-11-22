@@ -7,6 +7,9 @@ Describe "Update-PasswordStatePassword" {
     it "Updates an existing password" {
         (Update-PasswordStatePassword -passwordID $Password.PasswordID -Password "Password.1").GetPassword() | Should -BeExactly "Password.1"
     }
+    it "Updates an existing record without changing the password" {
+        ($password | Update-PasswordStatePassword -url "https://website.com").GetPassword() | Should -BeExactly "Password.1"
+    }
     BeforeEach {
         # Create Test Environment
         try {
