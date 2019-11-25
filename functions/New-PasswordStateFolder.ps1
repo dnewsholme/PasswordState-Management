@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Creates a passwordstate Folder.
 
@@ -37,7 +37,7 @@ function New-PasswordStateFolder {
     )
 
     begin {
-        
+
     }
 
     process {

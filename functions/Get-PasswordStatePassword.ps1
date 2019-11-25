@@ -117,8 +117,8 @@ Function Get-PasswordStatePassword {
     )
 
     Begin {
-        
-        Add-Type -AssemblyName System.Web
+
+
         # Initalize output Array
     }
 

@@ -6,3 +6,5 @@ $script = [ScriptBlock]::Create($scriptBody)
 . $script
 # Add Aliases
 New-Alias -Name Find-PasswordStatePassword -Value Get-PasswordStatePassword -force
+# Add required assemblies.
+Add-Type -AssemblyName System.Web

@@ -62,7 +62,7 @@ function Update-PasswordStatePassword {
     )
 
     begin {
-        
+
     }
 
     process {

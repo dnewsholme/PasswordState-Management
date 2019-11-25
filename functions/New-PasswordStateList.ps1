@@ -37,7 +37,7 @@ function New-PasswordStateList {
     )
 
     begin {
-        
+
     }
     process {
         # Build the Custom object to convert to json and send to the api.

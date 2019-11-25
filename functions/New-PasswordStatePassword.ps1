@@ -67,7 +67,7 @@ function New-PasswordStatePassword {
     )
 
     begin {
-        
+
         # Check to see if the requested password entry exists before continuing.
         try {
             $result = Get-PasswordStatePassword -title "$title" -username $username -ErrorAction stop

@@ -30,7 +30,7 @@ function Get-PasswordStatePasswordHistory {
     )
 
     begin {
-        
+
         $output = @()
     }
 

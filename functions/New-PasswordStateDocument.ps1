@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Adds a new document to an existing PasswordState Resource.
 
@@ -45,7 +45,7 @@ function New-PasswordStateDocument {
     )
 
     begin {
-        
+
         $output = @()
     }
 
