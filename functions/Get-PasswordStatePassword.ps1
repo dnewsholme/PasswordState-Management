@@ -117,7 +117,7 @@ Function Get-PasswordStatePassword {
     )
 
     Begin {
-        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
+        
         Add-Type -AssemblyName System.Web
         # Initalize output Array
     }

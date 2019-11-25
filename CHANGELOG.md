@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.4.2
+
++ Change method of importing `[PasswordResult]` class to using statement rather than dot sourcing within individual functions.
+
+## 4.4.1
+
++ bug fix for updating existing passwords
+
 ## 4.3.0
 
 + Resolve an issue where when passing a password resource via the pipeline to Update-PasswordStatePassword the password could be inadvently changed to EncryptedPassword, when the intention was only to change another field.

@@ -30,7 +30,7 @@ function Get-PasswordStatePasswordHistory {
     )
 
     begin {
-        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
+        
         $output = @()
     }
 
