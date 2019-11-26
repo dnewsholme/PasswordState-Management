@@ -1,6 +1,6 @@
-﻿(import-module "$psscriptroot\..\passwordstate-management.psm1" -force)
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+﻿$here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
+Import-Module "$here\..\passwordstate-management.psm1"
 . "$here\$sut"
 Describe "Get-PasswordStatePassword" {
     $password = (Get-passwordstatePassword) | select -first 1
