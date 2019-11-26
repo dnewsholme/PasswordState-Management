@@ -4,4 +4,4 @@ get-childitem $psscriptroot/Functions/*.ps1 -recurse | Where-Object {$_.fullname
 New-Alias -Name Find-PasswordStatePassword -Value Get-PasswordStatePassword -force
 # Add required assemblies.
 Add-Type -AssemblyName System.Web
-$0class = Initialize-PasswordstateClass
+Export-ModuleMember -Function Initialize-PasswordstateClass
