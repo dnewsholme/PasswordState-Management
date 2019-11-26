@@ -1,6 +1,10 @@
 # Changelog
 
-## 4.3.0
+## 4.4.2
+
++ Added functions for setting the return of plain text password preference.
+
+## 4.4.1
 
 + Resolve an issue where when passing a password resource via the pipeline to Update-PasswordStatePassword the password could be inadvently changed to EncryptedPassword, when the intention was only to change another field.
 

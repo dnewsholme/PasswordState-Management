@@ -46,12 +46,16 @@ This will return the actual password as a string.
 
     Password.1
 
-To maintain backward compatability with scripts that have already been created you can force passwords to always output as plaintext for the duration of your powershell session by setting the following global variable `$global:PasswordStateShowPasswordsPlainText` to `$true`.
-
-If you would like to set it forever then add the following to your powershell profile.
+To maintain backward compatability with scripts that have already been created you can force passwords to always output as plaintext for the duration of your powershell session by runing the following cmdlet:
 
 ```powershell
-$global:PasswordStateShowPasswordsPlainText = $true
+Set-PasswordStatePlainTextPasswordFlag
+```
+
+This will persist until you remove the setting with
+
+```powershell
+Remove-PasswordStatePlainTextPasswordFlag
 ```
 
 ## How to use
