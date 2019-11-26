@@ -108,3 +108,7 @@ class PasswordHistory : PasswordResult {
         Add-Member -InputObject $this -MemberType MemberSet -Name PSStandardMembers -Value $PSStandardMembers -Force
     }
 }
+
+Function Initialize-PasswordstateClass{
+    return [PasswordResult]::new()
+}
