@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Removes the flag to specify to return password objects in plain text from password state.
 
@@ -22,7 +22,7 @@ function Remove-PasswordStatePlainTextPasswordFlag {
 
     process {
         $psprofile = Get-Content $profile -Raw
-        $psprofile = $psprofile.Replace('$global:PasswordStateShowPasswordsPlainText = $true','') 
+        $psprofile = $psprofile.Replace('$global:PasswordStateShowPasswordsPlainText = $true','')
         $psprofile| out-file $profile -Force
         Remove-Variable PasswordStateShowPasswordsPlainText -Scope Global
     }
