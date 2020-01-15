@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Retrieves the saved Passwordstate environment and decrypts it.
 .DESCRIPTION

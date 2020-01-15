@@ -25,10 +25,10 @@ $global:BannedCommands = @(
 #>
 $global:MayContainCommand = @{
 	"Write-Host"  = @()
-	"Write-Verbose" = @()
-	"Write-Warning" = @()
-	"Write-Error"  = @()
-	"Write-Output" = @()
+	"Write-Verbose" = @('2.psake.ps1','New-PasswordStateList.ps1','New-PasswordStatePassword.ps1','New-PasswordStateResource.ps1','New-RandomPassword.ps1','Remove-PasswordStateResource.ps1','Set-PasswordStateResource.ps1','Update-PasswordStatePassword.ps1','Get-PasswordStateResource.ps1')
+	"Write-Warning" = @('2.psake.ps1')
+	"Write-Error"  = @('2.psake.ps1')
+	"Write-Output" = @('4.Analyze.ps1','Get-PasswordStatePassword.ps1')
 	"Write-Information" = @()
 	"Write-Debug" = @()
 }

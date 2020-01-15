@@ -1,4 +1,4 @@
-<#
+﻿<#
   .SYNOPSIS
   Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
   .DESCRIPTION

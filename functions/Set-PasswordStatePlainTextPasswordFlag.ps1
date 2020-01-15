@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Sets a flag to return objects from passwordstate in plaintext
 

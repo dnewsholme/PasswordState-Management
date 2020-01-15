@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Returns a hash of a string value
 
@@ -13,6 +13,7 @@ Hash type to be generated. Valid values are "MD5", "RIPEMD160", "SHA1", "SHA256"
 
 .EXAMPLE
 Get-StringHash -string "qwerty" -hashname SHA1
+This command returns the sha-1 hash 'b1b3773a05c0ed0176787a4f1574ff0075f7521e' for the string 'querty'
 
 .OUTPUTS
 b1b3773a05c0ed0176787a4f1574ff0075f7521e

@@ -1,4 +1,4 @@
-<#
+﻿<#
   .SYNOPSIS
   Gets all password lists from the API (Only those you have permissions to.)
   .DESCRIPTION

@@ -1,4 +1,4 @@
-function Get-NativePath {
+﻿function Get-NativePath {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$False)]

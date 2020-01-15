@@ -1,6 +1,29 @@
 ﻿# List of functions that should be ignored
 $global:FunctionHelpTestExceptions = @(
-    
+  'Get-NativePath'
+  ,'Get-PasswordStateEnvironment'
+  ,'Get-PasswordStateFolder'
+  ,'Get-PasswordStateList'
+  ,'Get-PasswordStatePassword'
+  ,'Get-PasswordStatePasswordHistory'
+  ,'Get-StringHash'
+  ,'New-PasswordStateDocument'
+  ,'New-PasswordStateFolder'
+  ,'New-PasswordStateHost'
+  ,'New-PasswordStateList'
+  ,'New-PasswordStatePassword'
+  ,'New-RandomPassword'
+  ,'Remove-PasswordStateHost'
+  ,'Remove-PasswordStatePassword'
+  ,'Remove-PasswordStatePlainTextPasswordFlag'
+  ,'Save-PasswordStateDocument'
+  ,'Set-PasswordStateEnvironment'
+  ,'Set-PasswordStatePlainTextPasswordFlag'
+  ,'Set-PasswordStateResource'
+  ,'Test-PasswordPwned'
+  ,'Update-PasswordStatePassword'
+  ,'New-PasswordStateResource'
+  ,'Remove-PasswordStateResource'
 )
 
 <#
