@@ -1,7 +1,3 @@
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
-. "$here\$sut"
-Import-Module "$here\..\passwordstate-management.psm1"
 Describe "New-PasswordStateList" {
     It "Creates a Password List" {
      #   (New-PasswordStateList -Name "test$((0..100000)|Get-Random)" -description "Test") | Should -not -benullorempty

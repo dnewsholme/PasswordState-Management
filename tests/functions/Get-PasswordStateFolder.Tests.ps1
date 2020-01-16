@@ -1,49 +1,30 @@
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
-. "$here\$sut"
-Import-Module "$here\..\passwordstate-management.psm1"
-
-Describe "Get-PasswordStateFolder" {
-    <#It "Finds a Folder From Password State on FolderName" {
-        (Get-PasswordStateFolder -FolderName "Test").FolderID | Should -not -BeNullOrEmpty
-    }
-    
-    It "Finds a Folder From Password State on Description" {
-        (Get-PasswordStateFolder -Description "Test").FolderID | Should -not -BeNullOrEmpty
-    }
-    #>
-    It "Generates a web exception" {
-        {Get-PasswordStateFolder -FolderName "DoesntExist"} | Should -Throw
-    }
-
-    BeforeEach {
-        # Create Test Environment
-        try {
-            $globalsetting = Get-Variable PasswordStateShowPasswordsPlainText -ErrorAction stop -Verbose -ValueOnly
-            $global:PasswordStateShowPasswordsPlainText = $false
+InModuleScope 'Passwordstate-Management' {
+    Describe "Get-PasswordStateFolder" {
+        BeforeAll {
+            $FunctionName='Get-PasswordStateFolder'
+            $ParameterSetCases=@(
+                 @{parametername='FolderName';mandatory='False'}
+                ,@{parametername='Description';mandatory='False'}
+                ,@{parametername='TreePath';mandatory='False'}
+                ,@{parametername='SiteID';mandatory='False'}
+                ,@{parametername='SiteLocation';mandatory='False'}
+                ,@{parametername='PreventAuditing';mandatory='False'}
+            )
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                
+            }
         }
-        Catch {
-            New-Variable -Name PasswordStateShowPasswordsPlainText -Value $false -Scope Global
+        Context 'Parameter Validation' {
+            It 'should verify if parameter "<parametername>" is present' -TestCases $ParameterSetCases {
+                param($parametername)
+                (Get-Command -Name $FunctionName).Parameters[$parametername] | Should -Not -BeNullOrEmpty
+            }
+            It 'should verify if mandatory for parameter "<parametername>" is set to "<mandatory>"' -TestCases $ParameterSetCases {
+                param($parametername, $mandatory)
+                "$(((Get-Command -Name $FunctionName).Parameters[$parametername].Attributes | Where-Object { $_.GetType().fullname -eq 'System.Management.Automation.ParameterAttribute'}).Mandatory)" | Should -be $mandatory
+            }
         }
-        try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json" "$($env:USERPROFILE)\passwordstate.json.bak" -force -ErrorAction stop
+        Context 'Unit tests' {
         }
-        Catch{
-            
-        }
-        Set-PasswordStateEnvironment -Apikey "$env:pwsapikey" -Baseuri  "$env:pwsuri"
-        New-PasswordStateFolder -Name Test -description Test
-    }
-    
-    AfterEach {
-        # Remove Test Environment
-        try{
-            Move-Item "$($env:USERPROFILE)\passwordstate.json.bak" "$($env:USERPROFILE)\passwordstate.json" -force -ErrorAction stop
-        }
-        Catch{
-            
-        }
-        $global:PasswordStateShowPasswordsPlainText = $globalsetting 
-        #
     }
 }
