@@ -7,7 +7,6 @@ install:
   - cinst pester
   - cinst PSScriptAnalyzer
   - cinst PSFramework
-  - cinst PSModuleDevelopment
 environment:
   pwsapikey: b38d7a253c46ef9ad2b8f76439e5c3fe
   pwsgenapikey: b39e2f43a5c8d768cba5629fd3e734ea
@@ -16,6 +15,7 @@ environment:
 build: "off"
 
 test_script:
+  - ps: install-Module PSModuleDevelopment -force
   - ps: .\build\4.Analyze.ps1
   - ps: $res = Invoke-Pester -Path ".\Functions\" -OutputFormat NUnitXml -OutputFile TestsResults.xml -PassThru
   - ps: (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\TestsResults.xml))
