@@ -26,7 +26,11 @@ function Get-PasswordStateEnvironment {
         }
         try {
             # Get Profile path
-            $profilepath = $path
+            if ($Script:Preferences.Path -ne '') {
+                $profilepath=$Script:Preferences.Path
+            } else {
+                $profilepath = $path
+            }
             # Read in the password state environment json config file.
             $content = Get-Content "$($profilepath)\passwordstate.json" -ErrorAction Stop
         }
