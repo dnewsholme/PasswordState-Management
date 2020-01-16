@@ -1,16 +1,4 @@
-﻿<#
-.SYNOPSIS
-    Retrieves the saved Passwordstate environment and decrypts it.
-.DESCRIPTION
-    Retrieves the saved Passwordstate environment and decrypts it.
-.EXAMPLE
-    PS C:\> Get-PasswordStateEnvironment
-.OUTPUTS
-    Retrieves the base uri and APIKey.
-.NOTES
-    Daryl Newsholme 2018
-#>
-function Get-PasswordStateEnvironment {
+﻿function Get-PasswordStateEnvironment {
     [CmdletBinding()]
     param (
         [Parameter(ValueFromPipelineByPropertyName,Mandatory = $false)][string]$path = [Environment]::GetFolderPath('UserProfile')

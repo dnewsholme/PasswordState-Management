@@ -1,44 +1,4 @@
-﻿<#
-.SYNOPSIS
-    Creates a New Password State entry in the password list specified.
-.DESCRIPTION
-    Creates a New Password State entry in the password list specified.
-.EXAMPLE
-    PS C:\> New-PasswordStatePassword -Title "testpassword" -PasswordListID 1 -username "newuser" -Password "CorrectHorseStapleBattery" -notes "development website" -url "http://somegoodwebsite.com" -customfields @{GenericField1 = 'value for GenericField1';GenericField2 = 'value2'}
-    Creates a new password entry called testpassword
-.PARAMETER passwordlistid
-    The ID of the password list which to place the entry in. Int32 value.
-.PARAMETER username
-    The username to be added to the entry (Optional)
-.PARAMETER password
-    The password to be added to the entry.
-.PARAMETER Generatepassword
-    A switch parameter to generate the password based off the PasswordList Policy.
-.PARAMETER title
-    Name of the entry to be created.
-.PARAMETER notes
-    Any notes to be added.
-.PARAMETER url
-    URL to be added to the entry if relevant.
-.PARAMETER description
-    custom description to be added to the password..
-.PARAMETER GenericFields
-    Hashtable with a key/value pair, that accepts GenercFields1-10 as the key, with any value. Can be omitted
-.INPUTS
-    passwordlistID - The ID of the password list to create the password in. (Integer)
-    username - Username for the entry (String)
-    password - Password value for the entry (String)
-    title - Title for the entry (String)
-    notes - Notes for the entry (String)(Optional)
-    url - URL for the entry (String)(Optional)
-    description - description for entyr (Optional)
-.OUTPUTS
-    The entry is returned from the Password State Server.
-.NOTES
-    Daryl Newsholme 2018
-    Willem R 2019
-#>
-function New-PasswordStatePassword {
+﻿function New-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Password can only be passed to api in plaintext due to passwordstate api'
     )]

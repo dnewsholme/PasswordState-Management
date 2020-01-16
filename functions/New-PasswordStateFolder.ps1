@@ -1,29 +1,4 @@
-﻿<#
-.SYNOPSIS
-Creates a passwordstate Folder.
-
-.DESCRIPTION
-Creates a passwordstate Folder.
-
-.PARAMETER Name
-Name of the Passwordstate Folder
-
-.PARAMETER description
-Description fro the Folder
-
-.PARAMETER CopySettingsFromPasswordFolderID
-Optionally copy the settings from another Folder.
-
-.PARAMETER FolderID
-Folder ID that the Folder should be placed under. Will default to root if left blank
-
-.EXAMPLE
-New-PasswordStateFolder -Name TestFolder -Description "A Test Folder" -FolderID 4
-
-.NOTES
-Daryl Newsholme 2018
-#>
-function New-PasswordStateFolder {
+﻿function New-PasswordStateFolder {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password field.'
     )]

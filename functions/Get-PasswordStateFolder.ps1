@@ -1,34 +1,4 @@
-﻿<#
-  .SYNOPSIS
-  Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
-  .DESCRIPTION
-  Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
-
-  .PARAMETER FolderName
-  The name for the folder to find
-  .PARAMETER Description
-  The description for the folder to find
-  .PARAMETER TreePath
-  The treepath where the folder should be found
-  .PARAMETER SiteID
-  The siteID for the folder
-  .PARAMETER SiteLocation
-  The sitelocation for the folder
-
-  .EXAMPLE
-  PS C:\> Find-PasswordStateFolder -FolderName "test"
-  Returns the test folder object.
-  .EXAMPLE
-  PS C:\> Find-PasswordStateFolder -Description "testfolder"
-  Returns the folder objects that contain testfolder in the description.
-
-  .OUTPUTS
-  Returns the Object from the API as a powershell object.
-  .NOTES
-  2018 - Daryl Newsholme
-  2019 - Jarno Colombeen
-#>
-Function Get-PasswordStateFolder {
+﻿Function Get-PasswordStateFolder {
     [CmdletBinding()]
     Param
     (
