@@ -79,3 +79,6 @@ if ($importIndividualFiles)
 #region Load compiled code
 "<compile code into here>"
 #endregion Load compiled code
+$Script:Preferences=[PSCustomObject]@{
+	Path = ''
+}

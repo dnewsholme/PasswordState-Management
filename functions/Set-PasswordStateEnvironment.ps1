@@ -95,6 +95,7 @@ function Set-PasswordStateEnvironment {
     end {
         if ($PSCmdlet.ShouldProcess("$($profilepath)\passwordstate.json")) {
             $json | Out-File "$($profilepath)\passwordstate.json"
+            $Script:Preferences.Path=$profilepath
         }
     }
 }
