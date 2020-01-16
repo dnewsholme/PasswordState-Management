@@ -1,5 +1,8 @@
 $script:ModuleRoot = $PSScriptRoot
 $script:ModuleVersion = (Import-PowerShellDataFile -Path "$($script:ModuleRoot)\Passwordstate-management.psd1").ModuleVersion
+$Script:Preferences=[PSCustomObject]@{
+	Path = ''
+}
 
 # Detect whether at some level dotsourcing was enforced
 $script:doDotSource = Get-PSFConfigValue -FullName Passwordstate-management.Import.DoDotSource -Fallback $false
@@ -79,6 +82,3 @@ if ($importIndividualFiles)
 #region Load compiled code
 "<compile code into here>"
 #endregion Load compiled code
-$Script:Preferences=[PSCustomObject]@{
-	Path = ''
-}
