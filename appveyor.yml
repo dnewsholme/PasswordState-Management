@@ -6,6 +6,7 @@ image: "WMF 5"
 install:
   - cinst pester
   - cinst PSScriptAnalyzer
+  - cinst PSFramework
 environment:
   pwsapikey: b38d7a253c46ef9ad2b8f76439e5c3fe
   pwsgenapikey: b39e2f43a5c8d768cba5629fd3e734ea
