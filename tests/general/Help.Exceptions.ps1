@@ -2,6 +2,7 @@
 $global:FunctionHelpTestExceptions = @(
   'Get-NativePath'
   ,'Get-PasswordStateEnvironment'
+  ,'Get-PasswordStateHost'
   ,'Get-PasswordStateFolder'
   ,'Get-PasswordStateList'
   ,'Get-PasswordStatePassword'
