@@ -72,12 +72,12 @@ InModuleScope 'Passwordstate-Management' {
 
             It 'Should return <FolderCount> for parameter <parametername>' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $FolderCount)
-                ((Invoke-Expression -Command "Get-PasswordStateFolder -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count | Should -BeExactly $FolderCount
+                ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count | Should -BeExactly $FolderCount
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should have a <parametername> matching <testvalue>' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $FolderCount)
-                $TestValues=Invoke-Expression -Command "Get-PasswordStateFolder -$($Parametername) '$($testvalue)'"
+                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
                 ($TestValues | Select-Object -First 1)."$($ParameterName)" | Should -Match $testvalue
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
@@ -99,12 +99,12 @@ InModuleScope 'Passwordstate-Management' {
 
             It 'Should return <FolderCount> for parameter <parametername>' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $FolderCount)
-                ((Invoke-Expression -Command "Get-PasswordStateFolder -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count | Should -BeExactly $FolderCount
+                ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count | Should -BeExactly $FolderCount
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should have a <parametername> matching <testvalue>' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $FolderCount)
-                $TestValues=Invoke-Expression -Command "Get-PasswordStateFolder -$($Parametername) '$($testvalue)'"
+                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
                 ($TestValues | Select-Object -First 1)."$($ParameterName)" | Should -Match $testvalue
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
@@ -126,12 +126,12 @@ InModuleScope 'Passwordstate-Management' {
 
             It 'Should return <FolderCount> for parameter <parametername>' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $FolderCount)
-                ((Invoke-Expression -Command "Get-PasswordStateFolder -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count | Should -BeExactly $FolderCount
+                ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count | Should -BeExactly $FolderCount
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should have a <parametername> matching <testvalue>' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $FolderCount)
-                $TestValues=Invoke-Expression -Command "Get-PasswordStateFolder -$($Parametername) '$($testvalue)'"
+                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
                 ($TestValues | Select-Object -First 1)."$($ParameterName)" | Should -Match $testvalue
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
