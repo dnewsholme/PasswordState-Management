@@ -24,6 +24,7 @@ InModuleScope 'Passwordstate-Management' {
                 ,@{parametername='SiteLocation';FolderCount=6}
             )
 
+            # This Mock should never be hit, it is just to prevent actual calls from being executed and get annoying results
             Mock -CommandName 'Get-PasswordStateResource' -MockWith {
                 $Global:TestJSON['FolderSearchResponse']
             } -Verifiable
