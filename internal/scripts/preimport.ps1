@@ -2,3 +2,5 @@
 
 # Load the strings used in messages
 . Import-ModuleFile -Path "$($script:ModuleRoot)\internal\scripts\strings.ps1"
+. Import-ModuleFile -Path "$($Script:ModuleRoot)\internal\functions\PasswordStateClass.ps1"
+Add-Type -AssemblyName System.Web
