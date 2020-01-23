@@ -75,7 +75,7 @@ function New-PasswordStatePassword {
         Catch {
             Write-Verbose "No existing password...Continuing."
         }
-        if ($result.Username -eq $username) {
+        if ($result.Username -eq $username -and $result.title -eq $title) {
             throw "Found Existing Password Entry with Title:$title and username:$username"
         }
 
