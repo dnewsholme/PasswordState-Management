@@ -1,26 +1,4 @@
-<#
-.SYNOPSIS
-Adds a new document to an existing PasswordState Resource.
-
-.DESCRIPTION
-Adds a new document to an existing PasswordState Resource.
-
-.PARAMETER resourcetype
-The resource type to add the document to.
-
-.PARAMETER Path
-File path to the document to be uploaded.
-
-.EXAMPLE
-Save-PasswordStateDocument -DocumentID 36 -resourcetype Password -Path C:\temp\1.csv
-
-.EXAMPLE
-Find-PasswordStatePassword test | Save-PasswordStateDocument -Path C:\temp\1.csv
-
-.NOTES
-Daryl Newsholme 2018
-#>
-function Save-PasswordStateDocument {
+﻿function Save-PasswordStateDocument {
     [CmdletBinding()]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 1)][ValidateSet(
@@ -33,7 +11,6 @@ function Save-PasswordStateDocument {
     )
 
     begin {
-        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
         $output = @()
     }
 

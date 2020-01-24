@@ -3,3 +3,4 @@ testResults.xml
 .\passwordstate-management\*
 .vscode\*
 cov.xml
+.vscode

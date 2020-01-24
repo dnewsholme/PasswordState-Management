@@ -1,38 +1,4 @@
-﻿<#
-.SYNOPSIS
-    Updates the password of an existing password state entry.
-.DESCRIPTION
-    Updates the password of an existing password state entry. Any fields not sent will remain the same as before.
-.PARAMETER PasswordID
-    The ID of the password to be updated.
-.PARAMETER Password
-    The new password to be added to the entry.
-.PARAMETER title
-    Updated title value
-.PARAMETER username
-    Updated username Value
-.PARAMETER domain
-    Updated domain value
-.PARAMETER hostname
-    Updated hostname value
-.PARAMETER notes
-    Updated note value
-.PARAMETER url
-    Updated URL value
-.PARAMETER Reason
-    A reason which can be logged for auditing of why a password was updated.
-.EXAMPLE
-    PS C:\> Update-PasswordStatePassword -PasswordlistID 5 -PasswordID 1 -Password "76y288uneeko%%%2A" -title "testuser01"
-    Updates the password to "76y288uneeko%%%2A" for the entry named testuser01
-.INPUTS
-    All fields must be specified, can be passed along the pipeline.
-.OUTPUTS
-    Will output all fields for the entry from passwordstate including the new password.
-.NOTES
-    Daryl Newsholme 2018
-#>
-
-function Update-PasswordStatePassword {
+﻿function Update-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'API requires password be passed as plain text')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'API requires password be passed as plain text')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
@@ -62,7 +28,6 @@ function Update-PasswordStatePassword {
     )
 
     begin {
-        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
     }
 
     process {

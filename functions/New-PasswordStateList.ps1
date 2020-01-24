@@ -1,29 +1,4 @@
-﻿<#
-.SYNOPSIS
-Creates a passwordstate List.
-
-.DESCRIPTION
-Creates a passwordstate List.
-
-.PARAMETER Name
-Name of the Passwordstate list
-
-.PARAMETER description
-Description for the list
-
-.PARAMETER CopySettingsFromPasswordListID
-Optionally copy the settings from another list.
-
-.PARAMETER FolderID
-Folder ID that the list should be placed under
-
-.EXAMPLE
-New-PasswordStateList -Name TestList -Description "A Test List" -FolderID 4
-
-.NOTES
-Daryl Newsholme 2018
-#>
-function New-PasswordStateList {
+﻿function New-PasswordStateList {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password field.'
     )]
@@ -37,7 +12,6 @@ function New-PasswordStateList {
     )
 
     begin {
-        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
     }
     process {
         # Build the Custom object to convert to json and send to the api.
