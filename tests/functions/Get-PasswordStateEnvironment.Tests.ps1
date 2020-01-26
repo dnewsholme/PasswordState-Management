@@ -1,4 +1,6 @@
-﻿InModuleScope -ModuleName 'PasswordState-Management' {
+﻿Remove-Module PasswordState-Management -Force
+Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+InModuleScope -ModuleName 'PasswordState-Management' {
     Describe 'Get-PasswordStateEnvironment' {
         BeforeAll {
             $FunctionName='Get-PasswordStateEnvironment'

@@ -1,4 +1,6 @@
-﻿. "$($psscriptroot)\json\Enum-JSONFiles.ps1"
+﻿Remove-Module PasswordState-Management -Force
+Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+. "$($psscriptroot)\json\Enum-JSONFiles.ps1"
 InModuleScope 'PasswordState-Management' {
     Describe 'Get-PasswordStateResource' {
         BeforeAll {
