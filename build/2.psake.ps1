@@ -55,7 +55,6 @@ Task Build -Depends Clean {
     $Functions = (Get-ChildItem $ProjectRoot\functions\*.ps1)
     Write-Verbose "ProjectName is $($Projectname)"
     $commitmsg = (Get-BuildEnvironment).CommitMessage
-    $commitmsg
     try {
         $global:buildversion = $(((Find-Module -Name $($Projectname) -ErrorAction Stop))| Sort-Object version |Select-Object -Last 1 ).Version
         switch -Wildcard ($commitmsg){
@@ -81,7 +80,6 @@ Task Build -Depends Clean {
     #Should just use plaster...
     $ModuleName = "$($Projectname)"
     $ModPath = "$outputdir$modulename"
-    $exportedfunctions | ForEach-Object {Write-Verbose $($_) -Verbose}
     $PSD1Path = Join-Path -path $ModPath -ChildPath "$($Projectname).psd1"
     $Null = mkdir $ModPath
     Copy-Item "$($projectroot)\$($Projectname).psm1" $ModPath -Verbose

@@ -62,3 +62,4 @@ Nuget:
     - powershell.exe -command "Update-MarkdownHelp -Path .\docs"
   only:
     - master
+    
