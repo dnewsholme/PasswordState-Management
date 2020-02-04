@@ -1,17 +1,4 @@
-﻿<#
-.SYNOPSIS
-Removes the flag to specify to return password objects in plain text from password state.
-
-.DESCRIPTION
-Removes the flag to specify to return password objects in plain text from password state.
-
-.EXAMPLE
-Remove-PasswordStatePlainTextPasswordFlag
-
-.NOTES
-Daryl Newsholme 2019
-#>
-function Remove-PasswordStatePlainTextPasswordFlag {
+﻿function Remove-PasswordStatePlainTextPasswordFlag {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
     )

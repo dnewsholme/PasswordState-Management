@@ -1,46 +1,4 @@
-﻿<#
-    .SYNOPSIS
-    Finds a password state host and returns the object. If multiple matches it will return multiple entries.
-
-    .DESCRIPTION
-    Finds a password state host and returns the object. If multiple matches it will return multiple entries.
-
-    .EXAMPLE
-    PS C:\> Get-PasswordStateHost
-    Returns all hosts you have access to.
-    .EXAMPLE
-    PS C:\> Get-PasswordStateHost 'testhost'
-    Returns the test host object.
-    .EXAMPLE
-    PS C:\> Get-PasswordStateHost -OperatingSystem 'Windows Server 2012'
-    Returns the hosts that are using the Windows Server 2012 operating system.
-    .EXAMPLE
-    PS C:\> Get-PasswordStateHost -DatabaseServerType 'SQL Server,Oracle'
-    Returns the hosts that are of the database server type SQL Servers and Oracle
-
-    .PARAMETER HostName
-    An optional parameter to filter the search on hostname.
-    .PARAMETER HostType
-    An optional parameter to filter the search on type of host.
-    .PARAMETER OperatingSystem
-    An optional parameter to filter the search on operating system.
-    .PARAMETER DatabaseServerType
-    An optional parameter to filter the search on database server type.
-    .PARAMETER SiteID
-    An optional parameter to filter the search on the site ID.
-    .PARAMETER SiteLocation
-    An optional parameter to filter the search on the site location.
-
-    .PARAMETER PreventAuditing
-    An optional parameter to prevent logging this API call in the audit log (Can be overruled in PasswordState preferences).
-
-    .OUTPUTS
-    Returns the Object from the API as a powershell object.
-
-    .NOTES
-    2019 - Jarno Colombeen
-#>
-Function Get-PasswordStateHost
+﻿Function Get-PasswordStateHost
 {
   [CmdletBinding()]
   Param
