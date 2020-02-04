@@ -25,6 +25,7 @@ dependency:
       - powershell.exe -command "if(!(Get-Module psake)){Install-Module psake -force}"
       - powershell.exe -command "if(!(Get-Module PlatyPS)){Install-Module PlatyPS -force}"
       - powershell.exe -command "if(!(Get-Module PSFramework)){Install-Module PSFramework -force}"
+      - powershell.exe -command "if(!(Get-Module PSModuleDevelopment)){Install-Module PSModuleDevelopment -force}"
 
 Tests:
   stage: test
