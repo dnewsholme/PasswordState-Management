@@ -24,11 +24,12 @@ dependency:
       - powershell.exe -command "if(!(Get-Module PSScriptAnalyzer)){Install-Module PSScriptAnalyzer -force}"
       - powershell.exe -command "if(!(Get-Module psake)){Install-Module psake -force}"
       - powershell.exe -command "if(!(Get-Module PlatyPS)){Install-Module PlatyPS -force}"
+      - powershell.exe -command "if(!(Get-Module PSFramework)){Install-Module PSFramework -force}"
 
 Tests:
   stage: test
   script:
-    - powershell.exe -file ".\build\pester.ps1"
+    - powershell.exe -file ".\tests\pester.ps1"
   artifacts:
     reports:
       junit: "./build/junitreport.xml"
@@ -41,7 +42,7 @@ Analyze:
 build:
   stage: build
   script:
-    - powershell.exe -file .\build\0.build.ps1
+    - powershell.exe -file .\test\0.build.ps1
   artifacts:
     paths:
       - passwordstate-management
@@ -61,3 +62,4 @@ Nuget:
     - powershell.exe -command "Update-MarkdownHelp -Path .\docs"
   only:
     - master
+    
