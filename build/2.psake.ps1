@@ -97,7 +97,7 @@ Task Build -Depends Clean {
         -Description "Powershell Module for managing Password State" `
         -FunctionsToExport $($Functions.Name -replace ".ps1") `
         -AliasesToExport "*" `
-        -RequiredModules "PSFramework"
+        -RequiredModules "PSFramework" `
         -ProjectUri "https://github.com/dnewsholme/PasswordState-Management" `
         -IconUri "https://github.com/dnewsholme/PasswordState-Management/blob/master/images/passwordstate.png?raw=true" `
         -HelpInfoUri "https://github.com/dnewsholme/PasswordState-Management/blob/master/readme.md" `
