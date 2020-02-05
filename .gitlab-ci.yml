@@ -43,7 +43,7 @@ Analyze:
 build:
   stage: build
   script:
-    - powershell.exe -file .\test\0.build.ps1
+    - powershell.exe -file .\build\0.build.ps1
   artifacts:
     paths:
       - passwordstate-management
