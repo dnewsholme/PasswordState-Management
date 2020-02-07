@@ -4,7 +4,7 @@
     [CmdletBinding()]
     [OutputType('System.Object[]')]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$PasswordID,
+        [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][int32]$PasswordID,
         [parameter(ValueFromPipelineByPropertyName, Position = 1, Mandatory = $false)][string]$reason,
         [parameter(ValueFromPipelineByPropertyName, Position = 2)][switch]$PreventAuditing
 
@@ -31,11 +31,16 @@
 
             }
         }
-        $results = Get-PasswordStateResource -uri $uri @parms
-        Foreach ($result in $results) {
-            $result = [PasswordHistory]$result
-            $result.Password = [EncryptedPassword]$result.Password
-            $output += $result
+        try {
+            $results = Get-PasswordStateResource -uri $uri @parms -ErrorAction stop
+            Foreach ($result in $results) {
+                $result = [PasswordHistory]$result
+                $result.Password = [EncryptedPassword]$result.Password
+                $output += $result
+            }
+        }
+        Catch [System.Net.WebException] {
+            throw ($_.ErrorDetails.Message | ConvertFrom-Json).errors.phrase
         }
     }
 
