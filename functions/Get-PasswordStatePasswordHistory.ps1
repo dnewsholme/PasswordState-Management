@@ -4,7 +4,7 @@
     [CmdletBinding()]
     [OutputType('System.Object[]')]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Position = 0)][int32]$PasswordID,
+        [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][int32]$PasswordID,
         [parameter(ValueFromPipelineByPropertyName, Position = 1, Mandatory = $false)][string]$reason,
         [parameter(ValueFromPipelineByPropertyName, Position = 2)][switch]$PreventAuditing
 
