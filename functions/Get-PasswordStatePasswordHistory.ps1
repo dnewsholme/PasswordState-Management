@@ -31,11 +31,16 @@
 
             }
         }
-        $results = Get-PasswordStateResource -uri $uri @parms
-        Foreach ($result in $results) {
-            $result = [PasswordHistory]$result
-            $result.Password = [EncryptedPassword]$result.Password
-            $output += $result
+        try {
+            $results = Get-PasswordStateResource -uri $uri @parms -ErrorAction stop
+            Foreach ($result in $results) {
+                $result = [PasswordHistory]$result
+                $result.Password = [EncryptedPassword]$result.Password
+                $output += $result
+            }
+        }
+        Catch [System.Net.WebException] {
+            throw ($_.ErrorDetails.Message | ConvertFrom-Json).errors.phrase
         }
     }
 
