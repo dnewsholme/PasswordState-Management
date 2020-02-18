@@ -122,3 +122,5 @@
 
     }
 }
+
+Set-Alias -Name Find-PasswordstatePassword -Value Get-PasswordStatePassword -Force
