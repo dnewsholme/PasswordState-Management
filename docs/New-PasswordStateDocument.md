@@ -34,38 +34,23 @@ Find-PasswordStatePassword test | New-PasswordStateDocument -resourcetype Passwo
 
 ## PARAMETERS
 
-### -ID
-The ID of the resource to be updated.
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: Int32
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: PasswordId
+Aliases: cf
 
 Required: False
-Position: 1
-Default value: 0
-Accept pipeline input: True (ByPropertyName)
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -resourcetype
-The resource type to add the document to.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 2
-Default value: Password
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -DocumentName
-Name of the document when it's uploaded.
+### -DocumentDescription
+Description to be added to the document.
 
 ```yaml
 Type: String
@@ -79,8 +64,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -DocumentDescription
-Description to be added to the document.
+### -DocumentName
+Name of the document when it's uploaded.
 
 ```yaml
 Type: String
@@ -88,8 +73,23 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
+Position: 2
 Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ID
+The ID of the resource to be updated.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases: PasswordId
+
+Required: False
+Position: 0
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -103,7 +103,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -125,23 +125,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -resourcetype
+The resource type to add the document to.
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
+Accepted values: password, passwordlist, folder
 
 Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
+Position: 1
+Default value: Password
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

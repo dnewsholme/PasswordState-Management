@@ -5,19 +5,19 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-NativePath
+# Remove-PasswordStatePlainTextPasswordFlag
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Get-NativePath [[-PathAsStringArray] <String[]>] [<CommonParameters>]
+Remove-PasswordStatePlainTextPasswordFlag [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
@@ -30,16 +30,32 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -PathAsStringArray
-{{Fill PathAsStringArray Description}}
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: String[]
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
 Required: False
-Position: 0
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

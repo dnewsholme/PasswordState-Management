@@ -5,41 +5,44 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-NativePath
+# Import-ModuleFile
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Loads files into the module on module import.
 
 ## SYNTAX
 
 ```
-Get-NativePath [[-PathAsStringArray] <String[]>] [<CommonParameters>]
+Import-ModuleFile [[-Path] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+This helper function is used during module initialization.
+It should always be dotsourced itself, in order to proper function.
+
+This provides a central location to react to files being imported, if later desired
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+. Import-ModuleFile -File $function.FullName
 ```
 
-{{ Add example description here }}
+Imports the file stored in $function according to import policy
 
 ## PARAMETERS
 
-### -PathAsStringArray
-{{Fill PathAsStringArray Description}}
+### -Path
+The path to the file to load
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -50,11 +53,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS

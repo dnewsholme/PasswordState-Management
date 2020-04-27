@@ -46,18 +46,18 @@ New-RandomPassword -PolicyID 2
 
 ## PARAMETERS
 
-### -length
-Length for the generated password
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: Int32
-Parameter Sets: General
-Aliases:
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
-Position: 1
-Default value: 12
-Accept pipeline input: True (ByPropertyName)
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -70,98 +70,8 @@ Parameter Sets: PolicyID
 Aliases:
 
 Required: True
-Position: 1
+Position: 0
 Default value: 0
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -includebrackets
-If brackets should be included such as {}()
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: General
-Aliases:
-
-Required: False
-Position: 2
-Default value: False
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -includespecialcharacters
-If special characters such as ^_\> should be included.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: General
-Aliases:
-
-Required: False
-Position: 3
-Default value: False
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -includenumbers
-If numbers should be included.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: General
-Aliases:
-
-Required: False
-Position: 4
-Default value: False
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -includelowercase
-If lowercase characters should be included.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: General
-Aliases:
-
-Required: False
-Position: 5
-Default value: False
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -includeuppercase
-If uppercase should be included.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: General
-Aliases:
-
-Required: False
-Position: 6
-Default value: False
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -excludedcharacters
-{{Fill excludedcharacters Description}}
-
-```yaml
-Type: String
-Parameter Sets: General
-Aliases:
-
-Required: False
-Position: 7
-Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -197,23 +107,113 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -excludedcharacters
+{{Fill excludedcharacters Description}}
+
+```yaml
+Type: String
+Parameter Sets: General
+Aliases:
+
+Required: False
+Position: 6
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -includebrackets
+If brackets should be included such as {}()
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
+Parameter Sets: General
+Aliases:
 
 Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
+Position: 1
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -includelowercase
+If lowercase characters should be included.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: General
+Aliases:
+
+Required: False
+Position: 4
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -includenumbers
+If numbers should be included.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: General
+Aliases:
+
+Required: False
+Position: 3
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -includespecialcharacters
+If special characters such as ^_\> should be included.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: General
+Aliases:
+
+Required: False
+Position: 2
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -includeuppercase
+If uppercase should be included.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: General
+Aliases:
+
+Required: False
+Position: 5
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -length
+Length for the generated password
+
+```yaml
+Type: Int32
+Parameter Sets: General
+Aliases:
+
+Required: False
+Position: 0
+Default value: 12
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
