@@ -20,6 +20,10 @@
                 If (!($PSBoundParameters.ContainsKey('PasswordListID'))) {
                     [string]$PasswordListID = ''
                 }
+                else {
+                    # if only PasswordListID is specified, so searching for a specific ID, PreventAuditing is not possible
+                    [switch]$PreventAuditing = $false
+                }
                 $uri = "/api/passwordlists/$($PasswordListID)"
             }
             'Specific' {
@@ -51,3 +55,5 @@
         }
     }
 }
+
+Set-Alias -Name Find-PasswordstateList -Value Get-PasswordStateList -Force
