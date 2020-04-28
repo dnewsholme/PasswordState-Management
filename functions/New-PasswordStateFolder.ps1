@@ -39,7 +39,6 @@
             $body | Add-Member -NotePropertyName "Guide" -NotePropertyValue $Guide
         }
         # If you want the folder to propagate its permissions down to all nested Password Lists and Folders, then you set PropagatePermissions to true.
-        # This option can only be enabled for top level folders i.e. nested under Passwords Home.
         if ($PropagatePermissions)
         {
             $body | Add-Member -NotePropertyName "PropagatePermissions" -NotePropertyValue $true
