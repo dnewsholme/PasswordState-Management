@@ -28,7 +28,7 @@
     process
     {
         # Build the Custom object to convert to json and send to the api.
-        $body = [pscustomobject]@{
+        $body = [PSCustomObject]@{
             "PasswordID" = $PasswordID
             "ScriptID"   = $ScriptID
         }
@@ -38,15 +38,15 @@
         # The order in which scripts are executed can be changed on the previous screen on the password record dependency screen.
         if ($DependencyType)
         {
-            $body | Add-Member -notepropertyname "DependencyType" -notepropertyvalue $DependencyType
+            $body | Add-Member -NotePropertyName "DependencyType" -NotePropertyValue $DependencyType
         }
         if ($DependencyName)
         {
-            $body | Add-Member -notepropertyname "DependencyName" -notepropertyvalue $DependencyName
+            $body | Add-Member -NotePropertyName "DependencyName" -NotePropertyValue $DependencyName
         }
         if ($HostName)
         {
-            $body | Add-Member -notepropertyname "HostName" -notepropertyvalue $HostName
+            $body | Add-Member -NotePropertyName "HostName" -NotePropertyValue $HostName
         }
         # Adding API Key to the body if using APIKey as Authentication Type to use the api instead of winAPI
         $penv = Get-PasswordStateEnvironment
@@ -58,7 +58,7 @@
         {
             $body = "$($body|ConvertTo-Json)"
             Write-Verbose "$body"
-            $output = New-PasswordStateResource  -uri "/api/dependencies" -body $body
+            $output = New-PasswordStateResource -uri "/api/dependencies" -body $body
         }
     }
 
