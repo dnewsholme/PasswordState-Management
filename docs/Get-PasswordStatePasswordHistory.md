@@ -1,7 +1,7 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version:
+online version: https://github.com/eizedev/PasswordState-Management/blob/master/docs/Get-PasswordStatePasswordHistory.md
 schema: 2.0.0
 ---
 
