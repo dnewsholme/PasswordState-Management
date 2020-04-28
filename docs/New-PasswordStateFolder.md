@@ -116,7 +116,7 @@ Accept wildcard characters: False
 ```
 
 ### -CopyPermissionsFromPasswordListID
-To copy permissions to the Folder from an existing Password List, you can specify the PasswordListID value for this field.
+To copy permissions to the Folder from an existing Password List, you can specify the PasswordListID value for this field.  
 
 **Note 1**: By default, Folders inherit permissions from any nested Password Lists beneath them. So if you intend to create a Password List nested beneath this folder, you may not need to copy any permissions here.  
 **Note 2**: If you are nested this Folder beneath another Folder which is propagating its permissions down, then you cannot copy permissions from an existing Password List.  
@@ -134,7 +134,7 @@ Accept wildcard characters: False
 ```
 
 ### -CopyPermissionsFromTemplateID
-To copy permissions to the Folder from an existing Password List Template, you can specify the TemplateID value for this field.
+To copy permissions to the Folder from an existing Password List Template, you can specify the TemplateID value for this field.  
 
 **Note 1**: By default, Folders inherit permissions from any nested Password Lists beneath them. So if you intend to create a Password List nested beneath this folder, you may not need to copy any permissions here.  
 **Note 2**: If you are nested this Folder beneath another Folder which is propagating its permissions down, then you cannot copy permissions from an existing Password List Template.  
@@ -183,10 +183,9 @@ Accept wildcard characters: False
 ```
 
 ### -PropagatePermissions
-If you want the folder to propagate its permissions down to all nested Password Lists and Folders, then you set PropagatePermissions to true.
+If you want the folder to propagate its permissions down to all nested Password Lists and Folders, then you set PropagatePermissions to true.  
 
-**Note 1**: This option can only be enabled for top level folders i.e. nested under Passwords Home.  
-**Note 2**: If using this option, you still need to copy permissions from an existing Password List or Template.  
+**Note 1**: If using this option, you still need to copy permissions from an existing Password List or Template.  
 
 ```yaml
 Type: SwitchParameter
