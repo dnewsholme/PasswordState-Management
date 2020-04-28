@@ -42,7 +42,7 @@
         # Any associated instructions (guide) for how the Folder should be used (Can contain HTML characters).
         if ($Guide)
         {
-            # just in case someone is adding html code to the guide for whatever reason (HTML rendering is not allowed  in the guide anymore on PasswordState)
+            # just in case someone is adding html code to the guide for whatever reason (HTML rendering is not allowed in the guide anymore on PasswordState)
             $Guide = [System.Net.WebUtility]::HtmlEncode($Guide)
             $body | Add-Member -NotePropertyName "Guide" -NotePropertyValue $Guide
         }
