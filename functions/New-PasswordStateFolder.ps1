@@ -23,22 +23,14 @@
     {
         # Build the Custom object to convert to json and send to the api.
         $body = [PSCustomObject]@{
-            "FolderName"        = $Name
-            "Description"       = $Description
-            "NestUnderFolderID" = $FolderID
-            "SiteID"            = $SiteID
+            "FolderName"                        = $Name
+            "Description"                       = $Description
+            "NestUnderFolderID"                 = $FolderID
+            "SiteID"                            = $SiteID
+            "CopyPermissionsFromPasswordListID" = $CopyPermissionsFromPasswordListID
+            "CopyPermissionsFromTemplateID"     = $CopyPermissionsFromTemplateID
         }
 
-        # To copy permissions to the Folder from an existing Password List, you can specify the PasswordListID value for this field.
-        if ($CopyPermissionsFromPasswordListID)
-        {
-            $body | Add-Member -NotePropertyName "CopyPermissionsFromPasswordListID" -NotePropertyValue $CopyPermissionsFromPasswordListID
-        }
-        # To copy permissions to the Folder from an existing Password List Template, you can specify the TemplateID value for this field.
-        if ($CopyPermissionsFromTemplateID)
-        {
-            $body | Add-Member -NotePropertyName "CopyPermissionsFromTemplateID" -NotePropertyValue $CopyPermissionsFromTemplateID
-        }
         # Any associated instructions (guide) for how the Folder should be used (Can contain HTML characters).
         if ($Guide)
         {
@@ -50,7 +42,7 @@
         # This option can only be enabled for top level folders i.e. nested under Passwords Home.
         if ($PropagatePermissions)
         {
-            $body | Add-Member -NotePropertyName "PropagatePermissions" -NotePropertyValue $PropagatePermissions
+            $body | Add-Member -NotePropertyName "PropagatePermissions" -NotePropertyValue $true
         }
 
         # Adding API Key to the body if using APIKey as Authentication Type to use the api instead of winAPI
