@@ -31,7 +31,6 @@ function Get-PSCustomObject
     }
     else
     {
-        Write-Warning "Nothing changed! Add '-Sort' if you want to sort the CustomObject"
         return $InputObject
     }
 }
