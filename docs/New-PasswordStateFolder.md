@@ -13,9 +13,10 @@ Creates a passwordstate Folder.
 ## SYNTAX
 
 ```
-New-PasswordStateFolder [-Name] <String> [-Description] <String> [-CopyPermissionsFromPasswordListID <Int32>]
- [-CopyPermissionsFromTemplateID <Int32>] [[-FolderID] <Int32>] [-Guide <String>] [-SiteID <Int32>]
- [-PropagatePermissions] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PasswordStateFolder [-Name] <String> [-Description] <String>
+ [[-CopyPermissionsFromPasswordListID] <String>] [[-CopyPermissionsFromTemplateID] <String>]
+ [[-FolderID] <Int32>] [[-Guide] <String>] [[-SiteID] <Int32>] [-PropagatePermissions] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -68,53 +69,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -FolderID
-If you would like this newly created Folder to be nested beneath another Folder or Password List, specify the FolderID or PasswordListID value here. If omitted, the Folder will be created in the root of the Navigation Tree - which is equivalent to the value of 0.  
-Will default to root (ID 0) if left blank.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases: NestUnderFolderID
-
-Required: False
-Position: 3
-Default value: 0
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Name
-Name of the Passwordstate Folder.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -CopyPermissionsFromPasswordListID
 To copy permissions to the Folder from an existing Password List, you can specify the PasswordListID value for this field.  
 
@@ -122,12 +76,12 @@ To copy permissions to the Folder from an existing Password List, you can specif
 **Note 2**: If you are nested this Folder beneath another Folder which is propagating its permissions down, then you cannot copy permissions from an existing Password List.  
 
 ```yaml
-Type: Int32
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -140,12 +94,12 @@ To copy permissions to the Folder from an existing Password List Template, you c
 **Note 2**: If you are nested this Folder beneath another Folder which is propagating its permissions down, then you cannot copy permissions from an existing Password List Template.  
 
 ```yaml
-Type: Int32
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -166,6 +120,22 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -FolderID
+If you would like this newly created Folder to be nested beneath another Folder or Password List, specify the FolderID or PasswordListID value here. If omitted, the Folder will be created in the root of the Navigation Tree - which is equivalent to the value of 0.  
+Will default to root (ID 0) if left blank.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases: NestUnderFolderID
+
+Required: False
+Position: 2
+Default value: 0
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -Guide
 Any associated instructions (guide) for how the Folder should be used.  
 Can contain HTML characters BUT HTML will, for security reasons, not be rendered anymore in PasswordState.
@@ -176,7 +146,22 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 5
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Name
+Name of the Passwordstate Folder.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -193,7 +178,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 6
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -209,9 +194,25 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 7
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
