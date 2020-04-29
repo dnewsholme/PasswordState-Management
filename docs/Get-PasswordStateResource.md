@@ -14,7 +14,7 @@ A function to simplify the Retrieval of password state resources via the rest AP
 
 ```
 Get-PasswordStateResource [[-uri] <String>] [[-method] <String>] [[-ContentType] <String>]
- [[-extraparams] <Hashtable>] [<CommonParameters>]
+ [[-extraparams] <Hashtable>] [-Sort] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -88,6 +88,21 @@ Aliases:
 Required: False
 Position: 4
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Sort
+Optional Parameter to sort the returned output
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
