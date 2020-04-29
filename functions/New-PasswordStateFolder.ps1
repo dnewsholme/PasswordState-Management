@@ -5,14 +5,14 @@
     )]
     [cmdletbinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string]$Name,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string]$Description,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false)][int32]$CopyPermissionsFromPasswordListID = $null,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false)][int32]$CopyPermissionsFromTemplateID = $null,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, HelpMessage = "FolderID 0 = Folder will be created in the root of the Navigation Tree")][Alias("NestUnderFolderID")][int32]$FolderID = 0,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false)][string]$Guide,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, HelpMessage = "SiteID 0 = Default site 'Internal'")][int32]$SiteID = 0,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false)][switch]$PropagatePermissions
+        [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][string]$Name,
+        [parameter(ValueFromPipelineByPropertyName, Position = 1, Mandatory = $true)][string]$Description,
+        [parameter(ValueFromPipelineByPropertyName, Position = 3, Mandatory = $false)][string]$CopyPermissionsFromPasswordListID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Position = 4, Mandatory = $false)][string]$CopyPermissionsFromTemplateID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Position = 2, Mandatory = $false, HelpMessage = "FolderID 0 = Folder will be created in the root of the Navigation Tree")][Alias("NestUnderFolderID")][int32]$FolderID = 0,
+        [parameter(ValueFromPipelineByPropertyName, Position = 5, Mandatory = $false)][string]$Guide,
+        [parameter(ValueFromPipelineByPropertyName, Position = 7, Mandatory = $false, HelpMessage = "SiteID 0 = Default site 'Internal'")][int32]$SiteID = 0,
+        [parameter(ValueFromPipelineByPropertyName, Position = 6, Mandatory = $false)][switch]$PropagatePermissions
     )
 
     begin
