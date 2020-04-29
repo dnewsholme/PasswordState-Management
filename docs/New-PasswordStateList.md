@@ -67,7 +67,12 @@ New-PasswordStateList [-Name] <String> [-Description] <String> [[-FolderID] <Int
 ```
 
 ## DESCRIPTION
-Creates a passwordstate List.
+Creates a passwordstate List.  
+Adding a new Password List object can be achieved by making a POST request on the URL, with appropriate fields forming the HTTP message body. To create Password Lists, you must have access to the 'Add Shared Password List' and/or 'Add Private Password List' menus within the Passwordstate UI.  
+
+When creating a new Password List, there are a few options for copying settings and permissions from other Password Lists or Templates, where to place the Password List in the Navigation Tree, and if you want to link the Password List to a Template.  
+
+The following example shows, in PowerShell, how to create a a new Password List, nest the new Password List beneath the new Folder and setting permissions/settings for this newly created list.  
 
 ## EXAMPLES
 
