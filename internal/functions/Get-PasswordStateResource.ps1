@@ -25,7 +25,8 @@ function Get-PasswordStateResource {
         [string]$uri,
         [string]$method = "GET",
         [string]$ContentType = "application/json",
-        [hashtable]$extraparams = $null
+        [hashtable]$extraparams = $null,
+        [switch]$Sort
     )
 
     begin {
@@ -97,6 +98,9 @@ function Get-PasswordStateResource {
     }
 
     end {
-       return $result
+        if ($result)
+        {
+            return $result | Get-PSCustomObject -Sort:$Sort
+        }
     }
 }
