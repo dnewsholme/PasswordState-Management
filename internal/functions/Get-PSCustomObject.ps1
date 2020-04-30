@@ -1,5 +1,4 @@
-function Get-PSCustomObject
-{
+function Get-PSCustomObject {
     [CmdletBinding()]
     Param(
         [Parameter(ValueFromPipelineByPropertyName, ValueFromPipeline, Mandatory = $true)]
@@ -15,8 +14,7 @@ function Get-PSCustomObject
         [Parameter(ValueFromPipelineByPropertyName, ValueFromPipeline, Mandatory = $false)]
         [switch]$Stable
     )
-    if ($Sort)
-    {
+    if ($Sort) {
         # Create a temporary new ordered hashtable
         $ObjectSorted = [ordered]@{ }
         # Get all properties from the given InputObject, sort it by name and add each property to the temporary created ordered hashtable
@@ -29,8 +27,7 @@ function Get-PSCustomObject
         # return the sorted object
         return $OutputObject
     }
-    else
-    {
+    else {
         return $InputObject
     }
 }
