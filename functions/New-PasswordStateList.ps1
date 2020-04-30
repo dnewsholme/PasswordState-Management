@@ -1,8 +1,6 @@
-﻿function New-PasswordStateList
-{
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
-        'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password field.'
-    )]
+﻿function New-PasswordStateList {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password field.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = '*UserID and *PasswordID are not a user and not a password')]
     [cmdletbinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'All')]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)]
@@ -63,17 +61,14 @@
         [switch]$Sort
     )
 
-    begin
-    {
-        If (($PSBoundParameters.ContainsKey('AllowExport')) -or ($PSBoundParameters.ContainsKey('PreventBadPasswordUse')) -or ($PSBoundParameters.ContainsKey('PasswordResetEnabled')) -or ($PSBoundParameters.ContainsKey('PasswordGeneratorID')) -or ($PSBoundParameters.ContainsKey('PasswordStrengthPolicyID')))
-        {
+    begin {
+        If (($PSBoundParameters.ContainsKey('AllowExport')) -or ($PSBoundParameters.ContainsKey('PreventBadPasswordUse')) -or ($PSBoundParameters.ContainsKey('PasswordResetEnabled')) -or ($PSBoundParameters.ContainsKey('PasswordGeneratorID')) -or ($PSBoundParameters.ContainsKey('PasswordStrengthPolicyID'))) {
             Write-Warning "The following properties are not implemented yet to the PasswordState (Win)API, please remove these parameters: 'AllowExport', 'PreventBadPasswordUse', 'PasswordResetEnabled', 'PasswordGeneratorID', 'PasswordStrengthPolicyID'."
             Write-Warning "If you would like to change these properties, please copy the settings from an existing password list (-CopySettingsFromPasswordListID) or create a password list template and copy the settings from the template (-CopySettingsFromTemplateID)"
             break
         }
     }
-    process
-    {
+    process {
         # Build the Custom object to convert to json and send to the api.
         $body = [PSCustomObject]@{
             "PasswordList"                         = $Name
@@ -97,25 +92,21 @@
             "PrivatePasswordList"                  = $PrivatePasswordList.IsPresent
         }
         # When apply permissions to the newly created Password List (for a User or Security Group), you must specify the values of A, M or V - Administrator, Modify or View rights.
-        if ($Permission)
-        {
+        if ($Permission) {
             $body | Add-Member -NotePropertyName "Permission" -NotePropertyValue $Permission
         }
         # Any associated instructions (guide) for how the password list should be used (Can contain HTML characters).
-        if ($Guide)
-        {
+        if ($Guide) {
             # just in case someone is adding html code to the guide for whatever reason (HTML rendering is not allowed in the guide anymore on PasswordState)
             $Guide = [System.Net.WebUtility]::HtmlEncode($Guide)
             $body | Add-Member -NotePropertyName "Guide" -NotePropertyValue $Guide
         }
         # Adding API Key to the body if using APIKey as Authentication Type to use the api instead of winAPI
         $penv = Get-PasswordStateEnvironment
-        if ($penv.AuthType -eq "APIKey")
-        {
+        if ($penv.AuthType -eq "APIKey") {
             $body | Add-Member -MemberType NoteProperty -Name "APIKey" -Value $penv.Apikey
         }
-        if ($PSCmdlet.ShouldProcess("$Name under folder $folderid"))
-        {
+        if ($PSCmdlet.ShouldProcess("$Name under folder $folderid")) {
             # Sort the CustomObject and then covert body to json and execute the api query
             $body = "$($body | Get-PSCustomObject -Sort |ConvertTo-Json)"
             Write-Verbose "$body"
@@ -123,10 +114,8 @@
         }
     }
 
-    end
-    {
-        if ($output)
-        {
+    end {
+        if ($output) {
             return $output
         }
     }
