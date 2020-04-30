@@ -1,4 +1,4 @@
-﻿function Update-PasswordStatePassword {
+﻿function Set-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'API requires password be passed as plain text')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'API requires password be passed as plain text')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
@@ -96,3 +96,5 @@
         Return $output
     }
 }
+
+Set-Alias -Name Update-PasswordStatePassword -Value Set-PasswordStatePassword -Force
