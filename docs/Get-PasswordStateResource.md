@@ -93,7 +93,7 @@ Accept wildcard characters: False
 ```
 
 ### -Sort
-Optional Parameter to sort the returned output
+Optional Parameter to sort the returned output.
 
 ```yaml
 Type: SwitchParameter
