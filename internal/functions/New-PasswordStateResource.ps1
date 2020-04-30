@@ -28,7 +28,8 @@ function New-PasswordStateResource {
         [string]$method = "POST",
         [string]$body = $null,
         [string]$ContentType = "application/json",
-        [hashtable]$extraparams = $null
+        [hashtable]$extraparams = $null,
+        [switch]$Sort
 
     )
 
@@ -97,7 +98,10 @@ function New-PasswordStateResource {
     }
 
     end {
-	    [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
-        return $result
+        [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
+        if ($result)
+        {
+            return $result | Get-PSCustomObject -Sort:$Sort
+        }
     }
 }

@@ -1,48 +1,38 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStatePassword.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Set-PasswordStatePassword.md
 schema: 2.0.0
 ---
 
-# New-PasswordStatePassword
+# Set-PasswordStatePassword
 
 ## SYNOPSIS
-Creates a New Password State entry in the password list specified.
+Updates the password of an existing password state entry.
 
 ## SYNTAX
 
-### password
 ```
-New-PasswordStatePassword [-passwordlistID] <Int32> [-title] <String> [[-username] <String>]
- [[-password] <String>] [[-description] <String>] [[-notes] <String>] [[-url] <String>]
- [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
+Set-PasswordStatePassword [-passwordID] <Int32> [[-password] <String>] [[-title] <String>]
+ [[-username] <String>] [[-domain] <String>] [[-hostname] <String>] [[-notes] <String>] [[-url] <String>]
+ [[-reason] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
  [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### GeneratePassword
-```
-New-PasswordStatePassword [-passwordlistID] <Int32> [-title] <String> [[-username] <String>]
- [[-description] <String>] [-GeneratePassword] [[-notes] <String>] [[-url] <String>]
- [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
- [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
- [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-GenericField10] <String>] [-PreventAuditing] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates a New Password State entry in the password list specified.
+Updates the password of an existing password state entry.
+Any fields not sent will remain the same as before.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-New-PasswordStatePassword -Title "testpassword" -PasswordListID 1 -username "newuser" -Password "CorrectHorseStapleBattery" -notes "development website" -url "http://somegoodwebsite.com" -customfields @{GenericField1 = 'value for GenericField1';GenericField2 = 'value2'}
+Set-PasswordStatePassword -PasswordlistID 5 -PasswordID 1 -Password "76y288uneeko%%%2A" -title "testuser01"
 ```
 
-Creates a new password entry called testpassword
+Updates the password to "76y288uneeko%%%2A" for the entry named testuser01
 
 ## PARAMETERS
 
@@ -61,21 +51,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -GeneratePassword
-A switch parameter to generate the password based off the PasswordList Policy.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: GeneratePassword
-Aliases:
-
-Required: False
-Position: 5
-Default value: False
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -GenericField1
 {{Fill GenericField1 Description}}
 
@@ -85,7 +60,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 8
+Position: 9
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -226,6 +201,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -PreventAuditing
+{{Fill PreventAuditing Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 19
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
@@ -242,8 +232,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -description
-custom description to be added to the password..
+### -domain
+Updated domain value
 
 ```yaml
 Type: String
@@ -257,8 +247,23 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -hostname
+Updated hostname value
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -notes
-Any notes to be added.
+Updated note value
 
 ```yaml
 Type: String
@@ -273,23 +278,22 @@ Accept wildcard characters: False
 ```
 
 ### -password
-The password to be added to the entry.
+The new password to be added to the entry.
 
 ```yaml
 Type: String
-Parameter Sets: password
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: 1
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -passwordlistID
-The ID of the password list which to place the entry in.
-Int32 value.
+### -passwordID
+The ID of the password to be updated.
 
 ```yaml
 Type: Int32
@@ -303,23 +307,38 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -title
-Name of the entry to be created.
+### -reason
+A reason which can be logged for auditing of why a password was updated.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: 1
+Required: False
+Position: 8
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -title
+Updated title value
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -url
-URL to be added to the entry if relevant.
+Updated URL value
 
 ```yaml
 Type: String
@@ -334,7 +353,7 @@ Accept wildcard characters: False
 ```
 
 ### -username
-The username to be added to the entry (Optional)
+Updated username Value
 
 ```yaml
 Type: String
@@ -342,7 +361,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -353,18 +372,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### passwordlistID - The ID of the password list to create the password in. (Integer)
-### username - Username for the entry (String)
-### password - Password value for the entry (String)
-### title - Title for the entry (String)
-### notes - Notes for the entry (String)(Optional)
-### url - URL for the entry (String)(Optional)
-### description - description for entyr (Optional)
+### All fields must be specified, can be passed along the pipeline.
 ## OUTPUTS
 
-### The entry is returned from the Password State Server.
+### Will output all fields for the entry from passwordstate including the new password.
 ## NOTES
 Daryl Newsholme 2018
-Willem R 2019
 
 ## RELATED LINKS

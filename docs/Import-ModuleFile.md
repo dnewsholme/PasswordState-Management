@@ -1,35 +1,40 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Get-PasswordStateEnvironment.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Import-ModuleFile.md
 schema: 2.0.0
 ---
 
-# Get-PasswordStateEnvironment
+# Import-ModuleFile
 
 ## SYNOPSIS
-Retrieves the saved Passwordstate environment and decrypts it.
+Loads files into the module on module import.
 
 ## SYNTAX
 
 ```
-Get-PasswordStateEnvironment [[-path] <String>] [<CommonParameters>]
+Import-ModuleFile [[-Path] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrieves the saved Passwordstate environment and decrypts it.
+This helper function is used during module initialization.
+It should always be dotsourced itself, in order to proper function.
+
+This provides a central location to react to files being imported, if later desired
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-PasswordStateEnvironment
+. Import-ModuleFile -File $function.FullName
 ```
+
+Imports the file stored in $function according to import policy
 
 ## PARAMETERS
 
-### -path
-{{ Fill path Description }}
+### -Path
+The path to the file to load
 
 ```yaml
 Type: String
@@ -37,9 +42,9 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
+Position: 1
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -50,8 +55,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Retrieves the base uri and APIKey.
 ## NOTES
-Daryl Newsholme 2018
 
 ## RELATED LINKS

@@ -4,3 +4,4 @@ testResults.xml
 .vscode\*
 cov.xml
 .vscode
+passwordstate.code-workspace

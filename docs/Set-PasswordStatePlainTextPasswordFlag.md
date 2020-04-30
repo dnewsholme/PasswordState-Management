@@ -1,61 +1,63 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Get-StringHash.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Set-PasswordStatePlainTextPasswordFlag.md
 schema: 2.0.0
 ---
 
-# Get-StringHash
+# Set-PasswordStatePlainTextPasswordFlag
 
 ## SYNOPSIS
-Returns a hash of a string value
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Get-StringHash [-String] <String> [-HashName] <String> [<CommonParameters>]
+Set-PasswordStatePlainTextPasswordFlag [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns a hash of a string value
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
 ```
-Get-StringHash -string "qwerty" -hashname SHA1
-```
+
+{{ Add example description here }}
 
 ## PARAMETERS
 
-### -String
-String value to be converted to a hash.
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
-Required: True
-Position: 1
+Required: False
+Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -HashName
-Hash type to be generated.
-Valid values are "MD5", "RIPEMD160", "SHA1", "SHA256", "SHA384", "SHA512"
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
 
 ```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: wi
 
-Required: True
-Position: 2
+Required: False
+Position: Named
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -64,10 +66,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
-### b1b3773a05c0ed0176787a4f1574ff0075f7521e
+### System.Object
 ## NOTES
-Daryl Newsholme 2018
 
 ## RELATED LINKS
