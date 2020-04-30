@@ -1,5 +1,4 @@
-﻿function New-PasswordStateDependency
-{
+﻿function New-PasswordStateDependency {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password field.'
     )]
@@ -22,11 +21,9 @@
         [int32]$ScriptID
     )
 
-    begin
-    {
+    begin {
     }
-    process
-    {
+    process {
         # Build the Custom object to convert to json and send to the api.
         $body = [PSCustomObject]@{
             "PasswordID" = $PasswordID
@@ -36,34 +33,27 @@
         # If you wish to execute a script Post Reset, you do not need to add a dependency,
         # or Host record to link it to - you can execute any custom script you like.
         # The order in which scripts are executed can be changed on the previous screen on the password record dependency screen.
-        if ($DependencyType)
-        {
+        if ($DependencyType) {
             $body | Add-Member -NotePropertyName "DependencyType" -NotePropertyValue $DependencyType
         }
-        if ($DependencyName)
-        {
+        if ($DependencyName) {
             $body | Add-Member -NotePropertyName "DependencyName" -NotePropertyValue $DependencyName
         }
-        if ($HostName)
-        {
+        if ($HostName) {
             $body | Add-Member -NotePropertyName "HostName" -NotePropertyValue $HostName
         }
         # Adding API Key to the body if using APIKey as Authentication Type to use the api instead of winAPI
         $penv = Get-PasswordStateEnvironment
-        if ($penv.AuthType -eq "APIKey")
-        {
+        if ($penv.AuthType -eq "APIKey") {
             $body | Add-Member -MemberType NoteProperty -Name "APIKey" -Value $penv.Apikey
         }
-        if ($PSCmdlet.ShouldProcess("DependencyType: $DependencyType with DependencyName: $DependencyName for PasswordID: $PasswordID, using script: $ScriptID"))
-        {
+        if ($PSCmdlet.ShouldProcess("DependencyType: $DependencyType with DependencyName: $DependencyName for PasswordID: $PasswordID, using script: $ScriptID")) {
             $body = "$($body|ConvertTo-Json)"
-            Write-Verbose "$body"
             $output = New-PasswordStateResource -uri "/api/dependencies" -body $body
         }
     }
 
-    end
-    {
+    end {
         return $output
     }
 }

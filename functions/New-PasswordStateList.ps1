@@ -63,9 +63,8 @@
 
     begin {
         If (($PSBoundParameters.ContainsKey('AllowExport')) -or ($PSBoundParameters.ContainsKey('PreventBadPasswordUse')) -or ($PSBoundParameters.ContainsKey('PasswordResetEnabled')) -or ($PSBoundParameters.ContainsKey('PasswordGeneratorID')) -or ($PSBoundParameters.ContainsKey('PasswordStrengthPolicyID'))) {
-            Write-Warning "The following properties are not implemented yet to the PasswordState (Win)API, please remove these parameters: 'AllowExport', 'PreventBadPasswordUse', 'PasswordResetEnabled', 'PasswordGeneratorID', 'PasswordStrengthPolicyID'."
-            Write-Warning "If you would like to change these properties, please copy the settings from an existing password list (-CopySettingsFromPasswordListID) or create a password list template and copy the settings from the template (-CopySettingsFromTemplateID)"
-            break
+            throw "The following properties are not implemented yet to the PasswordState (Win)API, please remove these parameters: 'AllowExport', 'PreventBadPasswordUse', 'PasswordResetEnabled', 'PasswordGeneratorID', 'PasswordStrengthPolicyID'. `
+            If you would like to change these properties, please copy the settings from an existing password list (-CopySettingsFromPasswordListID) or create a password list template and copy the settings from the template (-CopySettingsFromTemplateID)"
         }
     }
     process {
@@ -109,7 +108,6 @@
         if ($PSCmdlet.ShouldProcess("$Name under folder $folderid")) {
             # Sort the CustomObject and then covert body to json and execute the api query
             $body = "$($body | Get-PSCustomObject -Sort |ConvertTo-Json)"
-            Write-Verbose "$body"
             $output = New-PasswordStateResource -uri "/api/passwordlists" -body $body -Sort:$Sort
         }
     }

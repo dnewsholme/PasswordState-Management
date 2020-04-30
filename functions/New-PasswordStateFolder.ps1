@@ -54,7 +54,6 @@
         if ($PSCmdlet.ShouldProcess("$Name under folder $FolderID"))
         {
             $body = "$($body|ConvertTo-Json)"
-            Write-Verbose "$body"
             $output = New-PasswordStateResource -uri "/api/folders" -body $body
         }
     }
