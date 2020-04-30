@@ -16,6 +16,8 @@
     Optional Parameter to override the default content type from application/json.
 .PARAMETER ExtraParams
     Optional Parameter to allow extra parameters to be passed to invoke-restmethod. Should be passed as a hashtable.
+.PARAMETER Sort
+    Optional Parameter to sort the returned output.
 .NOTES
     Daryl Newsholme 2018
 #>
@@ -41,13 +43,13 @@ function Get-PasswordStateResource {
                 $uri = $uri -Replace "^/api/", "/winapi/"
             }
             APIKey {
-                switch -Wildcard ($uri){
+                switch -Wildcard ($uri) {
                     /api/generatepassword* {
                         Write-Verbose "[$(Get-Date -format G)] Using generate password api key"
-                        $headers = @{"APIKey" = "$($passwordstateenvironment.PasswordGeneratorAPIKey)"}
+                        $headers = @{"APIKey" = "$($passwordstateenvironment.PasswordGeneratorAPIKey)" }
                     }
                     Default {
-                        $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
+                        $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)" }
                     }
                 }
             }
@@ -61,23 +63,23 @@ function Get-PasswordStateResource {
             "ContentType"     = $ContentType
             "Method"          = $method.ToUpper()
         }
-        if (!$body){
+        if (!$body) {
             $params.Remove("Body")
         }
         if ($headers -and $null -ne $extraparams.Headers) {
             Write-Verbose "[$(Get-Date -format G)] Adding API Headers and extra param headers"
             $headers += $extraparams.headers
-            $params += @{"headers" = $headers}
+            $params += @{"headers" = $headers }
             $skipheaders = $true
         }
-        if ($extraparams -and $null -eq $extraparams.Headers){
+        if ($extraparams -and $null -eq $extraparams.Headers) {
             Write-Verbose "[$(Get-Date -format G)] Adding extra parameter $($extraparams.keys) $($extraparams.values)"
             $params += $extraparams
         }
 
         if ($headers -and $skipheaders -ne $true) {
             Write-Verbose "[$(Get-Date -format G)] Adding API Headers only"
-            $params += @{"headers" = $headers}
+            $params += @{"headers" = $headers }
         }
         Switch ($passwordstateenvironment.AuthType) {
             APIKey {
@@ -98,8 +100,7 @@ function Get-PasswordStateResource {
     }
 
     end {
-        if ($result)
-        {
+        if ($result) {
             return $result | Get-PSCustomObject -Sort:$Sort
         }
     }
