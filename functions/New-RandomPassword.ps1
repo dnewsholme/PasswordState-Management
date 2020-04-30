@@ -1,44 +1,4 @@
-﻿<#
-    .SYNOPSIS
-    Generates a random Password from the Password state generator API
-    .DESCRIPTION
-    Generates a random Password from the Password state generator API
-
-    .PARAMETER length
-    Length for the generated password
-    .PARAMETER includebrackets
-    If brackets should be included such as {}()
-    .PARAMETER includespecialcharacters
-    If special characters such as ^_> should be included.
-    .PARAMETER includenumbers
-    If numbers should be included.
-    .PARAMETER includelowercase
-    If lowercase characters should be included.
-    .PARAMETER includeuppercase
-    If uppercase should be included.
-    .PARAMETER Quantity
-    The quantity of passwords to generate.
-
-    .PARAMETER PolicyID
-    ID for an existing Password Generator ID
-
-    .EXAMPLE
-    PS C:\> New-RandomPassword
-
-    .EXAMPLE
-    PS C:\> New-RandomPassword -length 60 -includenumbers -includeuppercase -includelowercase -includespecialcharacters -includebrackets -Quantity 1
-
-    .EXAMPLE
-    PS C:\> New-RandomPassword -PolicyID 2
-
-    .INPUTS
-    PasswordGeneratorID - Optional parameter if you want to generate a more or less secure password.
-    .OUTPUTS
-    A string value of the generated password.
-    .NOTES
-    Daryl Newsholme 2019
-#>
-Function New-RandomPassword {
+﻿Function New-RandomPassword {
   [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
       'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password just an ID'
   )]

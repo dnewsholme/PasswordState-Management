@@ -1,55 +1,53 @@
-<#
-.SYNOPSIS
-Creates a passwordstate Folder.
-
-.DESCRIPTION
-Creates a passwordstate Folder.
-
-.PARAMETER Name
-Name of the Passwordstate Folder
-
-.PARAMETER description
-Description fro the Folder
-
-.PARAMETER CopySettingsFromPasswordFolderID
-Optionally copy the settings from another Folder.
-
-.PARAMETER FolderID
-Folder ID that the Folder should be placed under. Will default to root if left blank
-
-.EXAMPLE
-New-PasswordStateFolder -Name TestFolder -Description "A Test Folder" -FolderID 4
-
-.NOTES
-Daryl Newsholme 2018
-#>
-function New-PasswordStateFolder {
+﻿function New-PasswordStateFolder {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password field.'
     )]
     [cmdletbinding(SupportsShouldProcess = $true)]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string]$Name,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][string]$description,
-        [parameter(ValueFromPipelineByPropertyName)][int32]$CopySettingsFromPasswordListID = $null,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false)][int32]$FolderID = 0
-
+        [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][string]$Name,
+        [parameter(ValueFromPipelineByPropertyName, Position = 1, Mandatory = $true)][string]$Description,
+        [parameter(ValueFromPipelineByPropertyName, Position = 3, Mandatory = $false)][string]$CopyPermissionsFromPasswordListID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Position = 4, Mandatory = $false)][string]$CopyPermissionsFromTemplateID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Position = 2, Mandatory = $false, HelpMessage = "FolderID 0 = Folder will be created in the root of the Navigation Tree")][Alias("NestUnderFolderID")][int32]$FolderID = 0,
+        [parameter(ValueFromPipelineByPropertyName, Position = 5, Mandatory = $false)][string]$Guide,
+        [parameter(ValueFromPipelineByPropertyName, Position = 7, Mandatory = $false, HelpMessage = "SiteID 0 = Default site 'Internal'")][int32]$SiteID = 0,
+        [parameter(ValueFromPipelineByPropertyName, Position = 6, Mandatory = $false)][switch]$PropagatePermissions
     )
 
     begin {
-        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
     }
 
     process {
         # Build the Custom object to convert to json and send to the api.
-        $body = [pscustomobject]@{
-            "FolderName"                     = $Name
-            "Description"                    = $description
-            "CopySettingsFromPasswordListID" = $CopySettingsFromPasswordListID
-            "NestUnderFolderID"              = $FolderID
+        $body = [PSCustomObject]@{
+            "FolderName"                        = $Name
+            "Description"                       = $Description
+            "NestUnderFolderID"                 = $FolderID
+            "SiteID"                            = $SiteID
+            "CopyPermissionsFromPasswordListID" = $CopyPermissionsFromPasswordListID
+            "CopyPermissionsFromTemplateID"     = $CopyPermissionsFromTemplateID
         }
-        if ($PSCmdlet.ShouldProcess("$Name under folder $folderID")) {
-            $output = New-PasswordStateResource  -uri "/api/Folders" -body "$($body|convertto-json)"
+
+        # Any associated instructions (guide) for how the Folder should be used (Can contain HTML characters).
+        if ($Guide) {
+            # just in case someone is adding html code to the guide for whatever reason (HTML rendering is not allowed in the guide anymore on PasswordState)
+            $Guide = [System.Net.WebUtility]::HtmlEncode($Guide)
+            $body | Add-Member -NotePropertyName "Guide" -NotePropertyValue $Guide
+        }
+        # If you want the folder to propagate its permissions down to all nested Password Lists and Folders, then you set PropagatePermissions to true.
+        if ($PropagatePermissions) {
+            $body | Add-Member -NotePropertyName "PropagatePermissions" -NotePropertyValue $true
+        }
+
+        # Adding API Key to the body if using APIKey as Authentication Type to use the api instead of winAPI
+        $penv = Get-PasswordStateEnvironment
+        if ($penv.AuthType -eq "APIKey") {
+            $body | Add-Member -MemberType NoteProperty -Name "APIKey" -Value $penv.Apikey
+        }
+
+        if ($PSCmdlet.ShouldProcess("$Name under folder $FolderID")) {
+            $body = "$($body|ConvertTo-Json)"
+            $output = New-PasswordStateResource -uri "/api/folders" -body $body
         }
     }
 

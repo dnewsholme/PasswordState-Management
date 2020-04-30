@@ -1,29 +1,4 @@
-﻿<#
-    .SYNOPSIS
-    Deletes a password state host.
-
-    .DESCRIPTION
-    Deletes a password state host.
-
-    .EXAMPLE
-    PS C:\> Remove-PasswordStateHost -HostName 'testhostname.domain'
-    Deletes the host testhostname.domain.
-
-    .PARAMETER HostName
-    The exact hostname for the host you want to remove
-    .PARAMETER Reason
-    A reason which can be logged for auditing of why a host was removed.
-
-    .PARAMETER PreventAuditing
-    An optional parameter to prevent logging this API call in the audit log (Can be overruled in PasswordState preferences).
-
-    .INPUTS
-    HostName - The exact hostname for the host (String)
-
-    .NOTES
-    2019 - Jarno Colombeen
-#>
-Function Remove-PasswordStateHost {
+﻿Function Remove-PasswordStateHost {
   [CmdletBinding(SupportsShouldProcess = $true,ConfirmImpact = 'High')]
   Param (
     [Parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][string]$HostName,

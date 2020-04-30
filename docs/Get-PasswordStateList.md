@@ -1,7 +1,7 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version:
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Get-PasswordStateList.md
 schema: 2.0.0
 ---
 
@@ -45,17 +45,17 @@ Get-PasswordStateList -PasswordList 'Test' -TreePath '\TestPath\Lists' -SiteID 1
 
 ## PARAMETERS
 
-### -PasswordListID
-Gets the passwordlist based on ID, when omitted, gets all the passord lists
+### -Description
+The description for the PasswordList to find
 
 ```yaml
-Type: Int32
-Parameter Sets: ID
+Type: String
+Parameter Sets: Specific
 Aliases:
 
 Required: False
 Position: 1
-Default value: 0
+Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -69,38 +69,38 @@ Parameter Sets: Specific
 Aliases:
 
 Required: False
-Position: 1
+Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Description
-The description for the PasswordList to find
+### -PasswordListID
+Gets the passwordlist based on ID, when omitted, gets all the passord lists
 
 ```yaml
-Type: String
-Parameter Sets: Specific
+Type: Int32
+Parameter Sets: ID
 Aliases:
 
 Required: False
-Position: 2
-Default value: None
+Position: 0
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -TreePath
-The treepath where the PasswordList should be found
+### -PreventAuditing
+{{Fill PreventAuditing Description}}
 
 ```yaml
-Type: String
-Parameter Sets: Specific
+Type: SwitchParameter
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
-Default value: None
+Position: 5
+Default value: False
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -114,7 +114,7 @@ Parameter Sets: Specific
 Aliases:
 
 Required: False
-Position: 4
+Position: 3
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -129,29 +129,29 @@ Parameter Sets: Specific
 Aliases:
 
 Required: False
-Position: 5
+Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -PreventAuditing
-{{Fill PreventAuditing Description}}
+### -TreePath
+The treepath where the PasswordList should be found
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
+Type: String
+Parameter Sets: Specific
 Aliases:
 
 Required: False
-Position: 6
-Default value: False
+Position: 2
+Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

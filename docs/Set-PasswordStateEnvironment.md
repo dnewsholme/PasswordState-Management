@@ -1,7 +1,7 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version:
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Set-PasswordStateEnvironment.md
 schema: 2.0.0
 ---
 
@@ -14,19 +14,20 @@ Saves your password state environment configuration to be used when calling the 
 
 ### Two (Default)
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-WindowsAuthOnly] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-PasswordStateEnvironment -Baseuri <String> [-WindowsAuthOnly] [-path <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### One
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-Apikey <String>] [-PasswordGeneratorAPIkey <String>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Set-PasswordStateEnvironment -Baseuri <String> [-Apikey <String>] [-PasswordGeneratorAPIkey <String>]
+ [-path <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Three
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-customcredentials <PSCredential>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Set-PasswordStateEnvironment -Baseuri <String> [-customcredentials <PSCredential>] [-path <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -52,6 +53,21 @@ Note that password lists can only be retrieved with the System API key.
 
 ## PARAMETERS
 
+### -Apikey
+For use if APIKey is the preferred authentication method.
+
+```yaml
+Type: String
+Parameter Sets: One
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -Baseuri
 The base url of the passwordstate server.
 eg https://passwordstate
@@ -64,17 +80,17 @@ Aliases:
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Apikey
-For use if APIKey is the preferred authentication method.
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: String
-Parameter Sets: One
-Aliases:
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
@@ -94,37 +110,7 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WindowsAuthOnly
-For use if Windows Passthrough is the preferred authentication method.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: Two
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -customcredentials
-For use if windows custom credentials is the preferred authentication method.
-
-```yaml
-Type: PSCredential
-Parameter Sets: Three
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -144,23 +130,53 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -WindowsAuthOnly
+For use if Windows Passthrough is the preferred authentication method.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
+Parameter Sets: Two
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -customcredentials
+For use if windows custom credentials is the preferred authentication method.
+
+```yaml
+Type: PSCredential
+Parameter Sets: Three
+Aliases:
 
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -path
+{{ Fill path Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

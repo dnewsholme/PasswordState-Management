@@ -1,4 +1,4 @@
-param(
+﻿param(
     $repotype = "local",
     $reponame,
     $sourcelocation,
@@ -7,7 +7,7 @@ param(
     $apikey
 )
 $modulename = $($env:CI_PROJECT_NAME).tolower()
-
+import-module powershellget
 Remove-Item "$modulepath\$modulename" -Recurse -Force -erroraction silentlycontinue
 Copy-Item ".\$modulename" -Recurse -Destination $modulepath
 $commitmsg = (Get-BuildEnvironment).CommitMessage

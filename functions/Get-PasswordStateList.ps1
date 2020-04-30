@@ -1,38 +1,4 @@
-<#
-  .SYNOPSIS
-  Gets all password lists from the API (Only those you have permissions to.)
-  .DESCRIPTION
-  Gets all password lists from the API (Only those you have permissions to.)
-
-  .PARAMETER PasswordListID
-  Gets the passwordlist based on ID, when omitted, gets all the passord lists
-
-  .PARAMETER PasswordList
-  The name for the PasswordList to find
-  .PARAMETER Description
-  The description for the PasswordList to find
-  .PARAMETER TreePath
-  The treepath where the PasswordList should be found
-  .PARAMETER SiteID
-  The siteID for the PasswordList
-  .PARAMETER SiteLocation
-  The sitelocation for the PasswordList
-
-  .EXAMPLE
-  PS C:\> Get-PasswordStateList
-  .EXAMPLE
-  PS C:\> Get-PasswordStateList -PasswordListID 3
-  .EXAMPLE
-  PS C:\> Get-PasswordStateList -PasswordList 'Test' -TreePath '\TestPath\Lists' -SiteID 123
-
-  .OUTPUTS
-  Returns the lists including their names and IDs.
-
-  .NOTES
-  2018 - Daryl Newsholme
-  2019 - Jarno Colombeen
-#>
-Function Get-PasswordStateList {
+﻿Function Get-PasswordStateList {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password just an ID'
     )]
@@ -53,6 +19,10 @@ Function Get-PasswordStateList {
             'ID' {
                 If (!($PSBoundParameters.ContainsKey('PasswordListID'))) {
                     [string]$PasswordListID = ''
+                }
+                else {
+                    # if only PasswordListID is specified, so searching for a specific ID, PreventAuditing is not possible
+                    [switch]$PreventAuditing = $false
                 }
                 $uri = "/api/passwordlists/$($PasswordListID)"
             }
@@ -85,3 +55,5 @@ Function Get-PasswordStateList {
         }
     }
 }
+
+Set-Alias -Name Find-PasswordstateList -Value Get-PasswordStateList -Force

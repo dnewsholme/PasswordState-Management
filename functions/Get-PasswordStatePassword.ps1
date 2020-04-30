@@ -1,88 +1,4 @@
-﻿<#
-    .SYNOPSIS
-    Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
-
-    .DESCRIPTION
-    Finds a password state entry and returns the object. If multiple matches it will return multiple entries.
-
-    .EXAMPLE
-    PS C:\> Get-PasswordStatePassword
-    Returns all passwords you have access to.
-
-    .EXAMPLE
-    PS C:\> Get-PasswordStatePassword "testuser"
-    Returns the test user object including password.
-    .EXAMPLE
-    PS C:\> Get-PasswordStatePassword -Title '"testuser"'
-    Returns the object including password, which is an exact match with the title (Requires double quotes for exact match).
-    .EXAMPLE
-    PS C:\> Get-PasswordStatePassword -Username "testuser2" -Notes "Test"
-    Returns the test user 2 object, where the notes contain "Test", including password.
-    .EXAMPLE
-    PS C:\> Get-PasswordStatePassword -PasswordID "3456"
-    Returns the object with the PasswordID 3456 including password.
-
-    .PARAMETER Search
-    A string value which will be matched with most fields in the database table.
-
-    .PARAMETER PasswordID
-    An ID of a specific password resource to return.
-
-    .PARAMETER Title
-    A string value which should match the passwordstate entry.
-    .PARAMETER Username
-    An optional parameter to filter searches to those with a certain username as multiple titles may have the same value.
-    .PARAMETER HostName
-    An optional parameter to filter the search on hostname.
-    .PARAMETER Domain
-    An optional parameter to filter the search on domain.
-    .PARAMETER AccountType
-    An optional parameter to filter the search on account type.
-    .PARAMETER Description
-    An optional parameter to filter the search on description.
-    .PARAMETER Notes
-    An optional parameter to filter the search on notes.
-    .PARAMETER URL
-    An optional parameter to filter the search on the URL.
-    .PARAMETER SiteID
-    An optional parameter to filter the search on the site ID.
-    .PARAMETER SiteLocation
-    An optional parameter to filter the search on the site location.
-    .PARAMETER GenericField1
-    An optional parameter to filter the search on a generic field.
-    .PARAMETER GenericField2
-    An optional parameter to filter the search on a generic field.
-    .PARAMETER GenericField3
-    An optional parameter to filter the search on a generic field.
-    .PARAMETER GenericField4
-    An optional parameter to filter the search on a generic field.
-    .PARAMETER GenericField5
-    An optional parameter to filter the search on a generic field.
-    .PARAMETER GenericField6
-    An optional parameter to filter the search on a generic field.
-    .PARAMETER GenericField7
-    An optional parameter to filter the search on a generic field.
-    .PARAMETER GenericField8
-    An optional parameter to filter the search on a generic field.
-    .PARAMETER GenericField9
-    An optional parameter to filter the search on a generic field.
-    .PARAMETER GenericField10
-    An optional parameter to filter the search on a generic field.
-
-    .PARAMETER PasswordListID
-    An optional parameter to filter the search on a specific password list.
-
-    .PARAMETER Reason
-    A reason which can be logged for auditing of why a password was retrieved.
-
-    .OUTPUTS
-    Returns the Object from the API as a powershell object.
-
-    .NOTES
-    2018 - Daryl Newsholme
-    2019 - Jarno Colombeen
-#>
-Function Get-PasswordStatePassword {
+﻿Function Get-PasswordStatePassword {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'No Password is used only ID.')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'PasswordID isnt a password')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
@@ -117,9 +33,6 @@ Function Get-PasswordStatePassword {
     )
 
     Begin {
-        . "$(Get-NativePath -PathAsStringArray "$PSScriptroot","PasswordStateClass.ps1")"
-        Add-Type -AssemblyName System.Web
-        # Initalize output Array
     }
 
     Process {
@@ -209,3 +122,5 @@ Function Get-PasswordStatePassword {
 
     }
 }
+
+Set-Alias -Name Find-PasswordstatePassword -Value Get-PasswordStatePassword -Force
