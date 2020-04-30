@@ -56,12 +56,66 @@ InModuleScope -ModuleName 'PasswordState-Management' {
                 { (Invoke-Expression -Command "$($FunctionName) -PasswordID $($WrongPasswordID)") } | should -Throw
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
-            It 'Should say errormessage for wrong PasswordID "does not exist or no access"' {
+            It 'Should return error with a specific error message' {
                 try {
                     (Invoke-Expression -Command "$($FunctionName) -PasswordID $($WrongPasswordID)" -ErrorAction Stop)
                 }
                 catch [system.exception] {
-                    "$($_.exception)" | Should -Match 'was not found in the database'
+                    "$($_.exception)" | Should -MatchExactly "A Password of ID '$($WrongPasswordID)' was not found in the database, or you do not have permissions to it."
+                }
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
+            }
+            It 'Should return 2 history items for an existing passwordID' {
+                (( Invoke-Expression -Command "$($FunctionName) -PasswordID $($RightPasswordID)") | Measure-Object).Count | Should -be 2
+            }
+            It 'Should have called function Get-PasswordStateResource' {
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource'
+            }
+        }
+        Context 'Unit tests for Custom Credential' {
+            BeforeAll {
+                Set-PasswordStateEnvironment -path 'TestDrive:' -Baseuri $BaseURI -customcredentials $TestCredential
+            }
+            AfterAll {
+                Remove-Item -Path 'TestDrive:\Passwordstate.json' -Force -Confirm:$false -ErrorAction SilentlyContinue
+            }
+            It 'Should throw when PasswordID does not exist' {
+                { (Invoke-Expression -Command "$($FunctionName) -PasswordID $($WrongPasswordID)") } | should -Throw
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
+            }
+            It 'Should return error with a specific error message' {
+                try {
+                    (Invoke-Expression -Command "$($FunctionName) -PasswordID $($WrongPasswordID)" -ErrorAction Stop)
+                }
+                catch [system.exception] {
+                    "$($_.exception)" | Should -MatchExactly "A Password of ID '$($WrongPasswordID)' was not found in the database, or you do not have permissions to it."
+                }
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
+            }
+            It 'Should return 2 history items for an existing passwordID' {
+                (( Invoke-Expression -Command "$($FunctionName) -PasswordID $($RightPasswordID)") | Measure-Object).Count | Should -be 2
+            }
+            It 'Should have called function Get-PasswordStateResource' {
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource'
+            }
+        }
+        Context 'Unit tests for apiKey' {
+            BeforeAll {
+                Set-PasswordStateEnvironment -path 'TestDrive:' -Baseuri $BaseURI -Apikey $APIKey
+            }
+            AfterAll {
+                Remove-Item -Path 'TestDrive:\Passwordstate.json' -Force -Confirm:$false -ErrorAction SilentlyContinue
+            }
+            It 'Should throw when PasswordID does not exist' {
+                { (Invoke-Expression -Command "$($FunctionName) -PasswordID $($WrongPasswordID)") } | should -Throw
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
+            }
+            It 'Should return error with a specific error message' {
+                try {
+                    (Invoke-Expression -Command "$($FunctionName) -PasswordID $($WrongPasswordID)" -ErrorAction Stop)
+                }
+                catch [system.exception] {
+                    "$($_.exception)" | Should -MatchExactly "A Password of ID '$($WrongPasswordID)' was not found in the database, or you do not have permissions to it."
                 }
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
