@@ -1,11 +1,11 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/eizedev/PasswordState-Management/blob/master/docs/Update-PasswordStatePassword.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Set-PasswordStatePassword.md
 schema: 2.0.0
 ---
 
-# Update-PasswordStatePassword
+# Set-PasswordStatePassword
 
 ## SYNOPSIS
 Updates the password of an existing password state entry.
@@ -13,7 +13,7 @@ Updates the password of an existing password state entry.
 ## SYNTAX
 
 ```
-Update-PasswordStatePassword [-passwordID] <Int32> [[-password] <String>] [[-title] <String>]
+Set-PasswordStatePassword [-passwordID] <Int32> [[-password] <String>] [[-title] <String>]
  [[-username] <String>] [[-domain] <String>] [[-hostname] <String>] [[-notes] <String>] [[-url] <String>]
  [[-reason] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
  [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
@@ -29,7 +29,7 @@ Any fields not sent will remain the same as before.
 
 ### EXAMPLE 1
 ```
-Update-PasswordStatePassword -PasswordlistID 5 -PasswordID 1 -Password "76y288uneeko%%%2A" -title "testuser01"
+Set-PasswordStatePassword -PasswordlistID 5 -PasswordID 1 -Password "76y288uneeko%%%2A" -title "testuser01"
 ```
 
 Updates the password to "76y288uneeko%%%2A" for the entry named testuser01
