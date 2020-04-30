@@ -42,3 +42,5 @@
         }
     }
 }
+
+Set-Alias -Name Find-PasswordStateListFolder -Value Get-PasswordStateFolder -Force
