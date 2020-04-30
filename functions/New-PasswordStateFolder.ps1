@@ -1,5 +1,4 @@
-﻿function New-PasswordStateFolder
-{
+﻿function New-PasswordStateFolder {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password field.'
     )]
@@ -15,12 +14,10 @@
         [parameter(ValueFromPipelineByPropertyName, Position = 6, Mandatory = $false)][switch]$PropagatePermissions
     )
 
-    begin
-    {
+    begin {
     }
 
-    process
-    {
+    process {
         # Build the Custom object to convert to json and send to the api.
         $body = [PSCustomObject]@{
             "FolderName"                        = $Name
@@ -32,34 +29,29 @@
         }
 
         # Any associated instructions (guide) for how the Folder should be used (Can contain HTML characters).
-        if ($Guide)
-        {
+        if ($Guide) {
             # just in case someone is adding html code to the guide for whatever reason (HTML rendering is not allowed in the guide anymore on PasswordState)
             $Guide = [System.Net.WebUtility]::HtmlEncode($Guide)
             $body | Add-Member -NotePropertyName "Guide" -NotePropertyValue $Guide
         }
         # If you want the folder to propagate its permissions down to all nested Password Lists and Folders, then you set PropagatePermissions to true.
-        if ($PropagatePermissions)
-        {
+        if ($PropagatePermissions) {
             $body | Add-Member -NotePropertyName "PropagatePermissions" -NotePropertyValue $true
         }
 
         # Adding API Key to the body if using APIKey as Authentication Type to use the api instead of winAPI
         $penv = Get-PasswordStateEnvironment
-        if ($penv.AuthType -eq "APIKey")
-        {
+        if ($penv.AuthType -eq "APIKey") {
             $body | Add-Member -MemberType NoteProperty -Name "APIKey" -Value $penv.Apikey
         }
 
-        if ($PSCmdlet.ShouldProcess("$Name under folder $FolderID"))
-        {
+        if ($PSCmdlet.ShouldProcess("$Name under folder $FolderID")) {
             $body = "$($body|ConvertTo-Json)"
             $output = New-PasswordStateResource -uri "/api/folders" -body $body
         }
     }
 
-    end
-    {
+    end {
         return $output
     }
 }
