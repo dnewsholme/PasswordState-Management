@@ -1,6 +1,6 @@
-﻿Remove-Module PasswordState-Management -Force
+﻿Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
 Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
-. "$($psscriptroot)\json\Enum-JSONFiles.ps1"
+. "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
 InModuleScope 'PasswordState-Management' {
     Describe 'Get-PasswordStateResource' {
         BeforeAll {
