@@ -1,4 +1,4 @@
-function Get-PSCustomObject {
+﻿function Get-PSCustomObject {
     [CmdletBinding()]
     Param(
         [Parameter(ValueFromPipelineByPropertyName, ValueFromPipeline, Mandatory = $true)]
