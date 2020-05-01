@@ -33,9 +33,9 @@ function New-PasswordStateResource {
     )
 
     begin {
-        Write-PSFMessage -Level Verbose "Starting New-PasswordStateResource"
+        Write-PSFMessage -Level Verbose -Message "Starting New-PasswordStateResource"
         $PasswordStateEnvironment = $(Get-PasswordStateEnvironment)
-        Write-PSFMessage -Level Verbose "Authentication mode = "$($PasswordStateEnvironment.AuthType)""
+        Write-PSFMessage -Level Verbose -Message "Authentication mode = `"$($PasswordStateEnvironment.AuthType)`""
         Switch ($PasswordStateEnvironment.AuthType) {
             WindowsIntegrated {
                 $uri = $uri -Replace "^/api/", "/winapi/"
@@ -94,7 +94,7 @@ function New-PasswordStateResource {
                     }
                 }
             } catch [System.Net.WebException] {
-                Write-PSFMessage -Level Verbose "The request to Passwordstate timed out after $($PasswordStateEnvironment.TimeoutSeconds)"
+                Write-PSFMessage -Level Verbose -Message "The request to Passwordstate timed out after $($PasswordStateEnvironment.TimeoutSeconds)"
                 Write-Error -Exception $_.Exception -Message "The request to Passwordstate timed out after $($PasswordStateEnvironment.TimeoutSeconds)"
                 throw "Passwordstate did not respond within the allotted time of $($PasswordStateEnvironment.TimeoutSeconds) seconds"
             }
