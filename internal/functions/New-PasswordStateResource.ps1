@@ -36,6 +36,7 @@ function New-PasswordStateResource {
     begin {
         Write-PSFMessage -Level Verbose "Starting New-PasswordStateResource"
         $passwordstateenvironment = $(Get-PasswordStateEnvironment)
+        $TimeoutSeconds = 60
         Write-PSFMessage -Level Verbose "Authentication mode = "$($passwordstateenvironment.AuthType)""
         Switch ($passwordstateenvironment.AuthType) {
             WindowsIntegrated {
@@ -77,22 +78,29 @@ function New-PasswordStateResource {
             $params += @{"headers" = $headers}
         }
         if ($PSCmdlet.ShouldProcess("[$($params.Method)] uri:$($params.uri) Headers:$($headers) Body:$($params.body)")) {
-            Switch ($passwordstateenvironment.AuthType) {
-                APIKey {
-                    # Hit the API with the headers
-                    Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in APIKey mode"
-                    $result = Invoke-RestMethod @params -TimeoutSec 60
+            try {
+                Switch ($passwordstateenvironment.AuthType) {
+                    APIKey {
+                        # Hit the API with the headers
+                        Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in APIKey mode"
+                        $result = Invoke-RestMethod @params -TimeoutSec $TimeoutSeconds
+                    }
+                    WindowsCustom {
+                        Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in WinAPI custom credential mode"
+                        $result = Invoke-RestMethod @params -Credential $passwordstateenvironment.apikey -TimeoutSec $TimeoutSeconds
+                    }
+                    WindowsIntegrated {
+                        Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in WinAPI mode"
+                        # Hit the api with windows auth
+                        $result = Invoke-RestMethod @params -UseDefaultCredentials -TimeoutSec $TimeoutSeconds
+                    }
                 }
-                WindowsCustom {
-                    Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in WinAPI custom credential mode"
-                    $result = Invoke-RestMethod @params -Credential $passwordstateenvironment.apikey -TimeoutSec 60
-                }
-                WindowsIntegrated {
-                    Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in WinAPI mode"
-                    # Hit the api with windows auth
-                    $result = Invoke-RestMethod @params -UseDefaultCredentials -TimeoutSec 60
-                }
+            } catch [System.Net.WebException] {
+                Write-PSFMessage -Level Verbose "The request to Passwordstate timed out after $($TimeoutSeconds)"
+                Write-Error -Exception $_.Exception -Message "The request to Passwordstate timed out after $($TimeoutSeconds)"
+                throw "Passwordstate did not respond within the allotted time of $($TimeoutSeconds) seconds"
             }
+
         }
     }
 
