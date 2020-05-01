@@ -34,9 +34,6 @@ function New-PasswordStateResource {
     )
 
     begin {
-        # Force TLS 1.2
-        $SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
         $passwordstateenvironment = $(Get-PasswordStateEnvironment)
         Switch ($passwordstateenvironment.AuthType) {
             WindowsIntegrated {
@@ -98,7 +95,6 @@ function New-PasswordStateResource {
     }
 
     end {
-        [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         if ($result)
         {
             return $result | Get-PSCustomObject -Sort:$Sort
