@@ -30,12 +30,13 @@ function New-PasswordStateResource {
         [string]$ContentType = "application/json",
         [hashtable]$extraparams = $null,
         [switch]$Sort
-
     )
 
     begin {
-        $passwordstateenvironment = $(Get-PasswordStateEnvironment)
-        Switch ($passwordstateenvironment.AuthType) {
+        Write-PSFMessage -Level Verbose -Message "Starting New-PasswordStateResource"
+        $PasswordStateEnvironment = $(Get-PasswordStateEnvironment)
+        Write-PSFMessage -Level Verbose -Message "Authentication mode = `"$($PasswordStateEnvironment.AuthType)`""
+        Switch ($PasswordStateEnvironment.AuthType) {
             WindowsIntegrated {
                 $uri = $uri -Replace "^/api/", "/winapi/"
             }
@@ -43,7 +44,7 @@ function New-PasswordStateResource {
                 $uri = $uri -Replace "^/api/", "/winapi/"
             }
             APIKey {
-                $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
+                $headers = @{"APIKey" = "$($PasswordStateEnvironment.Apikey)"}
             }
         }
     }
@@ -51,7 +52,7 @@ function New-PasswordStateResource {
     process {
         $params = @{
             "UseBasicParsing" = $true
-            "URI"             = "$($passwordstateenvironment.baseuri)$uri"
+            "URI"             = "$($PasswordStateEnvironment.baseuri)$uri"
             "Method"          = $method.ToUpper()
             "ContentType"     = $ContentType
             "Body"            = $body
@@ -60,37 +61,44 @@ function New-PasswordStateResource {
             $params.Remove("Body")
         }
         if ($headers -and $null -ne $extraparams.Headers) {
-            Write-Verbose "[$(Get-Date -format G)] Adding API Headers and extra param headers"
+            Write-PSFMessage -Level Verbose -Message "Adding API Headers and extra param headers"
             $headers += $extraparams.headers
             $params += @{"headers" = $headers}
             $skipheaders = $true
         }
         if ($extraparams -and $null -eq $extraparams.Headers){
-            Write-Verbose "[$(Get-Date -format G)] Adding extra parameter $($extraparams.keys) $($extraparams.values)"
+            Write-PSFMessage -Level Verbose -Message "Adding extra parameter $($extraparams.keys) $($extraparams.values)"
             $params += $extraparams
         }
 
         if ($headers -and $skipheaders -ne $true) {
-            Write-Verbose "[$(Get-Date -format G)] Adding API Headers only"
+            Write-PSFMessage -Level Verbose -Message "Adding API Headers only"
             $params += @{"headers" = $headers}
         }
         if ($PSCmdlet.ShouldProcess("[$($params.Method)] uri:$($params.uri) Headers:$($headers) Body:$($params.body)")) {
-            Switch ($passwordstateenvironment.AuthType) {
-                APIKey {
-                    # Hit the API with the headers
-                    Write-Verbose "using uri $($params.uri)"
-                    $result = Invoke-RestMethod @params -TimeoutSec 60
+            try {
+                Switch ($PasswordStateEnvironment.AuthType) {
+                    APIKey {
+                        # Hit the API with the headers
+                        Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in APIKey mode"
+                        $result = Invoke-RestMethod @params -TimeoutSec $PasswordStateEnvironment.TimeoutSeconds
+                    }
+                    WindowsCustom {
+                        Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in WinAPI custom credential mode"
+                        $result = Invoke-RestMethod @params -Credential $PasswordStateEnvironment.apikey -TimeoutSec $PasswordStateEnvironment.TimeoutSeconds
+                    }
+                    WindowsIntegrated {
+                        Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in WinAPI mode"
+                        # Hit the api with windows auth
+                        $result = Invoke-RestMethod @params -UseDefaultCredentials -TimeoutSec $PasswordStateEnvironment.TimeoutSeconds
+                    }
                 }
-                WindowsCustom {
-                    Write-Verbose "using uri $($params.uri)"
-                    $result = Invoke-RestMethod @params -Credential $passwordstateenvironment.apikey -TimeoutSec 60
-                }
-                WindowsIntegrated {
-                    Write-Verbose "using uri $($params.uri)"
-                    # Hit the api with windows auth
-                    $result = Invoke-RestMethod @params -UseDefaultCredentials -TimeoutSec 60
-                }
+            } catch [System.Net.WebException] {
+                Write-PSFMessage -Level Verbose -Message "The request to Passwordstate timed out after $($PasswordStateEnvironment.TimeoutSeconds)"
+                Write-Error -Exception $_.Exception -Message "The request to Passwordstate timed out after $($PasswordStateEnvironment.TimeoutSeconds)"
+                throw "Passwordstate did not respond within the allotted time of $($PasswordStateEnvironment.TimeoutSeconds) seconds"
             }
+
         }
     }
 
@@ -99,5 +107,6 @@ function New-PasswordStateResource {
         {
             return $result | Get-PSCustomObject -Sort:$Sort
         }
+        Write-PSFMessage -Level Verbose -Message 'End of New-PasswordStteResource'
     }
 }

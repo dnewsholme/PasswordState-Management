@@ -39,6 +39,7 @@
     process {
         # Build the custom object to be converted to JSON. Set APIKey as WindowsAuth if we are to use windows authentication.
         $json = [pscustomobject] @{
+            "TimeoutSeconds" = 60
             "Baseuri"  = $Baseuri
             "Apikey"   = switch ($AuthType) {
                 WindowsIntegrated {
