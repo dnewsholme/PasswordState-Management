@@ -30,15 +30,13 @@ function New-PasswordStateResource {
         [string]$ContentType = "application/json",
         [hashtable]$extraparams = $null,
         [switch]$Sort
-
     )
 
     begin {
         Write-PSFMessage -Level Verbose "Starting New-PasswordStateResource"
-        $passwordstateenvironment = $(Get-PasswordStateEnvironment)
-        $TimeoutSeconds = 60
-        Write-PSFMessage -Level Verbose "Authentication mode = "$($passwordstateenvironment.AuthType)""
-        Switch ($passwordstateenvironment.AuthType) {
+        $PasswordStateEnvironment = $(Get-PasswordStateEnvironment)
+        Write-PSFMessage -Level Verbose "Authentication mode = "$($PasswordStateEnvironment.AuthType)""
+        Switch ($PasswordStateEnvironment.AuthType) {
             WindowsIntegrated {
                 $uri = $uri -Replace "^/api/", "/winapi/"
             }
@@ -46,7 +44,7 @@ function New-PasswordStateResource {
                 $uri = $uri -Replace "^/api/", "/winapi/"
             }
             APIKey {
-                $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
+                $headers = @{"APIKey" = "$($PasswordStateEnvironment.Apikey)"}
             }
         }
     }
@@ -54,7 +52,7 @@ function New-PasswordStateResource {
     process {
         $params = @{
             "UseBasicParsing" = $true
-            "URI"             = "$($passwordstateenvironment.baseuri)$uri"
+            "URI"             = "$($PasswordStateEnvironment.baseuri)$uri"
             "Method"          = $method.ToUpper()
             "ContentType"     = $ContentType
             "Body"            = $body
@@ -79,26 +77,26 @@ function New-PasswordStateResource {
         }
         if ($PSCmdlet.ShouldProcess("[$($params.Method)] uri:$($params.uri) Headers:$($headers) Body:$($params.body)")) {
             try {
-                Switch ($passwordstateenvironment.AuthType) {
+                Switch ($PasswordStateEnvironment.AuthType) {
                     APIKey {
                         # Hit the API with the headers
                         Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in APIKey mode"
-                        $result = Invoke-RestMethod @params -TimeoutSec $TimeoutSeconds
+                        $result = Invoke-RestMethod @params -TimeoutSec $PasswordStateEnvironment.TimeoutSeconds
                     }
                     WindowsCustom {
                         Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in WinAPI custom credential mode"
-                        $result = Invoke-RestMethod @params -Credential $passwordstateenvironment.apikey -TimeoutSec $TimeoutSeconds
+                        $result = Invoke-RestMethod @params -Credential $PasswordStateEnvironment.apikey -TimeoutSec $PasswordStateEnvironment.TimeoutSeconds
                     }
                     WindowsIntegrated {
                         Write-PSFMessage -Level Verbose -Message "Using uri $($params.uri) in WinAPI mode"
                         # Hit the api with windows auth
-                        $result = Invoke-RestMethod @params -UseDefaultCredentials -TimeoutSec $TimeoutSeconds
+                        $result = Invoke-RestMethod @params -UseDefaultCredentials -TimeoutSec $PasswordStateEnvironment.TimeoutSeconds
                     }
                 }
             } catch [System.Net.WebException] {
-                Write-PSFMessage -Level Verbose "The request to Passwordstate timed out after $($TimeoutSeconds)"
-                Write-Error -Exception $_.Exception -Message "The request to Passwordstate timed out after $($TimeoutSeconds)"
-                throw "Passwordstate did not respond within the allotted time of $($TimeoutSeconds) seconds"
+                Write-PSFMessage -Level Verbose "The request to Passwordstate timed out after $($PasswordStateEnvironment.TimeoutSeconds)"
+                Write-Error -Exception $_.Exception -Message "The request to Passwordstate timed out after $($PasswordStateEnvironment.TimeoutSeconds)"
+                throw "Passwordstate did not respond within the allotted time of $($PasswordStateEnvironment.TimeoutSeconds) seconds"
             }
 
         }
