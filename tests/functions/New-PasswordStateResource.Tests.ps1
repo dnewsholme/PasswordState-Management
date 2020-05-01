@@ -26,7 +26,7 @@ InModuleScope -ModuleName 'PasswordState-Management' {
                 param($ParameterName)
                 (get-command $FunctionName).Parameters[$ParameterName] | Should -Not -BeNullOrEmpty
             }
-            It 'Should have a parameter <parameter> with mandatory property set to <mandatory>' -TestCases $ParameterTestCases {
+            It 'Should have a parameter <parameterName> with mandatory property set to <mandatory>' -TestCases $ParameterTestCases {
                 param($ParameterName, $Mandatory)
                 "$(((Get-Command -Name $FunctionName).Parameters[$ParameterName].Attributes | Where-Object { $_.gettype().Fullname -eq 'System.Management.Automation.ParameterAttribute'}).Mandatory)" | should -be $Mandatory
             }
