@@ -33,7 +33,7 @@ Task Init {
     "Build System Details:"
     Get-Item ENV:BH*
     "`n"
-    Get-BuildEnvironment
+    #Get-BuildEnvironment
 }
 
 
@@ -54,9 +54,9 @@ Task Build -Depends Clean {
     $lines
     $Functions = (Get-ChildItem $ProjectRoot\functions\*.ps1)
     Write-Verbose "ProjectName is $($Projectname)"
-    $commitmsg = (Get-BuildEnvironment).CommitMessage
+    $commitmsg = $ENV:BHCommitMessage
     try {
-        $global:buildversion = $(((Find-Module -Name $($Projectname) -ErrorAction Stop))| Sort-Object version |Select-Object -Last 1 ).Version
+        $global:buildversion = $(((Find-Module -Name $($Projectname) -repository psgallery -ErrorAction Stop))| Sort-Object version |Select-Object -Last 1 ).Version
         switch -Wildcard ($commitmsg){
             "*major*"{
                 $global:buildversion = $global:buildversion | Step-Version -By Major
@@ -105,6 +105,6 @@ Task Build -Depends Clean {
         -Tags $tags
 
     # We have a module, BuildHelpers will see it
-    Set-BuildEnvironment -Force
+    #Set-BuildEnvironment -Force
     $global:modpath = $ModPath
 }
