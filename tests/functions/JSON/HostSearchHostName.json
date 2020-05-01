@@ -1,0 +1,26 @@
+[
+    {
+        "HostID": 1,
+        "HostName": "my.local.host",
+        "HostType": "Windows",
+        "OperatingSystem": "Windows Server 2012",
+        "DatabaseServerType": "",
+        "SQLInstanceName": "",
+        "DatabasePortNumber": "",
+        "RemoteConnectionType": "RDP",
+        "RemoteConnectionPortNumber": "3389",
+        "RemoteConnectionParameters": "",
+        "Tag": "",
+        "Title": "dev01",
+        "SiteID": "0",
+        "SiteLocation": "Work",
+        "InternalIP": "",
+        "ExternalIP": "",
+        "MACAddress": "",
+        "SessionRecording": false,
+        "VirtualMachine": true,
+        "VirtualMachineType": "Azure",
+        "Notes": "",
+        "DiscoveryJobID": null
+    }
+]
