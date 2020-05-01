@@ -33,7 +33,7 @@ Task Init {
     "Build System Details:"
     Get-Item ENV:BH*
     "`n"
-    Get-BuildEnvironment
+    #Get-BuildEnvironment
 }
 
 
@@ -105,6 +105,6 @@ Task Build -Depends Clean {
         -Tags $tags
 
     # We have a module, BuildHelpers will see it
-    Set-BuildEnvironment -Force
+    #Set-BuildEnvironment -Force
     $global:modpath = $ModPath
 }
