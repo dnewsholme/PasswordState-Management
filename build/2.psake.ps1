@@ -56,7 +56,7 @@ Task Build -Depends Clean {
     Write-Verbose "ProjectName is $($Projectname)"
     $commitmsg = $ENV:BHCommitMessage
     try {
-        $global:buildversion = $(((Find-Module -Name $($Projectname) -ErrorAction Stop))| Sort-Object version |Select-Object -Last 1 ).Version
+        $global:buildversion = $(((Find-Module -Name $($Projectname) -repository psgallery -ErrorAction Stop))| Sort-Object version |Select-Object -Last 1 ).Version
         switch -Wildcard ($commitmsg){
             "*major*"{
                 $global:buildversion = $global:buildversion | Step-Version -By Major
