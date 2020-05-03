@@ -107,7 +107,7 @@
         }
         if ($PSCmdlet.ShouldProcess("$Name under folder $folderid")) {
             # Sort the CustomObject and then covert body to json and execute the api query
-            $body = "$($body | Get-PSCustomObject -Sort |ConvertTo-Json)"
+            $body = "$($body |ConvertTo-Json)"
             $output = New-PasswordStateResource -uri "/api/passwordlists" -body $body -Sort:$Sort
         }
     }
