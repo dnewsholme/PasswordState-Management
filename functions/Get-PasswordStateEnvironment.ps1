@@ -44,6 +44,9 @@
             $pwgen = $cred2.GetNetworkCredential().Password
             $output.PasswordGeneratorAPIKey = $pwgen
         }
+        if ($null -eq $output.TimeoutSeconds){
+            $output | Add-Member -MemberType NoteProperty -Name "TimeoutSeconds" -Value 60
+        }
     }
 
     end {
