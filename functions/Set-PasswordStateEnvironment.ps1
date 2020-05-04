@@ -30,12 +30,16 @@
 
     process {
         # Build the custom object to be converted to JSON. Set APIKey as WindowsAuth if we are to use windows authentication.
-        $JsonApiKey = switch ($AuthType) {
-            WindowsIntegrated { "" }
-            WindowsCustom {
-                @{
-                    "username" = $customcredentials.UserName
-                    "Password" = ($customcredentials.Password | ConvertFrom-SecureString)
+        $json = [PSCustomObject]@{
+            TimeoutSeconds = 60
+            Baseuri = $Baseuri
+            Apikey = switch ($AuthType) {
+                WindowsIntegrated { "" }
+                WindowsCustom {
+                    [pscustomobject]@{
+                        "username" = $customcredentials.UserName
+                        "Password" = ($customcredentials.Password | ConvertFrom-SecureString)
+                    }
                 }
             }
             APIKey {
@@ -43,24 +47,18 @@
 
             }
         }
-        $json = @{
-            TimeoutSeconds = 60
-            Baseuri = $Uri -replace '/$',''
-            Apikey = $JsonApiKey
-            AuthType = $AuthType
-        }
         if ($SetPlainTextPasswords) {
             if ($PSCmdlet.ShouldProcess('Allow passwords to be returned in plain text')) {
-                $json['PasswordsInPlainText'] = $SetPlainTextPasswords
-            } else {
-                $json['PasswordsInPlainText'] = $false
+                $json | Add-Member -NotePropertyName 'PasswordsInPlainText' -NotePropertyValue $SetPlainTextPasswords
+            } else { 
+                $json | Add-Member -NotePropertyName 'PasswordsInPlainText' -NotePropertyValue $false
             }
         } else {
-            $json['PasswordsInPlainText'] = $SetPlainTextPasswords
+            $json | Add-Member -NotePropertyName 'PasswordsInPlainText' -NotePropertyValue $SetPlainTextPasswords
         }
 
         if ($PasswordGeneratorAPIkey){
-            $json['PasswordGeneratorAPIKey'] = ($PasswordGeneratorAPIkey | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString)
+            $json | Add-Member -NotePropertyName 'PasswordGeneratorAPIKey' -NotePropertyValue ($PasswordGeneratorAPIkey | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString)
         }
         $json = $json | ConvertTo-Json
     }
