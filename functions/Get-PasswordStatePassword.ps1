@@ -33,6 +33,7 @@
     )
 
     Begin {
+        $PWSProfile = Get-PasswordStateEnvironment -path $Script:Preferences.Path
     }
 
     Process {
@@ -100,21 +101,13 @@
             }
         }
         Try {
-            $obj = Get-PasswordStateResource -URI $uri @parms  -Method GET
-            foreach ($i in $obj) {
-                [PasswordResult]$i = $i
-                $i.Password = [EncryptedPassword]$i.Password
-                switch ($global:PasswordStateShowPasswordsPlainText) {
-                    True {
-                        $i.DecryptPassword()
-                    }
-                    Default {
-
-                    }
+            foreach ($PWSEntry in (Get-PasswordStateResource -URI $uri @parms  -Method GET)) {
+                [PasswordResult]$PWSEntry = $PWSEntry
+                if(!$PWSProfile.PasswordsInPlainText) {
+                    $PWSEntry.Password = [EncryptedPassword]$PWSEntry.Password
                 }
-                Write-Output $i
+                $PWSEntry
             }
-
         }
         Catch {
             Throw $_.Exception
