@@ -59,7 +59,7 @@
         if ($SetPlainTextPasswords) {
             if ($PSCmdlet.ShouldProcess('Allow passwords to be returned in plain text')) {
                 $json | Add-Member -NotePropertyName 'PasswordsInPlainText' -NotePropertyValue $SetPlainTextPasswords
-            } else { 
+            } else {
                 $json | Add-Member -NotePropertyName 'PasswordsInPlainText' -NotePropertyValue $false
             }
         } else {
