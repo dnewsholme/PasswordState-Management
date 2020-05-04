@@ -94,24 +94,19 @@ InModuleScope 'PasswordState-Management' {
             }
         }
         Context 'Unit testing with Windows Custom Credential' {
-            It 'should verify if a json file is witten and Uri contains <Uri>' -TestCases $AuthTestCases {
-                param($Uri)
-                Set-PasswordStateEnvironment -Uri $Uri -path $ProfilePath -customcredentials $Credential
-                (Get-Content $ProfileFile | ConvertFrom-Json).BaseUri | should -be $Uri
-            }
-            It 'should verify if a json file is witten and Baseuri contains <Baseuri>' -TestCases $BaseuriAuthTestCases {
+            It 'should verify if a json file is witten and Baseuri contains <baseuri>' -TestCases $AuthTestCases {
                 param($Baseuri)
                 Set-PasswordStateEnvironment -Baseuri $Baseuri -path $ProfilePath -customcredentials $Credential
-                (Get-Content $ProfileFile | ConvertFrom-Json).BaseUri | should -be $Baseuri
+                (Get-Content $ProfileFile | ConvertFrom-Json).Baseuri | should -be $Baseuri
             }
             It 'Should verify if a json file is written and apikey has a credential' -TestCases $AuthTestCases {
-                param($Uri)
-                Set-PasswordStateEnvironment -Uri $Uri -path $ProfilePath -customcredentials $Credential
+                param($Baseuri)
+                Set-PasswordStateEnvironment -Baseuri $Baseuri -path $ProfilePath -customcredentials $Credential
                 (Get-Content $ProfileFile | ConvertFrom-Json).apikey.username | should -BeExactly $UserName
             }
-            It 'Should verify if a json file is written and AuthType is exactly "WindowsIntegrated" for <Uri>' -TestCases $AuthTestCases {
-                param($Uri)
-                Set-PasswordStateEnvironment -Uri $Uri -path $ProfilePath -customcredentials $Credential
+            It 'Should verify if a json file is written and AuthType is exactly "WindowsIntegrated" for <baseuri>' -TestCases $AuthTestCases {
+                param($Baseuri)
+                Set-PasswordStateEnvironment -Baseuri $Baseuri -path $ProfilePath -customcredentials $Credential
                 (Get-Content $ProfileFile | ConvertFrom-Json).AuthType | should -BeExactly "WindowsCustom"
             }
         }
