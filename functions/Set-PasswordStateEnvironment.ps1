@@ -42,15 +42,12 @@
                 ($Apikey | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString)
 
             }
-<<<<<<< HEAD
-=======
         }
         $json = @{
             TimeoutSeconds = 60
             Baseuri = $Baseuri
             Apikey = $JsonApiKey
             "AuthType" = $AuthType
->>>>>>> 9b00e0c... Removed pscustomobject
         }
         if ($SetPlainTextPasswords) {
             if ($PSCmdlet.ShouldProcess('Allow passwords to be returned in plain text')) {
