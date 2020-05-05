@@ -97,6 +97,9 @@ function Get-PasswordStateResource {
                 $result = Invoke-RestMethod @params -UseDefaultCredentials -TimeoutSec 60
             }
         }
+        if ($sort) { 
+            Write-PSFMessage -Level Warning -Message "This feature is not available yet"
+        }
     }
 
     end {
