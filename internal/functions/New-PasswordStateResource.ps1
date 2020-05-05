@@ -100,6 +100,9 @@ function New-PasswordStateResource {
             }
 
         }
+        if ($sort) {
+            Write-PSFMessage -Level Warning -Message "Feature is currently not implemented"
+        }
     }
 
     end {
