@@ -69,6 +69,36 @@
             if ($GeneratePassword) {
                 $body | add-member -notepropertyname GeneratePassword -NotePropertyValue $true
             }
+            if ($GenericField1 -and !([string]::IsNullOrEmpty($GenericField1))) {
+                $body | Add-Member -NotePropertyName "GenericField1" -NotePropertyValue $GenericField1
+            }
+            if ($GenericField2 -and !([string]::IsNullOrEmpty($GenericField2))) {
+                $body | Add-Member -NotePropertyName "GenericField1" -NotePropertyValue $GenericField2
+            }
+            if ($GenericField3 -and !([string]::IsNullOrEmpty($GenericField3))) {
+                $body | Add-Member -NotePropertyName "GenericField1" -NotePropertyValue $GenericField3
+            }
+            if ($GenericField4 -and !([string]::IsNullOrEmpty($GenericField4))) {
+                $body | Add-Member -NotePropertyName "GenericField1" -NotePropertyValue $GenericField4
+            }
+            if ($GenericField5 -and !([string]::IsNullOrEmpty($GenericField5))) {
+                $body | Add-Member -NotePropertyName "GenericField1" -NotePropertyValue $GenericField5
+            }
+            if ($GenericField6 -and !([string]::IsNullOrEmpty($GenericField6))) {
+                $body | Add-Member -NotePropertyName "GenericField1" -NotePropertyValue $GenericField6
+            }
+            if ($GenericField7 -and !([string]::IsNullOrEmpty($GenericField7))) {
+                $body | Add-Member -NotePropertyName "GenericField1" -NotePropertyValue $GenericField7
+            }
+            if ($GenericField8 -and !([string]::IsNullOrEmpty($GenericField8))) {
+                $body | Add-Member -NotePropertyName "GenericField1" -NotePropertyValue $GenericField8
+            }
+            if ($GenericField9 -and !([string]::IsNullOrEmpty($GenericField9))) {
+                $body | Add-Member -NotePropertyName "GenericField1" -NotePropertyValue $GenericField9
+            }
+            if ($GenericField10 -and !([string]::IsNullOrEmpty($GenericField10))) {
+                $body | Add-Member -NotePropertyName "GenericField1" -NotePropertyValue $GenericField10
+            }
             if ($PSCmdlet.ShouldProcess("PasswordList:$passwordListID Title:$title Username:$username")) {
                 [PasswordResult]$output = New-PasswordStateResource -uri "/api/passwords" -body "$($body|convertto-json)"
                 foreach ($i in $output) {
