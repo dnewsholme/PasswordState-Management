@@ -45,7 +45,7 @@
         }
         $json = @{
             TimeoutSeconds = 60
-            Baseuri = $Baseuri
+            Baseuri = $Uri -replace '/$',''
             Apikey = $JsonApiKey
             AuthType = $AuthType
         }
