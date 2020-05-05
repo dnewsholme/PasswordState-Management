@@ -101,7 +101,7 @@ function Get-PasswordStateResource {
 
     end {
         if ($result) {
-            return $result | Get-PSCustomObject -Sort:$Sort
+            return $result
         }
     }
 }

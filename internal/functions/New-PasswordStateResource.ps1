@@ -105,7 +105,7 @@ function New-PasswordStateResource {
     end {
         if ($result)
         {
-            return $result | Get-PSCustomObject -Sort:$Sort
+            return $result
         }
         Write-PSFMessage -Level Verbose -Message 'End of New-PasswordStteResource'
     }
