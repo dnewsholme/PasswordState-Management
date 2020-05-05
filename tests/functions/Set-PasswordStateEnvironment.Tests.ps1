@@ -6,7 +6,7 @@ InModuleScope 'PasswordState-Management' {
         BeforeAll {
             $FunctionName='Set-PasswordStateEnvironment'
             $ParameterTestCases=@(
-                 @{ParameterName='BaseUri';Mandatory='True';ParameterSetName='__AllParameterSets'}
+                 @{ParameterName='Uri';Mandatory='True';ParameterSetName='__AllParameterSets'}
                 ,@{ParameterName='ApiKey';Mandatory='False';ParameterSetName='One'}
                 ,@{ParameterName='PasswordGeneratorAPIkey';Mandatory='False';ParameterSetName='One'}
                 ,@{ParameterName='WindowsAuthOnly';Mandatory='False';ParameterSetName='Two'}
@@ -15,6 +15,11 @@ InModuleScope 'PasswordState-Management' {
                 ,@{ParameterName='SetPlainTextPasswords';Mandatory='False';ParameterSetName='__AllParameterSets'}
             )
             $AuthTestCases=@(
+                @{Uri='https://norealurl1.local'}
+                @{Uri='https://norealurl2.local'}
+                @{Uri='https://norealurl3.local'}
+            )
+            $BaseUriAuthTestCases=@(
                 @{Baseuri='https://norealurl1.local'}
                 @{Baseuri='https://norealurl2.local'}
                 @{Baseuri='https://norealurl3.local'}
@@ -41,57 +46,72 @@ InModuleScope 'PasswordState-Management' {
             }
         }
         Context 'Unit testing with api' {
-            It 'should throw an error for "<baseuri>" when no apikey is provided' -TestCases $AuthTestCases {
-                param($Baseuri)
-                { Set-PasswordStateEnvironment -Baseuri $Baseuri -path $ProfilePath -ErrorAction Stop } | Should -throw
+            It 'should throw an error for "<Uri>" when no apikey is provided' -TestCases $AuthTestCases {
+                param($Uri)
+                { Set-PasswordStateEnvironment -Uri $Uri -path $ProfilePath -ErrorAction Stop } | Should -throw
             }
-            It 'Should verify if a json file is written and Baseuri contains <baseuri>' -TestCases $AuthTestCases {
-                param($Baseuri)
-                Set-PasswordStateEnvironment -Baseuri $Baseuri -Apikey $apikey -path $ProfilePath
-                (Get-Content $ProfileFile | ConvertFrom-Json).Baseuri | should -be $Baseuri
+            It 'Should verify if a json file is written and Uri contains <Uri>' -TestCases $AuthTestCases {
+                param($Uri)
+                Set-PasswordStateEnvironment -Uri $Uri -Apikey $apikey -path $ProfilePath
+                (Get-Content $ProfileFile | ConvertFrom-Json).BaseUri | should -be $Uri
             }
-            It 'Should verify if a json file is written and apikey is not empty for <baseuri>' -TestCases $AuthTestCases {
+            It 'Should verify if a json file is written and Baseuri contains <Baseuri>' -TestCases $BaseUriAuthTestCases {
                 param($Baseuri)
-                Set-PasswordStateEnvironment -Baseuri $Baseuri -Apikey $apikey -path $ProfilePath
+                Set-PasswordStateEnvironment -BaseUri $Baseuri -Apikey $apikey -path $ProfilePath
+                (Get-Content $ProfileFile | ConvertFrom-Json).BaseUri | should -be $Baseuri
+            }
+            It 'Should verify if a json file is written and apikey is not empty for <Uri>' -TestCases $AuthTestCases {
+                param($Uri)
+                Set-PasswordStateEnvironment -Uri $Uri -Apikey $apikey -path $ProfilePath
                 (Get-Content $ProfileFile | ConvertFrom-Json).apikey | should -Not -BeNullOrEmpty
             }
-            It 'Should verify if a json file is written and AuthType is exactly "APIKey" for <baseuri>' -TestCases $AuthTestCases {
-                param($Baseuri)
-                Set-PasswordStateEnvironment -Baseuri $Baseuri -Apikey $apikey -path $ProfilePath
+            It 'Should verify if a json file is written and AuthType is exactly "APIKey" for <Uri>' -TestCases $AuthTestCases {
+                param($Uri)
+                Set-PasswordStateEnvironment -Uri $Uri -Apikey $apikey -path $ProfilePath
                 (Get-Content $ProfileFile | ConvertFrom-Json).AuthType | Should -BeExactly 'APIKey'
             }
         }
         Context 'Unit testing with Windows Authentication' {
-            It 'should verify if a json file is witten and Baseuri contains <baseuri>' -TestCases $AuthTestCases {
-                param($Baseuri)
-                Set-PasswordStateEnvironment -Baseuri $Baseuri -path $ProfilePath -WindowsAuthOnly
-                (Get-Content $ProfileFile | ConvertFrom-Json).Baseuri | should -be $Baseuri
+            It 'should verify if a json file is witten and BaseUri contains <Uri>' -TestCases $AuthTestCases {
+                param($Uri)
+                Set-PasswordStateEnvironment -Uri $Uri -path $ProfilePath -WindowsAuthOnly
+                (Get-Content $ProfileFile | ConvertFrom-Json).BaseUri | should -be $Uri
             }
-            It 'Should verify if a json file is written and apikey is empty for <baseuri>' -TestCases $AuthTestCases {
+            It 'should verify if a json file is witten and BaseUri contains <Baseuri>' -TestCases $BaseUriAuthTestCases {
                 param($Baseuri)
                 Set-PasswordStateEnvironment -Baseuri $Baseuri -path $ProfilePath -WindowsAuthOnly
+                (Get-Content $ProfileFile | ConvertFrom-Json).BaseUri | should -be $Baseuri
+            }
+            It 'Should verify if a json file is written and apikey is empty for <Uri>' -TestCases $AuthTestCases {
+                param($Uri)
+                Set-PasswordStateEnvironment -Uri $Uri -path $ProfilePath -WindowsAuthOnly
                 (Get-Content $ProfileFile | ConvertFrom-Json).apikey | should -BeNullOrEmpty
             }
-            It 'Should verify if a json file is written and AuthType is exactly "WindowsIntegrated" for <baseuri>' -TestCases $AuthTestCases {
-                param($Baseuri)
-                Set-PasswordStateEnvironment -Baseuri $Baseuri -path $ProfilePath -WindowsAuthOnly
+            It 'Should verify if a json file is written and AuthType is exactly "WindowsIntegrated" for <Uri>' -TestCases $AuthTestCases {
+                param($Uri)
+                Set-PasswordStateEnvironment -Uri $Uri -path $ProfilePath -WindowsAuthOnly
                 (Get-Content $ProfileFile | ConvertFrom-Json).AuthType | should -BeExactly "WindowsIntegrated"
             }
         }
         Context 'Unit testing with Windows Custom Credential' {
-            It 'should verify if a json file is witten and Baseuri contains <baseuri>' -TestCases $AuthTestCases {
+            It 'should verify if a json file is witten and Uri contains <Uri>' -TestCases $AuthTestCases {
+                param($Uri)
+                Set-PasswordStateEnvironment -Uri $Uri -path $ProfilePath -customcredentials $Credential
+                (Get-Content $ProfileFile | ConvertFrom-Json).BaseUri | should -be $Uri
+            }
+            It 'should verify if a json file is witten and Baseuri contains <Baseuri>' -TestCases $BaseuriAuthTestCases {
                 param($Baseuri)
                 Set-PasswordStateEnvironment -Baseuri $Baseuri -path $ProfilePath -customcredentials $Credential
-                (Get-Content $ProfileFile | ConvertFrom-Json).Baseuri | should -be $Baseuri
+                (Get-Content $ProfileFile | ConvertFrom-Json).BaseUri | should -be $Baseuri
             }
             It 'Should verify if a json file is written and apikey has a credential' -TestCases $AuthTestCases {
-                param($Baseuri)
-                Set-PasswordStateEnvironment -Baseuri $Baseuri -path $ProfilePath -customcredentials $Credential
+                param($Uri)
+                Set-PasswordStateEnvironment -Uri $Uri -path $ProfilePath -customcredentials $Credential
                 (Get-Content $ProfileFile | ConvertFrom-Json).apikey.username | should -BeExactly $UserName
             }
-            It 'Should verify if a json file is written and AuthType is exactly "WindowsIntegrated" for <baseuri>' -TestCases $AuthTestCases {
-                param($Baseuri)
-                Set-PasswordStateEnvironment -Baseuri $Baseuri -path $ProfilePath -customcredentials $Credential
+            It 'Should verify if a json file is written and AuthType is exactly "WindowsIntegrated" for <Uri>' -TestCases $AuthTestCases {
+                param($Uri)
+                Set-PasswordStateEnvironment -Uri $Uri -path $ProfilePath -customcredentials $Credential
                 (Get-Content $ProfileFile | ConvertFrom-Json).AuthType | should -BeExactly "WindowsCustom"
             }
         }
