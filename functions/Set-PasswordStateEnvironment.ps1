@@ -47,7 +47,7 @@
             TimeoutSeconds = 60
             Baseuri = $Uri -replace '/$',''
             Apikey = $JsonApiKey
-            "AuthType" = $AuthType
+            AuthType = $AuthType
         }
         if ($SetPlainTextPasswords) {
             if ($PSCmdlet.ShouldProcess('Allow passwords to be returned in plain text')) {
