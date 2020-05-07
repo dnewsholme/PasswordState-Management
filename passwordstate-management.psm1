@@ -1,7 +1,7 @@
 $script:ModuleRoot = $PSScriptRoot
 $script:ModuleVersion = (Import-PowerShellDataFile -Path "$($script:ModuleRoot)\Passwordstate-management.psd1").ModuleVersion
 $Script:Preferences=[PSCustomObject]@{
-	Path = ''
+	Path = [Environment]::GetFolderPath('UserProfile')
 }
 
 # Detect whether at some level dotsourcing was enforced
