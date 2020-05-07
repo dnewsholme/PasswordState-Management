@@ -10,6 +10,14 @@ InModuleScope -ModuleName 'PasswordState-Management' {
             $ParameterTestCases=@(
                 @{ParameterName='Path';Mandatory='False'}
             )
+            if (Test-Path "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json") {
+                Rename-Item "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
+            }
+        }
+        AfterAll {
+            if (Test-Path "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json") {
+                Rename-Item "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
+            }
         }
         Context 'Parameter validation' {
             It 'Should have a parameter <ParameterName>' -TestCases $ParameterTestCases {

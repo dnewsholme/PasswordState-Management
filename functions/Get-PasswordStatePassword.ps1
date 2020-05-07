@@ -33,7 +33,7 @@
     )
 
     Begin {
-        $PWSProfile = Get-PasswordStateEnvironment -path $Script:Preferences.Path
+        $PWSProfile = Get-PasswordStateEnvironment
     }
 
     Process {
