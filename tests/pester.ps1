@@ -56,7 +56,11 @@ if ($TestGeneral)
 #region Test Commands
 if ($TestFunctions)
 {
-Write-PSFMessage -Level Important -Message "Proceeding with individual tests"
+	Write-PSFMessage -Level Important -Message "Proceeding with individual tests"
+	if (Test-Path -Path "$([System.Environment]::GetFolderPath("UserProfile"))\passwordstate.json") {
+		Write-PSFMessage -Level Important -Message "Profile passwordstate json exists: renaming to prevent false test results"
+		Rename-Item -Path "$([System.Environment]::GetFolderPath("UserProfile"))\passwordstate.json" -NewName "$([System.Environment]::GetFolderPath("UserProfile"))\replace_passwordstate.json" -Force -Confirm:$false
+	}
 	foreach ($file in (Get-ChildItem "$PSScriptRoot\functions" -Recurse -File | Where-Object Name -like "*Tests.ps1"))
 	{
 		if ($file.Name -notlike $Include) { continue }
@@ -79,6 +83,10 @@ Write-PSFMessage -Level Important -Message "Proceeding with individual tests"
 				}
 			}
 		}
+	}
+	if (Test-Path -Path "$([System.Environment]::GetFolderPath("UserProfile"))\replace_passwordstate.json") {
+		Write-PSFMessage -Level Important -Message "Restoring Profile passwordstate json exists"
+		Rename-Item -Path "$([System.Environment]::GetFolderPath("UserProfile"))\replace_passwordstate.json" -NewName "$([System.Environment]::GetFolderPath("UserProfile"))\passwordstate.json" -Force -Confirm:$false
 	}
 }
 #endregion Test Commands
