@@ -4,27 +4,27 @@ Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
 InModuleScope 'Passwordstate-Management' {
     Describe "Get-PasswordStateList" {
         BeforeAll {
-            $FunctionName='Get-PasswordStateHost'
-            $BaseURI='https://passwordstate.local'
-            $APIKey='SuperSecretKey'
-            $BadHostName='NonExistentHost'
-            $TestCredential=[pscredential]::new('myuser',(ConvertTo-SecureString -AsPlainText -Force -String $APIKey))
-            $ParameterSetCases=@(
-                 @{parametername='HostName';mandatory='False';ParameterSetName="__AllParameterSets"}
-                ,@{parametername='HostType';mandatory='False';ParameterSetName="__AllParameterSets"}
-                ,@{parametername='OperatingSystem';mandatory='False';ParameterSetName="__AllParameterSets"}
-                ,@{parametername='DatabaseServerType';mandatory='False';ParameterSetName="__AllParameterSets"}
-                ,@{parametername='SiteID';mandatory='False';ParameterSetName="__AllParameterSets"}
-                ,@{parametername='SiteLocation';mandatory='False';ParameterSetName="__AllParameterSets"}
-                ,@{parametername='PreventAuditing';mandatory='False';ParameterSetName="__AllParameterSets"}
+            $FunctionName = 'Get-PasswordStateHost'
+            $BaseURI = 'https://passwordstate.local'
+            $APIKey = 'SuperSecretKey'
+            $BadHostName = 'NonExistentHost'
+            $TestCredential = [pscredential]::new('myuser', (ConvertTo-SecureString -AsPlainText -Force -String $APIKey))
+            $ParameterSetCases = @(
+                @{parametername = 'HostName'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'HostType'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'OperatingSystem'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'DatabaseServerType'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'SiteID'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'SiteLocation'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'PreventAuditing'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
             )
-            $ParameterValues=@(
-                ,@{parametername='HostName';testvalue="my.local.host";ResultCount=1}
-                ,@{parametername='HostType';testvalue="Windows";ResultCount=2}
-                ,@{parametername='Operatingsystem';testvalue="Windows Server 2012";ResultCount=4}
-                ,@{parametername='DatabaseServerType';testvalue="mssql";ResultCount=5}
-                ,@{parametername='SiteID';testvalue="0";ResultCount=6}
-                ,@{parametername='SiteLocation';testvalue="Work";ResultCount=6}
+            $ParameterValues = @(
+                , @{parametername = 'HostName'; testvalue = "my.local.host"; ResultCount = 1 }
+                , @{parametername = 'HostType'; testvalue = "Windows"; ResultCount = 2 }
+                , @{parametername = 'Operatingsystem'; testvalue = "Windows Server 2012"; ResultCount = 4 }
+                , @{parametername = 'DatabaseServerType'; testvalue = "mssql"; ResultCount = 5 }
+                , @{parametername = 'SiteID'; testvalue = "0"; ResultCount = 6 }
+                , @{parametername = 'SiteLocation'; testvalue = "Work"; ResultCount = 6 }
             )
 
             Mock -CommandName 'Get-PasswordStateResource' -MockWith {
@@ -33,31 +33,31 @@ InModuleScope 'Passwordstate-Management' {
 
             Mock -CommandName 'Get-PasswordStateResource' -MockWith {
                 $Global:TestJSON['HostSearchHostName']
-            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=[^\&]+$'}
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=[^\&]+$' }
 
             Mock -CommandName 'Get-PasswordStateResource' -MockWith {
                 throw "oepsie"
-            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=NonExistentHost$'}
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=NonExistentHost$' }
 
             Mock -CommandName 'Get-PasswordStateResource' -MockWith {
                 $Global:TestJSON['HostSearchHostType']
-            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostType=[^\&]+$'}
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostType=[^\&]+$' }
 
             Mock -CommandName 'Get-PasswordStateResource' -MockWith {
                 $Global:TestJSON['HostSearchOperatingsystem']
-            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?Operatingsystem=[^\&]+$'}
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?Operatingsystem=[^\&]+$' }
 
             Mock -CommandName 'Get-PasswordStateResource' -MockWith {
                 $Global:TestJSON['HostSearchDatabaseServerType']
-            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?DatabaseServerType=[^\&]+$'}
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?DatabaseServerType=[^\&]+$' }
 
             Mock -CommandName 'Get-PasswordStateResource' -MockWith {
                 $Global:TestJSON['HostSearchSiteID']
-            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteID=[^\&]+$'}
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteID=[^\&]+$' }
 
             Mock -CommandName 'Get-PasswordStateResource' -MockWith {
                 $Global:TestJSON['HostSearchSiteLocation']
-            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteLocation=[^\&]+$'}
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteLocation=[^\&]+$' }
         }
         Context 'Parameter Validation' {
             It 'should verify if parameter "<parametername>" is present' -TestCases $ParameterSetCases {
@@ -68,10 +68,71 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $mandatory)
                 "$(((Get-Command -Name $FunctionName).Parameters[$parametername].Attributes | Where-Object { $_.GetType().fullname -eq 'System.Management.Automation.ParameterAttribute'}).Mandatory)" | Should -be $mandatory
             }
+        } } }
+Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
+Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+. "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
+InModuleScope 'Passwordstate-Management' {
+    Describe "Get-PasswordStateList" {
+        BeforeAll {
+            $FunctionName = 'Get-PasswordStateHost'
+            $BaseURI = 'https://passwordstate.local'
+            $APIKey = 'SuperSecretKey'
+            $BadHostName = 'NonExistentHost'
+            $TestCredential = [pscredential]::new('myuser', (ConvertTo-SecureString -AsPlainText -Force -String $APIKey))
+            $ParameterSetCases = @(
+                @{parametername = 'HostName'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'HostType'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'OperatingSystem'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'DatabaseServerType'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'SiteID'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'SiteLocation'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'PreventAuditing'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+            )
+            $ParameterValues = @(
+                , @{parametername = 'HostName'; testvalue = "my.local.host"; ResultCount = 1 }
+                , @{parametername = 'HostType'; testvalue = "Windows"; ResultCount = 2 }
+                , @{parametername = 'Operatingsystem'; testvalue = "Windows Server 2012"; ResultCount = 4 }
+                , @{parametername = 'DatabaseServerType'; testvalue = "mssql"; ResultCount = 5 }
+                , @{parametername = 'SiteID'; testvalue = "0"; ResultCount = 6 }
+                , @{parametername = 'SiteLocation'; testvalue = "Work"; ResultCount = 6 }
+            )
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearch']
+            }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchHostName']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                throw "oepsie"
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=NonExistentHost$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchHostType']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostType=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchOperatingsystem']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?Operatingsystem=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchDatabaseServerType']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?DatabaseServerType=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchSiteID']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteID=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchSiteLocation']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteLocation=[^\&]+$' }
         }
         Context 'Unit tests with existing winapi' {
             BeforeAll {
-                Set-Content -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Value (@{Baseuri=$BaseURI;Apikey="";AuthType="WindowsIntegrated"; TimeoutSeconds=60} | ConvertTo-Json) -Force -Confirm:$false
+                Set-Content -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Value (@{Baseuri = $BaseURI; Apikey = ""; AuthType = "WindowsIntegrated"; TimeoutSeconds = 60 } | ConvertTo-Json) -Force -Confirm:$false
             }
             AfterAll {
                 Remove-Item -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Force -Confirm:$false -ErrorAction SilentlyContinue
@@ -88,23 +149,87 @@ InModuleScope 'Passwordstate-Management' {
             }
             It 'Should have a <parametername> matching "<testvalue>"' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $ResultCount)
-                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+                $TestValues = Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
                 foreach ($ReturnValue in $TestValues) {
                     $ReturnValue."$($ParameterName)" | Should -MatchExactly $testvalue
                 }
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should throw when Passwordstate returns an error' {
-                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'"} | Should -Throw
+                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'" } | Should -Throw
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should have called function Get-PasswordStateResource' {
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource'
             }
+        }
+    }
+}
+
+Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
+Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+. "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
+InModuleScope 'Passwordstate-Management' {
+    Describe "Get-PasswordStateList" {
+        BeforeAll {
+            $FunctionName = 'Get-PasswordStateHost'
+            $BaseURI = 'https://passwordstate.local'
+            $APIKey = 'SuperSecretKey'
+            $BadHostName = 'NonExistentHost'
+            $TestCredential = [pscredential]::new('myuser', (ConvertTo-SecureString -AsPlainText -Force -String $APIKey))
+            $ParameterSetCases = @(
+                @{parametername = 'HostName'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'HostType'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'OperatingSystem'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'DatabaseServerType'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'SiteID'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'SiteLocation'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'PreventAuditing'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+            )
+            $ParameterValues = @(
+                , @{parametername = 'HostName'; testvalue = "my.local.host"; ResultCount = 1 }
+                , @{parametername = 'HostType'; testvalue = "Windows"; ResultCount = 2 }
+                , @{parametername = 'Operatingsystem'; testvalue = "Windows Server 2012"; ResultCount = 4 }
+                , @{parametername = 'DatabaseServerType'; testvalue = "mssql"; ResultCount = 5 }
+                , @{parametername = 'SiteID'; testvalue = "0"; ResultCount = 6 }
+                , @{parametername = 'SiteLocation'; testvalue = "Work"; ResultCount = 6 }
+            )
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearch']
+            }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchHostName']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                throw "oepsie"
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=NonExistentHost$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchHostType']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostType=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchOperatingsystem']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?Operatingsystem=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchDatabaseServerType']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?DatabaseServerType=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchSiteID']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteID=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchSiteLocation']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteLocation=[^\&]+$' }
         }
         Context 'Unit tests with existing custom credential' {
             BeforeAll {
-                Set-Content -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Value (@{Baseuri=$BaseURI;Apikey=@{username='';password=''};AuthType="WindowsCustom"; TimeoutSeconds=60} | ConvertTo-Json) -Force -Confirm:$false
+                Set-Content -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Value (@{Baseuri = $BaseURI; Apikey = @{username = ''; password = '' }; AuthType = "WindowsCustom"; TimeoutSeconds = 60 } | ConvertTo-Json) -Force -Confirm:$false
             }
             AfterAll {
                 Remove-Item -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Force -Confirm:$false -ErrorAction SilentlyContinue
@@ -121,23 +246,87 @@ InModuleScope 'Passwordstate-Management' {
             }
             It 'Should have a <parametername> matching "<testvalue>"' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $ResultCount)
-                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+                $TestValues = Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
                 foreach ($ReturnValue in $TestValues) {
                     $ReturnValue."$($ParameterName)" | Should -MatchExactly $testvalue
                 }
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should throw when Passwordstate returns an error' {
-                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'"} | Should -Throw
+                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'" } | Should -Throw
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should have called function Get-PasswordStateResource' {
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource'
             }
         }
+    }
+}
+
+Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
+Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+. "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
+InModuleScope 'Passwordstate-Management' {
+    Describe "Get-PasswordStateList" {
+        BeforeAll {
+            $FunctionName = 'Get-PasswordStateHost'
+            $BaseURI = 'https://passwordstate.local'
+            $APIKey = 'SuperSecretKey'
+            $BadHostName = 'NonExistentHost'
+            $TestCredential = [pscredential]::new('myuser', (ConvertTo-SecureString -AsPlainText -Force -String $APIKey))
+            $ParameterSetCases = @(
+                @{parametername = 'HostName'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'HostType'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'OperatingSystem'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'DatabaseServerType'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'SiteID'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'SiteLocation'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'PreventAuditing'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+            )
+            $ParameterValues = @(
+                , @{parametername = 'HostName'; testvalue = "my.local.host"; ResultCount = 1 }
+                , @{parametername = 'HostType'; testvalue = "Windows"; ResultCount = 2 }
+                , @{parametername = 'Operatingsystem'; testvalue = "Windows Server 2012"; ResultCount = 4 }
+                , @{parametername = 'DatabaseServerType'; testvalue = "mssql"; ResultCount = 5 }
+                , @{parametername = 'SiteID'; testvalue = "0"; ResultCount = 6 }
+                , @{parametername = 'SiteLocation'; testvalue = "Work"; ResultCount = 6 }
+            )
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearch']
+            }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchHostName']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                throw "oepsie"
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=NonExistentHost$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchHostType']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostType=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchOperatingsystem']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?Operatingsystem=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchDatabaseServerType']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?DatabaseServerType=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchSiteID']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteID=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchSiteLocation']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteLocation=[^\&]+$' }
+        }
         Context 'Unit tests with existing apiKey' {
             BeforeAll {
-                Set-Content -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Value (@{Baseuri=$BaseURI;Apikey=$APIKey;AuthType="APIKey"; TimeoutSeconds=60} | ConvertTo-Json) -Force -Confirm:$false
+                Set-Content -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Value (@{Baseuri = $BaseURI; Apikey = $APIKey; AuthType = "APIKey"; TimeoutSeconds = 60 } | ConvertTo-Json) -Force -Confirm:$false
             }
             AfterAll {
                 Remove-Item -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Force -Confirm:$false -ErrorAction SilentlyContinue
@@ -154,19 +343,83 @@ InModuleScope 'Passwordstate-Management' {
             }
             It 'Should have a <parametername> matching "<testvalue>"' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $ResultCount)
-                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+                $TestValues = Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
                 foreach ($ReturnValue in $TestValues) {
                     $ReturnValue."$($ParameterName)" | Should -MatchExactly $testvalue
                 }
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should throw when Passwordstate returns an error' {
-                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'"} | Should -Throw
+                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'" } | Should -Throw
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should have called function Get-PasswordStateResource' {
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource'
             }
+        }
+    }
+}
+
+Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
+Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+. "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
+InModuleScope 'Passwordstate-Management' {
+    Describe "Get-PasswordStateList" {
+        BeforeAll {
+            $FunctionName = 'Get-PasswordStateHost'
+            $BaseURI = 'https://passwordstate.local'
+            $APIKey = 'SuperSecretKey'
+            $BadHostName = 'NonExistentHost'
+            $TestCredential = [pscredential]::new('myuser', (ConvertTo-SecureString -AsPlainText -Force -String $APIKey))
+            $ParameterSetCases = @(
+                @{parametername = 'HostName'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'HostType'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'OperatingSystem'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'DatabaseServerType'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'SiteID'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'SiteLocation'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+                , @{parametername = 'PreventAuditing'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }
+            )
+            $ParameterValues = @(
+                , @{parametername = 'HostName'; testvalue = "my.local.host"; ResultCount = 1 }
+                , @{parametername = 'HostType'; testvalue = "Windows"; ResultCount = 2 }
+                , @{parametername = 'Operatingsystem'; testvalue = "Windows Server 2012"; ResultCount = 4 }
+                , @{parametername = 'DatabaseServerType'; testvalue = "mssql"; ResultCount = 5 }
+                , @{parametername = 'SiteID'; testvalue = "0"; ResultCount = 6 }
+                , @{parametername = 'SiteLocation'; testvalue = "Work"; ResultCount = 6 }
+            )
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearch']
+            }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchHostName']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                throw "oepsie"
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostName=NonExistentHost$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchHostType']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?HostType=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchOperatingsystem']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?Operatingsystem=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchDatabaseServerType']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?DatabaseServerType=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchSiteID']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteID=[^\&]+$' }
+        
+            Mock -CommandName 'Get-PasswordStateResource' -MockWith {
+                $Global:TestJSON['HostSearchSiteLocation']
+            } -ParameterFilter { $uri -and $uri -match '\/hosts\/\?SiteLocation=[^\&]+$' }
         }
         Context 'Unit tests for winapi' {
             BeforeAll {
@@ -187,14 +440,14 @@ InModuleScope 'Passwordstate-Management' {
             }
             It 'Should have a <parametername> matching "<testvalue>"' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $ResultCount)
-                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+                $TestValues = Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
                 foreach ($ReturnValue in $TestValues) {
                     $ReturnValue."$($ParameterName)" | Should -MatchExactly $testvalue
                 }
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should throw when Passwordstate returns an error' {
-                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'"} | Should -Throw
+                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'" } | Should -Throw
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should have called function Get-PasswordStateResource' {
@@ -220,14 +473,14 @@ InModuleScope 'Passwordstate-Management' {
             }
             It 'Should have a <parametername> matching "<testvalue>"' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $ResultCount)
-                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+                $TestValues = Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
                 foreach ($ReturnValue in $TestValues) {
                     $ReturnValue."$($ParameterName)" | Should -MatchExactly $testvalue
                 }
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should throw when Passwordstate returns an error' {
-                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'"} | Should -Throw
+                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'" } | Should -Throw
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should have called function Get-PasswordStateResource' {
@@ -253,14 +506,14 @@ InModuleScope 'Passwordstate-Management' {
             }
             It 'Should have a <parametername> matching "<testvalue>"' -TestCases $ParameterValues {
                 param($parametername, $testvalue, $ResultCount)
-                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+                $TestValues = Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
                 foreach ($ReturnValue in $TestValues) {
                     $ReturnValue."$($ParameterName)" | Should -MatchExactly $testvalue
                 }
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should throw when Passwordstate returns an error' {
-                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'"} | Should -Throw
+                { Invoke-Expression -Command "$($FunctionName) -HostName '$($BadHostName)'" } | Should -Throw
                 Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
             }
             It 'Should have called function Get-PasswordStateResource' {
