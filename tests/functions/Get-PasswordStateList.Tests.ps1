@@ -66,6 +66,87 @@ InModuleScope 'Passwordstate-Management' {
                 "$(((Get-Command -Name $FunctionName).Parameters[$parametername].Attributes | Where-Object { $_.GetType().fullname -eq 'System.Management.Automation.ParameterAttribute'}).ParameterSetName)" | Should -be $ParameterSetName
             }
         }
+        Context 'Unit tests with winapi profile' {
+            BeforeAll {
+                Set-Content -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Value (@{Baseuri=$BaseURI;Apikey="";AuthType="WindowsIntegrated"; TimeoutSeconds=60} | ConvertTo-Json) -Force -Confirm:$false
+            }
+            AfterAll {
+                Remove-Item -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Force -Confirm:$false -ErrorAction SilentlyContinue
+            }
+            It 'Should return <ListCount> for parameter <parametername>' -TestCases $ParameterValues {
+                param($parametername, $testvalue, $ListCount)
+                $Result = if ($parametername -ne '') {
+                    ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
+                } else {
+                    ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
+                }
+                $Result | Should -BeExactly $ListCount
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
+            }
+            It 'Should have a <parametername> matching <testvalue>' -TestCases $ParameterValues {
+                param($parametername, $testvalue, $ListCount)
+                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+                ($TestValues | Select-Object -First 1)."$($ParameterName)" | Should -Match $testvalue
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
+            }
+            It 'Should have called function Get-PasswordStateResource' {
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource'
+            }
+        }
+        Context 'Unit tests with Custom credential profile' {
+            BeforeAll {
+                Set-Content -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Value (@{Baseuri=$BaseURI;Apikey=@{username='';password=''};AuthType="WindowsCustom"; TimeoutSeconds=60} | ConvertTo-Json) -Force -Confirm:$false
+            }
+            AfterAll {
+                Remove-Item -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Force -Confirm:$false -ErrorAction SilentlyContinue
+            }
+            It 'Should return <ListCount> for parameter <parametername>' -TestCases $ParameterValues {
+                param($parametername, $testvalue, $ListCount)
+                $Result = if ($parametername -ne '') {
+                    ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
+                } else {
+                    ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
+                }
+                $Result | Should -BeExactly $ListCount
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
+            }
+            It 'Should have a <parametername> matching <testvalue>' -TestCases $ParameterValues {
+                param($parametername, $testvalue, $ListCount)
+                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+                ($TestValues | Select-Object -First 1)."$($ParameterName)" | Should -Match $testvalue
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
+            }
+            It 'Should have called function Get-PasswordStateResource' {
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource'
+            }
+        }
+        Context 'Unit tests with APIKey profile' {
+            BeforeAll {
+                Set-Content -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Value (@{Baseuri=$BaseURI;Apikey=$APIKey;AuthType="APIKey"; TimeoutSeconds=60} | ConvertTo-Json) -Force -Confirm:$false
+            }
+            AfterAll {
+                Remove-Item -Path "$([environment]::GetFolderPath("UserProfile"))\Passwordstate.json" -Force -Confirm:$false -ErrorAction SilentlyContinue
+            }
+            It 'Should return <ListCount> for parameter <parametername>' -TestCases $ParameterValues {
+                param($parametername, $testvalue, $ListCount)
+                $Result = if ($parametername -ne '') {
+                    ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
+                } else {
+                    ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
+                }
+                $Result | Should -BeExactly $ListCount
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
+            }
+            It 'Should have a <parametername> matching <testvalue>' -TestCases $ParameterValues {
+                param($parametername, $testvalue, $ListCount)
+                $TestValues=Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+                ($TestValues | Select-Object -First 1)."$($ParameterName)" | Should -Match $testvalue
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource' -Exactly -Times 1 -Scope It
+            }
+            It 'Should have called function Get-PasswordStateResource' {
+                Assert-MockCalled -CommandName 'Get-PasswordStateResource'
+            }
+        }
         Context 'Unit tests for winapi' {
             BeforeAll {
                 Set-PasswordStateEnvironment -path 'TestDrive:' -Baseuri $BaseURI -WindowsAuthOnly
