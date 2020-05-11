@@ -1,14 +1,14 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version:
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Invoke-PasswordStateReport.md
 schema: 2.0.0
 ---
 
 # Invoke-PasswordStateReport
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Run PasswordState reports through the API.
 
 ## SYNTAX
 
@@ -26,16 +26,44 @@ Invoke-PasswordStateReport [[-ReportID] <Int32>] [[-UserID] <String>] [[-Securit
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Run PasswordState reports through the API.  
+If your account in PasswordState has been granted the 'Reporting' Security Administrator's role, then all of the reports found on the screen `Administration -> PasswordState Administration -> Reporting` can also be run via the API.
+
+You can use these reports in combination with other functions, f.e. report **23** in combination with the `*Permission` functions to check if a PasswordState object already has the appropriate permissions.  
+The following reports with available parameters can be used.  
+The listed parameter names under **Parameters** can be used as parameters for this function:
+
+![all-reports](res/passwordstate_reports.png)
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Invoke-PasswordStateReport -ShowAllReportIDs
 ```
 
-{{ Add example description here }}
+Show all reports that can possibly be executed through the api in list view.
+
+### Example 2
+```powershell
+PS C:\> Invoke-PasswordStateReport -ShowReportIDs
+```
+
+Show all reports that can possibly be executed through the api in a table/hashtable view sorted by category.
+
+### Example 3
+```powershell
+PS C:\> Invoke-PasswordStateReport -ReportID 23
+```
+
+Run report with ID 23 (What permissions exist (all users and security groups)?). The response (PSCustomObjects) can be filtered and used for other cmdlets/functions.
+
+### Example 4
+```powershell
+PS C:\> Invoke-PasswordStateReport -ReportID 24 -UserID "domain\username"
+```
+
+Run report with ID 24 (What permissions exist for a user?) and specify a user id for filtering.
 
 ## PARAMETERS
 
@@ -55,7 +83,9 @@ Accept wildcard characters: False
 ```
 
 ### -DurationInMonth
-Possible values are 0 for current month, 1 for the past 30 days, and then any other integer representing the quantity of months.
+The period in which data can be reported against. Possible values are `0 for current month`, `1 for the past 30 days`, and then `any other integer representing the quantity of months`.
+
+For the '**What passwords are expiring soon?**' report however, Duration refers to the **number of days** you wish to look ahead for passwords which are going to expire.
 
 ```yaml
 Type: Nullable`1[]
@@ -70,7 +100,7 @@ Accept wildcard characters: False
 ```
 
 ### -PasswordListIDs
-{{ Fill PasswordListIDs Description }}
+This parameter is only used for the '**What passwords are expiring soon?**' report. The value of PasswordListID which can been seen on the screen `Administration -> Passwordstate Administration -> Password Lists`. You can also specify multiple PasswordListID's here by comma separating them.
 
 ```yaml
 Type: Nullable`1[]
@@ -85,7 +115,7 @@ Accept wildcard characters: False
 ```
 
 ### -QueryExpiredPasswords
-{{ Fill QueryExpiredPasswords Description }}
+Used for the '**What passwords are expiring soon?**' Report to indicate whether you also wish to report on passwords which have already expired, instead of just the passwords which are about to expire.
 
 ```yaml
 Type: SwitchParameter
@@ -100,7 +130,8 @@ Accept wildcard characters: False
 ```
 
 ### -ReportID
-Possible values: 1-49
+The ID of the Report, as documented above in the screenshot or by applying the parameter `-ShowAllReportIDs` or `ShowReportIDs`.  
+Possible values: 1-49.  
 
 ```yaml
 Type: Int32
@@ -115,7 +146,7 @@ Accept wildcard characters: False
 ```
 
 ### -SecurityGroupName
-{{ Fill SecurityGroupName Description }}
+The name of the Security Groups which can been seen on the screen `Administration -> Passwordstate Administration -> Security Groups`.
 
 ```yaml
 Type: String
@@ -130,7 +161,8 @@ Accept wildcard characters: False
 ```
 
 ### -ShowAllReportIDs
-{{ Fill ShowAllReportIDs Description }}
+Show all reports (ID + Name) that can possibly be executed through the api.  
+Output in list view.
 
 ```yaml
 Type: SwitchParameter
@@ -145,7 +177,8 @@ Accept wildcard characters: False
 ```
 
 ### -ShowReportIDs
-{{ Fill ShowReportIDs Description }}
+Show all reports (ID + Name) that can possibly be executed through the api.  
+Output in a table/hashtable view sorted by category.
 
 ```yaml
 Type: SwitchParameter
@@ -160,6 +193,7 @@ Accept wildcard characters: False
 ```
 
 ### -SiteID
+If you leave this parameter **blank**, it will report data based on **all** Site Locations. Values are **0** for **Internal**, and all other SiteID's can be found on the screen `Administration -> Remote Site Administration -> Remote Site Locations`.  
 SiteID 0 = Default site 'Internal'
 
 ```yaml
@@ -175,7 +209,7 @@ Accept wildcard characters: False
 ```
 
 ### -UserID
-{{ Fill UserID Description }}
+The value of **UserID** which can been seen on the screen `Administration -> Passwordstate Administration -> User Accounts`.
 
 ```yaml
 Type: String
