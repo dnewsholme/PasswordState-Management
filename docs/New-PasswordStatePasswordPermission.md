@@ -58,7 +58,7 @@ The SecurityGroupID you wish to apply permissions for.
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
-Type: Int32
+Type: Nullable`1[]
 Parameter Sets: PermissionID
 Aliases:
 

@@ -88,7 +88,7 @@ The period in which data can be reported against. Possible values are `0 for cur
 For the '**What passwords are expiring soon?**' report however, Duration refers to the **number of days** you wish to look ahead for passwords which are going to expire.
 
 ```yaml
-Type: Int32
+Type: Nullable`1[]
 Parameter Sets: Specific
 Aliases: Duration
 
@@ -132,7 +132,6 @@ Accept wildcard characters: False
 ### -ReportID
 The ID of the Report, as documented above in the screenshot or by applying the parameter `-ShowAllReportIDs` or `ShowReportIDs`.  
 Possible values: 1-49.  
-
 
 ```yaml
 Type: Int32
@@ -198,7 +197,7 @@ If you leave this parameter **blank**, it will report data based on **all** Site
 SiteID 0 = Default site 'Internal'
 
 ```yaml
-Type: Int32
+Type: Nullable`1[]
 Parameter Sets: (All)
 Aliases:
 
