@@ -14,14 +14,15 @@ Get the permission for a password state object.
 
 ### All (Default)
 ```
-Get-PasswordStatePermission [[-ReportID] <Int32>] [[-SiteID] <Int32>] [-ShowReportIDs] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Get-PasswordStatePermission [[-ReportID] <Int32>] [[-SiteID] <Nullable`1[]>] [-ShowReportIDs] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### Specific
 ```
 Get-PasswordStatePermission [[-ReportID] <Int32>] [[-UserID] <String>] [[-SecurityGroupName] <String>]
- [[-DurationInMonth] <Int32>] [[-SiteID] <Int32>] [-ShowReportIDs] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-DurationInMonth] <Nullable`1[]>] [[-SiteID] <Nullable`1[]>] [-ShowReportIDs] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION

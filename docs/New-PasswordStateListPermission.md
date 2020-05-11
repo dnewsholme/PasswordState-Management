@@ -21,7 +21,7 @@ New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
 ### PermissionID
 ```
 New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Int32> [-Sort] [-WhatIf]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Nullable`1[]> [-Sort] [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 

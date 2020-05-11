@@ -19,10 +19,10 @@
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 2, HelpMessage = "Possible values are 0 for current month, 1 for the past 30 days, and then any other integer representing the quantity of months.")]
         [AllowNull()]
         [Alias('Duration')]
-        [Nullable[System.Int32]]$DurationInMonth,
+        [Nullable[System.Int32][]]$DurationInMonth,
         [Parameter(ValueFromPipelineByPropertyName, Position = 1, HelpMessage = "SiteID 0 = Default site 'Internal'")]
         [AllowNull()]
-        [Nullable[System.Int32]]$SiteID = 0,
+        [Nullable[System.Int32][]]$SiteID = 0,
         [Parameter(ValueFromPipelineByPropertyName, Position = 2)][switch]$ShowReportIDs
     )
 
