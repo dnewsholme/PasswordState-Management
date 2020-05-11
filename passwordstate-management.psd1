@@ -70,7 +70,7 @@
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @('Get-PasswordStateEnvironment', 'Get-PasswordStateFolder', 'Get-PasswordStateHost', 'Get-PasswordStateList', 'Get-PasswordStatePassword', 'Get-PasswordStatePasswordHistory', 'Get-PasswordStatePermission'
-        . 'Invoke-PasswordStateReport'
+        , 'Invoke-PasswordStateReport'
         , 'New-PasswordStateADSecurityGroup', 'New-PasswordStateDependency', 'New-PasswordStateDocument', 'New-PasswordStateFolder', 'New-PasswordStateFolderPermission', 'New-PasswordStateHost', 'New-PasswordStateList', 'New-PasswordStateListPermission', 'New-PasswordStatePassword', 'New-PasswordStatePasswordPermission', 'New-RandomPassword'
         , 'Remove-PasswordStateHost', 'Remove-PasswordStatePassword'
         , 'Save-PasswordStateDocument'
