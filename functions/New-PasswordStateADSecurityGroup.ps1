@@ -34,7 +34,6 @@
         if ($PSCmdlet.ShouldProcess("Creating AD Security Group '$SecurityGroupName' for Domain '$ADDomainNetBIOS' (Description: '$Description')")) {
             # Covert body to json and execute the api query
             $body = "$($body |ConvertTo-Json)"
-            Write-Verbose $body
             $output = New-PasswordStateResource -uri "/api/securitygroup" -body $body -Sort:$Sort
         }
     }

@@ -179,7 +179,6 @@
             if ($PSCmdlet.ShouldProcess("PasswordList:$passwordListID Title:$title Username:$username")) {
                 $body = "$($body |ConvertTo-Json)"
                 if ($body) {
-                    Write-Verbose $body
                     try {
                         [PasswordResult]$output = New-PasswordStateResource -uri "/api/passwords" -body $body -ErrorAction Stop
                     }
