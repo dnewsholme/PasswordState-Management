@@ -71,9 +71,9 @@
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @('Get-PasswordStateEnvironment', 'Get-PasswordStateFolder', 'Get-PasswordStateHost', 'Get-PasswordStateList', 'Get-PasswordStatePassword', 'Get-PasswordStatePasswordHistory'
         , 'New-PasswordStateDependency', 'New-PasswordStateDocument', 'New-PasswordStateFolder', 'New-PasswordStateHost', 'New-PasswordStateList', 'New-PasswordStatePassword', 'New-RandomPassword'
-        , 'Remove-PasswordStateHost', 'Remove-PasswordStatePassword', 'Remove-PasswordStatePlainTextPasswordFlag'
+        , 'Remove-PasswordStateHost', 'Remove-PasswordStatePassword'
         , 'Save-PasswordStateDocument'
-        , 'Set-PasswordStateEnvironment', 'Set-PasswordStatePassword', 'Set-PasswordStatePlainTextPasswordFlag'
+        , 'Set-PasswordStateEnvironment', 'Set-PasswordStatePassword'
         , 'Test-PasswordPwned'
     )
 

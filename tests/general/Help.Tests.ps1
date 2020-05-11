@@ -36,7 +36,7 @@ Param (
 	$SkipTest,
 	
 	[string[]]
-	$CommandPath = @("$PSScriptRoot\..\..\functions", "$PSScriptRoot\..\..\internal\functions"),
+	$CommandPath = @("$PSScriptRoot\..\..\functions"),
 	
 	[string]
 	$ModuleName = "Passwordstate-management",
