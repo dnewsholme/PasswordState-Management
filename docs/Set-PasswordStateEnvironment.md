@@ -14,20 +14,20 @@ Saves your password state environment configuration to be used when calling the 
 
 ### Two (Default)
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-WindowsAuthOnly] [-path <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Set-PasswordStateEnvironment -Uri <Uri> [-WindowsAuthOnly] [-path <String>] [-SetPlainTextPasswords <Boolean>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### One
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-Apikey <String>] [-PasswordGeneratorAPIkey <String>]
- [-path <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-PasswordStateEnvironment -Uri <Uri> [-Apikey <String>] [-PasswordGeneratorAPIkey <String>] [-path <String>]
+ [-SetPlainTextPasswords <Boolean>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Three
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-customcredentials <PSCredential>] [-path <String>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Set-PasswordStateEnvironment -Uri <Uri> [-customcredentials <PSCredential>] [-path <String>]
+ [-SetPlainTextPasswords <Boolean>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -68,34 +68,18 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Baseuri
-The base url of the passwordstate server.
-eg https://passwordstate
+### -customcredentials
+For use if windows custom credentials is the preferred authentication method.
 
 ```yaml
-Type: String
-Parameter Sets: (All)
+Type: PSCredential
+Parameter Sets: Three
 Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
 
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -105,52 +89,6 @@ Accept wildcard characters: False
 ```yaml
 Type: String
 Parameter Sets: One
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WindowsAuthOnly
-For use if Windows Passthrough is the preferred authentication method.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: Two
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -customcredentials
-For use if windows custom credentials is the preferred authentication method.
-
-```yaml
-Type: PSCredential
-Parameter Sets: Three
 Aliases:
 
 Required: False
@@ -172,6 +110,82 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SetPlainTextPasswords
+{{ Fill SetPlainTextPasswords Description }}
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Uri
+{{ Fill Uri Description }}
+
+```yaml
+Type: Uri
+Parameter Sets: (All)
+Aliases: Baseuri
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WindowsAuthOnly
+For use if Windows Passthrough is the preferred authentication method.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Two
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

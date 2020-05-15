@@ -158,21 +158,6 @@ Creates a new password entry with AccountType 61 (Ubuntu) enabled password reset
 
 ## PARAMETERS
 
-### -ADDomainNetBIOS
-If the record relates to an Active Directory account, then you must specify the Active Directory NetBIOS value here, as it is stored on the `Administration -> PasswordState Administration -> Active Directory Domains` screen in PasswordState.
-
-```yaml
-Type: String
-Parameter Sets: Heartbeat, Reset, ResetSchedule
-Aliases:
-
-Required: False
-Position: 4
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -AccountType
 The name of the Account Type if one has been chosen for the Password record.  
 You can either specify the AccountType or AccountTypeID if needed when adding password records. Account Types and their ID values can be seen on the screen `Administration -> Passwordstate Administration -> Images and Account Types`, and click on the '**Toggle ID Column Visibility**' button to determine the appropriate value.
@@ -220,6 +205,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -ADDomainNetBIOS
+If the record relates to an Active Directory account, then you must specify the Active Directory NetBIOS value here, as it is stored on the `Administration -> PasswordState Administration -> Active Directory Domains` screen in PasswordState.
+
+```yaml
+Type: String
+Parameter Sets: Heartbeat, Reset, ResetSchedule
+Aliases:
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -AllowExport
 Indicates whether this Password object will be exported when the entire Password List contents are exported.  
 Only working if "Allow Password List to be Exported" is set on the password list.
@@ -233,21 +233,6 @@ Required: False
 Position: 25
 Default value: None
 Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -851,6 +836,21 @@ Required: False
 Position: 25
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
