@@ -10,7 +10,7 @@
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 0)][string]$Title,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 1)][string]$UserName,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 2)][string]$HostName,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 3)][Alias('Domain')][string]$ADDomainNetBIOS,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 3)][string]$Domain,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 4)][string]$AccountType,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 5)][string]$Description,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 6)][string]$Notes,
@@ -58,7 +58,8 @@
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 24)][ValidateSet('AND', 'OR')][string]$AndOr,
         [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 25)][int32]$PasswordListID,
         [parameter(ValueFromPipelineByPropertyName, Position = 26)][string]$Reason,
-        [parameter(ValueFromPipelineByPropertyName, Position = 27)][switch]$PreventAuditing
+        [parameter(ValueFromPipelineByPropertyName, Position = 27)][switch]$PreventAuditing,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 28)][string]$ADDomainNetBIOS
     )
 
     Begin {
@@ -105,6 +106,7 @@
                 If ($UserName) { $BuildURL += "UserName=$([System.Web.HttpUtility]::UrlEncode($UserName))&" }
                 If ($HostName) { $BuildURL += "HostName=$([System.Web.HttpUtility]::UrlEncode($HostName))&" }
                 If ($ADDomainNetBIOS) { $BuildURL += "ADDomainNetBIOS=$([System.Web.HttpUtility]::UrlEncode($ADDomainNetBIOS))&" }
+                If ($Domain) { $BuildURL += "Domain=$([System.Web.HttpUtility]::UrlEncode($Domain))&" }
                 If ($AccountType) { $BuildURL += "AccountType=$([System.Web.HttpUtility]::UrlEncode($AccountType))&" }
                 If ($Description) { $BuildURL += "Description=$([System.Web.HttpUtility]::UrlEncode($Description))&" }
                 If ($Notes) { $BuildURL += "Notes=$([System.Web.HttpUtility]::UrlEncode($Notes))&" }
