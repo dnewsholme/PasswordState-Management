@@ -52,7 +52,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField1
-{{Fill GenericField1 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -67,7 +70,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField10
-{{Fill GenericField10 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -82,7 +88,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField2
-{{Fill GenericField2 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -97,7 +106,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField3
-{{Fill GenericField3 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -112,7 +124,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField4
-{{Fill GenericField4 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -127,7 +142,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField5
-{{Fill GenericField5 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -142,7 +160,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField6
-{{Fill GenericField6 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -157,7 +178,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField7
-{{Fill GenericField7 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -172,7 +196,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField8
-{{Fill GenericField8 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -187,7 +214,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField9
-{{Fill GenericField9 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String

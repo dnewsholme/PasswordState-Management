@@ -84,7 +84,7 @@ Accept wildcard characters: False
 ```
 
 ### -PasswordGeneratorAPIkey
-{{Fill PasswordGeneratorAPIkey Description}}
+The API Key for the password generator usage.
 
 ```yaml
 Type: String
@@ -99,7 +99,7 @@ Accept wildcard characters: False
 ```
 
 ### -path
-{{ Fill path Description }}
+The path to the json configuration file for the passwordstate environment.
 
 ```yaml
 Type: String
@@ -114,7 +114,7 @@ Accept wildcard characters: False
 ```
 
 ### -SetPlainTextPasswords
-{{ Fill SetPlainTextPasswords Description }}
+Set to true, if plaintext passwords shall be displayed.
 
 ```yaml
 Type: Boolean
@@ -129,7 +129,7 @@ Accept wildcard characters: False
 ```
 
 ### -Uri
-{{ Fill Uri Description }}
+The url of the passwordstate website.
 
 ```yaml
 Type: Uri

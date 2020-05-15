@@ -47,7 +47,7 @@ New-RandomPassword -PolicyID 2
 ## PARAMETERS
 
 ### -excludedcharacters
-{{Fill excludedcharacters Description}}
+I characters should be excluded, add them here.
 
 ```yaml
 Type: String
