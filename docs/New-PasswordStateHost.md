@@ -47,21 +47,6 @@ Creates a new host with the hostname 'TestServer.domain.local'
 
 ## PARAMETERS
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -DatabasePortNumber
 Optional parameter that indicates the Port Number the database server is accessible on.
 Leaving the Port Number blank is most cases should work, but you can specify non-standard port numbers if required
@@ -269,21 +254,6 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -SQLInstanceName
-Optional parameter that provides either the Microsoft SQL Server Instance Name, Oracle Service Name or PostgreSQL Database Name.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -SessionRecording
 Optional switch.
 Indicates whether all sessions will be recorded for this host record.
@@ -312,6 +282,21 @@ Aliases:
 Required: False
 Position: 11
 Default value: 0
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SQLInstanceName
+Optional parameter that provides either the Microsoft SQL Server Instance Name, Oracle Service Name or PostgreSQL Database Name.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
+Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -375,6 +360,21 @@ Required: True
 Position: 17
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

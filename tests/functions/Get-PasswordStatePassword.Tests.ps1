@@ -1,5 +1,5 @@
 Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
-Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+Import-Module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
 . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
 InModuleScope 'Passwordstate-Management' {
     Describe "Get-PasswordStatePassword parameter validation" {
@@ -83,7 +83,7 @@ InModuleScope 'Passwordstate-Management' {
 }
 
 Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
-Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+Import-Module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
 . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
 InModuleScope 'Passwordstate-Management' {
     Describe "Get-PasswordStatePassword with winapi profile" {
@@ -160,7 +160,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -170,7 +171,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -180,7 +182,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)' -PreventAuditing:`$True" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -190,7 +193,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -211,7 +215,7 @@ InModuleScope 'Passwordstate-Management' {
     }
 }
 Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
-Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+Import-Module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
 . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
 InModuleScope 'Passwordstate-Management' {
     Describe "Get-PasswordStatePassword with Custom Credentials in profile" {
@@ -288,7 +292,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -298,7 +303,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -308,7 +314,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)' -PreventAuditing:`$True" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -318,7 +325,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -339,7 +347,7 @@ InModuleScope 'Passwordstate-Management' {
     }
 }
 Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
-Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+Import-Module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
 . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
 InModuleScope 'Passwordstate-Management' {
     Describe "Get-PasswordStatePassword with apikey in profile" {
@@ -416,7 +424,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -426,7 +435,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -436,7 +446,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)' -PreventAuditing:`$True" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -446,7 +457,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -467,7 +479,7 @@ InModuleScope 'Passwordstate-Management' {
     }
 }
 Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
-Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
+Import-Module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
 . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
 InModuleScope 'Passwordstate-Management' {
     Describe "Get-PasswordStatePassword for winapi" {
@@ -544,7 +556,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -554,7 +567,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -564,7 +578,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)' -PreventAuditing:`$True" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -574,7 +589,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -603,7 +619,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -613,7 +630,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -623,7 +641,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)' -PreventAuditing:`$True" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -633,7 +652,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -662,7 +682,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -672,7 +693,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -682,7 +704,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)' -PreventAuditing:`$True" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount
@@ -692,7 +715,8 @@ InModuleScope 'Passwordstate-Management' {
                 param($parametername, $testvalue, $ListCount, $PWLID)
                 $Result = if ($parametername -ne '') {
                     ((Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'" ) | Measure-Object).Count
-                } else {
+                }
+                else {
                     ((Invoke-Expression -Command "$($FunctionName)" ) | Measure-Object).Count
                 }
                 $Result | Should -BeExactly $ListCount

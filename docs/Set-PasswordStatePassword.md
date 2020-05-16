@@ -36,23 +36,26 @@ Updates the password to "76y288uneeko%%%2A" for the entry named testuser01
 
 ## PARAMETERS
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -domain
+Updated domain value
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
 Required: False
-Position: Named
+Position: 4
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -GenericField1
-{{Fill GenericField1 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -67,7 +70,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField10
-{{Fill GenericField10 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -82,7 +88,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField2
-{{Fill GenericField2 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -97,7 +106,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField3
-{{Fill GenericField3 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -112,7 +124,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField4
-{{Fill GenericField4 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -127,7 +142,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField5
-{{Fill GenericField5 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -142,7 +160,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField6
-{{Fill GenericField6 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -157,7 +178,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField7
-{{Fill GenericField7 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -172,7 +196,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField8
-{{Fill GenericField8 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -187,7 +214,10 @@ Accept wildcard characters: False
 ```
 
 ### -GenericField9
-{{Fill GenericField9 Description}}
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -196,52 +226,6 @@ Aliases:
 
 Required: False
 Position: 17
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -PreventAuditing
-{{Fill PreventAuditing Description}}
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 19
-Default value: False
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -domain
-Updated domain value
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -307,6 +291,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -PreventAuditing
+By default, the creation/modification or retrieval of (all) Passwords records will add one Audit record for every Password record returned. If you wish to prevent audit records from being added, you can add this `-PreventAuditing` parameter.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 19
+Default value: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -reason
 A reason which can be logged for auditing of why a password was updated.
 
@@ -364,6 +363,37 @@ Required: False
 Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

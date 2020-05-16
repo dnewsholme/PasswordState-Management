@@ -14,20 +14,20 @@ Saves your password state environment configuration to be used when calling the 
 
 ### Two (Default)
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-WindowsAuthOnly] [-path <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Set-PasswordStateEnvironment -Uri <Uri> [-WindowsAuthOnly] [-path <String>] [-SetPlainTextPasswords <Boolean>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### One
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-Apikey <String>] [-PasswordGeneratorAPIkey <String>]
- [-path <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-PasswordStateEnvironment -Uri <Uri> [-Apikey <String>] [-PasswordGeneratorAPIkey <String>] [-path <String>]
+ [-SetPlainTextPasswords <Boolean>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Three
 ```
-Set-PasswordStateEnvironment -Baseuri <String> [-customcredentials <PSCredential>] [-path <String>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Set-PasswordStateEnvironment -Uri <Uri> [-customcredentials <PSCredential>] [-path <String>]
+ [-SetPlainTextPasswords <Boolean>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -68,18 +68,92 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Baseuri
-The base url of the passwordstate server.
-eg https://passwordstate
+### -customcredentials
+For use if windows custom credentials is the preferred authentication method.
+
+```yaml
+Type: PSCredential
+Parameter Sets: Three
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -PasswordGeneratorAPIkey
+The API Key for the password generator usage.
+
+```yaml
+Type: String
+Parameter Sets: One
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -path
+The path to the json configuration file for the passwordstate environment.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SetPlainTextPasswords
+Set to true, if plaintext passwords shall be displayed.
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Uri
+The url of the passwordstate website.
+
+```yaml
+Type: Uri
+Parameter Sets: (All)
+Aliases: Baseuri
+
 Required: True
 Position: Named
 Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WindowsAuthOnly
+For use if Windows Passthrough is the preferred authentication method.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Two
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -99,21 +173,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -PasswordGeneratorAPIkey
-{{Fill PasswordGeneratorAPIkey Description}}
-
-```yaml
-Type: String
-Parameter Sets: One
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -WhatIf
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
@@ -127,51 +186,6 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WindowsAuthOnly
-For use if Windows Passthrough is the preferred authentication method.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: Two
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -customcredentials
-For use if windows custom credentials is the preferred authentication method.
-
-```yaml
-Type: PSCredential
-Parameter Sets: Three
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -path
-{{ Fill path Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

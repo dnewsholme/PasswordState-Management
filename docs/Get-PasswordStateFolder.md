@@ -71,7 +71,7 @@ Accept wildcard characters: False
 ```
 
 ### -PreventAuditing
-{{Fill PreventAuditing Description}}
+By default, the creation/modification or retrieval of (all) Passwords records will add one Audit record for every Password record returned. If you wish to prevent audit records from being added, you can add this `-PreventAuditing` parameter.
 
 ```yaml
 Type: SwitchParameter
