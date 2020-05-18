@@ -45,7 +45,7 @@ function Set-PasswordStateResource {
                 $uri = $uri -Replace "^/api/", "/winapi/"
             }
             APIKey {
-                $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
+                $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)" }
             }
         }
     }
@@ -58,23 +58,26 @@ function Set-PasswordStateResource {
             "ContentType"     = $ContentType
             "Body"            = $body
         }
-        if (!$body){
+        if ($body) {
+            Write-PSFMessage -Level Verbose -Message "Using body $($body)"
+        }
+        else {
             $params.Remove("Body")
         }
         if ($headers -and $null -ne $extraparams.Headers) {
             Write-Verbose "[$(Get-Date -format G)] Adding API Headers and extra param headers"
             $headers += $extraparams.headers
-            $params += @{"headers" = $headers}
+            $params += @{"headers" = $headers }
             $skipheaders = $true
         }
-        if ($extraparams -and $null -eq $extraparams.Headers){
+        if ($extraparams -and $null -eq $extraparams.Headers) {
             Write-Verbose "[$(Get-Date -format G)] Adding extra parameter $($extraparams.keys) $($extraparams.values)"
             $params += $extraparams
         }
 
         if ($headers -and $skipheaders -ne $true) {
             Write-Verbose "[$(Get-Date -format G)] Adding API Headers only"
-            $params += @{"headers" = $headers}
+            $params += @{"headers" = $headers }
         }
         if ($PSCmdlet.ShouldProcess("[$($params.Method)] uri:$($params.uri) Headers:$($headers) Body:$($params.body)")) {
             Switch ($passwordstateenvironment.AuthType) {
@@ -97,7 +100,7 @@ function Set-PasswordStateResource {
     }
 
     end {
-	    [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
+        [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }
