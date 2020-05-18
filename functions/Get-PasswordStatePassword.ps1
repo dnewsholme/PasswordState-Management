@@ -47,7 +47,7 @@
         [ValidateScript( {
                 # The dates here for the ExpiryDate(s) do NOT need to be culture aware, so we can validate a specific date format with a regular expression.
                 # So we only need to validate if the format of the entire ExpiryDateRange string is correct.
-                if ($_ -notmatch 'ExpiryDate[\<=\>]{1,2}(19|20)[0-9]{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01]),ExpiryDate[\<=\>]{1,2}(19|20)[0-9]{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])|ExpiryDate[\<=\>]{1,2}(19|20)[0-9]{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])') {
+                if ($_ -notmatch '(ExpiryDate(<|>|=|<=|>=)((19|20)[0-9]{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01]))),(ExpiryDate(<|>|=|<=|>=)((19|20)[0-9]{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])))|(?<!,)ExpiryDate(<|>|=|<=|>=)((19|20)[0-9]{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01]))') {
                     throw "Given ExpiryDateRange '$_' is not a valid ExpiryDateRange format. Please use the following format (single comma between ExpiryDates): 'ExpiryDate>=2012-07-14,ExpiryDate<=2020-12-31' (Also, please specify the ExpiryDates in the ISO 8601 international date format 'YYYY-MM-DD')."
                 }
                 else {
