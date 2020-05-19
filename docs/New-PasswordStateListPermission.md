@@ -1,14 +1,14 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateList.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateListPermission.md
 schema: 2.0.0
 ---
 
 # New-PasswordStateListPermission
 
 ## SYNOPSIS
-Add permissions to a PasswordState lists.
+Add permissions to PasswordState lists.
 
 ## SYNTAX
 
@@ -33,7 +33,7 @@ New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
 ```
 
 ## DESCRIPTION
-Add permissions to a PasswordState lists.
+Add permissions to PasswordState lists.
 
 **Note**: To add permissions to a Password List, it cannot be receiving permissions from a **parent folder** which is **propagating permissions down**.
 
