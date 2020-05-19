@@ -1,7 +1,7 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateFolder.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateFolderPermission.md
 schema: 2.0.0
 ---
 
@@ -15,21 +15,21 @@ Add permissions to a PasswordState folder.
 ### All (Default)
 ```
 New-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-Sort] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionID
 ```
 New-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <String> [-Sort] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <String> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### PermissionName
 ```
 New-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-Sort] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -129,21 +129,6 @@ Accepted values: A, M, V
 
 Required: True
 Position: 1
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Sort
-Sort the response object (not available at the moment
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
