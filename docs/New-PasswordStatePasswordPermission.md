@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-PasswordStatePasswordPermission
 
 ## SYNOPSIS
-Add permissions to a PasswordState passwords.
+Add permissions to PasswordState passwords.
 
 ## SYNTAX
 
@@ -33,7 +33,7 @@ New-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
 ```
 
 ## DESCRIPTION
-Add permissions to a PasswordState passwords.
+Add permissions to PasswordState passwords.
 
 ## EXAMPLES
 
@@ -117,7 +117,7 @@ Accept wildcard characters: False
 
 ### -Permission
 Set permission for the password.  
-A for Administrator, M for Modify or V for View permissions.
+M for Modify or V for View permissions.
 
 ```yaml
 Type: String
