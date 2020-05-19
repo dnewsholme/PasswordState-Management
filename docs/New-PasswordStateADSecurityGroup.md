@@ -1,7 +1,7 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Get-PSCustomObject.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateADSecurityGroup.md
 schema: 2.0.0
 ---
 

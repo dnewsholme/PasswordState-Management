@@ -1,57 +1,55 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateFolderPermission.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Set-PasswordStatePasswordPermission.md
 schema: 2.0.0
 ---
 
-# New-PasswordStateFolderPermission
+# Set-PasswordStatePasswordPermission
 
 ## SYNOPSIS
-Add permissions to a PasswordState folder.
+Change permissions of PasswordState passwords.
 
 ## SYNTAX
 
 ### All (Default)
 ```
-New-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
+Set-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
  [[-ApplyPermissionsForUserID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionID
 ```
-New-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <String> [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Set-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Nullable`1[]> [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionName
 ```
-New-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
+Set-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
  [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add permissions to a PasswordState folder.
-
-**Note**: To add permissions to a Folder, it must be configured to have its **permissions managed manually**.
+Change permissions of PasswordState passwords.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> New-PasswordStateFolderPermission -FolderID 1 -Permission A -ApplyPermissionsForUserID "domain\username"
+PS C:\> New-PasswordStatePasswordPermission -PasswordID 1 -Permission A -ApplyPermissionsForUserID "domain\username"
 ```
 
-Grant administrator permissions to the username on folder with ID 1.
+Change existing permissions to admin for the username on password with ID 1.
 
 ### Example 2
 ```powershell
-PS C:\> New-PasswordStateFolderPermission -FolderID 1 -Permission V -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
+PS C:\> New-PasswordStatePasswordPermission -PasswordID 1 -Permission M -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
 ```
 
-Grant view permissions to the group "ReadOnlyGroup" on folder with ID 1.
+Change existing permissions to modify for the group "ReadOnlyGroup" on password with ID 1.
 
 ## PARAMETERS
 
@@ -60,7 +58,7 @@ The SecurityGroupID you wish to apply permissions for.
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
-Type: String
+Type: Nullable`1[]
 Parameter Sets: PermissionID
 Aliases:
 
@@ -72,7 +70,7 @@ Accept wildcard characters: False
 ```
 
 ### -ApplyPermissionsForSecurityGroupName
-The Security Group Name you wish to apply permissions for.  
+The SecurityGroupID you wish to apply permissions for.  
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
@@ -102,8 +100,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -FolderID
-Unique identifier for the Folder.
+### -PasswordID
+Unique identifier for the Password.
 
 ```yaml
 Type: Int32
@@ -118,14 +116,14 @@ Accept wildcard characters: False
 ```
 
 ### -Permission
-Set permission for the folder.  
-A for Administrator, M for Modify or V for View permissions.
+Set permission for the password.  
+M for Modify or V for View permissions.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: A, M, V
+Accepted values: M, V
 
 Required: True
 Position: 1
@@ -174,7 +172,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String
 
-### System.Management.Automation.SwitchParameter
+### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]
 
 ## OUTPUTS
 

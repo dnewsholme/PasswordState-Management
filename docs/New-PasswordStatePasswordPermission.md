@@ -1,39 +1,39 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStatePassword.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStatePasswordPermission.md
 schema: 2.0.0
 ---
 
 # New-PasswordStatePasswordPermission
 
 ## SYNOPSIS
-Add permissions to a PasswordState passwords.
+Add permissions to PasswordState passwords.
 
 ## SYNTAX
 
 ### All (Default)
 ```
 New-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-Sort] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionID
 ```
 New-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Nullable`1[]> [-Sort] [-WhatIf]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Nullable`1[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionName
 ```
 New-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-Sort] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add permissions to a PasswordState passwords.
+Add permissions to PasswordState passwords.
 
 ## EXAMPLES
 
@@ -117,7 +117,7 @@ Accept wildcard characters: False
 
 ### -Permission
 Set permission for the password.  
-A for Administrator, M for Modify or V for View permissions.
+M for Modify or V for View permissions.
 
 ```yaml
 Type: String
@@ -127,21 +127,6 @@ Accepted values: M, V
 
 Required: True
 Position: 1
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Sort
-Sort the response object (not available at the moment)
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

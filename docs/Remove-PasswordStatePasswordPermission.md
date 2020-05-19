@@ -1,66 +1,64 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateFolderPermission.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Remove-PasswordStatePasswordPermission.md
 schema: 2.0.0
 ---
 
-# New-PasswordStateFolderPermission
+# Remove-PasswordStatePasswordPermission
 
 ## SYNOPSIS
-Add permissions to a PasswordState folder.
+Remove permissions from PasswordState passwords.
 
 ## SYNTAX
 
 ### All (Default)
 ```
-New-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
+Remove-PasswordStatePasswordPermission [-PasswordID] <Int32> [[-Permission] <String>]
  [[-ApplyPermissionsForUserID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionID
 ```
-New-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <String> [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Remove-PasswordStatePasswordPermission [-PasswordID] <Int32> [[-Permission] <String>]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Nullable`1[]> [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionName
 ```
-New-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
+Remove-PasswordStatePasswordPermission [-PasswordID] <Int32> [[-Permission] <String>]
  [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add permissions to a PasswordState folder.
-
-**Note**: To add permissions to a Folder, it must be configured to have its **permissions managed manually**.
+Remove permissions from PasswordState passwords.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> New-PasswordStateFolderPermission -FolderID 1 -Permission A -ApplyPermissionsForUserID "domain\username"
+PS C:\> Remove-PasswordStatePasswordPermission -PasswordID 1 -ApplyPermissionsForUserID "domain\username"
 ```
 
-Grant administrator permissions to the username on folder with ID 1.
+Remove all permissions for the username on password with ID 1.
 
 ### Example 2
 ```powershell
-PS C:\> New-PasswordStateFolderPermission -FolderID 1 -Permission V -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
+PS C:\> Remove-PasswordStatePasswordPermission -PasswordID 1 -Permission V -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
 ```
 
-Grant view permissions to the group "ReadOnlyGroup" on folder with ID 1.
+Remove view permissions of the group "ReadOnlyGroup" on password with ID 1. You can specify the `-Permission` parameter, but you do not need to specify it. If you specify it, it must be the correct Permission.
 
 ## PARAMETERS
 
 ### -ApplyPermissionsForSecurityGroupID
-The SecurityGroupID you wish to apply permissions for.  
+The SecurityGroupID you wish to remove permissions for.  
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
-Type: String
+Type: Nullable`1[]
 Parameter Sets: PermissionID
 Aliases:
 
@@ -72,7 +70,7 @@ Accept wildcard characters: False
 ```
 
 ### -ApplyPermissionsForSecurityGroupName
-The Security Group Name you wish to apply permissions for.  
+The SecurityGroupID you wish to remove permissions for.  
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
@@ -88,7 +86,7 @@ Accept wildcard characters: False
 ```
 
 ### -ApplyPermissionsForUserID
-The UserID (name) you wish to apply permissions for. Format: 'domain\username'
+The UserID (name) you wish to remove permissions for. Format: 'domain\username'
 
 ```yaml
 Type: String
@@ -102,8 +100,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -FolderID
-Unique identifier for the Folder.
+### -PasswordID
+Unique identifier for the Password.
 
 ```yaml
 Type: Int32
@@ -118,16 +116,18 @@ Accept wildcard characters: False
 ```
 
 ### -Permission
-Set permission for the folder.  
-A for Administrator, M for Modify or V for View permissions.
+Remove permission for the password.  
+M for Modify or V for View permissions.
+
+**Note**: This is optional. If omitted, all permissions for the User or Security Group will be deleted. Or you can specify specific permissions using the above defined permission levels.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: A, M, V
+Accepted values: M, V
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: True (ByPropertyName)
@@ -174,7 +174,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String
 
-### System.Management.Automation.SwitchParameter
+### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]
 
 ## OUTPUTS
 

@@ -13,9 +13,7 @@
         [parameter(parameterSetName = 'PermissionID', Position = 3, ValueFromPipelineByPropertyName, Mandatory = $true)]
         [Nullable[System.Int32][]]$ApplyPermissionsForSecurityGroupID = $null,
         [parameter(parameterSetName = 'PermissionName', Position = 3, ValueFromPipelineByPropertyName, Mandatory = $true)]
-        [string]$ApplyPermissionsForSecurityGroupName = $null,
-        [parameter(ValueFromPipelineByPropertyName, Position = 4, Mandatory = $false)]
-        [switch]$Sort
+        [string]$ApplyPermissionsForSecurityGroupName = $null
     )
 
     begin {
@@ -37,7 +35,12 @@
         if ($PSCmdlet.ShouldProcess("PasswordID $PasswordID - Setting Permission '$Permission'. Applying to: User = '$ApplyPermissionsForUserID', SecurityGroup = '$ApplyPermissionsForSecurityGroupName' or SecurityGroupID = '$ApplyPermissionsForSecurityGroupID'")) {
             # Sort the CustomObject and then covert body to json and execute the api query
             $body = "$($body | ConvertTo-Json)"
-            $output = New-PasswordStateResource -uri "/api/passwordpermissions" -body $body -Sort:$Sort
+            try {
+                $output = New-PasswordStateResource -uri "/api/passwordpermissions" -body $body -ErrorAction Stop
+            }
+            catch {
+                throw $_.Exception
+            }
         }
     }
 
