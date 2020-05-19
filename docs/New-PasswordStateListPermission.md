@@ -15,21 +15,21 @@ Add permissions to a PasswordState lists.
 ### All (Default)
 ```
 New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-Sort] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionID
 ```
 New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Nullable`1[]> [-Sort] [-WhatIf]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Nullable`1[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionName
 ```
 New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-Sort] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -129,21 +129,6 @@ Accepted values: A, M, V
 
 Required: True
 Position: 1
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Sort
-Sort the response object (not available at the moment)
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
