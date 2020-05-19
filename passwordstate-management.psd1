@@ -72,9 +72,9 @@
     FunctionsToExport = @('Get-PasswordStateEnvironment', 'Get-PasswordStateFolder', 'Get-PasswordStateHost', 'Get-PasswordStateList', 'Get-PasswordStatePassword', 'Get-PasswordStatePasswordHistory', 'Get-PasswordStatePermission'
         , 'Invoke-PasswordStateReport'
         , 'New-PasswordStateADSecurityGroup', 'New-PasswordStateDependency', 'New-PasswordStateDocument', 'New-PasswordStateFolder', 'New-PasswordStateFolderPermission', 'New-PasswordStateHost', 'New-PasswordStateList', 'New-PasswordStateListPermission', 'New-PasswordStatePassword', 'New-PasswordStatePasswordPermission', 'New-RandomPassword'
-        , 'Remove-PasswordStateHost', 'Remove-PasswordStateListPermission', 'Remove-PasswordStatePassword'
+        , 'Remove-PasswordStateFolderPermission', 'Remove-PasswordStateHost', 'Remove-PasswordStateListPermission', 'Remove-PasswordStatePassword', 'Remove-PasswordStatePasswordPermission'
         , 'Save-PasswordStateDocument'
-        , 'Set-PasswordStateEnvironment', 'Set-PasswordStateListPermission', 'Set-PasswordStatePassword'
+        , 'Set-PasswordStateEnvironment', 'Set-PasswordStateFolderPermission', 'Set-PasswordStateListPermission', 'Set-PasswordStatePassword', 'Set-PasswordStatePasswordPermission'
         , 'Test-PasswordPwned'
     )
 
