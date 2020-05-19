@@ -1,4 +1,4 @@
-﻿function New-PasswordStateFolderPermission {
+﻿function Set-PasswordStateFolderPermission {
     [cmdletbinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'All')]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)]
@@ -35,7 +35,7 @@
             # Sort the CustomObject and then covert body to json and execute the api query
             $body = "$($body | ConvertTo-Json)"
             try {
-                $output = New-PasswordStateResource -uri "/api/folderpermissions" -body $body -ErrorAction Stop
+                $output = Set-PasswordStateResource -uri "/api/folderpermissions" -body $body -ErrorAction Stop
             }
             catch {
                 throw $_.Exception

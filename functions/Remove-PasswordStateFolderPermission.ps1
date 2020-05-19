@@ -1,9 +1,9 @@
-﻿function New-PasswordStateFolderPermission {
+﻿function Remove-PasswordStateFolderPermission {
     [cmdletbinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'All')]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)]
         [int32]$FolderID,
-        [parameter(Position = 1, ValueFromPipelineByPropertyName, Mandatory = $true)]
+        [parameter(Position = 1, ValueFromPipelineByPropertyName, Mandatory = $false)]
         [ValidateSet('A', 'M', 'V')]
         [string]$Permission,
         [parameter(Position = 2, ValueFromPipelineByPropertyName, Mandatory = $false)]
@@ -31,15 +31,17 @@
         if ($penv.AuthType -eq "APIKey") {
             $body | Add-Member -MemberType NoteProperty -Name "APIKey" -Value $penv.Apikey
         }
-        if ($PSCmdlet.ShouldProcess("Folder $FolderID - Setting Permission '$Permission'. Applying to: User = '$ApplyPermissionsForUserID', SecurityGroup = '$ApplyPermissionsForSecurityGroupName' or SecurityGroupID = '$ApplyPermissionsForSecurityGroupID'")) {
+        if ($PSCmdlet.ShouldProcess("Folder $FolderID - Removing Permissions (Permission: '$Permission') for: User = '$ApplyPermissionsForUserID', SecurityGroup = '$ApplyPermissionsForSecurityGroupName' or SecurityGroupID = '$ApplyPermissionsForSecurityGroupID'")) {
             # Sort the CustomObject and then covert body to json and execute the api query
             $body = "$($body | ConvertTo-Json)"
             try {
-                $output = New-PasswordStateResource -uri "/api/folderpermissions" -body $body -ErrorAction Stop
+                $output = Remove-PasswordStateResource -uri "/api/folderpermissions" -body $body -ErrorAction Stop
             }
             catch {
                 throw $_.Exception
             }
+            # When a delete command is issued, there is generally no confirmation from the API.
+            Write-PSFMessage -Level Output -Message "The delete request was sent successfully."
         }
     }
 
