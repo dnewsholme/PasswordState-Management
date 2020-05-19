@@ -1,10 +1,10 @@
-﻿function New-PasswordStatePasswordPermission {
+﻿function Remove-PasswordStatePasswordPermission {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = '*UserID and *PasswordID are not a user and not a password')]
     [cmdletbinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'All')]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)]
         [int32]$PasswordID,
-        [parameter(ValueFromPipelineByPropertyName, Position = 1, Mandatory = $true)]
+        [parameter(ValueFromPipelineByPropertyName, Position = 1, Mandatory = $false)]
         [ValidateSet('M', 'V')]
         [string]$Permission,
         [parameter(ValueFromPipelineByPropertyName, Position = 2, Mandatory = $false)]
@@ -36,11 +36,13 @@
             # Sort the CustomObject and then covert body to json and execute the api query
             $body = "$($body | ConvertTo-Json)"
             try {
-                $output = New-PasswordStateResource -uri "/api/passwordpermissions" -body $body -ErrorAction Stop   
+                $output = Remove-PasswordStateResource -uri "/api/passwordpermissions" -body $body -ErrorAction Stop
             }
             catch {
                 throw $_.Exception
             }
+            # When a delete command is issued, there is generally no confirmation from the API.
+            Write-PSFMessage -Level Output -Message "The delete request was sent successfully."
         }
     }
 

@@ -1,4 +1,4 @@
-﻿function New-PasswordStatePasswordPermission {
+﻿function Set-PasswordStatePasswordPermission {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = '*UserID and *PasswordID are not a user and not a password')]
     [cmdletbinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'All')]
     param (
@@ -36,7 +36,7 @@
             # Sort the CustomObject and then covert body to json and execute the api query
             $body = "$($body | ConvertTo-Json)"
             try {
-                $output = New-PasswordStateResource -uri "/api/passwordpermissions" -body $body -ErrorAction Stop   
+                $output = Set-PasswordStateResource -uri "/api/passwordpermissions" -body $body -ErrorAction Stop   
             }
             catch {
                 throw $_.Exception
