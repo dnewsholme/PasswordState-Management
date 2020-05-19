@@ -36,7 +36,7 @@
             # Sort the CustomObject and then covert body to json and execute the api query
             $body = "$($body | ConvertTo-Json)"
             try {
-                $output = New-PasswordStateResource -uri "/api/passwordpermissions" -body $body -ErrorAction Stop   
+                $output = New-PasswordStateResource -uri "/api/passwordpermissions" -body $body -ErrorAction Stop
             }
             catch {
                 throw $_.Exception
