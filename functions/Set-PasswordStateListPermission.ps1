@@ -124,3 +124,4 @@
         }
     }
 }
+Set-Alias -Name Update-PasswordStateListPermission -Value Set-PasswordStateListPermission -Force

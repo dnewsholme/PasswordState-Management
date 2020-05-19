@@ -49,3 +49,4 @@
         }
     }
 }
+Set-Alias -Name Update-PasswordStateFolderPermission -Value Set-PasswordStateFolderPermission -Force
