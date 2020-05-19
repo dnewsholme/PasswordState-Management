@@ -13,9 +13,7 @@
         [parameter(parameterSetName = 'PermissionID', Position = 3, ValueFromPipelineByPropertyName, Mandatory = $true)]
         [Nullable[System.Int32][]]$ApplyPermissionsForSecurityGroupID = $null,
         [parameter(parameterSetName = 'PermissionName', Position = 3, ValueFromPipelineByPropertyName, Mandatory = $true)]
-        [string]$ApplyPermissionsForSecurityGroupName = $null,
-        [parameter(ValueFromPipelineByPropertyName, Position = 4, Mandatory = $false)]
-        [switch]$Sort
+        [string]$ApplyPermissionsForSecurityGroupName = $null
     )
 
     begin {
@@ -117,7 +115,6 @@
             catch {
                 throw $_.Exception
             }
-
         }
     }
 
