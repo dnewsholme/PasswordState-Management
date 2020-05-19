@@ -1,4 +1,4 @@
-﻿function New-PasswordStateListPermission {
+﻿function Set-PasswordStateListPermission {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = '*UserID and *PasswordListID are not a user and not a password')]
     [cmdletbinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'All')]
     param (
@@ -41,16 +41,22 @@
             if ($AllPermissions) {
                 foreach ($Permissions in $AllPermissions) {
                     if (($Permissions.PasswordListID -eq $PasswordListID) -and ($Permissions.$PermissionLevel -eq "Yes")) {
-                        throw "Permission '$Permission' ($PermissionLevel) on PasswordList '$($Permissions.PasswordList)' (ID '$PasswordListID') for UserID '$ApplyPermissionsForUserID' already exists!"
+                        Write-PSFMessage -Level Verbose -Message "Permission '$Permission' ($PermissionLevel) on PasswordList '$($Permissions.PasswordList)' (ID '$PasswordListID') for UserID '$ApplyPermissionsForUserID' already exists!"
                     }
                     elseif ($Permissions.PasswordListID -eq $PasswordListID) {
                         foreach ($AvailablePermission in $AvailablePermissionLevel) {
                             if ($Permissions.$AvailablePermission -eq "Yes") {
-                                throw "UserID '$ApplyPermissionsForUserID' already has Permission '$AvailablePermission' on PasswordList '$($Permissions.PasswordList)' (ID '$PasswordListID')! Please use 'Set-PasswordStateListPermission -Permission '$Permission' -ApplyPermissionsForUserID '$ApplyPermissionsForUserID' -PasswordListID '$PasswordListID'' to update the permissions to type '$Permission' ($PermissionLevel)"
+                                Write-PSFMessage -Level Verbose -Message "UserID '$ApplyPermissionsForUserID' has Permission '$AvailablePermission' on PasswordList '$($Permissions.PasswordList)' (ID '$PasswordListID'), moving on!"
                             }
                         }
                     }
+                    else {
+                        Write-PSFMessage -Level Warning -Message "UserID '$ApplyPermissionsForUserID' does not have any permission on PasswordListID '$PasswordListID' so far! Please use 'New-PasswordStateListPermission -Permission '$Permission' -ApplyPermissionsForUserID '$ApplyPermissionsForUserID' -PasswordListID '$PasswordListID'' to add new permissions."
+                    }
                 }
+            }
+            else {
+                Write-PSFMessage -Level Warning -Message "UserID '$ApplyPermissionsForUserID' does not have any permission on PasswordListID '$PasswordListID' so far! Please use 'New-PasswordStateListPermission -Permission '$Permission' -ApplyPermissionsForUserID '$ApplyPermissionsForUserID' -PasswordListID '$PasswordListID'' to add new permissions."
             }
         }
         if ($ApplyPermissionsForSecurityGroupName) {
@@ -63,16 +69,22 @@
             if ($AllPermissions) {
                 foreach ($Permissions in $AllPermissions) {
                     if (($Permissions.PasswordListID -eq $PasswordListID) -and ($Permissions.$PermissionLevel -eq "Yes")) {
-                        throw "Permission '$Permission' ($PermissionLevel) on PasswordList '$($Permissions.PasswordList)' (ID '$PasswordListID') for SecurityGroup '$ApplyPermissionsForSecurityGroupName' already exists!"
+                        Write-PSFMessage -Level Verbose -Message "Permission '$Permission' ($PermissionLevel) on PasswordList '$($Permissions.PasswordList)' (ID '$PasswordListID') for SecurityGroup '$ApplyPermissionsForSecurityGroupName' already exists!"
                     }
                     elseif ($Permissions.PasswordListID -eq $PasswordListID) {
                         foreach ($AvailablePermission in $AvailablePermissionLevel) {
                             if ($Permissions.$AvailablePermission -eq "Yes") {
-                                throw "SecurityGroup '$ApplyPermissionsForSecurityGroupName' already has Permission '$AvailablePermission' on PasswordList '$($Permissions.PasswordList)' (ID '$PasswordListID')! Please use 'Set-PasswordStateListPermission -Permission '$Permission' -ApplyPermissionsForSecurityGroupName '$ApplyPermissionsForSecurityGroupName' -PasswordListID '$PasswordListID'' to update the permissions to type '$Permission' ($PermissionLevel)"
+                                Write-PSFMessage -Level Verbose -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' has Permission '$AvailablePermission' on PasswordList '$($Permissions.PasswordList)' (ID '$PasswordListID'), moving on!"
                             }
                         }
                     }
+                    else {
+                        Write-PSFMessage -Level Warning -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' does not have any permission on PasswordListID '$PasswordListID' so far! Please use 'New-PasswordStateListPermission -Permission '$Permission' -ApplyPermissionsForSecurityGroupName '$ApplyPermissionsForSecurityGroupName' -PasswordListID '$PasswordListID'' to add new permissions."
+                    }
                 }
+            }
+            else {
+                Write-PSFMessage -Level Warning -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' does not have any permission on PasswordListID '$PasswordListID' so far! Please use 'New-PasswordStateListPermission -Permission '$Permission' -ApplyPermissionsForSecurityGroupName '$ApplyPermissionsForSecurityGroupName' -PasswordListID '$PasswordListID'' to add new permissions."
             }
         }
         if ($ApplyPermissionsForSecurityGroupID) {
@@ -98,7 +110,7 @@
             # Sort the CustomObject and then covert body to json and execute the api query
             $body = "$($body | ConvertTo-Json)"
             try {
-                $output = New-PasswordStateResource -uri "/api/passwordlistpermissions" -body $body -ErrorAction Stop
+                $output = Set-PasswordStateResource -uri "/api/passwordlistpermissions" -body $body -ErrorAction Stop
             }
             catch {
                 throw $_.Exception

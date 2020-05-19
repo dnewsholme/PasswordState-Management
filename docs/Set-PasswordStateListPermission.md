@@ -1,57 +1,57 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateListPermission.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Set-PasswordStateListPermission.md
 schema: 2.0.0
 ---
 
-# New-PasswordStateListPermission
+# Set-PasswordStateListPermission
 
 ## SYNOPSIS
-Add permissions to PasswordState lists.
+Change existing permissions of PasswordState lists.
 
 ## SYNTAX
 
 ### All (Default)
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
+Set-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
  [[-ApplyPermissionsForUserID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionID
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
+Set-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
  [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Nullable`1[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionName
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
+Set-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
  [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add permissions to PasswordState lists.
+Change existing permissions of PasswordState lists.
 
-**Note**: To add permissions to a Password List, it cannot be receiving permissions from a **parent folder** which is **propagating permissions down**.
+**Note**: To change permissions of a Password List, it cannot be receiving permissions from a **parent folder** which is **propagating permissions down**.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> New-PasswordStateListPermission -PasswordListID 1 -Permission A -ApplyPermissionsForUserID "domain\username"
+PS C:\> Set-PasswordStateListPermission -PasswordListID 1 -Permission A -ApplyPermissionsForUserID "domain\username"
 ```
 
-Grant administrator permissions to the username on list with ID 1.
+Change existing permissions of "username" to Admin on list with ID 1.
 
 ### Example 2
 ```powershell
-PS C:\> New-PasswordStateListPermission -PasswordListID 1 -Permission V -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
+PS C:\> Set-PasswordStateListPermission -PasswordListID 1 -Permission M -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
 ```
 
-Grant view permissions to the group "ReadOnlyGroup" on list with ID 1.
+Change existing permissions of group "ReadOnlyGroup" to Modify on list with ID 1.
 
 ## PARAMETERS
 
@@ -174,9 +174,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String
 
-### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]
-
-### System.Management.Automation.SwitchParameter
+### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]
 
 ## OUTPUTS
 

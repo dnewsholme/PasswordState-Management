@@ -63,9 +63,6 @@ function Get-PasswordStateResource {
             "ContentType"     = $ContentType
             "Method"          = $method.ToUpper()
         }
-        if (!$body) {
-            $params.Remove("Body")
-        }
         if ($headers -and $null -ne $extraparams.Headers) {
             Write-Verbose "[$(Get-Date -format G)] Adding API Headers and extra param headers"
             $headers += $extraparams.headers

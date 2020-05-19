@@ -1,14 +1,14 @@
 ﻿function Set-PasswordStateEnvironment {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'all passwords stored encrypted')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlaintextForPassword', '', Justification = 'no password')]
-    [CmdletBinding(DefaultParameterSetName = "Two", SupportsShouldProcess, ConfirmImpact="High")]
+    [CmdletBinding(DefaultParameterSetName = "Two", SupportsShouldProcess, ConfirmImpact = "High")]
     param (
-        [Parameter(ValueFromPipelineByPropertyName,Mandatory = $true)][Alias('Baseuri')][uri]$Uri,
-        [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'One')][string]$Apikey,
-        [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'One')][string]$PasswordGeneratorAPIkey,
-        [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'Two')][switch]$WindowsAuthOnly,
-        [Parameter(ValueFromPipelineByPropertyName,ParameterSetName = 'Three')][pscredential]$customcredentials,
-        [Parameter(ValueFromPipelineByPropertyName,Mandatory = $false)][string]$path = [Environment]::GetFolderPath('UserProfile'),
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $true)][Alias('Baseuri')][uri]$Uri,
+        [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'One')][string]$Apikey,
+        [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'One')][string]$PasswordGeneratorAPIkey,
+        [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'Two')][switch]$WindowsAuthOnly,
+        [Parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'Three')][pscredential]$customcredentials,
+        [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false)][string]$path = [Environment]::GetFolderPath('UserProfile'),
         [Parameter()][bool]$SetPlainTextPasswords = $False
     )
 
@@ -22,7 +22,7 @@
         Else {
             $AuthType = "APIKey"
         }
-        if ($env:PASSWORDSTATEPROFILE){
+        if ($env:PASSWORDSTATEPROFILE) {
             $path = $env:PASSWORDSTATEPROFILE
         }
         $profilepath = $path
@@ -45,21 +45,23 @@
         }
         $json = @{
             TimeoutSeconds = 60
-            Baseuri = $Uri -replace '/$',''
-            Apikey = $JsonApiKey
-            AuthType = $AuthType
+            Baseuri        = $Uri -replace '/$', ''
+            Apikey         = $JsonApiKey
+            AuthType       = $AuthType
         }
         if ($SetPlainTextPasswords) {
             if ($PSCmdlet.ShouldProcess('Allow passwords to be returned in plain text')) {
                 $json['PasswordsInPlainText'] = $SetPlainTextPasswords
-            } else {
+            }
+            else {
                 $json['PasswordsInPlainText'] = $false
             }
-        } else {
+        }
+        else {
             $json['PasswordsInPlainText'] = $SetPlainTextPasswords
         }
 
-        if ($PasswordGeneratorAPIkey){
+        if ($PasswordGeneratorAPIkey) {
             $json['PasswordGeneratorAPIKey'] = ($PasswordGeneratorAPIkey | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString)
         }
         $json = $json | ConvertTo-Json
@@ -67,6 +69,6 @@
 
     end {
         $json | Out-File "$($profilepath)\passwordstate.json"
-        $Script:Preferences.Path=$profilepath
+        $Script:Preferences.Path = $profilepath
     }
 }
