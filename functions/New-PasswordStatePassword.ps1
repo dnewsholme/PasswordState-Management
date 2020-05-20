@@ -126,10 +126,10 @@
                 $result = Get-PasswordStatePassword -Title $Title -UserName $Username -ErrorAction Stop
             }
             Catch {
-                Write-Verbose "No existing password...Continuing."
+                Write-PSFMessage -Level Verbose -Message "No existing password...Continuing."
             }
             if ($result.Username -eq $Username -and $result.title -eq $title) {
-                throw "Found existing Password Entry with same title '$title' and same username '$Username' in PasswordList '$($result.PasswordList)' ('$($result.PasswordListID)')!"
+                throw "Found existing Password Entry with same title '$title' and same username '$Username' in PasswordList '$($result.PasswordList)' ('$($result.PasswordListID)')! (Use -SkipExistenceCheck to skip this check)."
             }
         }
     }
