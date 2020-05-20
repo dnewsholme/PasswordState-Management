@@ -16,8 +16,9 @@
     process {
         if ($Reason) {
             $headerreason = @{"Reason" = "$Reason" }
-            $parms = @{ExtraParams = @{"Headers" = $headerreason } }
+            $parms = @{ExtraParams = @{"Header" = $headerreason } }
         }
+        else { $parms = @{ } }
 
         $BuildURL = '?'
         if ($SendToRecycleBin.IsPresent) { $BuildURL += "MoveToRecycleBin=$([System.Web.HttpUtility]::UrlEncode('true'))&" }

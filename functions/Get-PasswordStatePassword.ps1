@@ -7,14 +7,14 @@
     (
         [Parameter(ParameterSetName = 'General', ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory = $false)][string]$Search,
         [Parameter(ParameterSetName = 'PasswordID', ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][ValidateNotNullOrEmpty()][int32]$PasswordID,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 0)][string]$Title,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 1)][string]$UserName,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 2)][string]$HostName,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 3)][string]$Domain,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 4)][string]$AccountType,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 5)][string]$Description,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 0)][ValidateLength(1, 255)][string]$Title,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 1)][ValidateLength(1, 255)][string]$UserName,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 2)][ValidateLength(1, 200)][string]$HostName,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 3)][ValidateLength(1, 50)][string]$Domain,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 4)][ValidateLength(1, 50)][string]$AccountType,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 5)][ValidateLength(1, 255)][string]$Description,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 6)][string]$Notes,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 7)][string]$URL,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 7)][ValidateLength(1, 255)][string]$URL,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 8)][string]$SiteID,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 9)][string]$SiteLocation,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 10)][string]$GenericField1,
@@ -59,7 +59,7 @@
         [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 25)][int32]$PasswordListID,
         [parameter(ValueFromPipelineByPropertyName, Position = 26)][string]$Reason,
         [parameter(ValueFromPipelineByPropertyName, Position = 27)][switch]$PreventAuditing,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 28)][string]$ADDomainNetBIOS
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 28)][ValidateLength(1, 50)][string]$ADDomainNetBIOS
     )
 
     Begin {
@@ -67,11 +67,12 @@
     }
 
     Process {
-        # Add a reason to the audit log
+        # Add a reason to the audit log if specified
         If ($Reason) {
-            $headerreason = @{"Reason" = "$reason" }
-            $parms = @{ExtraParams = @{"Headers" = $headerreason } }
+            $headerreason = @{"Reason" = "$Reason" }
+            $parms = @{ExtraParams = @{"Header" = $headerreason } }
         }
+        else { $parms = @{ } }
 
         # If PasswordListID wasn't set, make the variable an empty string
         If (!($PSBoundParameters.ContainsKey('PasswordListID'))) {

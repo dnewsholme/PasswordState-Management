@@ -23,7 +23,7 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "HeartbeatSchedule", Position = 10)]
         [switch]$GeneratePassword,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 6)][string]$Notes,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 7)][string]$Url,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 7)][ValidateLength(1, 255)][string]$Url,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 8)][ValidateLength(1, 50)][string]$AccountType,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 9)][AllowNull()][Nullable[System.Int32]]$AccountTypeID = $null,
         [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 10)][string]$GenericField1 = $null,
@@ -91,14 +91,34 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 8)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 8)]
         [switch]$ValidateWithPrivAccount,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 24)][string]$ExpiryDate,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 24)]
+        [ValidateScript( {
+                # The dates for the ExpiryDate needs to be culture aware, so we cannot validate a specific date format.
+                function isDate([string]$StrDate) {
+                    [boolean]($StrDate -as [DateTime])
+                }
+                if (!(isDate $_)) {
+                    throw "Given ExpiryDate '$_' is not a valid Date format. Also, please specify the ExpiryDate in the date format that you have chosen in 'System Settings - miscellaneous - Default Locale' (Default: 'YYYY-MM-DD')."
+                }
+                else {
+                    $true
+                }
+            })]
+        [string]$ExpiryDate,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 25)][switch]$AllowExport,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 25)][ValidateLength(1, 200)][string]$WebUser_ID,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 25)][ValidateLength(1, 200)][string]$WebPassword_ID,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 30)][switch]$SkipExistenceCheck
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 30)][switch]$SkipExistenceCheck,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 31)][string]$Reason
     )
 
     begin {
+        # Add a reason to the audit log if specified
+        If ($Reason) {
+            $headerreason = @{"Reason" = "$Reason" }
+            $parms = @{ExtraParams = @{"Header" = $headerreason } }
+        }
+        else { $parms = @{ } }
         # if -SkipExistenceCheck is applied, no check if the requested password entry exists is executed
         if (!($PSBoundParameters.ContainsKey('SkipExistenceCheck')) -and ($PSBoundParameters.ContainsKey('UserName'))) {
             # Check to see if the requested password entry exists before continuing.
@@ -142,7 +162,7 @@
                 $GenericFields = Get-Variable GenericField* | Where-Object { $_.Value -ne [NullString] -and $null -ne $_.Value }
             }
             Catch {
-                Write-Verbose "[$(Get-Date -format G)] no generic fields specified"
+                Write-PSFMessage -Level Verbose -Message "No GenericFields specified"
             }
             if ($GenericFields) {
                 $GenericFields | ForEach-Object {
@@ -180,7 +200,7 @@
                 $body = "$($body |ConvertTo-Json)"
                 if ($body) {
                     try {
-                        [PasswordResult]$output = New-PasswordStateResource -uri "/api/passwords" -body $body -ErrorAction Stop
+                        [PasswordResult]$output = New-PasswordStateResource -uri "/api/passwords" -body $body @parms -ErrorAction Stop
                     }
                     catch {
                         throw $_.Exception
