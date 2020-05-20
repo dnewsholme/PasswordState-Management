@@ -108,8 +108,9 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 25)][switch]$AllowExport,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 25)][ValidateLength(1, 200)][string]$WebUser_ID,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 25)][ValidateLength(1, 200)][string]$WebPassword_ID,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 30)][switch]$SkipExistenceCheck,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 31)][string]$Reason
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 26)][switch]$SkipExistenceCheck,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 27)][string]$Reason,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 28)][switch]$PreventAuditing
     )
 
     begin {
@@ -197,10 +198,12 @@
                 $body | Add-Member -NotePropertyName "WebPassword_ID" -NotePropertyValue $WebPassword_ID
             }
             if ($PSCmdlet.ShouldProcess("PasswordList:$passwordListID Title:$title Username:$username")) {
+                $uri = "/api/passwords"
+                if ($PreventAuditing.IsPresent) { $uri += "PreventAuditing=$([System.Web.HttpUtility]::UrlEncode('true'))&" }
                 $body = "$($body |ConvertTo-Json)"
                 if ($body) {
                     try {
-                        [PasswordResult]$output = New-PasswordStateResource -uri "/api/passwords" -body $body @parms -ErrorAction Stop
+                        [PasswordResult]$output = New-PasswordStateResource -uri $uri -body $body @parms -ErrorAction Stop
                     }
                     catch {
                         throw $_.Exception
