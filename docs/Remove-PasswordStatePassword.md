@@ -13,7 +13,7 @@ Deletes a password state entry.
 ## SYNTAX
 
 ```
-Remove-PasswordStatePassword [-PasswordID] <Int32> [-SendToRecycleBin] [[-reason] <String>] [-PreventAuditing]
+Remove-PasswordStatePassword [-PasswordID] <Int32> [-SendToRecycleBin] [[-Reason] <String>] [-PreventAuditing]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -62,7 +62,7 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -reason
+### -Reason
 A reason which can be logged for auditing of why a password was removed.
 
 ```yaml
@@ -83,7 +83,7 @@ Send the password to the recyclebin or permenant delete.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: MoveToRecycleBin
 
 Required: False
 Position: 1
