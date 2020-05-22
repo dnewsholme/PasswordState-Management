@@ -114,27 +114,7 @@ Updates the password of an existing password state entry.
 Any fields not sent will remain the same as before. It is best to specify only those properties you wish to change.
 
 **Note 1**: If this password has any associated **Password Reset Tasks**, they will be **queued** an executed by the PasswordState Windows Service - please see output details below for Queued Password Reset Tasks.  
-If the password record being updated is 'Managed', in that it is enabled to perform password resets, then the HTTP Response will not return the full password object, as no data will change for the record until processed from the Password Resets Queue. Instead, the following will be returned:
-
-```powershell
-# Response from the API
-    HTTP/1.1 200
-    [
-        {
-            "PasswordID": 1,
-            "Status": "Password Queued for Reset(s). Check auditing data, or UI for results.",
-            "CurrentPassword": "StenS-Lun#3$2^yc",
-            "NewPassword": "JENN-ZHn#3+A^yc"
-        }
-    ]
-```
-
-```powershell
-# Response from this function
-PasswordID Status                                                                CurrentPassword   NewPassword
----------- ------                                                                ---------------   -----------
-       1 Password Queued for Reset(s). Check auditing data, or UI for results. EncryptedPassword EncryptedPassword
-```
+If the password record being updated is 'Managed', in that it is enabled to perform password resets, then the Response will not return the full password object, as no data will change for the record until processed from the Password Resets Queue. Instead, a new object with the `PasswordID`, an `Status`: "**Password Queued for Reset(s). Check auditing data, or UI for results.**" and the `CurrentPassword` and `NewPassword` will be returned (encrypted).
 
 ## EXAMPLES
 
@@ -158,7 +138,6 @@ Set-PasswordStatePassword -PasswordID 1 -GeneratePassword -AccountTypeID 64 -Pas
 ```
 
 Update the password object and let PasswordState generate a new password. Activate Password resets for this object and also enabled recurring password resets to a daily schedule (11pm). For resets the privilegedAccount with ID 1 will be used. Since AccountTypeID 64 = ActiveDirectory also a AD Domain must be specified.
-
 
 ### EXAMPLE 4
 ```
@@ -896,11 +875,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### All fields must be specified, can be passed along the pipeline.
+### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]
+
+### System.String
+
+### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
-### Will output all fields for the entry from passwordstate including the new password.
+### System.Object
 ## NOTES
-Daryl Newsholme 2018
 
 ## RELATED LINKS
