@@ -694,7 +694,7 @@ Accept wildcard characters: False
 ```
 
 ### -Reason
-{{ Fill Reason Description }}
+A reason which can be logged for auditing of why a password was updated.
 
 ```yaml
 Type: String
