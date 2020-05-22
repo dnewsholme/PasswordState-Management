@@ -15,10 +15,10 @@ Class EncryptedPassword {
 }
 class PasswordResult {
     # Properties
-    [int]$PasswordID
+    [Nullable[System.Int32]]$PasswordID
     [String]$Title
-    [int]$PasswordListID
-    [String]$Passwordlist
+    [Nullable[System.Int32]]$PasswordListID
+    [String]$PasswordList
     [String]$Username
     $Password
     [String]GetPassword() {
@@ -41,9 +41,8 @@ class PasswordResult {
     }
     [PSCredential]ToPSCredential() {
         $user = ''
-        If (-not ([String]::IsNullOrEmpty($this.Domain)))
-        {
-          $user += "$($this.Domain)\"
+        If (-not ([String]::IsNullOrEmpty($this.Domain))) {
+            $user += "$($this.Domain)\"
         }
         $user += "$($this.Username)"
         $result = [String]::IsNullOrEmpty($this.Password.Password)
@@ -64,7 +63,7 @@ class PasswordResult {
     [String]$Domain
     # Hidden Properties
     [String]$TreePath
-    [String]$hostname
+    [String]$Hostname
     [String]$GenericField1
     [String]$GenericField2
     [String]$GenericField3
@@ -75,12 +74,12 @@ class PasswordResult {
     [String]$GenericField8
     [String]$GenericField9
     [String]$GenericField10
-    [int]$AccountTypeID
-    [string]$notes
+    [Nullable[System.Int32]]$AccountTypeID
+    [string]$Notes
     [string]$URL
     [string]$ExpiryDate
-    [string]$allowExport
-    [string]$accounttype
+    [string]$AllowExport
+    [string]$AccountType
     # Constructor used to initiate the default property set.
     PasswordResult() {
         [string[]]$DefaultProperties = 'PasswordID', 'Title', 'Username', 'Password', 'Description', 'Domain'
@@ -97,7 +96,7 @@ class PasswordHistory : PasswordResult {
     [String]$USERID
     [String]$FirstName
     [String]$Surname
-    [int32]$PasswordHistoryID
+    [Nullable[System.Int32]]$PasswordHistoryID
     # Constructor used to initiate the default property set.
     PasswordHistory() {
         [string[]]$DefaultProperties = 'PasswordID', 'PasswordHistoryID', 'USERID', 'DateChanged', 'Title', 'Username', 'Password', 'Description', 'Domain'
