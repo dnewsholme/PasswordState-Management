@@ -34,8 +34,8 @@ Set-PasswordStatePassword [-PasswordID] <Nullable`1[]> [[-Title] <String>] [[-Us
  [[-GenericField5] <String>] [[-GenericField6] <String>] [[-GenericField7] <String>]
  [[-GenericField8] <String>] [[-GenericField9] <String>] [[-GenericField10] <String>]
  [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Nullable`1[]>] [[-ScriptID] <Nullable`1[]>]
- [[-PrivilegedAccountID] <Nullable`1[]>] [-HeartbeatSchedule] <String> [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [[-PrivilegedAccountID] <Nullable`1[]>] [[-HeartbeatSchedule] <String>] [[-ExpiryDate] <String>]
+ [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -49,7 +49,7 @@ Set-PasswordStatePassword [-PasswordID] <Nullable`1[]> [[-Title] <String>] [[-Us
  [[-GenericField8] <String>] [[-GenericField9] <String>] [[-GenericField10] <String>]
  [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Nullable`1[]>] [[-ScriptID] <Nullable`1[]>]
  [[-PrivilegedAccountID] <Nullable`1[]>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
- [-ValidationScriptID] <Nullable`1[]> [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
+ [[-ValidationScriptID] <Nullable`1[]>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
  [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
  [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -542,19 +542,7 @@ This field allows you to set the schedule for the account heartbeat status updat
 
 ```yaml
 Type: String
-Parameter Sets: HeartbeatSchedule
-Aliases:
-
-Required: True
-Position: 5
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-```yaml
-Type: String
-Parameter Sets: Heartbeat, Reset, ResetSchedule
+Parameter Sets: HeartbeatSchedule, Heartbeat, Reset, ResetSchedule
 Aliases:
 
 Required: False
@@ -790,19 +778,7 @@ When enabling Account Heartbeat, you must associate the correct Password Validat
 
 ```yaml
 Type: Nullable`1[]
-Parameter Sets: Heartbeat
-Aliases:
-
-Required: True
-Position: 5
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-```yaml
-Type: Nullable`1[]
-Parameter Sets: Reset, ResetSchedule
+Parameter Sets: Heartbeat, Reset, ResetSchedule
 Aliases:
 
 Required: False

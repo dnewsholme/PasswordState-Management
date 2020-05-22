@@ -69,7 +69,7 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 3)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 3)]
         [switch]$HeartbeatEnabled,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "HeartbeatSchedule", Position = 0)]
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "HeartbeatSchedule", Position = 0)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Heartbeat", Position = 1)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 5)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 5)]
@@ -82,7 +82,7 @@
                 }
             })]
         [string]$HeartbeatSchedule,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "Heartbeat", Position = 2)]
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Heartbeat", Position = 2)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 5)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 5)]
         [Nullable[System.Int32][]]$ValidationScriptID = $null,
