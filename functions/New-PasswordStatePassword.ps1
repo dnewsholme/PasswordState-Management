@@ -14,6 +14,17 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 9)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Heartbeat", Position = 9)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "HeartbeatSchedule", Position = 9)]
+        [ValidateScript( {
+                # Exclude german umlauts and other latin/non-latin diacritics or invalid characters that the api does not understand.
+                $InvalidChars = 'ßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ'
+                $regex = [Regex]::Escape($InvalidChars)
+                $regex = "[$regex]"
+                $Invalid = [Regex]::Matches($_, $regex, 'IgnoreCase') | Select-Object -ExpandProperty Value | Sort-Object -Unique
+                if ($null -ne $Invalid) {
+                    throw "ERROR: The specified password contains the following illegal characters: '$Invalid'. Please do not use the characters '$InvalidChars' in your password since the api does not understand these characters."
+                }
+                return $true
+            })]
         [string]$Password,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 4)][ValidateLength(1, 255)][string]$Description,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "GeneratePassword", Position = 0)]
@@ -109,11 +120,12 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 25)][ValidateLength(1, 200)][string]$WebUser_ID,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 25)][ValidateLength(1, 200)][string]$WebPassword_ID,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 26)][switch]$SkipExistenceCheck,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 27)][string]$Reason,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 28)][switch]$PreventAuditing
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 27)][string]$Reason
     )
 
     begin {
+        # Import PasswordState Environment for validation of PasswordsInPlainText setting
+        $PWSProfile = Get-PasswordStateEnvironment
         # Add a reason to the audit log if specified
         If ($Reason) {
             $headerreason = @{"Reason" = "$Reason" }
@@ -199,17 +211,24 @@
             }
             if ($PSCmdlet.ShouldProcess("PasswordList:$passwordListID Title:$title Username:$username")) {
                 $uri = "/api/passwords"
-                if ($PreventAuditing.IsPresent) { $uri += "PreventAuditing=$([System.Web.HttpUtility]::UrlEncode('true'))&" }
                 $body = "$($body |ConvertTo-Json)"
                 if ($body) {
                     try {
-                        [PasswordResult]$output = New-PasswordStateResource -uri $uri -body $body @parms -ErrorAction Stop
+                        $output = New-PasswordStateResource -uri $uri -body $body @parms -ErrorAction Stop
                     }
                     catch {
                         throw $_.Exception
                     }
-                    foreach ($i in $output) {
-                        $i.Password = [EncryptedPassword]$i.Password
+                    if ($output) {
+                        try {
+                            [PasswordResult]$output = $output
+                        }
+                        catch {
+                            throw $_.Exception
+                        }
+                        if (!$PWSProfile.PasswordsInPlainText) {
+                            $output.Password = [EncryptedPassword]$output.Password
+                        }
                     }
                 }
             }
@@ -217,13 +236,8 @@
     }
 
     end {
-        switch ($global:PasswordStateShowPasswordsPlainText) {
-            True {
-                $output.DecryptPassword()
-            }
-        }
         if ($output) {
-            Return $output
+            return $output
         }
     }
 }
