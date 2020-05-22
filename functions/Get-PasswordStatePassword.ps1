@@ -11,7 +11,7 @@
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 1)][ValidateLength(1, 255)][string]$UserName,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 2)][ValidateLength(1, 200)][string]$HostName,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 3)][ValidateLength(1, 50)][string]$Domain,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 4)][ValidateLength(1, 50)][string]$AccountType,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 4)][string]$AccountType,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 5)][ValidateLength(1, 255)][string]$Description,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 6)][string]$Notes,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 7)][ValidateLength(1, 255)][string]$URL,

@@ -39,7 +39,7 @@ InModuleScope 'Passwordstate-Management' {
                 , @{parametername = 'UserName'; testvalue = "username1"; ListCount = 3; PWLID = 53 }
                 , @{parametername = 'HostName'; testvalue = "HostA"; ListCount = 4; PWLID = 53 }
                 , @{parametername = 'Domain'; testvalue = "MYDomain"; ListCount = 5; PWLID = 53 }
-                , @{parametername = 'AccountType'; testvalue = "Active Directory"; ListCount = 1; PWLID = 53 } # testvalue must be empty because the actual property is AccountTypeID
+                , @{parametername = 'AccountType'; testvalue = ""; ListCount = 1; PWLID = 53 } # testvalue must be empty because the actual property is AccountTypeID
                 , @{parametername = 'Description'; testvalue = "Description for "; ListCount = 6; PWLID = 53 }
                 , @{parametername = 'Notes'; testvalue = "Same Notes"; ListCount = 7; PWLID = 53 }
                 , @{parametername = 'URL'; testvalue = "https://passworstate.local"; ListCount = 8; PWLID = 53 }
@@ -123,7 +123,7 @@ InModuleScope 'Passwordstate-Management' {
                 , @{parametername = 'UserName'; testvalue = "username1"; ListCount = 3; PWLID = 53 }
                 , @{parametername = 'HostName'; testvalue = "HostA"; ListCount = 4; PWLID = 53 }
                 , @{parametername = 'Domain'; testvalue = "MYDomain"; ListCount = 5; PWLID = 53 }
-                , @{parametername = 'AccountType'; testvalue = "Active Directory"; ListCount = 1; PWLID = 53 } # testvalue must be empty because the actual property is AccountTypeID
+                , @{parametername = 'AccountType'; testvalue = ""; ListCount = 1; PWLID = 53 } # testvalue must be empty because the actual property is AccountTypeID
                 , @{parametername = 'Description'; testvalue = "Description for "; ListCount = 6; PWLID = 53 }
                 , @{parametername = 'Notes'; testvalue = "Same Notes"; ListCount = 7; PWLID = 53 }
                 , @{parametername = 'URL'; testvalue = "https://passworstate.local"; ListCount = 8; PWLID = 53 }
@@ -255,7 +255,7 @@ InModuleScope 'Passwordstate-Management' {
                 , @{parametername = 'UserName'; testvalue = "username1"; ListCount = 3; PWLID = 53 }
                 , @{parametername = 'HostName'; testvalue = "HostA"; ListCount = 4; PWLID = 53 }
                 , @{parametername = 'Domain'; testvalue = "MYDomain"; ListCount = 5; PWLID = 53 }
-                , @{parametername = 'AccountType'; testvalue = "Active Directory"; ListCount = 1; PWLID = 53 } # testvalue must be empty because the actual property is AccountTypeID
+                , @{parametername = 'AccountType'; testvalue = ""; ListCount = 1; PWLID = 53 } # testvalue must be empty because the actual property is AccountTypeID
                 , @{parametername = 'Description'; testvalue = "Description for "; ListCount = 6; PWLID = 53 }
                 , @{parametername = 'Notes'; testvalue = "Same Notes"; ListCount = 7; PWLID = 53 }
                 , @{parametername = 'URL'; testvalue = "https://passworstate.local"; ListCount = 8; PWLID = 53 }
@@ -387,7 +387,7 @@ InModuleScope 'Passwordstate-Management' {
                 , @{parametername = 'UserName'; testvalue = "username1"; ListCount = 3; PWLID = 53 }
                 , @{parametername = 'HostName'; testvalue = "HostA"; ListCount = 4; PWLID = 53 }
                 , @{parametername = 'Domain'; testvalue = "MYDomain"; ListCount = 5; PWLID = 53 }
-                , @{parametername = 'AccountType'; testvalue = "Active Directory"; ListCount = 1; PWLID = 53 } # testvalue must be empty because the actual property is AccountTypeID
+                , @{parametername = 'AccountType'; testvalue = ""; ListCount = 1; PWLID = 53 } # testvalue must be empty because the actual property is AccountTypeID
                 , @{parametername = 'Description'; testvalue = "Description for "; ListCount = 6; PWLID = 53 }
                 , @{parametername = 'Notes'; testvalue = "Same Notes"; ListCount = 7; PWLID = 53 }
                 , @{parametername = 'URL'; testvalue = "https://passworstate.local"; ListCount = 8; PWLID = 53 }
@@ -519,7 +519,7 @@ InModuleScope 'Passwordstate-Management' {
                 , @{parametername = 'UserName'; testvalue = "username1"; ListCount = 3; PWLID = 53 }
                 , @{parametername = 'HostName'; testvalue = "HostA"; ListCount = 4; PWLID = 53 }
                 , @{parametername = 'Domain'; testvalue = "MYDomain"; ListCount = 5; PWLID = 53 }
-                , @{parametername = 'AccountType'; testvalue = "Active Directory"; ListCount = 1; PWLID = 53 } # testvalue must be empty because the actual property is AccountTypeID
+                , @{parametername = 'AccountType'; testvalue = ""; ListCount = 1; PWLID = 53 } # testvalue must be empty because the actual property is AccountTypeID
                 , @{parametername = 'Description'; testvalue = "Description for "; ListCount = 6; PWLID = 53 }
                 , @{parametername = 'Notes'; testvalue = "Same Notes"; ListCount = 7; PWLID = 53 }
                 , @{parametername = 'URL'; testvalue = "https://passworstate.local"; ListCount = 8; PWLID = 53 }
