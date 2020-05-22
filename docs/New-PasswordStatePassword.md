@@ -21,8 +21,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
  [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
  [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### HeartbeatSchedule
@@ -35,7 +35,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
  [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
  [-HeartbeatSchedule] <String> [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
- [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### Heartbeat
@@ -49,8 +50,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled]
  [[-HeartbeatSchedule] <String>] [-ValidationScriptID] <Int32> [[-HostName] <String>]
  [[-ADDomainNetBIOS] <String>] [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### Reset
@@ -65,7 +66,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
  [[-ValidationScriptID] <Int32>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
  [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
- [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### ResetSchedule
@@ -80,7 +82,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
  [[-ValidationScriptID] <Int32>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
  [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
- [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### Password
@@ -92,8 +95,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
  [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
  [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### GeneratePassword
@@ -105,8 +108,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
  [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
  [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -690,6 +693,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -Reason
+{{ Fill Reason Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 27
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -ScriptID
 Most accounts require a Password Reset Script to be assigned to them, with the only exception being Active Directory Accounts - not to specify this field for AD Accounts. To look up the values of the ScriptID's, this can be done by using the '**Toggle ID Column Visibility**' button on the Password Reset Scripts screens in PasswordState.
 
@@ -714,7 +732,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 30
+Position: 26
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
