@@ -194,12 +194,17 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Baseuri - Should be the Password State URL without any parameters on it.
-### UseWindowsAuthOnly - A switch value. (Don't use in conjunction with APIkey)
-### APIkey - The APIkey for the passwordstate API
+### System.Uri
+
+### System.String
+
+### System.Management.Automation.SwitchParameter
+
+### System.Management.Automation.PSCredential
+
 ## OUTPUTS
 
-### No Output
+### System.Object
 ## NOTES
 Daryl Newsholme 2018
 

@@ -128,11 +128,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### PasswordID - ID of the Password entry (Integer)
-### SendtoRecyclebin - Optionally soft delete to the reyclebin
+### System.Int32
+
+### System.Management.Automation.SwitchParameter
+
+### System.String
+
 ## OUTPUTS
 
-### Returns the Object from the API as a powershell object.
+### System.Object
 ## NOTES
 Daryl Newsholme 2018
 

@@ -217,10 +217,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### PasswordGeneratorID - Optional parameter if you want to generate a more or less secure password.
+### System.Int32
+
+### System.Management.Automation.SwitchParameter
+
+### System.String
+
 ## OUTPUTS
 
-### A string value of the generated password.
+### System.Object
 ## NOTES
 Daryl Newsholme 2019
 

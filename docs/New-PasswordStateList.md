@@ -544,8 +544,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.String
+
+### System.Int32
+
+### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 Daryl Newsholme 2018
 
