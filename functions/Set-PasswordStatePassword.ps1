@@ -4,7 +4,7 @@
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'All')]
     param (
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, Position = 0)][Nullable[System.Int32]]$PasswordID,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, Position = 0)][Nullable[System.Int32][]]$PasswordID,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 1)][ValidateLength(1, 255)][string]$Title,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 2)][ValidateLength(1, 255)][string]$Username,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "Password", Position = 0)]
@@ -34,7 +34,7 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 6)][string]$Notes,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 7)][ValidateLength(1, 255)][string]$Url,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 8)][ValidateLength(1, 50)][string]$AccountType,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 9)][AllowNull()][Nullable[System.Int32]]$AccountTypeID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 9)][AllowNull()][Nullable[System.Int32][]]$AccountTypeID = $null,
         [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 10)][string]$GenericField1 = $null,
         [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 11)][string]$GenericField2 = $null,
         [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 12)][string]$GenericField3 = $null,
@@ -62,9 +62,9 @@
                 }
             })]
         [string]$PasswordResetSchedule,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 21)][Nullable[System.Int32]]$AddDaysToExpiryDate = $null,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 22)][Nullable[System.Int32]]$ScriptID = $null,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 23)][Nullable[System.Int32]]$PrivilegedAccountID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 21)][Nullable[System.Int32][]]$AddDaysToExpiryDate = $null,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 22)][Nullable[System.Int32][]]$ScriptID = $null,
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 23)][Nullable[System.Int32][]]$PrivilegedAccountID = $null,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "Heartbeat", Position = 0)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 3)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 3)]
@@ -85,7 +85,7 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "Heartbeat", Position = 2)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 5)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 5)]
-        [Nullable[System.Int32]]$ValidationScriptID = $null,
+        [Nullable[System.Int32][]]$ValidationScriptID = $null,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 6)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 6)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Heartbeat", Position = 3)]

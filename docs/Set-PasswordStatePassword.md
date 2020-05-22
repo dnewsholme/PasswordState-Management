@@ -14,99 +14,102 @@ Updates the password of an existing password state entry.
 
 ### All (Default)
 ```
-Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+Set-PasswordStatePassword [-PasswordID] <Nullable`1[]> [[-Title] <String>] [[-Username] <String>]
  [[-Description] <String>] [[-Notes] <String>] [[-Url] <String>] [[-AccountType] <String>]
- [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
- [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
- [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-AccountTypeID] <Nullable`1[]>] [[-GenericField1] <String>] [[-GenericField2] <String>]
+ [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
+ [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
+ [[-AddDaysToExpiryDate] <Nullable`1[]>] [[-ScriptID] <Nullable`1[]>] [[-PrivilegedAccountID] <Nullable`1[]>]
+ [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
+ [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### HeartbeatSchedule
 ```
-Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+Set-PasswordStatePassword [-PasswordID] <Nullable`1[]> [[-Title] <String>] [[-Username] <String>]
  [[-Password] <String>] [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>]
- [[-AccountType] <String>] [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>]
- [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
- [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
- [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
- [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
- [-HeartbeatSchedule] <String> [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
- [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### Heartbeat
-```
-Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
- [[-Password] <String>] [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>]
- [[-AccountType] <String>] [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>]
- [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
- [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
- [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
- [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled]
- [[-HeartbeatSchedule] <String>] [-ValidationScriptID] <Int32> [[-HostName] <String>]
- [[-ADDomainNetBIOS] <String>] [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport]
+ [[-AccountType] <String>] [[-AccountTypeID] <Nullable`1[]>] [[-GenericField1] <String>]
+ [[-GenericField2] <String>] [[-GenericField3] <String>] [[-GenericField4] <String>]
+ [[-GenericField5] <String>] [[-GenericField6] <String>] [[-GenericField7] <String>]
+ [[-GenericField8] <String>] [[-GenericField9] <String>] [[-GenericField10] <String>]
+ [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Nullable`1[]>] [[-ScriptID] <Nullable`1[]>]
+ [[-PrivilegedAccountID] <Nullable`1[]>] [-HeartbeatSchedule] <String> [[-ExpiryDate] <String>] [-AllowExport]
  [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
+### Heartbeat
+```
+Set-PasswordStatePassword [-PasswordID] <Nullable`1[]> [[-Title] <String>] [[-Username] <String>]
+ [[-Password] <String>] [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>]
+ [[-AccountType] <String>] [[-AccountTypeID] <Nullable`1[]>] [[-GenericField1] <String>]
+ [[-GenericField2] <String>] [[-GenericField3] <String>] [[-GenericField4] <String>]
+ [[-GenericField5] <String>] [[-GenericField6] <String>] [[-GenericField7] <String>]
+ [[-GenericField8] <String>] [[-GenericField9] <String>] [[-GenericField10] <String>]
+ [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Nullable`1[]>] [[-ScriptID] <Nullable`1[]>]
+ [[-PrivilegedAccountID] <Nullable`1[]>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
+ [-ValidationScriptID] <Nullable`1[]> [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
+ [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
+ [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
 ### Reset
 ```
-Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+Set-PasswordStatePassword [-PasswordID] <Nullable`1[]> [[-Title] <String>] [[-Username] <String>]
  [[-Password] <String>] [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>]
- [[-AccountType] <String>] [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>]
- [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
- [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
- [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword] [-PasswordResetEnabled]
- [-EnablePasswordResetSchedule] [[-PasswordResetSchedule] <String>] [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
- [[-ValidationScriptID] <Int32>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
+ [[-AccountType] <String>] [[-AccountTypeID] <Nullable`1[]>] [[-GenericField1] <String>]
+ [[-GenericField2] <String>] [[-GenericField3] <String>] [[-GenericField4] <String>]
+ [[-GenericField5] <String>] [[-GenericField6] <String>] [[-GenericField7] <String>]
+ [[-GenericField8] <String>] [[-GenericField9] <String>] [[-GenericField10] <String>]
+ [-GenerateGenFieldPassword] [-PasswordResetEnabled] [-EnablePasswordResetSchedule]
+ [[-PasswordResetSchedule] <String>] [[-AddDaysToExpiryDate] <Nullable`1[]>] [[-ScriptID] <Nullable`1[]>]
+ [[-PrivilegedAccountID] <Nullable`1[]>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
+ [[-ValidationScriptID] <Nullable`1[]>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
  [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
  [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ResetSchedule
 ```
-Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+Set-PasswordStatePassword [-PasswordID] <Nullable`1[]> [[-Title] <String>] [[-Username] <String>]
  [[-Password] <String>] [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>]
- [[-AccountType] <String>] [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>]
- [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
- [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
- [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
- [-EnablePasswordResetSchedule] [-PasswordResetSchedule] <String> [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
- [[-ValidationScriptID] <Int32>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
- [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
- [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-AccountType] <String>] [[-AccountTypeID] <Nullable`1[]>] [[-GenericField1] <String>]
+ [[-GenericField2] <String>] [[-GenericField3] <String>] [[-GenericField4] <String>]
+ [[-GenericField5] <String>] [[-GenericField6] <String>] [[-GenericField7] <String>]
+ [[-GenericField8] <String>] [[-GenericField9] <String>] [[-GenericField10] <String>]
+ [-GenerateGenFieldPassword] [-EnablePasswordResetSchedule] [-PasswordResetSchedule] <String>
+ [[-AddDaysToExpiryDate] <Nullable`1[]>] [[-ScriptID] <Nullable`1[]>] [[-PrivilegedAccountID] <Nullable`1[]>]
+ [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>] [[-ValidationScriptID] <Nullable`1[]>]
+ [[-HostName] <String>] [[-ADDomainNetBIOS] <String>] [-ValidateWithPrivAccount] [[-ExpiryDate] <String>]
+ [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### Password
 ```
-Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>] [-Password] <String>
- [[-Description] <String>] [[-Notes] <String>] [[-Url] <String>] [[-AccountType] <String>]
- [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
- [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
- [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Set-PasswordStatePassword [-PasswordID] <Nullable`1[]> [[-Title] <String>] [[-Username] <String>]
+ [-Password] <String> [[-Description] <String>] [[-Notes] <String>] [[-Url] <String>] [[-AccountType] <String>]
+ [[-AccountTypeID] <Nullable`1[]>] [[-GenericField1] <String>] [[-GenericField2] <String>]
+ [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
+ [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
+ [[-AddDaysToExpiryDate] <Nullable`1[]>] [[-ScriptID] <Nullable`1[]>] [[-PrivilegedAccountID] <Nullable`1[]>]
+ [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
+ [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### GeneratePassword
 ```
-Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+Set-PasswordStatePassword [-PasswordID] <Nullable`1[]> [[-Title] <String>] [[-Username] <String>]
  [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>] [[-AccountType] <String>]
- [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
- [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
- [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-AccountTypeID] <Nullable`1[]>] [[-GenericField1] <String>] [[-GenericField2] <String>]
+ [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
+ [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
+ [[-AddDaysToExpiryDate] <Nullable`1[]>] [[-ScriptID] <Nullable`1[]>] [[-PrivilegedAccountID] <Nullable`1[]>]
+ [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
+ [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -169,7 +172,7 @@ The ID value representing the Account Type image (derived from the AccountTypes 
 You can either specify the AccountType or AccountTypeID if needed when changing password records. Account Types and their ID values can be seen on the screen `Administration -> Passwordstate Administration -> Images and Account Types`, and click on the '**Toggle ID Column Visibility**' button to determine the appropriate value.
 
 ```yaml
-Type: Int32
+Type: Nullable`1[]
 Parameter Sets: (All)
 Aliases:
 
@@ -184,7 +187,7 @@ Accept wildcard characters: False
 Once the password has been changed due to a scheduled reset, you can add an additional (x) number of days to the ExpiryDate field so another reset will occur again in 30, 60, 90 days, etc. This is the option on the Reset Options tab for the record.
 
 ```yaml
-Type: Int32
+Type: Nullable`1[]
 Parameter Sets: (All)
 Aliases:
 
@@ -622,7 +625,7 @@ Accept wildcard characters: False
 The ID of the password to be updated.
 
 ```yaml
-Type: Int32
+Type: Nullable`1[]
 Parameter Sets: (All)
 Aliases:
 
@@ -679,7 +682,7 @@ Accept wildcard characters: False
 Some Password Reset Scripts also require a `Privileged Account Credential` to be associated with the Password record, to initiate connection and perform the reset. Requirements for Privileged Accounts are documented in the User Manual, under the KB Article section. To look up the value of PrivilegedAccountID's, this can be done on the screen `Administration -> PasswordState Administration -> Privileged Account Credentials`.
 
 ```yaml
-Type: Int32
+Type: Nullable`1[]
 Parameter Sets: (All)
 Aliases:
 
@@ -709,7 +712,7 @@ Accept wildcard characters: False
 Most accounts require a Password Reset Script to be assigned to them, with the only exception being Active Directory Accounts - not to specify this field for AD Accounts. To look up the values of the ScriptID's, this can be done by using the '**Toggle ID Column Visibility**' button on the Password Reset Scripts screens in PasswordState.
 
 ```yaml
-Type: Int32
+Type: Nullable`1[]
 Parameter Sets: (All)
 Aliases:
 
@@ -786,7 +789,7 @@ Accept wildcard characters: False
 When enabling Account Heartbeat, you must associate the correct Password Validation Script to the record (all account types require a Validation Script to be selected). To look up the values of the ValidationScriptID's, this can be done by using the '**Toggle ID Column Visibility**' button on the Password Validation Scripts screens in PasswordState.
 
 ```yaml
-Type: Int32
+Type: Nullable`1[]
 Parameter Sets: Heartbeat
 Aliases:
 
@@ -798,7 +801,7 @@ Accept wildcard characters: False
 ```
 
 ```yaml
-Type: Int32
+Type: Nullable`1[]
 Parameter Sets: Reset, ResetSchedule
 Aliases:
 
