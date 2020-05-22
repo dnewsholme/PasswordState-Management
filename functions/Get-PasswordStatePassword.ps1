@@ -56,27 +56,27 @@
             })]
         [string]$ExpiryDateRange,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 24)][ValidateSet('AND', 'OR')][string]$AndOr,
-        [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 25)][int32]$PasswordListID,
+        [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 25)][Nullable[System.Int32]]$PasswordListID,
         [parameter(ValueFromPipelineByPropertyName, Position = 26)][string]$Reason,
         [parameter(ValueFromPipelineByPropertyName, Position = 27)][switch]$PreventAuditing,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 28)][ValidateLength(1, 50)][string]$ADDomainNetBIOS
     )
 
     Begin {
+        # Import PasswordState Environment for validation of PasswordsInPlainText setting
         $PWSProfile = Get-PasswordStateEnvironment
-    }
-
-    Process {
         # Add a reason to the audit log if specified
         If ($Reason) {
             $headerreason = @{"Reason" = "$Reason" }
             $parms = @{ExtraParams = @{"Header" = $headerreason } }
         }
         else { $parms = @{ } }
+    }
 
-        # If PasswordListID wasn't set, make the variable an empty string
+    Process {
+        # If PasswordListID wasn't set, set variable to $null
         If (!($PSBoundParameters.ContainsKey('PasswordListID'))) {
-            [string]$PasswordListID = ''
+            $PasswordListID = $null
         }
 
         Switch ($PSCmdlet.ParameterSetName) {
@@ -149,18 +149,28 @@
             }
         }
         Try {
-            foreach ($PWSEntry in (Get-PasswordStateResource -URI $uri @parms -Method GET)) {
-                [PasswordResult]$PWSEntry = $PWSEntry
+            $output = Get-PasswordStateResource -uri $uri @parms -ErrorAction Stop
+        }
+        Catch {
+            Throw $_.Exception
+        }
+        if ($output) {
+            # if more than one password object was found, we need to cast each password object to [PasswordResult] method
+            foreach ($PWSEntry in $output) {
+                try {
+                    [PasswordResult]$PWSEntry = $PWSEntry
+                }
+                catch {
+                    throw $_.Exception
+                }
                 if (!$PWSProfile.PasswordsInPlainText) {
                     $PWSEntry.Password = [EncryptedPassword]$PWSEntry.Password
                 }
                 $PWSEntry
             }
         }
-        Catch {
-            Throw $_.Exception
-        }
-
+    }
+    end {
     }
 }
 
