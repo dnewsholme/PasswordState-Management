@@ -82,10 +82,16 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### PasswordID - ID of the Password entry (Integer)
+### System.Int32
+
+### System.String
+
+### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
-### Returns the Object from the API as a powershell object.
+### System.Object[]
+
 ## NOTES
 Daryl Newsholme 2018
 

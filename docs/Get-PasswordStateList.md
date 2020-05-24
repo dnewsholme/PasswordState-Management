@@ -155,9 +155,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.Int32
+
+### System.String
+
+### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
-### Returns the lists including their names and IDs.
+### System.Object
 ## NOTES
 2018 - Daryl Newsholme
 2019 - Jarno Colombeen

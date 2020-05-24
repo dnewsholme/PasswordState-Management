@@ -399,9 +399,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.String
+
+### System.Int32
+
+### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
-### The created host is returned as an object.
+### System.Object
 ## NOTES
 2019 - Jarno Colombeen
 

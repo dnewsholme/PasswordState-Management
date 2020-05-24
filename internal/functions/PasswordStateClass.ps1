@@ -15,10 +15,10 @@ Class EncryptedPassword {
 }
 class PasswordResult {
     # Properties
-    [int]$PasswordID
+    [Nullable[System.Int32]]$PasswordID
     [String]$Title
-    [int]$PasswordListID
-    [String]$Passwordlist
+    [Nullable[System.Int32]]$PasswordListID
+    [String]$PasswordList
     [String]$Username
     $Password
     [String]GetPassword() {
@@ -41,9 +41,8 @@ class PasswordResult {
     }
     [PSCredential]ToPSCredential() {
         $user = ''
-        If (-not ([String]::IsNullOrEmpty($this.Domain)))
-        {
-          $user += "$($this.Domain)\"
+        If (-not ([String]::IsNullOrEmpty($this.Domain))) {
+            $user += "$($this.Domain)\"
         }
         $user += "$($this.Username)"
         $result = [String]::IsNullOrEmpty($this.Password.Password)
@@ -64,7 +63,7 @@ class PasswordResult {
     [String]$Domain
     # Hidden Properties
     [String]$TreePath
-    [String]$hostname
+    [String]$Hostname
     [String]$GenericField1
     [String]$GenericField2
     [String]$GenericField3
@@ -75,12 +74,12 @@ class PasswordResult {
     [String]$GenericField8
     [String]$GenericField9
     [String]$GenericField10
-    [int]$AccountTypeID
-    [string]$notes
+    [Nullable[System.Int32]]$AccountTypeID
+    [string]$Notes
     [string]$URL
     [string]$ExpiryDate
-    [string]$allowExport
-    [string]$accounttype
+    [string]$AllowExport
+    [string]$AccountType
     # Constructor used to initiate the default property set.
     PasswordResult() {
         [string[]]$DefaultProperties = 'PasswordID', 'Title', 'Username', 'Password', 'Description', 'Domain'
@@ -92,12 +91,66 @@ class PasswordResult {
     }
 
 }
+
+class PasswordResetResult {
+    # if password reset is enabled for an object and you want to change the password field your request will be queued (Queued for Reset).
+    # Then the returned object from the api is different to the normal password object and we need a new class for this.
+    # Properties
+    [Nullable[System.Int32]]$PasswordID
+    [String]$Status
+    $CurrentPassword
+    $NewPassword
+    [String]GetCurrentPassword() {
+        $result = [string]::IsNullOrEmpty($this.CurrentPassword.Password)
+        If ($this.CurrentPassword.GetType().Name -ne 'String' -and $result -eq $false) {
+            $SecureString = $this.CurrentPassword.Password
+            $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
+            return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        }
+        Elseif ($this.CurrentPassword.GetType().Name -eq 'String') {
+            return $this.CurrentPassword
+        }
+        Else {
+            # input was null so return null
+            return $null
+        }
+    }
+    [String]GetNewPassword() {
+        $result = [string]::IsNullOrEmpty($this.NewPassword.Password)
+        If ($this.NewPassword.GetType().Name -ne 'String' -and $result -eq $false) {
+            $SecureString = $this.NewPassword.Password
+            $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
+            return [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        }
+        Elseif ($this.NewPassword.GetType().Name -eq 'String') {
+            return $this.NewPassword
+        }
+        Else {
+            # input was null so return null
+            return $null
+        }
+    }
+    DecryptPasswords() {
+        $this.NewPassword = $this.GetNewPassword()
+        $this.CurrentPassword = $this.GetCurrentPassword()
+    }
+    # Constructor used to initiate the default property set.
+    PasswordResult() {
+        [string[]]$DefaultProperties = 'PasswordID', 'Status', 'CurrentPassword', 'NewPassword'
+
+        #Create a propertyset name DefaultDisplayPropertySet, with properties we care about
+        $propertyset = New-Object System.Management.Automation.PSPropertySet DefaultDisplayPropertySet, $DefaultProperties
+        $PSStandardMembers = [System.Management.Automation.PSMemberInfo[]]$propertyset
+        Add-Member -InputObject $this -MemberType MemberSet -Name PSStandardMembers -Value $PSStandardMembers
+    }
+}
+
 class PasswordHistory : PasswordResult {
     $DateChanged
     [String]$USERID
     [String]$FirstName
     [String]$Surname
-    [int32]$PasswordHistoryID
+    [Nullable[System.Int32]]$PasswordHistoryID
     # Constructor used to initiate the default property set.
     PasswordHistory() {
         [string[]]$DefaultProperties = 'PasswordID', 'PasswordHistoryID', 'USERID', 'DateChanged', 'Title', 'Username', 'Password', 'Description', 'Domain'

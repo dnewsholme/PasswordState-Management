@@ -7,14 +7,14 @@
     (
         [Parameter(ParameterSetName = 'General', ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory = $false)][string]$Search,
         [Parameter(ParameterSetName = 'PasswordID', ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][ValidateNotNullOrEmpty()][int32]$PasswordID,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 0)][string]$Title,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 1)][string]$UserName,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 2)][string]$HostName,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 3)][string]$Domain,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 0)][ValidateLength(1, 255)][string]$Title,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 1)][ValidateLength(1, 255)][string]$UserName,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 2)][ValidateLength(1, 200)][string]$HostName,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 3)][ValidateLength(1, 50)][string]$Domain,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 4)][string]$AccountType,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 5)][string]$Description,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 5)][ValidateLength(1, 255)][string]$Description,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 6)][string]$Notes,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 7)][string]$URL,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 7)][ValidateLength(1, 255)][string]$URL,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 8)][string]$SiteID,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 9)][string]$SiteLocation,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 10)][string]$GenericField1,
@@ -56,26 +56,27 @@
             })]
         [string]$ExpiryDateRange,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 24)][ValidateSet('AND', 'OR')][string]$AndOr,
-        [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 25)][int32]$PasswordListID,
+        [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 25)][Nullable[System.Int32]]$PasswordListID,
         [parameter(ValueFromPipelineByPropertyName, Position = 26)][string]$Reason,
         [parameter(ValueFromPipelineByPropertyName, Position = 27)][switch]$PreventAuditing,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 28)][string]$ADDomainNetBIOS
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 28)][ValidateLength(1, 50)][string]$ADDomainNetBIOS
     )
 
     Begin {
+        # Import PasswordState Environment for validation of PasswordsInPlainText setting
         $PWSProfile = Get-PasswordStateEnvironment
+        # Add a reason to the audit log if specified
+        If ($Reason) {
+            $headerreason = @{"Reason" = "$Reason" }
+            $parms = @{ExtraParams = @{"Header" = $headerreason } }
+        }
+        else { $parms = @{ } }
     }
 
     Process {
-        # Add a reason to the audit log
-        If ($Reason) {
-            $headerreason = @{"Reason" = "$reason" }
-            $parms = @{ExtraParams = @{"Headers" = $headerreason } }
-        }
-
-        # If PasswordListID wasn't set, make the variable an empty string
+        # If PasswordListID wasn't set, set variable to $null
         If (!($PSBoundParameters.ContainsKey('PasswordListID'))) {
-            [string]$PasswordListID = ''
+            $PasswordListID = $null
         }
 
         Switch ($PSCmdlet.ParameterSetName) {
@@ -148,18 +149,28 @@
             }
         }
         Try {
-            foreach ($PWSEntry in (Get-PasswordStateResource -URI $uri @parms -Method GET)) {
-                [PasswordResult]$PWSEntry = $PWSEntry
+            $output = Get-PasswordStateResource -uri $uri @parms -ErrorAction Stop
+        }
+        Catch {
+            Throw $_.Exception
+        }
+        if ($output) {
+            # if more than one password object was found, we need to cast each password object to [PasswordResult] method
+            foreach ($PWSEntry in $output) {
+                try {
+                    [PasswordResult]$PWSEntry = $PWSEntry
+                }
+                catch {
+                    throw $_.Exception
+                }
                 if (!$PWSProfile.PasswordsInPlainText) {
                     $PWSEntry.Password = [EncryptedPassword]$PWSEntry.Password
                 }
                 $PWSEntry
             }
         }
-        Catch {
-            Throw $_.Exception
-        }
-
+    }
+    end {
     }
 }
 

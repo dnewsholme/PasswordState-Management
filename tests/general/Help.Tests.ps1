@@ -10,7 +10,7 @@
 
 	.PARAMETER SkipTest
 		Disables this test.
-	
+
 	.PARAMETER CommandPath
 		List of paths under which the script files are stored.
 		This test assumes that all functions have their own file that is named after themselves.
@@ -32,40 +32,44 @@
 #>
 [CmdletBinding()]
 Param (
-	[switch]
-	$SkipTest,
-	
-	[string[]]
-	$CommandPath = @("$PSScriptRoot\..\..\functions"),
-	
-	[string]
-	$ModuleName = "Passwordstate-management",
-	
-	[string]
-	$ExceptionsFile = "$PSScriptRoot\Help.Exceptions.ps1"
+    [switch]
+    $SkipTest,
+
+    [string[]]
+    $CommandPath = @("$PSScriptRoot\..\..\functions"),
+
+    [string]
+    $ModuleName = "Passwordstate-management",
+
+    [string]
+    $ExceptionsFile = "$PSScriptRoot\Help.Exceptions.ps1"
 )
 if ($SkipTest) { return }
 . $ExceptionsFile
 
 $includedNames = (Get-ChildItem $CommandPath -Recurse -File | Where-Object Name -like "*.ps1").BaseName
-$commands = Get-Command -Module (Get-Module $ModuleName) -CommandType Cmdlet, Function, Workflow | Where-Object Name -in $includedNames
-
+if ($PSVersionTable.PSVersion.Major -lt 6) {
+    $commands = Get-Command -Module (Get-Module $ModuleName) -CommandType Cmdlet, Function, Workflow | Where-Object Name -in $includedNames
+}
+else {
+    $commands = Get-Command -Module (Get-Module $ModuleName) -CommandType Cmdlet, Function | Where-Object Name -in $includedNames
+}
 ## When testing help, remember that help is cached at the beginning of each session.
 ## To test, restart session.
 
 
 foreach ($command in $commands) {
     $commandName = $command.Name
-    
+
     # Skip all functions that are on the exclusions list
     if ($global:FunctionHelpTestExceptions -contains $commandName) { continue }
-    
+
     # The module-qualified command fails on Microsoft.PowerShell.Archive cmdlets
     $Help = Get-Help $commandName -ErrorAction SilentlyContinue
     $testhelperrors = 0
     $testhelpall = 0
     Describe "Test help for $commandName" {
-        
+
         $testhelpall += 1
         if ($Help.Synopsis -like '*`[`<CommonParameters`>`]*') {
             # If help is not found, synopsis in auto-generated help is the syntax diagram
@@ -74,7 +78,7 @@ foreach ($command in $commands) {
             }
             $testhelperrors += 1
         }
-        
+
         $testhelpall += 1
         if ([String]::IsNullOrEmpty($Help.Description.Text)) {
             # Should be a description for every function
@@ -83,7 +87,7 @@ foreach ($command in $commands) {
             }
             $testhelperrors += 1
         }
-        
+
         $testhelpall += 1
         if ([String]::IsNullOrEmpty(($Help.Examples.Example | Select-Object -First 1).Code)) {
             # Should be at least one example
@@ -92,7 +96,7 @@ foreach ($command in $commands) {
             }
             $testhelperrors += 1
         }
-        
+
         $testhelpall += 1
         if ([String]::IsNullOrEmpty(($Help.Examples.Example.Remarks | Select-Object -First 1).Text)) {
             # Should be at least one example description
@@ -101,27 +105,27 @@ foreach ($command in $commands) {
             }
             $testhelperrors += 1
         }
-        
+
         if ($testhelperrors -eq 0) {
             It "Ran silently $testhelpall tests" {
                 $testhelperrors | Should -be 0
             }
         }
-        
+
         $testparamsall = 0
         $testparamserrors = 0
         Context "Test parameter help for $commandName" {
-            
+
             $Common = 'Debug', 'ErrorAction', 'ErrorVariable', 'InformationAction', 'InformationVariable', 'OutBuffer', 'OutVariable',
             'PipelineVariable', 'Verbose', 'WarningAction', 'WarningVariable'
-            
+
             $parameters = $command.ParameterSets.Parameters | Sort-Object -Property Name -Unique | Where-Object Name -notin $common
             $parameterNames = $parameters.Name
             $HelpParameterNames = $Help.Parameters.Parameter.Name | Sort-Object -Unique
             foreach ($parameter in $parameters) {
                 $parameterName = $parameter.Name
                 $parameterHelp = $Help.parameters.parameter | Where-Object Name -EQ $parameterName
-                
+
                 $testparamsall += 1
                 if ([String]::IsNullOrEmpty($parameterHelp.Description.Text)) {
                     # Should be a description for every parameter
@@ -130,7 +134,7 @@ foreach ($command in $commands) {
                     }
                     $testparamserrors += 1
                 }
-                
+
                 $testparamsall += 1
                 $codeMandatory = $parameter.IsMandatory.toString()
                 if ($parameterHelp.Required -ne $codeMandatory) {
@@ -140,11 +144,11 @@ foreach ($command in $commands) {
                     }
                     $testparamserrors += 1
                 }
-                
+
                 if ($HelpTestSkipParameterType[$commandName] -contains $parameterName) { continue }
-                
+
                 $codeType = $parameter.ParameterType.Name
-                
+
                 $testparamsall += 1
                 if ($parameter.ParameterType.IsEnum) {
                     # Enumerations often have issues with the typename not being reliably available

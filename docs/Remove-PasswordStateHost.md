@@ -112,9 +112,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### HostName - The exact hostname for the host (String)
+### System.String
+
+### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 2019 - Jarno Colombeen
 
