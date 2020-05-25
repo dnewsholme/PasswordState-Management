@@ -32,6 +32,7 @@ $global:FunctionHelpTestExceptions = @(
   , 'Set-PasswordStateListPermission'
   , 'Set-PasswordStatePassword'
   , 'Set-PasswordStatePasswordPermission'
+  , 'New-PasswordStateSelfDestructMessage'
 )
 
 <#
