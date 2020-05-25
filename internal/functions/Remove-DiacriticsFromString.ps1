@@ -1,4 +1,4 @@
-function Remove-DiacriticsFromString {
+﻿function Remove-DiacriticsFromString {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     param (
         [parameter(ValueFromPipelineByPropertyName, valueFromPipeline, Position = 0, Mandatory = $true)]$InputString
