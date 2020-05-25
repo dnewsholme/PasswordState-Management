@@ -15,7 +15,7 @@ If multiple matches it will return multiple objects.
 
 ```
 Get-PasswordStateFolder [[-FolderName] <String>] [[-Description] <String>] [[-TreePath] <String>]
- [[-SiteID] <Int32>] [[-SiteLocation] <String>] [-FolderID <Int32>] [-PreventAuditing] [-Reason <String>]
+ [[-SiteID] <Int32>] [[-SiteLocation] <String>] [[-FolderID] <Int32>] [-PreventAuditing] [[-Reason] <String>]
  [<CommonParameters>]
 ```
 
@@ -77,7 +77,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 6
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -107,7 +107,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: 7
 Default value: False
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -122,7 +122,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 8
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -181,8 +181,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### System.String
-### System.Int32
+
+### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]
+
 ### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
 ### System.Object

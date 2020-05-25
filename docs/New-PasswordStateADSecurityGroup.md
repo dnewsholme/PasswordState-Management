@@ -14,7 +14,7 @@ Creates an Active Directory Security Group in PasswordState.
 
 ```
 New-PasswordStateADSecurityGroup [-SecurityGroupName] <String> [[-Description] <String>]
- [-ADDomainNetBIOS] <String> [-Reason <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ADDomainNetBIOS] <String> [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -75,7 +75,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -133,6 +133,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### System.String
+
 ## OUTPUTS
 
 ### System.Object

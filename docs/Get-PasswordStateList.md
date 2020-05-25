@@ -14,13 +14,13 @@ Gets all password lists from the API (Only those you have permissions to.)
 
 ### ID (Default)
 ```
-Get-PasswordStateList [[-PasswordListID] <Int32>] [-PreventAuditing] [-Reason <String>] [<CommonParameters>]
+Get-PasswordStateList [[-PasswordListID] <Int32>] [-PreventAuditing] [[-Reason] <String>] [<CommonParameters>]
 ```
 
 ### Specific
 ```
 Get-PasswordStateList [[-PasswordList] <String>] [[-Description] <String>] [[-TreePath] <String>]
- [[-SiteID] <Int32>] [[-SiteLocation] <String>] [-PreventAuditing] [-Reason <String>] [<CommonParameters>]
+ [[-SiteID] <Int32>] [[-SiteLocation] <String>] [-PreventAuditing] [[-Reason] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -133,7 +133,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 6
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -192,8 +192,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### System.Int32
+
 ### System.String
+
 ### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
 ### System.Object

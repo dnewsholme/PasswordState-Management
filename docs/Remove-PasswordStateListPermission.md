@@ -21,8 +21,8 @@ Remove-PasswordStateListPermission [-PasswordListID] <Int32> [[-Permission] <Str
 ### PermissionID
 ```
 Remove-PasswordStateListPermission [-PasswordListID] <Int32> [[-Permission] <String>]
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Nullable`1[]> [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Int32> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### PermissionName
@@ -67,7 +67,7 @@ The SecurityGroupID you wish to remove permissions for.
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
-Type: Nullable`1[]
+Type: Int32
 Parameter Sets: PermissionID
 Aliases:
 
@@ -183,7 +183,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String
 
-### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]
+### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]
 
 ## OUTPUTS
 
