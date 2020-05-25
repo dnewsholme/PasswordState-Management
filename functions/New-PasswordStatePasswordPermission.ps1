@@ -17,6 +17,79 @@
     )
 
     begin {
+        switch ($Permission) {
+            M {
+                $PermissionLevel = "Modify"
+                $AvailablePermissionLevel = @("View")
+            }
+            V {
+                $PermissionLevel = "View"
+                $AvailablePermissionLevel = @("Modify")
+            }
+        }
+        if ($ApplyPermissionsForUserID) {
+            try {
+                $AllPermissions = Get-PasswordStatePermission -ReportID 43 -ErrorAction Stop | Where-Object { ($_.UserID -eq $ApplyPermissionsForUserID) -and ($_.PasswordID -eq $PasswordID) }
+            }
+            catch {
+                $_.Exception
+            }
+            if ($AllPermissions) {
+                foreach ($Permissions in $AllPermissions) {
+                    # We cannot identify if existing permissions were applied to password objects directly or on password lists. This is not supported for now with the api.
+                    if (($Permissions.PasswordID -eq $PasswordID) -and ($Permissions.UserID -eq $ApplyPermissionsForUserID) -and ($Permissions.$PermissionLevel -eq "Yes")) {
+                        throw "UserID '$ApplyPermissionsForUserID' already has directly or indirectly (PasswordList) permissions (Permission '$Permission' ($PermissionLevel)) on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)')!"
+                    }
+                    elseif (($Permissions.PasswordID -eq $PasswordID) -and ($Permissions.UserID -eq $ApplyPermissionsForUserID)) {
+                        foreach ($AvailablePermission in $AvailablePermissionLevel) {
+                            if ($Permissions.$AvailablePermission -eq "Yes") {
+                                throw "UserID '$ApplyPermissionsForUserID' has directly or indirectly (PasswordList) Permission '$AvailablePermission' on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)')! Please use 'Set-PasswordStatePasswordPermission -Permission '$Permission' -ApplyPermissionsForUserID '$ApplyPermissionsForUserID' -PasswordID '$PasswordID'' to change the existing permissions."
+                            }
+                        }
+                    }
+                    else {
+                        Write-PSFMessage -Level Verbose -Message "UserID '$ApplyPermissionsForUserID' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)') so far, moving on..."
+                    }
+                }
+            }
+            else {
+                Write-PSFMessage -Level Verbose -Message "UserID '$ApplyPermissionsForUserID' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)') so far, moving on..."
+            }
+        }
+        if ($ApplyPermissionsForSecurityGroupName) {
+            try {
+                $AllPermissions = Get-PasswordStatePermission -ReportID 43 -ErrorAction Stop | Where-Object { ($_.SecurityGroupName -eq $ApplyPermissionsForSecurityGroupName) -and ($_.PasswordID -eq $PasswordID) }
+            }
+            catch {
+                $_.Exception
+            }
+            if ($AllPermissions) {
+                foreach ($Permissions in $AllPermissions) {
+                    # We cannot identify if existing permissions were applied to password objects directly or on password lists. This is not supported for now with the api.
+                    if (($Permissions.PasswordID -eq $PasswordID) -and ($Permissions.SecurityGroupName -eq $ApplyPermissionsForSecurityGroupName) -and ($Permissions.$PermissionLevel -eq "Yes")) {
+                        throw "SecurityGroup '$ApplyPermissionsForSecurityGroupName' already has directly or indirectly (PasswordList) permissions (Permission '$Permission' ($PermissionLevel)) on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)')!"
+                    }
+                    elseif (($Permissions.PasswordID -eq $PasswordID) -and ($Permissions.SecurityGroupName -eq $ApplyPermissionsForSecurityGroupName)) {
+                        foreach ($AvailablePermission in $AvailablePermissionLevel) {
+                            if ($Permissions.$AvailablePermission -eq "Yes") {
+                                throw "SecurityGroup '$ApplyPermissionsForSecurityGroupName' has directly or indirectly (PasswordList) Permission '$AvailablePermission' on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)')! Please use 'Set-PasswordStatePasswordPermission -Permission '$Permission' -ApplyPermissionsForUserID '$ApplyPermissionsForUserID' -PasswordID '$PasswordID'' to change the existing permissions."
+                            }
+                        }
+                    }
+                    else {
+                        Write-PSFMessage -Level Verbose -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)') so far, moving on..."
+                        break
+                    }
+                }
+            }
+            else {
+                Write-PSFMessage -Level Verbose -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)') so far, moving on..."
+            }
+        }
+        if ($ApplyPermissionsForSecurityGroupID) {
+            # Cannot validate SecurityGroupID for now because the api has not implemented a possibility to query the IDs of security groups in any method/report
+            Continue
+        }
     }
     process {
         # Build the Custom object to convert to json and send to the api.
