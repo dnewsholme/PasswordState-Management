@@ -199,7 +199,8 @@ Returns any object where the password will expire at 2020-12-12.
 Get-PasswordStatePassword -HostName "SecureComputer.local" -UserName "Administrator" -Reason "Ticket #202005151234567"
 ```
 
-Returns the password object with UserName "Administrator" and/on HostName "SecureComputer.local". Also specifying the reason "Ticket #202005151234567" why the password object was requested.
+Returns the password object with UserName "Administrator" and/on HostName "SecureComputer.local". Also specifying the reason "Ticket #202005151234567" why the password object was requested.  
+The Reason will be added as audit entry to every password object that will be found with these search criteria.
 
 ### EXAMPLE 14
 ```
