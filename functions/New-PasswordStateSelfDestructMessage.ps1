@@ -1,6 +1,5 @@
 ﻿function New-PasswordStateSelfDestructMessage {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'Not a password field.')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = '*UserID and *PasswordID are not a user and not a password')]
     [cmdletbinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'All')]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $false)]
@@ -22,7 +21,7 @@
             })]
         [string]$ExpiresAt = "1d",
         [parameter(ValueFromPipelineByPropertyName, Position = 5, Mandatory = $false)]
-        [Nullable[System.Int32]]$NoViews = 1,
+        [int32]$NoViews = 1,
         [parameter(ValueFromPipelineByPropertyName, Position = 6, Mandatory = $true)]
         [ValidateScript( {
                 if ($_ -notmatch '^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$') {
