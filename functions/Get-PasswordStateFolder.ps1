@@ -31,7 +31,7 @@
                 $uri += "&PreventAuditing=true"
             }
             try {
-                $result = Get-PasswordStateResource -uri $uri @parms -ErrorAction Stop | Where-Object { $_.FolderID -eq $FolderID }   
+                $result = Get-PasswordStateResource -uri $uri @parms -ErrorAction Stop | Where-Object { $_.FolderID -eq $FolderID }
             }
             catch {
                 throw $_.Exception
