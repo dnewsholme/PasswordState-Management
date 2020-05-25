@@ -9,7 +9,9 @@
         [ValidateLength(0, 255)]
         [string]$Description,
         [parameter(ValueFromPipelineByPropertyName, Position = 2, Mandatory = $true)]
-        [string]$ADDomainNetBIOS
+        [string]$ADDomainNetBIOS,
+        [parameter(ValueFromPipelineByPropertyName, Position = 3, Mandatory = $false)]
+        [string]$Reason
     )
 
     begin {
