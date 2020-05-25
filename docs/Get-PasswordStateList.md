@@ -26,6 +26,10 @@ Get-PasswordStateList [[-PasswordList] <String>] [[-Description] <String>] [[-Tr
 ## DESCRIPTION
 Gets all password lists from the API (Only those you have permissions to.)
 
+**Note 1**: You can perform an exact match search by enclosing your search criteria in double quotes, i.e. `'"MyList"'`
+
+**Note 2**: By default, the retrieval of (all) PasswordList records will add one Audit record for every PasswordList record returned. If you wish to prevent audit records from being added, you can add the `-PreventAuditing` parameter.
+
 ## EXAMPLES
 
 ### EXAMPLE 1
