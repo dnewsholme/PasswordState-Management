@@ -8,40 +8,53 @@ schema: 2.0.0
 # Get-PasswordStateFolder
 
 ## SYNOPSIS
-Finds a password state entry and returns the object.
-If multiple matches it will return multiple entries.
+Find a PasswordState folder entry and returns the object.  
+If multiple matches it will return multiple objects.
 
 ## SYNTAX
 
 ```
 Get-PasswordStateFolder [[-FolderName] <String>] [[-Description] <String>] [[-TreePath] <String>]
- [[-SiteID] <Int32>] [[-SiteLocation] <String>] [-PreventAuditing] [<CommonParameters>]
+ [[-SiteID] <Int32>] [[-SiteLocation] <String>] [[-FolderID] <Int32>] [-PreventAuditing] [[-Reason] <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Finds a password state entry and returns the object.
-If multiple matches it will return multiple entries.
+Find a PasswordState folder entry and returns the object.  
+If multiple matches it will return multiple objects.
+
+**Note 1**: You can perform an exact match search by enclosing your search criteria in double quotes, i.e. `'"MyFolder"'`
+
+**Note 2**: By default, the retrieval of (all) folder records will add one Audit record for every folder record returned. If you wish to prevent audit records from being added, you can add the `-PreventAuditing` parameter.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Find-PasswordStateFolder -FolderName "test"
+Get-PasswordStateFolder -FolderName "test"
 ```
 
-Returns the test folder object.
+Returns the folder object(s) with name "test".
 
 ### EXAMPLE 2
 ```
-Find-PasswordStateFolder -Description "testfolder"
+Get-PasswordStateFolder -Description "testfolder"
 ```
 
-Returns the folder objects that contain testfolder in the description.
+Returns the folder object(s) that contains testfolder in the description.
+
+### EXAMPLE 3
+```
+Get-PasswordStateFolder -FolderID 12
+```
+
+Returns the folder object(s) with FolderID 12 if found.
 
 ## PARAMETERS
 
 ### -Description
-The description for the folder to find
+An optional parameter to filter the search on description.
+The description is generally used as a longer verbose description of the nature of the Password object.
 
 ```yaml
 Type: String
@@ -55,8 +68,23 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -FolderID
+The unique ID of the folder to filter the search for.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 6
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -FolderName
-The name for the folder to find
+The name for the folder to search for.
 
 ```yaml
 Type: String
@@ -79,14 +107,30 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: 7
 Default value: False
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -Reason
+A reason which can be logged for auditing of why a folder was retrieved.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 8
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -SiteID
-The siteID for the folder
+An optional parameter to filter the search on the site ID.  
+If you do not specify this parameter, it will report data based on all Site Locations. Values are 0 for Internal, and all other SiteID's can be found on the screen `Administration -> Remote Site Administration -> Remote Site Locations`.
 
 ```yaml
 Type: Int32
@@ -101,7 +145,8 @@ Accept wildcard characters: False
 ```
 
 ### -SiteLocation
-The sitelocation for the folder
+An optional parameter to filter the search on the site location.  
+If you do not specify this parameter, it will report data based on all Site Locations. Values are the name of the Site Location that can be found on the screen `Administration -> Remote Site Administration -> Remote Site Locations`.
 
 ```yaml
 Type: String
@@ -116,7 +161,7 @@ Accept wildcard characters: False
 ```
 
 ### -TreePath
-The treepath where the folder should be found
+The TreePath where the folder should be found.
 
 ```yaml
 Type: String
@@ -137,7 +182,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String
 
-### System.Int32
+### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]
 
 ### System.Management.Automation.SwitchParameter
 

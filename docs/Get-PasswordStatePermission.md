@@ -14,15 +14,14 @@ Get the permission for a password state object.
 
 ### All (Default)
 ```
-Get-PasswordStatePermission [[-ReportID] <Int32>] [[-SiteID] <Nullable`1[]>] [-ShowReportIDs] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Get-PasswordStatePermission [[-ReportID] <Int32>] [[-SiteID] <Int32>] [-ShowReportIDs] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### Specific
 ```
 Get-PasswordStatePermission [[-ReportID] <Int32>] [[-UserID] <String>] [[-SecurityGroupName] <String>]
- [[-DurationInMonth] <Nullable`1[]>] [[-SiteID] <Nullable`1[]>] [-ShowReportIDs] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-DurationInMonth] <Int32>] [[-SiteID] <Int32>] [-ShowReportIDs] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -61,7 +60,7 @@ The period in which data can be reported against. Possible values are `0 for cur
 For the '**What passwords are expiring soon?**' report however, Duration refers to the **number of days** you wish to look ahead for passwords which are going to expire.
 
 ```yaml
-Type: Nullable`1[]
+Type: Int32
 Parameter Sets: Specific
 Aliases: Duration
 
@@ -123,7 +122,7 @@ If you leave this parameter **blank**, it will report data based on **all** Site
 SiteID 0 = Default site 'Internal'
 
 ```yaml
-Type: Nullable`1[]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
@@ -189,7 +188,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String
 
-### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]
+### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]
 
 ### System.Management.Automation.SwitchParameter
 

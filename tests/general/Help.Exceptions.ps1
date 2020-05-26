@@ -24,6 +24,15 @@ $global:FunctionHelpTestExceptions = @(
   , 'Test-PasswordPwned'
   , 'New-PasswordStateResource'
   , 'Remove-PasswordStateResource'
+  , 'Get-PasswordStatePermission'
+  , 'New-PasswordStateListPermission'
+  , 'New-PasswordStatePasswordPermission'
+  , 'Remove-PasswordStateListPermission'
+  , 'Remove-PasswordStatePasswordPermission'
+  , 'Set-PasswordStateListPermission'
+  , 'Set-PasswordStatePassword'
+  , 'Set-PasswordStatePasswordPermission'
+  , 'New-PasswordStateSelfDestructMessage'
 )
 
 <#

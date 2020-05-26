@@ -98,6 +98,10 @@
             }
             # Search on a specific password ID
             'PasswordID' {
+                If ($PSBoundParameters.ContainsKey('PasswordID')) {
+                    # if only PasswordID is specified, so searching for a specific ID, PreventAuditing is not possible
+                    $PreventAuditing = $false
+                }
                 $uri = "/api/passwords/$($PasswordID)"
             }
             # Search with a variety of filters
