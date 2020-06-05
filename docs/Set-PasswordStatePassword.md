@@ -90,10 +90,10 @@ Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username]
  [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
  [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-GenericField10] <String>] [-GenerateGenFieldPassword] [-PasswordResetEnabled]
+ [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
+ [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
+ [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### GeneratePassword
@@ -103,10 +103,10 @@ Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username]
  [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
  [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-GenericField10] <String>] [-GenerateGenFieldPassword] [-PasswordResetEnabled]
+ [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
+ [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
+ [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -626,7 +626,7 @@ This option will enable the account to perform Password Resets. To do this, the 
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: Reset
+Parameter Sets: Reset, Password, GeneratePassword
 Aliases:
 
 Required: True

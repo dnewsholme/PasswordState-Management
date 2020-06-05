@@ -47,6 +47,8 @@
         [Parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 19)][string]$GenericField10 = $null,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 20)][switch]$GenerateGenFieldPassword,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "Reset", Position = 0)]
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "Password", Position = 1)]
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "GeneratePassword", Position = 1)]
         [switch]$PasswordResetEnabled,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "ResetSchedule", Position = 1)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 1)]
