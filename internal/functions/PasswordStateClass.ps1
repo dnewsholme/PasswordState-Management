@@ -78,7 +78,7 @@ class PasswordResult {
     [string]$Notes
     [string]$URL
     [string]$ExpiryDate
-    [string]$AllowExport
+    [System.Boolean]$AllowExport
     [string]$AccountType
     # Constructor used to initiate the default property set.
     PasswordResult() {

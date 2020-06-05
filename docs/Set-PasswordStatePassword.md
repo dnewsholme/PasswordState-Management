@@ -15,14 +15,14 @@ Updates the password of an existing password state entry.
 ### All (Default)
 ```
 Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
- [[-Description] <String>] [[-Notes] <String>] [[-Url] <String>] [[-AccountType] <String>]
- [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
- [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
- [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-Password] <String>] [[-Description] <String>] [[-Notes] <String>] [[-Url] <String>]
+ [[-AccountType] <String>] [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>]
+ [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
+ [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
+ [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
+ [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
+ [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### HeartbeatSchedule
@@ -83,30 +83,17 @@ Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username]
  [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Password
-```
-Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>] [-Password] <String>
- [[-Description] <String>] [[-Notes] <String>] [[-Url] <String>] [[-AccountType] <String>]
- [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
- [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
- [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
-```
-
 ### GeneratePassword
 ```
 Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
- [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>] [[-AccountType] <String>]
- [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
- [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
- [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-Password] <String>] [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>]
+ [[-AccountType] <String>] [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>]
+ [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
+ [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
+ [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
+ [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
+ [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -584,22 +571,10 @@ The new password to be added to the entry (stored as encrypted binary field in d
 
 ```yaml
 Type: String
-Parameter Sets: HeartbeatSchedule, Heartbeat, Reset, ResetSchedule
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 9
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-```yaml
-Type: String
-Parameter Sets: Password
-Aliases:
-
-Required: True
 Position: 9
 Default value: None
 Accept pipeline input: True (ByPropertyName)
