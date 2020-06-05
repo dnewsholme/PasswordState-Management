@@ -7,7 +7,7 @@
 #>
 
 $moduleRoot = (Get-Module Passwordstate-management).ModuleBase
-$stringsResults = Export-PSMDString -ModuleRoot $moduleRoot
+$stringsResults = Export-PSMDString -ModuleRoot "$moduleRoot" -ErrorAction SilentlyContinue
 $exceptions = & "$PSScriptRoot\strings.Exceptions.ps1"
 
 Describe "Testing localization strings" {
