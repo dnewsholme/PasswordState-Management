@@ -159,21 +159,6 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -CopyPermissionsFromPasswordListID
 Optionally copy the permissions from another list.  
 To copy permissions to the Password List from an existing Password List, you can specify the PasswordListID value for this field.  
@@ -425,7 +410,7 @@ When apply permissions to the newly created Password List (for a User or Securit
 Type: String
 Parameter Sets: Permission
 Aliases:
-Accepted values: A, M, V, A, M, V
+Accepted values: A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V
 
 Required: True
 Position: 12
@@ -438,7 +423,7 @@ Accept wildcard characters: False
 Type: String
 Parameter Sets: Private
 Aliases:
-Accepted values: A, M, V, A, M, V
+Accepted values: A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V
 
 Required: False
 Position: 12
@@ -524,6 +509,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 Shows what would happen if the cmdlet runs. The cmdlet is not run.
 
@@ -544,8 +544,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.String
+
+### System.Int32
+
+### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 Daryl Newsholme 2018
 

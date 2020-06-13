@@ -48,7 +48,7 @@ Accept wildcard characters: False
 ```
 
 ### -PreventAuditing
-{{Fill PreventAuditing Description}}
+By default, the creation/modification or retrieval of (all) Passwords records will add one Audit record for every Password record returned. If you wish to prevent audit records from being added, you can add this `-PreventAuditing` parameter.
 
 ```yaml
 Type: SwitchParameter
@@ -82,10 +82,16 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### PasswordID - ID of the Password entry (Integer)
+### System.Int32
+
+### System.String
+
+### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
-### Returns the Object from the API as a powershell object.
+### System.Object[]
+
 ## NOTES
 Daryl Newsholme 2018
 

@@ -1,7 +1,7 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Get-PSCustomObject.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateADSecurityGroup.md
 schema: 2.0.0
 ---
 
@@ -14,7 +14,7 @@ Creates an Active Directory Security Group in PasswordState.
 
 ```
 New-PasswordStateADSecurityGroup [-SecurityGroupName] <String> [[-Description] <String>]
- [-ADDomainNetBIOS] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ADDomainNetBIOS] <String> [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,10 +28,10 @@ To add a Security Group, the user account executing the script must be given acc
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-PasswordStateADSecurityGroup -SecurityGroupName "Administrators" -ADDomainNetBIOS "domain.local" -Description "Domain Administrators"
 ```
 
-{{ Add example description here }}
+Adding Administrators group from domain "domain.local" with description to PasswordState if found in ActiveDirectory.
 
 ## PARAMETERS
 
@@ -50,21 +50,6 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Description
 A description for the Security Group. The description of the Active Directory Security Group will not be imported (missing API feature), you need to specify the description.
 
@@ -75,6 +60,22 @@ Aliases:
 
 Required: False
 Position: 1
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Reason
+A reason which can be logged for auditing of why a password was retrieved.
+
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -92,6 +93,21 @@ Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

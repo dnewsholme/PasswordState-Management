@@ -74,11 +74,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.String
+
 ## OUTPUTS
 
-### password hash                                     CompromisedCount
-### -------- ----                                     ----------------
-### Pa55word 78C87B0ED4DE64F81776A289F8CCEFE1D477EE01            14510
+### System.Object
 ## NOTES
 Daryl Newsholme 2018
 

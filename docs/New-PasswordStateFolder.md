@@ -54,21 +54,6 @@ Creates the folder "TestFolder" under the folder with ID 4 using the Site Locati
 
 ## PARAMETERS
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -CopyPermissionsFromPasswordListID
 To copy permissions to the Folder from an existing Password List, you can specify the PasswordListID value for this field.  
 
@@ -200,6 +185,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
@@ -221,8 +221,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.String
+
+### System.Int32
+
+### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 Daryl Newsholme 2018
 

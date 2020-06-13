@@ -12,6 +12,8 @@
     Optional Parameter to override the method from Delete.
 .PARAMETER ContentType
     Optional Parameter to override the default content type from application/json.
+.PARAMETER Body
+    The body to be submitted in the rest request it should be in JSON format.
 .PARAMETER ExtraParams
     Optional Parameter to allow extra parameters to be passed to invoke-restmethod. Should be passed as a hashtable.
 .OUTPUTS
@@ -24,6 +26,7 @@ function Remove-PasswordStateResource {
     param (
         [string]$uri,
         [string]$method = "DELETE",
+        [string]$body = $null,
         [string]$ContentType = "application/json",
         [hashtable]$extraparams = $null
     )
@@ -43,7 +46,7 @@ function Remove-PasswordStateResource {
                 $uri = $uri -Replace "^/api/", "/winapi/"
             }
             APIKey {
-                $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)"}
+                $headers = @{"APIKey" = "$($passwordstateenvironment.Apikey)" }
 
             }
         }
@@ -55,24 +58,28 @@ function Remove-PasswordStateResource {
             "URI"             = "$($passwordstateenvironment.baseuri)$uri"
             "Method"          = $method.ToUpper()
             "ContentType"     = $ContentType
+            "Body"            = $body
         }
-        if (!$body){
+        if ($body) {
+            Write-PSFMessage -Level Verbose -Message "Using body $($body)"
+        }
+        else {
             $params.Remove("Body")
         }
         if ($headers -and $null -ne $extraparams.Headers) {
             Write-Verbose "[$(Get-Date -format G)] Adding API Headers and extra param headers"
             $headers += $extraparams.headers
-            $params += @{"headers" = $headers}
+            $params += @{"headers" = $headers }
             $skipheaders = $true
         }
-        if ($extraparams -and $null -eq $extraparams.Headers){
+        if ($extraparams -and $null -eq $extraparams.Headers) {
             Write-Verbose "[$(Get-Date -format G)] Adding extra parameter $($extraparams.keys) $($extraparams.values)"
             $params += $extraparams
         }
 
         if ($headers -and $skipheaders -ne $true) {
             Write-Verbose "[$(Get-Date -format G)] Adding API Headers only"
-            $params += @{"headers" = $headers}
+            $params += @{"headers" = $headers }
         }
         if ($PSCmdlet.ShouldProcess("[$($params.Method)] uri:$($params.uri) Headers:$($headers) Body:$($params.body)")) {
             Switch ($passwordstateenvironment.AuthType) {
@@ -95,7 +102,7 @@ function Remove-PasswordStateResource {
     }
 
     end {
-	    [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
+        [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }

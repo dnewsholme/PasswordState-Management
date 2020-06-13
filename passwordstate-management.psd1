@@ -71,10 +71,10 @@
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @('Get-PasswordStateEnvironment', 'Get-PasswordStateFolder', 'Get-PasswordStateHost', 'Get-PasswordStateList', 'Get-PasswordStatePassword', 'Get-PasswordStatePasswordHistory', 'Get-PasswordStatePermission'
         , 'Invoke-PasswordStateReport'
-        , 'New-PasswordStateADSecurityGroup', 'New-PasswordStateDependency', 'New-PasswordStateDocument', 'New-PasswordStateFolder', 'New-PasswordStateFolderPermission', 'New-PasswordStateHost', 'New-PasswordStateList', 'New-PasswordStateListPermission', 'New-PasswordStatePassword', 'New-PasswordStatePasswordPermission', 'New-RandomPassword'
-        , 'Remove-PasswordStateHost', 'Remove-PasswordStatePassword'
+        , 'New-PasswordStateADSecurityGroup', 'New-PasswordStateDependency', 'New-PasswordStateDocument', 'New-PasswordStateFolder', 'New-PasswordStateFolderPermission', 'New-PasswordStateHost', 'New-PasswordStateList', 'New-PasswordStateListPermission', 'New-PasswordStatePassword', 'New-PasswordStatePasswordPermission', 'New-PasswordStateSelfDestructMessage', 'New-RandomPassword'
+        , 'Remove-PasswordStateFolderPermission', 'Remove-PasswordStateHost', 'Remove-PasswordStateListPermission', 'Remove-PasswordStatePassword', 'Remove-PasswordStatePasswordPermission'
         , 'Save-PasswordStateDocument'
-        , 'Set-PasswordStateEnvironment', 'Set-PasswordStatePassword'
+        , 'Set-PasswordStateEnvironment', 'Set-PasswordStateFolderPermission', 'Set-PasswordStateListPermission', 'Set-PasswordStatePassword', 'Set-PasswordStatePasswordPermission'
         , 'Test-PasswordPwned'
     )
 

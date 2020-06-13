@@ -1,66 +1,66 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateListPermission.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Remove-PasswordStateFolderPermission.md
 schema: 2.0.0
 ---
 
-# New-PasswordStateListPermission
+# Remove-PasswordStateFolderPermission
 
 ## SYNOPSIS
-Add permissions to PasswordState lists.
+Remove permissions from a PasswordState folder.
 
 ## SYNTAX
 
 ### All (Default)
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
+Remove-PasswordStateFolderPermission [-FolderID] <Int32> [[-Permission] <String>]
  [[-ApplyPermissionsForUserID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionID
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Int32> [-WhatIf] [-Confirm]
+Remove-PasswordStateFolderPermission [-FolderID] <Int32> [[-Permission] <String>]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ### PermissionName
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
+Remove-PasswordStateFolderPermission [-FolderID] <Int32> [[-Permission] <String>]
  [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add permissions to PasswordState lists.
+Remove permissions from a PasswordState folder.
 
-**Note**: To add permissions to a Password List, it cannot be receiving permissions from a **parent folder** which is **propagating permissions down**.
+**Note**: To remove permissions to a Folder, it must be configured to have its **permissions managed manually**.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> New-PasswordStateListPermission -PasswordListID 1 -Permission A -ApplyPermissionsForUserID "domain\username"
+PS C:\> Remove-PasswordStateFolderPermission -FolderID 1 -ApplyPermissionsForUserID "domain\username"
 ```
 
-Grant administrator permissions to the username on list with ID 1.
+Remove all permissions for the username on folder with ID 1.
 
 ### Example 2
 ```powershell
-PS C:\> New-PasswordStateListPermission -PasswordListID 1 -Permission V -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
+PS C:\> Remove-PasswordStateFolderPermission -FolderID 1 -Permission V -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
 ```
 
-Grant view permissions to the group "ReadOnlyGroup" on list with ID 1.
+Removes view permissions of the group "ReadOnlyGroup" on folder with ID 1. You can specify the `-Permission` parameter, but you do not need to specify it. If you specify it, it must be the correct Permission.
 
 ## PARAMETERS
 
 ### -ApplyPermissionsForSecurityGroupID
-The SecurityGroupID you wish to apply permissions for.  
+The SecurityGroupID you wish to remove permissions for.  
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
-Type: Int32
+Type: String
 Parameter Sets: PermissionID
 Aliases:
 
@@ -72,7 +72,7 @@ Accept wildcard characters: False
 ```
 
 ### -ApplyPermissionsForSecurityGroupName
-The SecurityGroupID you wish to apply permissions for.  
+The Security Group Name you wish to remove permissions for.  
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
@@ -102,8 +102,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -PasswordListID
-Unique identifier for the Password List.
+### -FolderID
+Unique identifier for the Folder.
 
 ```yaml
 Type: Int32
@@ -118,8 +118,10 @@ Accept wildcard characters: False
 ```
 
 ### -Permission
-Set permission for the password list.  
+Remove permission for the folder.  
 A for Administrator, M for Modify or V for View permissions.
+
+**Note**: This is optional. If omitted, all permissions for the User or Security Group will be deleted. Or you can specify specific permissions using the above defined permission levels.
 
 ```yaml
 Type: String
@@ -127,7 +129,7 @@ Parameter Sets: (All)
 Aliases:
 Accepted values: A, M, V
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: True (ByPropertyName)
@@ -173,8 +175,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Int32
 
 ### System.String
-
-### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]
 
 ## OUTPUTS
 

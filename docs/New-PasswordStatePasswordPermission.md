@@ -1,39 +1,39 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStatePassword.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStatePasswordPermission.md
 schema: 2.0.0
 ---
 
 # New-PasswordStatePasswordPermission
 
 ## SYNOPSIS
-Add permissions to a PasswordState passwords.
+Add permissions to PasswordState passwords.
 
 ## SYNTAX
 
 ### All (Default)
 ```
 New-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-Sort] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionID
 ```
 New-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Nullable`1[]> [-Sort] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Int32> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### PermissionName
 ```
 New-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-Sort] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add permissions to a PasswordState passwords.
+Add permissions to PasswordState passwords.
 
 ## EXAMPLES
 
@@ -58,7 +58,7 @@ The SecurityGroupID you wish to apply permissions for.
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
-Type: Nullable`1[]
+Type: Int32
 Parameter Sets: PermissionID
 Aliases:
 
@@ -100,21 +100,6 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -PasswordID
 Unique identifier for the Password.
 
@@ -132,7 +117,7 @@ Accept wildcard characters: False
 
 ### -Permission
 Set permission for the password.  
-A for Administrator, M for Modify or V for View permissions.
+M for Modify or V for View permissions.
 
 ```yaml
 Type: String
@@ -147,18 +132,18 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Sort
-Sort the response object (not available at the moment)
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
 Required: False
-Position: 4
+Position: Named
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -188,8 +173,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.String
 
 ### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]
-
-### System.Management.Automation.SwitchParameter
 
 ## OUTPUTS
 

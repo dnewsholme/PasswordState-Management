@@ -1,57 +1,55 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateListPermission.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Set-PasswordStatePasswordPermission.md
 schema: 2.0.0
 ---
 
-# New-PasswordStateListPermission
+# Set-PasswordStatePasswordPermission
 
 ## SYNOPSIS
-Add permissions to PasswordState lists.
+Change permissions of PasswordState passwords.
 
 ## SYNTAX
 
 ### All (Default)
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
+Set-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
  [[-ApplyPermissionsForUserID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionID
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
+Set-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
  [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Int32> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ### PermissionName
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
+Set-PasswordStatePasswordPermission [-PasswordID] <Int32> [-Permission] <String>
  [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add permissions to PasswordState lists.
-
-**Note**: To add permissions to a Password List, it cannot be receiving permissions from a **parent folder** which is **propagating permissions down**.
+Change permissions of PasswordState passwords.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> New-PasswordStateListPermission -PasswordListID 1 -Permission A -ApplyPermissionsForUserID "domain\username"
+PS C:\> New-PasswordStatePasswordPermission -PasswordID 1 -Permission A -ApplyPermissionsForUserID "domain\username"
 ```
 
-Grant administrator permissions to the username on list with ID 1.
+Change existing permissions to admin for the username on password with ID 1.
 
 ### Example 2
 ```powershell
-PS C:\> New-PasswordStateListPermission -PasswordListID 1 -Permission V -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
+PS C:\> New-PasswordStatePasswordPermission -PasswordID 1 -Permission M -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
 ```
 
-Grant view permissions to the group "ReadOnlyGroup" on list with ID 1.
+Change existing permissions to modify for the group "ReadOnlyGroup" on password with ID 1.
 
 ## PARAMETERS
 
@@ -102,8 +100,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -PasswordListID
-Unique identifier for the Password List.
+### -PasswordID
+Unique identifier for the Password.
 
 ```yaml
 Type: Int32
@@ -118,14 +116,14 @@ Accept wildcard characters: False
 ```
 
 ### -Permission
-Set permission for the password list.  
-A for Administrator, M for Modify or V for View permissions.
+Set permission for the password.  
+M for Modify or V for View permissions.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: A, M, V
+Accepted values: M, V
 
 Required: True
 Position: 1

@@ -1,57 +1,57 @@
 ---
 external help file: passwordstate-management-help.xml
 Module Name: passwordstate-management
-online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/New-PasswordStateListPermission.md
+online version: https://github.com/dnewsholme/PasswordState-Management/blob/master/docs/Set-PasswordStateFolderPermission.md
 schema: 2.0.0
 ---
 
-# New-PasswordStateListPermission
+# Set-PasswordStateFolderPermission
 
 ## SYNOPSIS
-Add permissions to PasswordState lists.
+Change permissions of a PasswordState folder.
 
 ## SYNTAX
 
 ### All (Default)
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
+Set-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
  [[-ApplyPermissionsForUserID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PermissionID
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
- [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <Int32> [-WhatIf] [-Confirm]
+Set-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
+ [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupID] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ### PermissionName
 ```
-New-PasswordStateListPermission [-PasswordListID] <Int32> [-Permission] <String>
+Set-PasswordStateFolderPermission [-FolderID] <Int32> [-Permission] <String>
  [[-ApplyPermissionsForUserID] <String>] [-ApplyPermissionsForSecurityGroupName] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add permissions to PasswordState lists.
+Change permissions of a PasswordState folder.
 
-**Note**: To add permissions to a Password List, it cannot be receiving permissions from a **parent folder** which is **propagating permissions down**.
+**Note**: To change permissions of a Folder, it must be configured to have its **permissions managed manually**.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> New-PasswordStateListPermission -PasswordListID 1 -Permission A -ApplyPermissionsForUserID "domain\username"
+PS C:\> Set-PasswordStateFolderPermission -FolderID 1 -Permission V -ApplyPermissionsForUserID "domain\username"
 ```
 
-Grant administrator permissions to the username on list with ID 1.
+Change existing permissions to view permissions for the username on folder with ID 1.
 
 ### Example 2
 ```powershell
-PS C:\> New-PasswordStateListPermission -PasswordListID 1 -Permission V -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
+PS C:\> Set-PasswordStateFolderPermission -FolderID 1 -Permission M -ApplyPermissionsForSecurityGroupName "ReadOnlyGroup"
 ```
 
-Grant view permissions to the group "ReadOnlyGroup" on list with ID 1.
+Change existing permissions to modify permissions for the group "ReadOnlyGroup" on folder with ID 1.
 
 ## PARAMETERS
 
@@ -60,7 +60,7 @@ The SecurityGroupID you wish to apply permissions for.
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
-Type: Int32
+Type: String
 Parameter Sets: PermissionID
 Aliases:
 
@@ -72,7 +72,7 @@ Accept wildcard characters: False
 ```
 
 ### -ApplyPermissionsForSecurityGroupName
-The SecurityGroupID you wish to apply permissions for.  
+The Security Group Name you wish to apply permissions for.  
 You can only specify SecurityGroupID or SecurityGroupName, not both in the same call.
 
 ```yaml
@@ -102,8 +102,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -PasswordListID
-Unique identifier for the Password List.
+### -FolderID
+Unique identifier for the Folder.
 
 ```yaml
 Type: Int32
@@ -118,7 +118,7 @@ Accept wildcard characters: False
 ```
 
 ### -Permission
-Set permission for the password list.  
+Set permission for the folder.  
 A for Administrator, M for Modify or V for View permissions.
 
 ```yaml
@@ -173,8 +173,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Int32
 
 ### System.String
-
-### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]
 
 ## OUTPUTS
 

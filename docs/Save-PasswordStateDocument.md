@@ -35,7 +35,7 @@ Find-PasswordStatePassword test | Save-PasswordStateDocument -Path C:\temp\1.csv
 ## PARAMETERS
 
 ### -DocumentID
-{{Fill DocumentID Description}}
+The ID of the document that will be uploaded.
 
 ```yaml
 Type: Int32
@@ -85,8 +85,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.String
+
+### System.Int32
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 Daryl Newsholme 2018
 

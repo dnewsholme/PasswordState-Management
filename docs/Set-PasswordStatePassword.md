@@ -12,50 +12,164 @@ Updates the password of an existing password state entry.
 
 ## SYNTAX
 
+### All (Default)
 ```
-Set-PasswordStatePassword [-passwordID] <Int32> [[-password] <String>] [[-title] <String>]
- [[-username] <String>] [[-domain] <String>] [[-hostname] <String>] [[-notes] <String>] [[-url] <String>]
- [[-reason] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
+Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+ [[-Description] <String>] [[-Notes] <String>] [[-Url] <String>] [[-AccountType] <String>]
+ [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
  [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
- [[-GenericField10] <String>] [-PreventAuditing] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
+ [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
+ [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### HeartbeatSchedule
+```
+Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+ [[-Password] <String>] [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>]
+ [[-AccountType] <String>] [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>]
+ [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
+ [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
+ [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
+ [[-HeartbeatSchedule] <String>] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
+ [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### Heartbeat
+```
+Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+ [[-Password] <String>] [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>]
+ [[-AccountType] <String>] [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>]
+ [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
+ [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
+ [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled]
+ [[-HeartbeatSchedule] <String>] [[-ValidationScriptID] <Int32>] [[-HostName] <String>]
+ [[-ADDomainNetBIOS] <String>] [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport]
+ [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### Reset
+```
+Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+ [[-Password] <String>] [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>]
+ [[-AccountType] <String>] [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>]
+ [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
+ [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword] [-PasswordResetEnabled]
+ [-EnablePasswordResetSchedule] [[-PasswordResetSchedule] <String>] [[-AddDaysToExpiryDate] <Int32>]
+ [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
+ [[-ValidationScriptID] <Int32>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
+ [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
+ [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ResetSchedule
+```
+Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+ [[-Password] <String>] [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>]
+ [[-AccountType] <String>] [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>]
+ [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
+ [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
+ [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
+ [-EnablePasswordResetSchedule] [-PasswordResetSchedule] <String> [[-AddDaysToExpiryDate] <Int32>]
+ [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
+ [[-ValidationScriptID] <Int32>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
+ [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
+ [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### Password
+```
+Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>] [-Password] <String>
+ [[-Description] <String>] [[-Notes] <String>] [[-Url] <String>] [[-AccountType] <String>]
+ [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
+ [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
+ [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
+ [[-GenericField10] <String>] [-GenerateGenFieldPassword] [-PasswordResetEnabled]
+ [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
+ [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
+ [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### GeneratePassword
+```
+Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username] <String>]
+ [[-Description] <String>] [-GeneratePassword] [[-Notes] <String>] [[-Url] <String>] [[-AccountType] <String>]
+ [[-AccountTypeID] <Int32>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
+ [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
+ [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
+ [[-GenericField10] <String>] [-GenerateGenFieldPassword] [-PasswordResetEnabled]
+ [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
+ [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
+ [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 Updates the password of an existing password state entry.
-Any fields not sent will remain the same as before.
+Any fields not sent will remain the same as before. It is best to specify only those properties you wish to change.
+
+**Note 1**: If this password has any associated **Password Reset Tasks**, they will be **queued** an executed by the PasswordState Windows Service - please see output details below for Queued Password Reset Tasks.  
+If the password record being updated is 'Managed', in that it is enabled to perform password resets, then the Response will not return the full password object, as no data will change for the record until processed from the Password Resets Queue. Instead, a new object with the `PasswordID`, an `Status`: "**Password Queued for Reset(s). Check auditing data, or UI for results.**" and the `CurrentPassword` and `NewPassword` will be returned (encrypted).
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-PasswordStatePassword -PasswordlistID 5 -PasswordID 1 -Password "76y288uneeko%%%2A" -title "testuser01"
+Set-PasswordStatePassword -PasswordID 1 -Password "76y288uneeko%%%2A" -title "testuser01"
 ```
 
 Updates the password to "76y288uneeko%%%2A" for the entry named testuser01
 
-## PARAMETERS
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
+### EXAMPLE 2
+```
+Set-PasswordStatePassword -PasswordID 1 -GeneratePassword
 ```
 
-### -GenericField1
-{{Fill GenericField1 Description}}
+Update the password object and let PasswordState generate a new password
+
+### EXAMPLE 3
+```
+Set-PasswordStatePassword -PasswordID 1 -GeneratePassword -AccountTypeID 64 -PasswordResetEnabled -EnablePasswordResetSchedule -PasswordResetSchedule "23:00" -PrivilegedAccountID 1 -ADDomainNetBIOS "testdomain.local"
+```
+
+Update the password object and let PasswordState generate a new password. Activate Password resets for this object and also enabled recurring password resets to a daily schedule (11pm). For resets the privilegedAccount with ID 1 will be used. Since AccountTypeID 64 = ActiveDirectory also a AD Domain must be specified.
+
+### EXAMPLE 4
+```
+Set-PasswordStatePassword -PasswordID 1 -AllowExport -Username "testuser01" -Description "testusers2 description" -Url "https://www.google.de" -AccountTypeID 64 -GenericField1 "testuser@google.com" -ExpiryDate "23.05.2020" -PasswordResetEnabled -GeneratePassword
+```
+
+Updates the password of testuser01 by letting PasswordState generate a new password. The Username, Description, URL, AccountType will be updated. A value for GenericField1 will be set. An ExpiryDate will be set and the PasswordReset will be enabled. For this object also the export will be allowed.
+
+## PARAMETERS
+
+### -AccountType
+The name of the Account Type if one has been chosen for the Password record.  
+You can either specify the AccountType or AccountTypeID if needed when changing password records. Account Types and their ID values can be seen on the screen `Administration -> Passwordstate Administration -> Images and Account Types`, and click on the '**Toggle ID Column Visibility**' button to determine the appropriate value.
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 8
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -AccountTypeID
+The ID value representing the Account Type image (derived from the AccountTypes table). An AccountTypeID of 0 (zero) means there is no associated Account Type image for this Password.  
+You can either specify the AccountType or AccountTypeID if needed when changing password records. Account Types and their ID values can be seen on the screen `Administration -> Passwordstate Administration -> Images and Account Types`, and click on the '**Toggle ID Column Visibility**' button to determine the appropriate value.
+
+```yaml
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
@@ -66,8 +180,55 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -GenericField10
-{{Fill GenericField10 Description}}
+### -AddDaysToExpiryDate
+Once the password has been changed due to a scheduled reset, you can add an additional (x) number of days to the ExpiryDate field so another reset will occur again in 30, 60, 90 days, etc. This is the option on the Reset Options tab for the record.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 21
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ADDomainNetBIOS
+If the record relates to an Active Directory account, then you must specify the Active Directory NetBIOS value here, as it is stored on the `Administration -> PasswordState Administration -> Active Directory Domains` screen in PasswordState.
+
+```yaml
+Type: String
+Parameter Sets: Heartbeat, Reset, ResetSchedule
+Aliases:
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -AllowExport
+Indicates whether this Password object will be exported when the entire Password List contents are exported.  
+Only working if "`Allow Password List to be Exported`" is set on the password list.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 25
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Description
+Custom description to be added to the password.  
+Can be used as a longer verbose description of the nature of the Password object
 
 ```yaml
 Type: String
@@ -75,14 +236,102 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 18
+Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -GenericField2
-{{Fill GenericField2 Description}}
+### -EnablePasswordResetSchedule
+If you want to specify a regular scheduled for automatically resetting the value of the Password, you need to enable this option.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Reset
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: ResetSchedule
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ExpiryDate
+The date in which the password value should be reset for this Password object. The date will be displayed in the **format** specified for the `System Setting option 'Default Locale'`, through the PasswordState web site interface.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 24
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenerateGenFieldPassword
+If set to true, any '**Generic Fields**' which you have set to be of **type 'Password**' will have a newly generated random password assigned to it. If the Password List or Generic Field is set to use the user's Password Generator options, the Default Password Generator options will be used instead.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 20
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GeneratePassword
+A switch parameter to generate the password based of the PasswordList Policy.  
+A newly generated random password will be created based on the Password Generator options associated with the Password List. If the Password List is set to use the user's Password Generator options, the Default Password Generator options will be used instead.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: HeartbeatSchedule, Heartbeat, Reset, ResetSchedule
+Aliases:
+
+Required: False
+Position: 10
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: GeneratePassword
+Aliases:
+
+Required: True
+Position: 10
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField1
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -96,8 +345,29 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -GenericField3
-{{Fill GenericField3 Description}}
+### -GenericField10
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 19
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -GenericField2
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -111,8 +381,11 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -GenericField4
-{{Fill GenericField4 Description}}
+### -GenericField3
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -126,8 +399,11 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -GenericField5
-{{Fill GenericField5 Description}}
+### -GenericField4
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -141,8 +417,11 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -GenericField6
-{{Fill GenericField6 Description}}
+### -GenericField5
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -156,8 +435,11 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -GenericField7
-{{Fill GenericField7 Description}}
+### -GenericField6
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -171,8 +453,11 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -GenericField8
-{{Fill GenericField8 Description}}
+### -GenericField7
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -186,8 +471,11 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -GenericField9
-{{Fill GenericField9 Description}}
+### -GenericField8
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
 Type: String
@@ -201,18 +489,344 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -PreventAuditing
-{{Fill PreventAuditing Description}}
+### -GenericField9
+An optional parameter to set the generic field value.  
+A generic field is a string field which can be renamed to a different value when being displayed in the PasswordState web interface.
+
+**Note**: Generic Fields can be configured as different Field Types, so ensure you pass a valid value for text fields, Select Lists, Radio Buttons or Date Fields.
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 19
-Default value: False
+Position: 18
+Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -HeartbeatEnabled
+If you want to enable the record to perform regular account heartbeat status update apply this switch.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Heartbeat
+Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Reset, ResetSchedule
+Aliases:
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -HeartbeatSchedule
+This field allows you to set the schedule for the account heartbeat status update. Specify values in the format of 23:10, or 04:00, etc. (Range: 00:00-23:59)
+
+```yaml
+Type: String
+Parameter Sets: HeartbeatSchedule, Heartbeat, Reset, ResetSchedule
+Aliases:
+
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -HostName
+If the record relates to account on a Host, then you must specify the Host Name here, as it is stored on the Hosts screen in PasswordState.
+
+```yaml
+Type: String
+Parameter Sets: Heartbeat, Reset, ResetSchedule
+Aliases:
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Notes
+A generic Notes field where additional descriptive text can be added.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 6
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Password
+The new password to be added to the entry (stored as encrypted binary field in database).
+
+```yaml
+Type: String
+Parameter Sets: HeartbeatSchedule, Heartbeat, Reset, ResetSchedule
+Aliases:
+
+Required: False
+Position: 9
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+```yaml
+Type: String
+Parameter Sets: Password
+Aliases:
+
+Required: True
+Position: 9
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -PasswordID
+The ID of the password to be updated.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
+Default value: 0
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -PasswordResetEnabled
+This option will enable the account to perform Password Resets. To do this, the Password List the password record belongs to, must also have this option set.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Reset, Password, GeneratePassword
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -PasswordResetSchedule
+This field allows you to set the schedule for automatic password changes. Specify values in the format of 23:10, or 04:00, etc. (Range: 00:00 - 23:59)
+
+```yaml
+Type: String
+Parameter Sets: Reset
+Aliases:
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+```yaml
+Type: String
+Parameter Sets: ResetSchedule
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -PrivilegedAccountID
+Some Password Reset Scripts also require a `Privileged Account Credential` to be associated with the Password record, to initiate connection and perform the reset. Requirements for Privileged Accounts are documented in the User Manual, under the KB Article section. To look up the value of PrivilegedAccountID's, this can be done on the screen `Administration -> PasswordState Administration -> Privileged Account Credentials`.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 23
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Reason
+A reason which can be logged for auditing of why a password was updated.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 26
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ScriptID
+Most accounts require a Password Reset Script to be assigned to them, with the only exception being Active Directory Accounts - not to specify this field for AD Accounts. To look up the values of the ScriptID's, this can be done by using the '**Toggle ID Column Visibility**' button on the Password Reset Scripts screens in PasswordState.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 22
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Title
+Name of the entry to be updated.  
+A title to describe the nature of the Password object.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Url
+URL parameter where you can specify the URL for HTTP, HTTPS, FTP, SFTP, etc. to be updated if relevant.  
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 7
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Username
+The username to be updated (optional).  
+Some systems require a username and password to authenticate. This field represents the UserName to do so.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ValidateWithPrivAccount
+This field is only used for **Linux accounts**, and when set to True, the Privileged Account Credential will be used for Authentication when performing Account Heartbeats - useful for accounts like root which generally are not allowed to be used for SSH.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Heartbeat, Reset, ResetSchedule
+Aliases:
+
+Required: False
+Position: 8
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ValidationScriptID
+When enabling Account Heartbeat, you must associate the correct Password Validation Script to the record (all account types require a Validation Script to be selected). To look up the values of the ValidationScriptID's, this can be done by using the '**Toggle ID Column Visibility**' button on the Password Validation Scripts screens in PasswordState.
+
+```yaml
+Type: Int32
+Parameter Sets: Heartbeat, Reset, ResetSchedule
+Aliases:
+
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebPassword_ID
+This field is only used in conjunction with the Browser Extensions, and represents the Password field for login pages i.e. the tag name of the Input HTML field.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 25
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebUser_ID
+This field is only used in conjunction with the Browser Extensions, and represents the Username field for login pages i.e. the tag name of the Input HTML field.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 25
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -232,151 +846,20 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -domain
-Updated domain value
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -hostname
-Updated hostname value
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 5
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -notes
-Updated note value
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 6
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -password
-The new password to be added to the entry.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 1
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -passwordID
-The ID of the password to be updated.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: 0
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -reason
-A reason which can be logged for auditing of why a password was updated.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 8
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -title
-Updated title value
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 2
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -url
-Updated URL value
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 7
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -username
-Updated username Value
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### All fields must be specified, can be passed along the pipeline.
+### System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]
+
+### System.String
+
+### System.Management.Automation.SwitchParameter
+
 ## OUTPUTS
 
-### Will output all fields for the entry from passwordstate including the new password.
+### System.Object
 ## NOTES
-Daryl Newsholme 2018
 
 ## RELATED LINKS

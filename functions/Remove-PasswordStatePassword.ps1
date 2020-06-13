@@ -5,8 +5,8 @@
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
         [parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory = $true)][int32]$PasswordID,
-        [parameter(ValueFromPipeline, Position = 1, Mandatory = $false)][Switch]$SendToRecycleBin,
-        [parameter(ValueFromPipelineByPropertyName, Position = 2, Mandatory = $false)][string]$reason,
+        [parameter(ValueFromPipeline, Position = 1, Mandatory = $false)][Alias("MoveToRecycleBin")][Switch]$SendToRecycleBin,
+        [parameter(ValueFromPipelineByPropertyName, Position = 2, Mandatory = $false)][string]$Reason,
         [parameter(ValueFromPipelineByPropertyName, Position = 3)][switch]$PreventAuditing
     )
 
@@ -14,26 +14,29 @@
     }
 
     process {
-        If ($Reason) {
-            $headerreason = @{"Reason" = "$reason"}
-            $parms = @{ExtraParams = @{"Headers" = $headerreason}}
+        if ($Reason) {
+            $headerreason = @{"Reason" = "$Reason" }
+            $parms = @{ExtraParams = @{"Header" = $headerreason } }
         }
+        else { $parms = @{ } }
 
         $BuildURL = '?'
-        IF($SendToRecycleBin) {$BuildURL += "MoveToRecycleBin=$([System.Web.HttpUtility]::UrlEncode('True'))&"}
-        Else{$BuildURL += "MoveToRecycleBin=$([System.Web.HttpUtility]::UrlEncode('False'))&"}
-        If ($PreventAuditing) {$BuildURL += "PreventAuditing=$([System.Web.HttpUtility]::UrlEncode('True'))&"}
+        if ($SendToRecycleBin.IsPresent) { $BuildURL += "MoveToRecycleBin=$([System.Web.HttpUtility]::UrlEncode('true'))&" }
+        else { $BuildURL += "MoveToRecycleBin=$([System.Web.HttpUtility]::UrlEncode('false'))&" }
+        if ($PreventAuditing.IsPresent) { $BuildURL += "PreventAuditing=$([System.Web.HttpUtility]::UrlEncode('true'))&" }
         $BuildURL = $BuildURL -Replace ".$"
 
         $uri = "/api/passwords/$($PasswordID)$($BuildURL)"
 
-        if ($PSCmdlet.ShouldProcess("PasswordID:$($PasswordID) Recycle:$Sendtorecyclebin")) {
+        if ($PSCmdlet.ShouldProcess("PasswordID:$($PasswordID) Recycle:$SendToRecycleBin")) {
             try {
-                Remove-PasswordStateResource -uri $uri @parms -method Delete
+                Remove-PasswordStateResource -uri $uri @parms -method Delete -ErrorAction Stop
             }
             Catch {
                 throw $_.Exception
             }
+            # When a delete command is issued, there is generally no confirmation from the API.
+            Write-PSFMessage -Level Output -Message "The delete request was sent successfully."
         }
     }
 }

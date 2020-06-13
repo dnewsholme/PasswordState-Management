@@ -16,11 +16,11 @@
 
     process {
         If ($Reason) {
-            $headerreason = @{"Reason" = "$reason"}
-            $parms = @{ExtraParams = @{"Headers" = $headerreason}}
+            $headerreason = @{"Reason" = "$reason" }
+            $parms = @{ExtraParams = @{"Header" = $headerreason } }
         }
         Else {
-            $parms = @{}
+            $parms = @{ }
         }
         $uri = "/api/passwordhistory/$($PasswordID)"
         Switch ($PreventAuditing) {

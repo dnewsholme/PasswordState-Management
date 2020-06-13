@@ -1,4 +1,4 @@
-﻿function New-PasswordStatePasswordPermission {
+﻿function Set-PasswordStatePasswordPermission {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = '*UserID and *PasswordID are not a user and not a password')]
     [cmdletbinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'All')]
     param (
@@ -20,11 +20,11 @@
         switch ($Permission) {
             M {
                 $PermissionLevel = "Modify"
-                $AvailablePermissionLevel = @("View")
+                $AvailablePermissionLevel = @("View", "Mobile Access")
             }
             V {
                 $PermissionLevel = "View"
-                $AvailablePermissionLevel = @("Modify")
+                $AvailablePermissionLevel = @("Modify", "Mobile Access")
             }
         }
         if ($ApplyPermissionsForUserID) {
@@ -38,22 +38,25 @@
                 foreach ($Permissions in $AllPermissions) {
                     # We cannot identify if existing permissions were applied to password objects directly or on password lists. This is not supported for now with the api.
                     if (($Permissions.PasswordID -eq $PasswordID) -and ($Permissions.UserID -eq $ApplyPermissionsForUserID) -and ($Permissions.$PermissionLevel -eq "Yes")) {
-                        throw "UserID '$ApplyPermissionsForUserID' already has directly or indirectly (PasswordList) permissions (Permission '$Permission' ($PermissionLevel)) on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)')!"
+                        Write-PSFMessage -Level Verbose -Message "UserID '$ApplyPermissionsForUserID' already has directly or indirectly (PasswordList) permissions (Permission '$Permission' ($PermissionLevel)) on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)'  )!"
+                        break
                     }
                     elseif (($Permissions.PasswordID -eq $PasswordID) -and ($Permissions.UserID -eq $ApplyPermissionsForUserID)) {
                         foreach ($AvailablePermission in $AvailablePermissionLevel) {
                             if ($Permissions.$AvailablePermission -eq "Yes") {
-                                throw "UserID '$ApplyPermissionsForUserID' has directly or indirectly (PasswordList) Permission '$AvailablePermission' on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)')! Please use 'Set-PasswordStatePasswordPermission -Permission '$Permission' -ApplyPermissionsForUserID '$ApplyPermissionsForUserID' -PasswordID '$PasswordID'' to change the existing permissions."
+                                Write-PSFMessage -Level Verbose -Message "UserID '$ApplyPermissionsForUserID' has directly or indirectly (PasswordList) Permission '$AvailablePermission' on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)'  ), moving on!"
+                                break
                             }
                         }
                     }
                     else {
-                        Write-PSFMessage -Level Verbose -Message "UserID '$ApplyPermissionsForUserID' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)') so far, moving on..."
+                        Write-PSFMessage -Level Warning -Message "UserID '$ApplyPermissionsForUserID' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)'  ) so far! Please use 'New-PasswordStatePasswordPermission -Permission '$Permission' -ApplyPermissionsForUserID '$ApplyPermissionsForUserID' -PasswordID '$PasswordID'' to add new permissions."
+                        break
                     }
                 }
             }
             else {
-                Write-PSFMessage -Level Verbose -Message "UserID '$ApplyPermissionsForUserID' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)') so far, moving on..."
+                Write-PSFMessage -Level Warning -Message "UserID '$ApplyPermissionsForUserID' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)'  ) so far! Please use 'New-PasswordStatePasswordPermission -Permission '$Permission' -ApplyPermissionsForUserID '$ApplyPermissionsForUserID' -PasswordID '$PasswordID'' to add new permissions."
             }
         }
         if ($ApplyPermissionsForSecurityGroupName) {
@@ -67,23 +70,25 @@
                 foreach ($Permissions in $AllPermissions) {
                     # We cannot identify if existing permissions were applied to password objects directly or on password lists. This is not supported for now with the api.
                     if (($Permissions.PasswordID -eq $PasswordID) -and ($Permissions.SecurityGroupName -eq $ApplyPermissionsForSecurityGroupName) -and ($Permissions.$PermissionLevel -eq "Yes")) {
-                        throw "SecurityGroup '$ApplyPermissionsForSecurityGroupName' already has directly or indirectly (PasswordList) permissions (Permission '$Permission' ($PermissionLevel)) on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)')!"
+                        Write-PSFMessage -Level Verbose -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' already has directly or indirectly (PasswordList) permissions (Permission '$Permission' ($PermissionLevel)) on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)'  ). Please also check PasswordList permissions!"
+                        break
                     }
                     elseif (($Permissions.PasswordID -eq $PasswordID) -and ($Permissions.SecurityGroupName -eq $ApplyPermissionsForSecurityGroupName)) {
                         foreach ($AvailablePermission in $AvailablePermissionLevel) {
                             if ($Permissions.$AvailablePermission -eq "Yes") {
-                                throw "SecurityGroup '$ApplyPermissionsForSecurityGroupName' has directly or indirectly (PasswordList) Permission '$AvailablePermission' on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)')! Please use 'Set-PasswordStatePasswordPermission -Permission '$Permission' -ApplyPermissionsForUserID '$ApplyPermissionsForUserID' -PasswordID '$PasswordID'' to change the existing permissions."
+                                Write-PSFMessage -Level Verbose -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' has directly or indirectly (PasswordList) Permission '$AvailablePermission' on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)'  ), moving on!"
+                                break
                             }
                         }
                     }
                     else {
-                        Write-PSFMessage -Level Verbose -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)') so far, moving on..."
+                        Write-PSFMessage -Level Warning -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)'  ) so far! Please use 'New-PasswordStatePasswordPermission -Permission '$Permission' -ApplyPermissionsForSecurityGroupName '$ApplyPermissionsForSecurityGroupName' -PasswordID '$PasswordID'' to add new permissions."
                         break
                     }
                 }
             }
             else {
-                Write-PSFMessage -Level Verbose -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)') so far, moving on..."
+                Write-PSFMessage -Level Warning -Message "SecurityGroup '$ApplyPermissionsForSecurityGroupName' does not have any permission on Password '$($Permissions.Title)' with ID '$PasswordID' (PasswordList: '$($Permissions.PasswordList)', Path: '$($Permissions.TreePath)'  ) so far! Please use 'New-PasswordStatePasswordPermission -Permission '$Permission' -ApplyPermissionsForSecurityGroupName '$ApplyPermissionsForSecurityGroupName' -PasswordID '$PasswordID'' to add new permissions."
             }
         }
         if ($ApplyPermissionsForSecurityGroupID) {
@@ -109,7 +114,7 @@
             # Sort the CustomObject and then covert body to json and execute the api query
             $body = "$($body | ConvertTo-Json)"
             try {
-                $output = New-PasswordStateResource -uri "/api/passwordpermissions" -body $body -ErrorAction Stop
+                $output = Set-PasswordStateResource -uri "/api/passwordpermissions" -body $body -ErrorAction Stop
             }
             catch {
                 throw $_.Exception
@@ -123,3 +128,5 @@
         }
     }
 }
+
+Set-Alias -Name Update-PasswordStatePasswordPermission -Value Set-PasswordStatePasswordPermission -Force

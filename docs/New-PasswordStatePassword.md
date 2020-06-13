@@ -21,8 +21,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
  [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
  [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### HeartbeatSchedule
@@ -35,7 +35,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
  [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
  [-HeartbeatSchedule] <String> [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
- [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### Heartbeat
@@ -49,8 +50,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled]
  [[-HeartbeatSchedule] <String>] [-ValidationScriptID] <Int32> [[-HostName] <String>]
  [[-ADDomainNetBIOS] <String>] [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### Reset
@@ -65,7 +66,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
  [[-ValidationScriptID] <Int32>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
  [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
- [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### ResetSchedule
@@ -80,7 +82,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [-HeartbeatEnabled] [[-HeartbeatSchedule] <String>]
  [[-ValidationScriptID] <Int32>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
  [-ValidateWithPrivAccount] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
- [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### Password
@@ -92,8 +95,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
  [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
  [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### GeneratePassword
@@ -105,8 +108,8 @@ New-PasswordStatePassword [-PasswordListID] <Int32> [-Title] <String> [[-Usernam
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
  [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
  [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [-SkipExistenceCheck] [[-Reason] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -158,21 +161,6 @@ Creates a new password entry with AccountType 61 (Ubuntu) enabled password reset
 
 ## PARAMETERS
 
-### -ADDomainNetBIOS
-If the record relates to an Active Directory account, then you must specify the Active Directory NetBIOS value here, as it is stored on the `Administration -> PasswordState Administration -> Active Directory Domains` screen in PasswordState.
-
-```yaml
-Type: String
-Parameter Sets: Heartbeat, Reset, ResetSchedule
-Aliases:
-
-Required: False
-Position: 4
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -AccountType
 The name of the Account Type if one has been chosen for the Password record.  
 You can either specify the AccountType or AccountTypeID if needed when adding password records. Account Types and their ID values can be seen on the screen `Administration -> Passwordstate Administration -> Images and Account Types`, and click on the '**Toggle ID Column Visibility**' button to determine the appropriate value.
@@ -220,6 +208,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -ADDomainNetBIOS
+If the record relates to an Active Directory account, then you must specify the Active Directory NetBIOS value here, as it is stored on the `Administration -> PasswordState Administration -> Active Directory Domains` screen in PasswordState.
+
+```yaml
+Type: String
+Parameter Sets: Heartbeat, Reset, ResetSchedule
+Aliases:
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -AllowExport
 Indicates whether this Password object will be exported when the entire Password List contents are exported.  
 Only working if "Allow Password List to be Exported" is set on the password list.
@@ -233,21 +236,6 @@ Required: False
 Position: 25
 Default value: None
 Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -705,6 +693,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -Reason
+A reason which can be logged for auditing of why a password was updated.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 27
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -ScriptID
 Most accounts require a Password Reset Script to be assigned to them, with the only exception being Active Directory Accounts - not to specify this field for AD Accounts. To look up the values of the ScriptID's, this can be done by using the '**Toggle ID Column Visibility**' button on the Password Reset Scripts screens in PasswordState.
 
@@ -729,7 +732,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 30
+Position: 26
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -854,6 +857,21 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
@@ -884,7 +902,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
-
 ## NOTES
 
 ## RELATED LINKS
