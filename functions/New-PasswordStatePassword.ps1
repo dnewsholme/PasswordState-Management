@@ -129,7 +129,7 @@
         # Add a reason to the audit log if specified
         If ($Reason) {
             $headerreason = @{"Reason" = "$Reason" }
-            $parms = @{ExtraParams = @{"Header" = $headerreason } }
+            $parms = @{ExtraParams = @{"Headers" = $headerreason } }
         }
         else { $parms = @{ } }
         # if -SkipExistenceCheck is applied, no check if the requested password entry exists is executed

@@ -17,7 +17,7 @@
     process {
         If ($Reason) {
             $headerreason = @{"Reason" = "$reason" }
-            $parms = @{ExtraParams = @{"Header" = $headerreason } }
+            $parms = @{ExtraParams = @{"Headers" = $headerreason } }
         }
         Else {
             $parms = @{ }
