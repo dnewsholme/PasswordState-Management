@@ -41,10 +41,15 @@ class PasswordResult {
     }
     [PSCredential]ToPSCredential() {
         $user = ''
-        If (-not ([String]::IsNullOrEmpty($this.Domain))) {
-            $user += "$($this.Domain)\"
+        if ($this.Username -match '(.*)@(.*)') {
+            $user = "$($this.Username)"
         }
-        $user += "$($this.Username)"
+        else {
+            if (-not ([String]::IsNullOrEmpty($this.Domain))) {
+                $user += "$($this.Domain)\"
+            }
+            $user += "$($this.Username)"
+        }
         $result = [String]::IsNullOrEmpty($this.Password.Password)
         If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
             $output = [PSCredential]::new($user, $this.Password.Password)
