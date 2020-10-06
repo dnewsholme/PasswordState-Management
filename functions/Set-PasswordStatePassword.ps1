@@ -1,4 +1,5 @@
-﻿function Set-PasswordStatePassword {
+﻿function Set-PasswordStatePassword
+{
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'API requires password be passed as plain text')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingUserNameAndPassWordParams', '', Justification = 'API requires password be passed as plain text')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Needed for backward compatability')]
@@ -18,7 +19,8 @@
                 $regex = [Regex]::Escape($InvalidChars)
                 $regex = "[$regex]"
                 $Invalid = [Regex]::Matches($_, $regex, 'IgnoreCase') | Select-Object -ExpandProperty Value | Sort-Object -Unique
-                if ($null -ne $Invalid) {
+                if ($null -ne $Invalid)
+                {
                     throw "ERROR: The specified password contains the following illegal characters: '$Invalid'. Please do not use the characters '$InvalidChars' in your password since the api does not understand these characters."
                 }
                 return $true
@@ -56,10 +58,12 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $true, ParameterSetName = "ResetSchedule", Position = 2)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 2)]
         [ValidateScript( {
-                if ($_ -notmatch '^(([0-1][0-9]|[2-2][0-3]):([0-5][0-9]))$') {
+                if ($_ -notmatch '^(([0-1][0-9]|[2-2][0-3]):([0-5][0-9]))$')
+                {
                     throw "Given PasswordResetSchedule '$_' is not a valid Schedule! Please specify a correct schedule in (Date)Time Format, e.g. '23:10', '00:15', '09:00' from 00:00-23:59."
                 }
-                else {
+                else
+                {
                     $true
                 }
             })]
@@ -76,10 +80,12 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 5)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 5)]
         [ValidateScript( {
-                if ($_ -notmatch '^(([0-1][0-9]|[2-2][0-3]):([0-5][0-9]))$') {
+                if ($_ -notmatch '^(([0-1][0-9]|[2-2][0-3]):([0-5][0-9]))$')
+                {
                     throw "Given HeartbeatSchedule '$_' is not a valid Schedule! Please specify a correct schedule in (Date)Time Format, e.g. '23:10', '00:15', '09:00' from 00:00-23:59."
                 }
-                else {
+                else
+                {
                     $true
                 }
             })]
@@ -94,18 +100,21 @@
         [string]$ADDomainNetBIOS,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Heartbeat", Position = 3)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 6)]
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = )]
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 6)]
         [switch]$ValidateWithPrivAccount,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 24)]
         [ValidateScript( {
                 # The dates for the ExpiryDate needs to be culture aware, so we cannot validate a specific date format.
-                function isDate([string]$StrDate) {
+                function isDate([string]$StrDate)
+                {
                     [boolean]($StrDate -as [DateTime])
                 }
-                if (!(isDate $_)) {
+                if (!(isDate $_))
+                {
                     throw "Given ExpiryDate '$_' is not a valid Date format. Also, please specify the ExpiryDate in the date format that you have chosen in 'System Settings - miscellaneous - Default Locale' (Default: 'YYYY-MM-DD')."
                 }
-                else {
+                else
+                {
                     $true
                 }
             })]
@@ -116,60 +125,80 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 26)][string]$Reason
     )
 
-    begin {
+    begin
+    {
         # Import PasswordState Environment for validation of PasswordsInPlainText setting
         $PWSProfile = Get-PasswordStateEnvironment
         # Add a reason to the audit log if specified
-        If ($Reason) {
+        If ($Reason)
+        {
             $headerreason = @{"Reason" = "$reason" }
             $parms = @{ExtraParams = @{"Headers" = $headerreason } }
         }
         else { $parms = @{ } }
     }
 
-    process {
-        if ($PasswordID) {
-            try {
+    process
+    {
+        if ($PasswordID)
+        {
+            try
+            {
                 $result = Get-PasswordStatePassword -PasswordID $PasswordID -ErrorAction Stop
             }
-            catch {
+            catch
+            {
                 throw "Given PasswordID '$PasswordID' not found"
             }
             Write-PSFMessage -Level Verbose -Message "Password with PasswordID '$PasswordID' found. Updating password '$($result.title)'..."
         }
-        else {
+        else
+        {
             throw "Please apply '-PasswordID'! PasswordID is needed to update passwords."
         }
-        if ($PSCmdlet.ShouldProcess("PasswordID:$($result.PasswordID) Title:$($result.Title)")) {
+        if ($PSCmdlet.ShouldProcess("PasswordID:$($result.PasswordID) Title:$($result.Title)"))
+        {
             # Loop through each of the bound parameters and set the updated value on the object.
-            foreach ($i in $PSBoundParameters.Keys) {
+            foreach ($i in $PSBoundParameters.Keys)
+            {
                 # Replace Result property with that of the bound parameter
                 $NotProcess = "PreventAuditing", "Reason", "verbose", "erroraction", "debug", "whatif", "confirm"
-                if ($NotProcess -notcontains $i) {
-                    if ($i -eq "Password" -and $PSBoundParameters.$($i) -eq "EncryptedPassword") {
+                if ($NotProcess -notcontains $i)
+                {
+                    if ($i -eq "Password" -and $PSBoundParameters.$($i) -eq "EncryptedPassword")
+                    {
                         $result.DecryptPassword()
                     }
-                    else {
+                    else
+                    {
                         # if existing result object does contain a specified property replace it with the specified property value
-                        if (Get-Member -InputObject $result -MemberType Property -Name $i) {
+                        if (Get-Member -InputObject $result -MemberType Property -Name $i)
+                        {
                             $result.$($i) = $PSBoundParameters.$($i)
                         }
                         # if existing result object does NOT contain a specified property, create a new member and add the new value
-                        else {
+                        else
+                        {
                             # if specified property type is a switch parameter, we need to specified the value of sub property IsPresent
-                            if ($PSBoundParameters.$($i).GetType().Name -eq "SwitchParameter") {
-                                try {
+                            if ($PSBoundParameters.$($i).GetType().Name -eq "SwitchParameter")
+                            {
+                                try
+                                {
                                     $result | Add-Member -MemberType NoteProperty -Name $i -Value $PSBoundParameters.$($i).IsPresent -ErrorAction Stop
                                 }
-                                catch {
+                                catch
+                                {
                                     throw $_.Exception
                                 }
                             }
-                            else {
-                                try {
+                            else
+                            {
+                                try
+                                {
                                     $result | Add-Member -MemberType NoteProperty -Name $i -Value $PSBoundParameters.$($i) -ErrorAction Stop
                                 }
-                                catch {
+                                catch
+                                {
                                     throw $_.Exception
                                 }
                             }
@@ -184,8 +213,10 @@
             # Get all properties from the object.
             $properties = ($body | Get-Member -Force | Where-Object { $_.MemberType -eq "Property" -or $_.MemberType -eq "NoteProperty" }).Name
             # Get only those properties which aren't empty and add them to our selection array.
-            foreach ($item in $properties) {
-                if ($body.$($item) -notlike $null) {
+            foreach ($item in $properties)
+            {
+                if ($body.$($item) -notlike $null)
+                {
                     $selections += $item
                 }
             }
@@ -194,41 +225,53 @@
             # Write back to password state.
             $uri = "/api/passwords"
             $body = "$($body | ConvertTo-Json)"
-            try {
+            try
+            {
                 $output = Set-PasswordStateResource -uri $uri -body $body @parms -ErrorAction Stop
             }
-            catch {
+            catch
+            {
                 throw $_.Exception
             }
-            if ($output) {
-                if ((Get-Member -InputObject $output -MemberType NoteProperty -Name Status) -and (Get-Member -InputObject $output -MemberType NoteProperty -Name CurrentPassword) -and (Get-Member -InputObject $output -MemberType NoteProperty -Name NewPassword)) {
-                    try {
+            if ($output)
+            {
+                if ((Get-Member -InputObject $output -MemberType NoteProperty -Name Status) -and (Get-Member -InputObject $output -MemberType NoteProperty -Name CurrentPassword) -and (Get-Member -InputObject $output -MemberType NoteProperty -Name NewPassword))
+                {
+                    try
+                    {
                         [PasswordResetResult]$output = $output
                     }
-                    catch {
+                    catch
+                    {
                         throw $_.Exception
                     }
-                    if (!$PWSProfile.PasswordsInPlainText) {
+                    if (!$PWSProfile.PasswordsInPlainText)
+                    {
                         $output.CurrentPassword = [EncryptedPassword]$output.CurrentPassword
                         $output.NewPassword = [EncryptedPassword]$output.NewPassword
                     }
                     return
                 }
-                try {
+                try
+                {
                     [PasswordResult]$output = $output
                 }
-                catch {
+                catch
+                {
                     throw $_.Exception
                 }
-                if (!$PWSProfile.PasswordsInPlainText) {
+                if (!$PWSProfile.PasswordsInPlainText)
+                {
                     $output.Password = [EncryptedPassword]$output.Password
                 }
             }
         }
     }
 
-    end {
-        if ($output) {
+    end
+    {
+        if ($output)
+        {
             return $output
         }
     }
