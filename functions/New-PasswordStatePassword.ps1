@@ -88,19 +88,13 @@
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 5)]
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 5)]
         [Nullable[System.Int32]]$ValidationScriptID = $null,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 6)]
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 6)]
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Heartbeat", Position = 3)]
         [ValidateLength(1, 200)]
         [string]$HostName,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 7)]
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 7)]
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Heartbeat", Position = 4)]
         [ValidateLength(1, 50)]
         [string]$ADDomainNetBIOS,
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Heartbeat", Position = 5)]
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 8)]
-        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 8)]
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Heartbeat", Position = 3)]
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "Reset", Position = 6)]
+        [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, ParameterSetName = "ResetSchedule", Position = 6)]
         [switch]$ValidateWithPrivAccount,
         [parameter(ValueFromPipelineByPropertyName, Mandatory = $false, Position = 24)]
         [ValidateScript( {
