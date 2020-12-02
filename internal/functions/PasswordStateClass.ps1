@@ -50,17 +50,19 @@ class PasswordResult {
             }
             $user += "$($this.Username)"
         }
-        $result = [String]::IsNullOrEmpty($this.Password.Password)
-        If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
-            $output = [PSCredential]::new($user, $this.Password.Password)
-            return $output
+        $result = if ($null -eq $this.Password -or "" -eq $this.Password){
+            $true
         }
         if ($result -eq $true) {
             return $null
         }
+        If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
+            $output = [PSCredential]::new($user, $this.Password.Password)
+            return $output
+        }
         Else {
             $this.Password = [EncryptedPassword]$this.Password
-            $output = [PSCredential]::new($user, $this.Password.Password)
+            $output = [PSCredential]::new($user,$(ConvertTo-SecureString "$($this.Password.Password)" -AsPlainText -Force))
             return $output
         }
     }
