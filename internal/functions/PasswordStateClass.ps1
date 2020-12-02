@@ -62,7 +62,7 @@ class PasswordResult {
         }
         Else {
             $this.Password = [EncryptedPassword]$this.Password
-            $output = [PSCredential]::new($user,$(ConvertTo-SecureString "$($this.Password.Password)" -AsPlainText -Force))
+            $output = [PSCredential]::new($user,$(ConvertTo-SecureString "$($this.Password)" -AsPlainText -Force))
             return $output
         }
     }
