@@ -1,6 +1,8 @@
 ﻿[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'Script is converting to secure string.')]
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'Script is converting to secure string.')]
 # Create Class
+param()
+
 Class EncryptedPassword {
     EncryptedPassword ($Password) {
         $result = [string]::IsNullOrEmpty($Password)
