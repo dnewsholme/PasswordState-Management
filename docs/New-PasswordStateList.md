@@ -410,7 +410,7 @@ When apply permissions to the newly created Password List (for a User or Securit
 Type: String
 Parameter Sets: Permission
 Aliases:
-Accepted values: A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V
+Accepted values: A, M, V, A, M, V
 
 Required: True
 Position: 12
@@ -423,7 +423,7 @@ Accept wildcard characters: False
 Type: String
 Parameter Sets: Private
 Aliases:
-Accepted values: A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V, A, M, V
+Accepted values: A, M, V, A, M, V
 
 Required: False
 Position: 12

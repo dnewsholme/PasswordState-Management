@@ -16,7 +16,7 @@
         # Add a reason to the audit log if specified
         if ($Reason) {
             $headerreason = @{"Reason" = "$Reason" }
-            $parms = @{ExtraParams = @{"Header" = $headerreason } }
+            $parms = @{ExtraParams = @{"Headers" = $headerreason } }
         }
         else { $parms = @{ } }
     }

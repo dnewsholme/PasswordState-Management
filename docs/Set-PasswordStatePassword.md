@@ -20,9 +20,9 @@ Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username]
  [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
  [[-GenericField10] <String>] [-GenerateGenFieldPassword] [[-AddDaysToExpiryDate] <Int32>]
- [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-ExpiryDate] <String>] [-AllowExport]
- [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>]
+ [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
+ [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### HeartbeatSchedule
@@ -34,8 +34,9 @@ Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username]
  [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
  [[-GenericField9] <String>] [[-GenericField10] <String>] [-GenerateGenFieldPassword]
  [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
- [[-HeartbeatSchedule] <String>] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
- [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-HeartbeatSchedule] <String>] [[-HostName] <String>] [[-ADDomainNetBIOS] <String>] [[-ExpiryDate] <String>]
+ [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### Heartbeat
@@ -91,9 +92,9 @@ Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username]
  [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
  [[-GenericField10] <String>] [-GenerateGenFieldPassword] [-PasswordResetEnabled]
- [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
- [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
- [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-HostName] <String>]
+ [[-ADDomainNetBIOS] <String>] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
+ [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### GeneratePassword
@@ -104,9 +105,9 @@ Set-PasswordStatePassword [-PasswordID] <Int32> [[-Title] <String>] [[-Username]
  [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
  [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
  [[-GenericField10] <String>] [-GenerateGenFieldPassword] [-PasswordResetEnabled]
- [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>]
- [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>] [[-WebPassword_ID] <String>]
- [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-AddDaysToExpiryDate] <Int32>] [[-ScriptID] <Int32>] [[-PrivilegedAccountID] <Int32>] [[-HostName] <String>]
+ [[-ADDomainNetBIOS] <String>] [[-ExpiryDate] <String>] [-AllowExport] [[-WebUser_ID] <String>]
+ [[-WebPassword_ID] <String>] [[-Reason] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -200,13 +201,13 @@ If the record relates to an Active Directory account, then you must specify the 
 
 ```yaml
 Type: String
-Parameter Sets: Heartbeat, Reset, ResetSchedule
+Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 4
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -554,13 +555,13 @@ If the record relates to account on a Host, then you must specify the Host Name 
 
 ```yaml
 Type: String
-Parameter Sets: Heartbeat, Reset, ResetSchedule
+Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 3
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

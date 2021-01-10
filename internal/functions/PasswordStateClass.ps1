@@ -1,6 +1,8 @@
 ﻿[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'Script is converting to secure string.')]
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'Script is converting to secure string.')]
 # Create Class
+param()
+
 Class EncryptedPassword {
     EncryptedPassword ($Password) {
         $result = [string]::IsNullOrEmpty($Password)
@@ -41,23 +43,29 @@ class PasswordResult {
     }
     [PSCredential]ToPSCredential() {
         $user = ''
-        If (-not ([String]::IsNullOrEmpty($this.Domain))) {
-            $user += "$($this.Domain)\"
+        if ($this.Username -match '(.*)@(.*)') {
+            $user = "$($this.Username)"
         }
-        $user += "$($this.Username)"
-        $result = [String]::IsNullOrEmpty($this.Password.Password)
-        If ($this.Password.GetType().Name -ne 'String' -and $result -eq $false) {
+        else {
+            if (-not ([String]::IsNullOrEmpty($this.Domain))) {
+                $user += "$($this.Domain)\"
+            }
+            $user += "$($this.Username)"
+        }
+       
+        If ($this.Password.GetType().Name -ne 'String') {
             $output = [PSCredential]::new($user, $this.Password.Password)
             return $output
         }
-        if ($result -eq $true) {
-            return $null
-        }
-        Else {
-            $this.Password = [EncryptedPassword]$this.Password
-            $output = [PSCredential]::new($user, $this.Password.Password)
+
+        Else{
+            if($this.Password.Length -lt 1){
+                return $null
+            }
+            $output = [PSCredential]::new($user, $(ConvertTo-SecureString -String $this.Password -AsPlainText -Force))
             return $output
         }
+
     }
     [String]$Description
     [String]$Domain
