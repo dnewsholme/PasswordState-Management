@@ -38,14 +38,14 @@ This enables quickly calling the API without having to enter a key each time or 
 
 ### EXAMPLE 1
 ```
-Set-PasswordStateEnvironment -baseuri "https://passwordstateserver" -UseWindowsAuthOnly
+Set-PasswordStateEnvironment -Uri "https://passwordstateserver" -UseWindowsAuthOnly
 ```
 
 Sets to use windows passthrough authentication to interact with the API
 
 ### EXAMPLE 2
 ```
-Set-PasswordStateEnvironment -baseuri "https://passwordstateserver" -APIKey "hdijdiwkjod9wu9dikwokd3uerunh"
+Set-PasswordStateEnvironment -Uri "https://passwordstateserver" -APIKey "hdijdiwkjod9wu9dikwokd3uerunh"
 ```
 
 Sets to use an API key interact with the API.
