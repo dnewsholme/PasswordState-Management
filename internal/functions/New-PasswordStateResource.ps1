@@ -57,7 +57,7 @@ function New-PasswordStateResource {
             "URI"             = "$($PasswordStateEnvironment.baseuri)$uri"
             "Method"          = $method.ToUpper()
             "ContentType"     = $ContentType
-            "Body"            = $body
+            "Body"            = [System.Text.Encoding]::UTF8.GetBytes($body)
         }
         if ($body) {
             Write-PSFMessage -Level Verbose -Message "Using body $($body)"
