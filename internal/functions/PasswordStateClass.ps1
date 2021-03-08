@@ -52,14 +52,13 @@ class PasswordResult {
             }
             $user += "$($this.Username)"
         }
-       
         If ($this.Password.GetType().Name -ne 'String') {
             $output = [PSCredential]::new($user, $this.Password.Password)
             return $output
         }
 
-        Else{
-            if($this.Password.Length -lt 1){
+        Else {
+            if ($this.Password.Length -lt 1) {
                 return $null
             }
             $output = [PSCredential]::new($user, $(ConvertTo-SecureString -String $this.Password -AsPlainText -Force))
@@ -82,12 +81,14 @@ class PasswordResult {
     [String]$GenericField8
     [String]$GenericField9
     [String]$GenericField10
+    [System.Array]$GenericFieldInfo
     [Nullable[System.Int32]]$AccountTypeID
     [string]$Notes
     [string]$URL
     [string]$ExpiryDate
     [System.Boolean]$AllowExport
     [string]$AccountType
+    [System.Array]$OTP
     # Constructor used to initiate the default property set.
     PasswordResult() {
         [string[]]$DefaultProperties = 'PasswordID', 'Title', 'Username', 'Password', 'Description', 'Domain'
