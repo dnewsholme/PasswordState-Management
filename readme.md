@@ -5,7 +5,7 @@
 [![GalleryVersion](https://img.shields.io/powershellgallery/dt/passwordstate-management.svg)](https://www.powershellgallery.com/packages/passwordstate-management)
 ![PowershellVersion](https://img.shields.io/powershellgallery/p/passwordstate-management.svg)
 
-![PasswordState Logo](https://www.clickstudios.com.au/assets/images/laptop-1.png)
+![PasswordState Logo](https://www.clickstudios.com.au/assets/images/laptop-v9.png)
 
 ## Introduction
 
