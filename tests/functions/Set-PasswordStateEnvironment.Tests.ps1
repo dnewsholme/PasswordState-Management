@@ -10,6 +10,12 @@ BeforeAll {
     Import-Module -Name "$($PSScriptRoot)\..\..\passwordstate-management.psd1" -Force
 }
 Describe 'Set-PasswordstateEnvironment' {
+    BeforeAll {
+        Import-Module -Name "$($PSScriptRoot)\..\..\passwordstate-management.psd1" -Force
+    }
+    AfterAll {
+        Remove-Module -Name 'passwordstate-management' -ErrorAction SilentlyContinue
+    }
     Context "Validate parameter '<ParameterName>'" -Foreach @(
         @{ParameterName='Uri';Mandatory='True';ParameterSetName='__AllParameterSets'}
        ,@{ParameterName='ApiKey';Mandatory='False';ParameterSetName='One'}
@@ -32,7 +38,11 @@ Describe 'Set-PasswordstateEnvironment' {
         
     }
     Context "Unit testing with api key" {
+        BeforeEach {
+            Import-Module -Name "$($PSScriptRoot)\..\..\passwordstate-management.psd1" -Force
+        }
         AfterEach {
+            Remove-Module -Name 'passwordstate-management' -ErrorAction SilentlyContinue
             if ( Get-Item -LiteralPath "$($ProfilePath)\passwordstate.json" -ErrorAction SilentlyContinue ) {
                 Remove-Item -Path "$($ProfilePath)\passwordstate.json" -Force
             }
@@ -52,11 +62,20 @@ Describe 'Set-PasswordstateEnvironment' {
             $ConfigFile = Get-Item -LiteralPath "$($ProfilePath)\passwordstate.json" -ErrorAction SilentlyContinue
             $Config = Get-Content $ConfigFile | ConvertFrom-Json
             $Config."$configname" | Should -BeExactly $Value
-
+        }
+        It 'Should set the script parameter Path for future references' {
+            Invoke-Expression "$FunctionName -Uri '$TestUri' -WindowsAuthOnly -Path '$ProfilePath'" | Out-Null
+            InModuleScope -ModuleName 'passwordstate-management' {
+                $Script:Preferences.Path | Should -BeExactly "TestDrive:\"
+            }
         }
     }
     Context "Unit testing with Windows Authentication" {
+        BeforeEach {
+            Import-Module -Name "$($PSScriptRoot)\..\..\passwordstate-management.psd1" -Force
+        }
         AfterEach {
+            Remove-Module -Name 'passwordstate-management' -ErrorAction SilentlyContinue
             if ( Get-Item -LiteralPath "$($ProfilePath)\passwordstate.json" -ErrorAction SilentlyContinue ) {
                 Remove-Item -Path "$($ProfilePath)\passwordstate.json" -Force
             }
@@ -75,9 +94,19 @@ Describe 'Set-PasswordstateEnvironment' {
             $Config = Get-Content $ConfigFile | ConvertFrom-Json
             $Config."$configname" | Should -BeExactly $Value
         }
+        It 'Should set the script parameter Path for future references' {
+            Invoke-Expression "$FunctionName -Uri '$TestUri' -WindowsAuthOnly -Path '$ProfilePath'" | Out-Null
+            InModuleScope -ModuleName 'passwordstate-management' {
+                $Script:Preferences.Path | Should -BeExactly "TestDrive:\"
+            }
+        }
     }
     Context "Unit testing with Windows custom credentials" {
+        BeforeEach {
+            Import-Module -Name "$($PSScriptRoot)\..\..\passwordstate-management.psd1" -Force
+        }
         AfterEach {
+            Remove-Module -Name 'passwordstate-management' -ErrorAction SilentlyContinue
             if ( Get-Item -LiteralPath "$($ProfilePath)\passwordstate.json" -ErrorAction SilentlyContinue ) {
                 Remove-Item -Path "$($ProfilePath)\passwordstate.json" -Force
             }
@@ -94,6 +123,12 @@ Describe 'Set-PasswordstateEnvironment' {
             $ConfigFile = Get-Item -LiteralPath "$($ProfilePath)\passwordstate.json" -ErrorAction SilentlyContinue
             $Config = Get-Content $ConfigFile | ConvertFrom-Json
             $Config."$configname" | Should -BeExactly $Value
+        }
+        It 'Should set the script parameter Path for future references' {
+            Invoke-Expression "$FunctionName -Uri '$TestUri' -WindowsAuthOnly -Path '$ProfilePath'" | Out-Null
+            InModuleScope -ModuleName 'passwordstate-management' {
+                $Script:Preferences.Path | Should -BeExactly "TestDrive:\"
+            }
         }
     }
 }
