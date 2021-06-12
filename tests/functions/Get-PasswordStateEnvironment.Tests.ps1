@@ -1,81 +1,82 @@
-﻿Remove-Module PasswordState-Management -Force -ErrorAction SilentlyContinue
-Import-module "$($PSScriptRoot)\..\..\Passwordstate-management.psd1" -Force
-. "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
-InModuleScope -ModuleName 'PasswordState-Management' {
-    Describe 'Get-PasswordStateEnvironment' {
-        BeforeAll {
-            $FunctionName='Get-PasswordStateEnvironment'
-            $PWSUri = 'https://passwordstate.local'
-            $PWSCredential = [pscredential]::new('MyUser',(ConvertTo-SecureString -AsPlainText -Force -String 'VerySecurePassword'))
-            $ParameterTestCases=@(
-                @{ParameterName='Path';Mandatory='False'}
-            )
-            if (Test-Path "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json") {
-                Rename-Item "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
-            }
+BeforeAll {
+    $FunctionName='Get-PasswordstateEnvironment'
+    $AttributeType='System.Management.Automation.ParameterAttribute'
+    $TestUri = 'https://passwordstate.local'
+    $ProfilePath= 'TestDrive:\'
+    $ApiKey='somekey'
+    $UserName='someusername'
+    $Password='SuperSecure'
+    $Credential = [pscredential]::new( $UserName, (ConvertTo-SecureString -AsPlainText -String $Password -Force))
+    if (Test-Path "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json") {
+        Rename-Item "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
+    }
+    Import-Module -Name "$($PSScriptRoot)\..\..\passwordstate-management.psd1" -Force
+}
+Describe "Get-PasswordstateEnvironment" {
+    Context "Validate Parameter <ParameterName>" -Foreach @(
+        @{ParameterName='Path';Mandatory='False'}
+    ) {
+        It "should have a parameter <ParameterName>" {
+            $ParameterName | Should -BeIn (Get-Command -Name $FunctionName).Parameters.Keys
         }
-        AfterAll {
-            if (Test-Path "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json") {
-                Rename-Item "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
-            }
+        It "should have Mandatory value set to <Mandatory> for parameter <ParameterName>" {
+            $TestParameter = (Get-Command -Name $FunctionName).Parameters[$ParameterName]
+            (($TestParameter.Attributes | Where-Object { $_.gettype().Fullname -eq $AttributeType}).Mandatory) | Should -BeExactly $Mandatory
         }
-        Context 'Parameter validation' {
-            It 'Should have a parameter <ParameterName>' -TestCases $ParameterTestCases {
-                param($ParameterName)
-                (Get-Command -Name $FunctionName).Parameters[$ParameterName] | should -Not -BeNullOrEmpty
-            }
-            It 'Should have a parameter <ParameterName> with Mandatory set to <Mandatory>' -TestCases $ParameterTestCases {
-                param($ParameterName, $Mandatory)
-                "$(((Get-Command -Name $FunctionName).Parameters[$ParameterName].Attributes | Where-Object { $_.gettype().Fullname -eq 'System.Management.Automation.ParameterAttribute'}).Mandatory)" | should -be $Mandatory
-            }
+    }
+    Context "Error unit testing" {
+        It "Should throw when no config file can be found" {
+            Remove-Item -Path "$($ProfilePath)\passwordstate.json" -ErrorAction SilentlyContinue -Force
+            { Invoke-Expression -Command "$($FunctionName) -Path '$($ProfilePath)'"} | Should -Throw
         }
-        Context 'Error unit testing' {
-            It 'Should throw when no jsonfile can be found' {
-                Remove-Item 'TestDrive:PasswordState.json' -ErrorAction SilentlyContinue -Force
-                { Get-PasswordStateEnvironment -path 'TestDrive:'} | Should -Throw
-            }
+    }
+    Context "APIKey Unit Testing" {
+        BeforeEach {
+            Set-PasswordStateEnvironment -path 'TestDrive:' -Baseuri $TestUri -Apikey $Apikey
         }
-        Context 'APIKey unit testing' {
-            BeforeEach {
-                Set-PasswordStateEnvironment -path 'TestDrive:' -Baseuri $PWSUri -Apikey 'KeyString'
-            }
-            AfterEach {
-                Remove-Item -Path 'TestDrive:\Passwordstate.json' -Confirm:$false -Force
-            }
-            It 'Should return a PasswordState Environment' {
-                Get-PasswordStateEnvironment -path 'TestDrive:' | Should -Not -BeNullOrEmpty
-            }
-            It 'Should return a PasswordState Environment with Authentication ApiKey' {
-                (Get-PasswordStateEnvironment -path 'TestDrive:').AuthType | Should -BeExactly 'APIKey'
-            }
+        AfterEach {
+            Remove-Item -Path 'TestDrive:\Passwordstate.json' -Confirm:$false -Force -ErrorAction SilentlyContinue
         }
-        Context 'Windows Authentication unit testing' {
-            BeforeEach {
-                Set-PasswordStateEnvironment -path 'TestDrive:' -Baseuri $PWSUri -WindowsAuthOnly
-            }
-            AfterEach {
-                Remove-Item -Path 'TestDrive:\Passwordstate.json' -Confirm:$false -Force
-            }
-            It 'Should return a PasswordState Environment' {
-                Get-PasswordStateEnvironment -path 'TestDrive:' | Should -Not -BeNullOrEmpty
-            }
-            It 'Should return a PasswordState Environment with Authentication WindowsIntegrated' {
-                (Get-PasswordStateEnvironment -path 'TestDrive:').AuthType | Should -BeExactly 'WindowsIntegrated'
-            }
+        It 'Should return a PasswordState Environment' {
+            Get-PasswordStateEnvironment -path 'TestDrive:' | Should -Not -BeNullOrEmpty
         }
-        Context 'Custom Credential unit testing' {
-            BeforeEach {
-                Set-PasswordStateEnvironment -path 'TestDrive:' -Baseuri $PWSUri -customcredentials $PWSCredential
-            }
-            AfterEach {
-                Remove-Item -Path 'TestDrive:\Passwordstate.json' -Confirm:$false -Force
-            }
-            It 'Should return a PasswordState Environment' {
-                Get-PasswordStateEnvironment -path 'TestDrive:' | Should -Not -BeNullOrEmpty
-            }
-            It 'Should return a PasswordState Environment with Authentication WindowsCustom' {
-                (Get-PasswordStateEnvironment -path 'TestDrive:').AuthType | Should -BeExactly 'WindowsCustom'
-            }
+        It 'Should return a PasswordState Environment with Authentication ApiKey' {
+            (Get-PasswordStateEnvironment -path 'TestDrive:').AuthType | Should -BeExactly 'APIKey'
         }
+    }
+    Context "Windows Credential Unit Testing" {
+        BeforeEach {
+            Set-PasswordStateEnvironment -path 'TestDrive:' -Baseuri $TestUri -WindowsAuthOnly
+        }
+        AfterEach {
+            Remove-Item -Path 'TestDrive:\Passwordstate.json' -Confirm:$false -Force -ErrorAction SilentlyContinue
+        }
+        It 'Should return a PasswordState Environment' {
+            Get-PasswordStateEnvironment -path 'TestDrive:' | Should -Not -BeNullOrEmpty
+        }
+        It 'Should return a PasswordState Environment with Authentication WindowsIntegrated' {
+            (Get-PasswordStateEnvironment -path 'TestDrive:').AuthType | Should -BeExactly 'WindowsIntegrated'
+        }
+        
+    }
+    Context 'Custom Credential unit testing' {
+        BeforeEach {
+            Set-PasswordStateEnvironment -path 'TestDrive:' -Baseuri $TestUri -customcredentials $Credential
+        }
+        AfterEach {
+            Remove-Item -Path 'TestDrive:\Passwordstate.json' -Confirm:$false -Force -ErrorAction SilentlyContinue
+        }
+        It 'Should return a PasswordState Environment' {
+            Get-PasswordStateEnvironment -path 'TestDrive:' | Should -Not -BeNullOrEmpty
+        }
+        It 'Should return a PasswordState Environment with Authentication WindowsCustom' {
+            (Get-PasswordStateEnvironment -path 'TestDrive:').AuthType | Should -BeExactly 'WindowsCustom'
+        }
+    }
+}
+AfterAll {
+    Remove-Module -Name 'passwordstate-management' -ErrorAction SilentlyContinue
+    if (Test-Path "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json") {
+        Rename-Item "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
     }
 }

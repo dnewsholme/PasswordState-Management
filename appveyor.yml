@@ -4,7 +4,7 @@ pull_requests:
 skip_tags: true
 image: "WMF 5"
 install:
-  - cinst pester -y --version=4.10.1
+  - cinst pester
   - cinst PSScriptAnalyzer
   - cinst PSFramework
 environment:
@@ -17,4 +17,4 @@ build: "off"
 test_script:
   - ps: install-Module PSModuleDevelopment -force
   - ps: .\build\4.Analyze.ps1
-  - ps: .\tests\pester.ps1
+  - ps: .\build\pester.ps1
