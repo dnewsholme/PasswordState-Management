@@ -10,7 +10,6 @@
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 0)][ValidateLength(1, 255)][string]$Title,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 1)][ValidateLength(1, 255)][string]$UserName,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 2)][ValidateLength(1, 200)][string]$HostName,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 3)][ValidateLength(1, 50)][string]$Domain,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 4)][string]$AccountType,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 5)][ValidateLength(1, 255)][string]$Description,
         [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 6)][string]$Notes,
@@ -59,7 +58,7 @@
         [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 25)][Nullable[System.Int32]]$PasswordListID,
         [parameter(ValueFromPipelineByPropertyName, Position = 26)][string]$Reason,
         [parameter(ValueFromPipelineByPropertyName, Position = 27)][switch]$PreventAuditing,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 28)][ValidateLength(1, 50)][string]$ADDomainNetBIOS
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 28)][ValidateLength(1, 50)][Alias('Domain')][string]$ADDomainNetBIOS
     )
 
     Begin {

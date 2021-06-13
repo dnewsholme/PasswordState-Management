@@ -25,7 +25,7 @@ Describe 'Get-PasswordStatePassword' {
         @{parametername = 'Title'; mandatory = 'False'; ParameterSetName = "Specific" }
         @{parametername = 'UserName'; mandatory = 'False'; ParameterSetName = "Specific" }
         @{parametername = 'HostName'; mandatory = 'False'; ParameterSetName = "Specific" }
-        @{parametername = 'Domain'; mandatory = 'False'; ParameterSetName = "Specific" }
+        @{parametername = 'ADDomainNetBios'; mandatory = 'False'; ParameterSetName = "Specific" }
         @{parametername = 'AccountType'; mandatory = 'False'; ParameterSetName = "Specific" }
         @{parametername = 'Description'; mandatory = 'False'; ParameterSetName = "Specific" }
         @{parametername = 'Notes'; mandatory = 'False'; ParameterSetName = "Specific" }
@@ -226,6 +226,17 @@ Describe 'Get-PasswordStatePassword' {
                 Should -Invoke 'Get-PasswordstateResource' -Exactly -Times 1 -Scope It
             }
         }
+        It 'Should have a <parametername> matching "<testvalue>" for alias <alias>' -ForEach @(
+            @{parametername = 'ADDomainNetBios'; testvalue = "MYDomain"; ListCount = 5; PWLID = 53; alias='Domain' }
+        ) {
+            $ResultValues = Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+            foreach ($ResultValue in $ResultValues) {
+                $ResultValue."$($alias)" | Should -Match $testvalue
+            }
+            InModuleScope 'passwordstate-management' {
+                Should -Invoke 'Get-PasswordstateResource' -Exactly -Times 1 -Scope It
+            }
+        }
     }
     Context 'Unit tests with Windows Authentication' {
         BeforeAll {
@@ -398,6 +409,17 @@ Describe 'Get-PasswordStatePassword' {
                 Should -Invoke 'Get-PasswordstateResource' -Exactly -Times 1 -Scope It
             }
         }
+        It 'Should have a <parametername> matching "<testvalue>" for alias <alias>' -ForEach @(
+            @{parametername = 'ADDomainNetBios'; testvalue = "MYDomain"; ListCount = 5; PWLID = 53; alias='Domain' }
+        ) {
+            $ResultValues = Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+            foreach ($ResultValue in $ResultValues) {
+                $ResultValue."$($alias)" | Should -Match $testvalue
+            }
+            InModuleScope 'passwordstate-management' {
+                Should -Invoke 'Get-PasswordstateResource' -Exactly -Times 1 -Scope It
+            }
+        }
     }
     Context 'Unit tests with Custom Credential' {
         BeforeAll {
@@ -565,6 +587,17 @@ Describe 'Get-PasswordStatePassword' {
             $ResultValues = Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
             foreach ($ResultValue in $ResultValues) {
                 $ResultValue."$($ParameterName)" | Should -Match $testvalue
+            }
+            InModuleScope 'passwordstate-management' {
+                Should -Invoke 'Get-PasswordstateResource' -Exactly -Times 1 -Scope It
+            }
+        }
+        It 'Should have a <parametername> matching "<testvalue>" for alias <alias>' -ForEach @(
+            @{parametername = 'ADDomainNetBios'; testvalue = "MYDomain"; ListCount = 5; PWLID = 53; alias='Domain' }
+        ) {
+            $ResultValues = Invoke-Expression -Command "$($FunctionName) -$($Parametername) '$($testvalue)'"
+            foreach ($ResultValue in $ResultValues) {
+                $ResultValue."$($alias)" | Should -Match $testvalue
             }
             InModuleScope 'passwordstate-management' {
                 Should -Invoke 'Get-PasswordstateResource' -Exactly -Times 1 -Scope It
