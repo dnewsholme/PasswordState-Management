@@ -81,14 +81,6 @@ Task Build -Depends Clean {
     $ModuleName = "$($Projectname)"
     $ModPath = "$outputdir"
     $PSD1Path = Join-Path -path $ModPath -ChildPath "$($Projectname).psd1"
-    #$Null = mkdir $ModPath
-    #Copy-Item "$($projectroot)\$($Projectname).psm1" $ModPath -Verbose
-    #Copy-Item "$($projectroot)\docs\" $modpath -Recurse -Verbose
-    #Copy-Item "$($projectroot)\en-us\" $modpath -Recurse -Verbose
-    #Copy-Item "$($projectroot)\internal\" $modpath -Recurse -Verbose
-    #Copy-Item "$($projectroot)\functions\" $modpath -Recurse -Verbose
-    #Copy-Item "$($projectroot)\bin\" $modpath -Recurse -Verbose
-
     New-ModuleManifest -Guid $Guid `
         -Path $PSD1Path `
         -Author 'Daryl Newsholme' `
