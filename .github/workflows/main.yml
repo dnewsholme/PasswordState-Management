@@ -60,4 +60,4 @@ jobs:
           NUGET_KEY: ${{ secrets.NUGET_APIKEY }}
           CI_PROJECT_NAME: ${{ secrets.CI_PROJECT_NAME }}
         shell: pwsh
-        run: Publish-Module -Path $env:modulepath -NuGetApiKey $env:NUGET_KEY
+        run: Publish-Module -Path "D:\a\PasswordState-Management\PasswordState-Management\" -NuGetApiKey $env:NUGET_KEY
