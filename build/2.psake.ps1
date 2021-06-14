@@ -107,4 +107,5 @@ Task Build -Depends Clean {
     # We have a module, BuildHelpers will see it
     #Set-BuildEnvironment -Force
     $global:modpath = $ModPath
+    $env:modulepath = $modpath
 }
