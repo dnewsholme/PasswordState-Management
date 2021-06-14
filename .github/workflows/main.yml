@@ -50,11 +50,14 @@ jobs:
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module PSFramework, PSScriptAnalyzer,PSdeploy,Buildhelpers,psake
       - name: build module
+        env:
+         CI_PROJECT_NAME: ${{ secrets.CI_PROJECT_NAME }}
         shell: pwsh
         run: |
           ./build/0.build.ps1
       - name: publish
         env:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
+          CI_PROJECT_NAME: ${{ secrets.CI_PROJECT_NAME }}
         shell: pwsh
         run: Publish-Module -Name Passwordstate-Management -NuGetApiKey $env:NUGET_KEY
