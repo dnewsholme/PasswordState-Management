@@ -57,7 +57,7 @@ jobs:
           ./build/0.build.ps1
       - name: publish
         env:
-          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+          NUGET_KEY: ${{ secrets.NUGET_APIKEY }}
           CI_PROJECT_NAME: ${{ secrets.CI_PROJECT_NAME }}
         shell: pwsh
         run: Publish-Module -Name Passwordstate-Management -NuGetApiKey $env:NUGET_KEY
