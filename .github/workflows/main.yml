@@ -1,0 +1,63 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ all ]
+  pull_request:
+    branches: [ all ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  install-dependencies:
+    name: Install dependencies
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install from PSGallery
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module PSFramework, PSScriptAnalyzer,PSdeploy,Buildhelpers,psake
+  # This workflow contains a single job called "build"
+  tests:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    needs: install-dependencies
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Pester
+        run: ./build/pester.ps1
+        shell: pwsh
+
+      # Runs a set of commands using the runners shell
+      - name: ScriptAnalyzer
+        run: ./build/4.analyze.ps1
+        shell: pwsh
+
+  build:
+    name: build-and-publish
+    runs-on: windows-latest
+    needs: tests
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+      - name: build module
+        shell: pwsh
+        run: |
+          ./build/0.build.ps1
+      - name: publish
+        env:
+          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+        shell: pwsh
+        run: Publish-Module -Name Passwordstate-Management -NuGetApiKey $env:NUGET_KEY
