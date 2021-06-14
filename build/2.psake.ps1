@@ -79,7 +79,7 @@ Task Build -Depends Clean {
     }
     #Should just use plaster...
     $ModuleName = "$($Projectname)"
-    $ModPath = "$outputdir$modulename"
+    $ModPath = "$outputdir"
     $PSD1Path = Join-Path -path $ModPath -ChildPath "$($Projectname).psd1"
     $Null = mkdir $ModPath
     Copy-Item "$($projectroot)\$($Projectname).psm1" $ModPath -Verbose
