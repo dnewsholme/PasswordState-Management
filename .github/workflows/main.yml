@@ -44,6 +44,11 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
+      - name: Install from PSGallery
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module PSFramework, PSScriptAnalyzer,PSdeploy,Buildhelpers,psake
       - name: build module
         shell: pwsh
         run: |
