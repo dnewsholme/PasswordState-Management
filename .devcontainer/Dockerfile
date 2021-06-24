@@ -22,4 +22,4 @@ RUN apt-get -y install git procps lsb-release
 
 SHELL [ "pwsh", "-command" ]
 RUN Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-RUN pwsh -noprofile -noninteractive -c 'Install-Module PowershellGet -Scope AllUsers -Force; Install-Module Pester -Scope AllUsers -Verbose'
+RUN pwsh -noprofile -noninteractive -c 'Install-Module PowershellGet -Scope AllUsers -Force; Install-Module Pester -Scope AllUsers -Verbose; Install-Module PSFramework -Scope AllUsers'
