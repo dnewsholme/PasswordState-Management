@@ -50,7 +50,7 @@ jobs:
   build:
     name: build-and-publish
     runs-on: windows-latest
-    needs: tests
+    needs: [windows-tests,linux-tests]
     if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
