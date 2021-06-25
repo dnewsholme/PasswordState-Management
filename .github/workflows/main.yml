@@ -34,6 +34,17 @@ jobs:
       - name: ScriptAnalyzer
         run: ./build/4.analyze.ps1
         shell: pwsh
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install from PSGallery
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module PSFramework, PSScriptAnalyzer, PSDeploy, Buildhelpers, psake
+      - name: Pester
+        run: ./build/pester.ps1
+        shell: pwsh
 
   build:
     name: build-and-publish
