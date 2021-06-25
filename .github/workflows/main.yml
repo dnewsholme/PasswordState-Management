@@ -1,0 +1,61 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+  pull_request:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  tests:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Install from PSGallery
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module PSFramework, PSScriptAnalyzer,PSdeploy,Buildhelpers,psake
+      # Runs a single command using the runners shell
+      - name: Pester
+        run: ./build/pester.ps1
+        shell: pwsh
+
+      # Runs a set of commands using the runners shell
+      - name: ScriptAnalyzer
+        run: ./build/4.analyze.ps1
+        shell: pwsh
+
+  build:
+    name: build-and-publish
+    runs-on: windows-latest
+    needs: tests
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install from PSGallery
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module PSFramework, PSScriptAnalyzer,PSdeploy,Buildhelpers,psake
+      - name: build module
+        env:
+         CI_PROJECT_NAME: ${{ secrets.CI_PROJECT_NAME }}
+        shell: pwsh
+        run: |
+          ./build/0.build.ps1
+      - name: publish
+        env:
+          NUGET_KEY: ${{ secrets.NUGET_APIKEY }}
+          CI_PROJECT_NAME: ${{ secrets.CI_PROJECT_NAME }}
+        shell: pwsh
+        run: Publish-Module -Path "D:\a\PasswordState-Management\PasswordState-Management\" -NuGetApiKey $env:NUGET_KEY

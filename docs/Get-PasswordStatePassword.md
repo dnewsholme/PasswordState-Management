@@ -27,13 +27,13 @@ Get-PasswordStatePassword [-PasswordID] <Int32> [[-Reason] <String>] [-PreventAu
 ### Specific
 ```
 Get-PasswordStatePassword [[-Title] <String>] [[-UserName] <String>] [[-HostName] <String>]
- [[-Domain] <String>] [[-AccountType] <String>] [[-Description] <String>] [[-Notes] <String>] [[-URL] <String>]
+ [[-ADDomainNetBIOS] <String>] [[-AccountType] <String>] [[-Description] <String>] [[-Notes] <String>] [[-URL] <String>]
  [[-SiteID] <String>] [[-SiteLocation] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>]
  [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
  [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
  [[-GenericField9] <String>] [[-GenericField10] <String>] [[-AccountTypeID] <String>] [-PasswordResetEnabled]
  [[-ExpiryDate] <String>] [[-ExpiryDateRange] <String>] [[-AndOr] <String>] [[-PasswordListID] <Int32>]
- [[-Reason] <String>] [-PreventAuditing] [[-ADDomainNetBIOS] <String>] [<CommonParameters>]
+ [[-Reason] <String>] [-PreventAuditing] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -290,22 +290,6 @@ Aliases:
 
 Required: False
 Position: 5
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Domain
-Optionally search for a password object that relates to an Active Directory Account.  
-If the password relates to an Active Directory Account, then this record will show the NetBIOS value for the domain.
-
-```yaml
-Type: String
-Parameter Sets: Specific
-Aliases:
-
-Required: False
-Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
