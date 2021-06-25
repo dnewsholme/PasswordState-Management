@@ -11,7 +11,10 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"ms-vscode.powershell"
+		"ms-vscode.powershell",
+		"ban.spellright",
+		"donjayamanne.githistory",
+		"eamodio.gitlens"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
