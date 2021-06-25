@@ -10,7 +10,6 @@ BeforeAll {
     if (Test-Path "$([environment]::GetFolderPath('UserProfile'))/passwordstate.json") {
         Rename-Item "$([environment]::GetFolderPath('UserProfile'))/passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))/stowaway_passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
     }
-    Write-Host "view psscriptroot $($PSScriptRoot)"
     Import-Module -Name "$($PSScriptRoot)/../../passwordstate-management.psd1" -Force
 }
 Describe "Get-PasswordstateEnvironment" {
