@@ -19,7 +19,7 @@ InModuleScope -ModuleName 'passwordstate-management' {
             $APIKey='SuperSecretStuff'
             $Credential=[pscredential]::new('MyUser',(ConvertTo-SecureString -AsPlainText -Force -String $APIKey))
             $Paramattributetype='System.Management.Automation.ParameterAttribute'
-            . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
+            . "$($PSScriptRoot)\json\enum-jsonfiles.ps1"
         }
         Context 'Parameter validation' -Foreach @(
             @{parameterName='Uri';Mandatory='False'}
