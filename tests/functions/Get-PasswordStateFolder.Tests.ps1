@@ -38,7 +38,7 @@ Describe 'Get-PasswordstateFolder' {
     Context "Unit tests with winapi profile" {
         BeforeAll {
             Set-PasswordStateEnvironment -Uri $BaseURI -Apikey $APIKey -path $ProfilePath | Out-Null
-            & "$($PSScriptRoot)/json/enum-jsonfiles.ps1"
+            . "$($PSScriptRoot)/json/enum-jsonfiles.ps1"
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchResponse'] } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchFolderNameResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?FolderName=[^\$]+$' } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchDescriptionResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?Description=[^\$]+$' } -Verifiable
@@ -70,7 +70,7 @@ Describe 'Get-PasswordstateFolder' {
     Context 'Unit tests with Windows Integrated' {
         BeforeAll {
             Set-PasswordStateEnvironment -Uri $BaseURI -WindowsAuthOnly -path $ProfilePath | Out-Null
-            & "$($PSScriptRoot)/json/enum-jsonfiles.ps1"
+            . "$($PSScriptRoot)/json/enum-jsonfiles.ps1"
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchResponse'] } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchFolderNameResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?FolderName=[^\$]+$' } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchDescriptionResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?Description=[^\$]+$' } -Verifiable
@@ -101,7 +101,7 @@ Describe 'Get-PasswordstateFolder' {
     Context 'Unit tests with Custom Credential' {
         BeforeAll {
             Set-PasswordStateEnvironment -Uri $BaseURI -customcredentials $TestCredential -path $ProfilePath | Out-Null
-            & "$($PSScriptRoot)/json/enum-jsonfiles.ps1"
+            . "$($PSScriptRoot)/json/enum-jsonfiles.ps1"
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchResponse'] } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchFolderNameResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?FolderName=[^\$]+$' } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchDescriptionResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?Description=[^\$]+$' } -Verifiable
