@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/powershell:lts-debian-10
+FROM mcr.microsoft.com/powershell:ubuntu-18.04
 
 # [Option] Install zsh
 ARG INSTALL_ZSH="true"
