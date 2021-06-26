@@ -18,7 +18,7 @@ Describe 'Get-PasswordStatePassword' {
         $ProfilePath = 'TestDrive:'
         $TestCredential = [pscredential]::new('myuser', (ConvertTo-SecureString -AsPlainText -Force -String $APIKey))
         $Paramattributetype='System.Management.Automation.ParameterAttribute'
-        . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
+        . "$($PSScriptRoot)\json\enum-jsonfiles.ps1"
     }
     Context "Parameter Validation" -Foreach @(
         @{parametername = 'PasswordID'; mandatory = 'True'; ParameterSetName="__AllParameterSets" }

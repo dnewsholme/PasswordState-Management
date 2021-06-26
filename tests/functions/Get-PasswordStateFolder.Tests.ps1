@@ -1,13 +1,13 @@
 BeforeAll {
-    if (Test-Path "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json") {
-        Rename-Item "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
+    if (Test-Path "$([environment]::GetFolderPath('UserProfile'))/passwordstate.json") {
+        Rename-Item "$([environment]::GetFolderPath('UserProfile'))/passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))/stowaway_passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
     }
-    Import-Module -Name "$($PSScriptRoot)\..\..\passwordstate-management.psd1" -Force
+    Import-Module -Name "$($PSScriptRoot)/../../passwordstate-management.psd1" -Force
 }
 AfterAll {
     Remove-Module -Name 'passwordstate-management' -ErrorAction SilentlyContinue
-    if (Test-Path "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json") {
-        Rename-Item "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
+    if (Test-Path "$([environment]::GetFolderPath('UserProfile'))/stowaway_passwordstate.json") {
+        Rename-Item "$([environment]::GetFolderPath('UserProfile'))/stowaway_passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))/passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
     }
 }
 Describe 'Get-PasswordstateFolder' {
@@ -38,7 +38,7 @@ Describe 'Get-PasswordstateFolder' {
     Context "Unit tests with winapi profile" {
         BeforeAll {
             Set-PasswordStateEnvironment -Uri $BaseURI -Apikey $APIKey -path $ProfilePath | Out-Null
-            . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
+            . "$($PSScriptRoot)/json/enum-jsonfiles.ps1"
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchResponse'] } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchFolderNameResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?FolderName=[^\$]+$' } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchDescriptionResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?Description=[^\$]+$' } -Verifiable
@@ -48,7 +48,7 @@ Describe 'Get-PasswordstateFolder' {
         
         }
         AfterAll {
-            Remove-Item -Path "$($ProfilePath)\passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
+            Remove-Item -Path "$($ProfilePath)/passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
         }
         It "Should return 6 folders without parameters" {
             (Get-PasswordStateFolder).Count | Should -BeExactly 6
@@ -70,7 +70,7 @@ Describe 'Get-PasswordstateFolder' {
     Context 'Unit tests with Windows Integrated' {
         BeforeAll {
             Set-PasswordStateEnvironment -Uri $BaseURI -WindowsAuthOnly -path $ProfilePath | Out-Null
-            . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
+            . "$($PSScriptRoot)/json/enum-jsonfiles.ps1"
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchResponse'] } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchFolderNameResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?FolderName=[^\$]+$' } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchDescriptionResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?Description=[^\$]+$' } -Verifiable
@@ -79,7 +79,7 @@ Describe 'Get-PasswordstateFolder' {
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchSiteLocationResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?SiteLocation=[^\$]+$' } -Verifiable
         }
         AfterAll {
-            Remove-Item -Path "$($ProfilePath)\passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
+            Remove-Item -Path "$($ProfilePath)/passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
         }
         It "Should return 6 folders without parameters" {
             (Get-PasswordStateFolder).Count | Should -BeExactly 6
@@ -101,7 +101,7 @@ Describe 'Get-PasswordstateFolder' {
     Context 'Unit tests with Custom Credential' {
         BeforeAll {
             Set-PasswordStateEnvironment -Uri $BaseURI -customcredentials $TestCredential -path $ProfilePath | Out-Null
-            . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
+            . "$($PSScriptRoot)/json/enum-jsonfiles.ps1"
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchResponse'] } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchFolderNameResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?FolderName=[^\$]+$' } -Verifiable
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchDescriptionResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?Description=[^\$]+$' } -Verifiable
@@ -110,7 +110,7 @@ Describe 'Get-PasswordstateFolder' {
             Mock -CommandName 'Get-PasswordStateResource' -ModuleName 'passwordstate-management' -MockWith { $Global:TestJSON['FolderSearchSiteLocationResponse'] } -ParameterFilter { $uri -and $uri -match '\/folders\/\?SiteLocation=[^\$]+$' } -Verifiable
         }
         AfterAll {
-            Remove-Item -Path "$($ProfilePath)\passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
+            Remove-Item -Path "$($ProfilePath)/passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
         }
         It "Should return 6 folders without parameters" {
             (Get-PasswordStateFolder).Count | Should -BeExactly 6

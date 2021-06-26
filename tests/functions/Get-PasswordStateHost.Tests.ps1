@@ -18,7 +18,7 @@ Describe 'Get-PasswordstateHost' {
         $ProfilePath = 'TestDrive:'
         $TestCredential = [pscredential]::new('myuser', (ConvertTo-SecureString -AsPlainText -Force -String $APIKey))
         $Paramattributetype='System.Management.Automation.ParameterAttribute'
-        . "$($PSScriptRoot)\json\enum-jsonFiles.ps1"
+        . "$($PSScriptRoot)\json\enum-jsonfiles.ps1"
     }
     Context 'Parameter Validation' -Foreach @(
         @{parametername = 'HostName'; mandatory = 'False'; ParameterSetName = "__AllParameterSets" }

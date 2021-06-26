@@ -5,3 +5,4 @@
 + All functions should have an assoicated pester test with mocked data so the tests can be run without touching passwordstate.
 + All returned items from a function should be an object.
 + All code must be agnostic enough that it will work against any passwordstate server.
++ Module has to run in both Desktop and Core version of PowerShell
