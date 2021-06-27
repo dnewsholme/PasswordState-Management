@@ -1,5 +1,5 @@
 $script:ModuleRoot = $PSScriptRoot
-$script:ModuleVersion = (Import-PowerShellDataFile -Path "$($script:ModuleRoot)\Passwordstate-management.psd1").ModuleVersion
+$script:ModuleVersion = (Import-PowerShellDataFile -Path "$($script:ModuleRoot)\passwordstate-management.psd1").ModuleVersion
 $Script:Preferences=[PSCustomObject]@{
 	Path = [Environment]::GetFolderPath('UserProfile')
 }

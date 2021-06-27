@@ -79,16 +79,8 @@ Task Build -Depends Clean {
     }
     #Should just use plaster...
     $ModuleName = "$($Projectname)"
-    $ModPath = "$outputdir$modulename"
+    $ModPath = "$outputdir"
     $PSD1Path = Join-Path -path $ModPath -ChildPath "$($Projectname).psd1"
-    $Null = mkdir $ModPath
-    Copy-Item "$($projectroot)\$($Projectname).psm1" $ModPath -Verbose
-    Copy-Item "$($projectroot)\docs\" $modpath -Recurse -Verbose
-    Copy-Item "$($projectroot)\en-us\" $modpath -Recurse -Verbose
-    Copy-Item "$($projectroot)\internal\" $modpath -Recurse -Verbose
-    Copy-Item "$($projectroot)\functions\" $modpath -Recurse -Verbose
-    Copy-Item "$($projectroot)\bin\" $modpath -Recurse -Verbose
-
     New-ModuleManifest -Guid $Guid `
         -Path $PSD1Path `
         -Author 'Daryl Newsholme' `
@@ -107,4 +99,5 @@ Task Build -Depends Clean {
     # We have a module, BuildHelpers will see it
     #Set-BuildEnvironment -Force
     $global:modpath = $ModPath
+    $env:modulepath = $modpath
 }
