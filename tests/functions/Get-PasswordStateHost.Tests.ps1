@@ -1,13 +1,13 @@
 BeforeAll {
-    if (Test-Path "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json") {
-        Rename-Item "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
+    if (Test-Path "$([environment]::GetFolderPath('UserProfile'))/passwordstate.json") {
+        Rename-Item "$([environment]::GetFolderPath('UserProfile'))/passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))/stowaway_passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
     }
-    Import-Module -Name "$($PSScriptRoot)\..\..\passwordstate-management.psd1" -Force
+    Import-Module -Name "$($PSScriptRoot)/../../passwordstate-management.psd1" -Force
 }
 AfterAll {
     Remove-Module -Name 'passwordstate-management' -ErrorAction SilentlyContinue
-    if (Test-Path "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json") {
-        Rename-Item "$([environment]::GetFolderPath('UserProfile'))\stowaway_passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))\passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
+    if (Test-Path "$([environment]::GetFolderPath('UserProfile'))/stowaway_passwordstate.json") {
+        Rename-Item "$([environment]::GetFolderPath('UserProfile'))/stowaway_passwordstate.json" "$([environment]::GetFolderPath('UserProfile'))/passwordstate.json" -ErrorAction SilentlyContinue -Force -Confirm:$false
     }
 }
 Describe 'Get-PasswordstateHost' {
