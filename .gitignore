@@ -5,3 +5,4 @@ testResults.xml
 cov.xml
 .vscode
 passwordstate.code-workspace
+.devcontainer\certs\*.pem
