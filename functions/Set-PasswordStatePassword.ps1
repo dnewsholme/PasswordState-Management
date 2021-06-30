@@ -133,7 +133,7 @@
     process {
         if ($PasswordID) {
             try {
-                $result = Get-PasswordStatePassword -PasswordID $PasswordID -ErrorAction Stop
+                $result = Get-PasswordStatePassword -PasswordID $PasswordID @headerreason -ErrorAction Stop
             }
             catch {
                 throw "Given PasswordID '$PasswordID' not found"
