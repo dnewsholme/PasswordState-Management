@@ -12,7 +12,7 @@
   Process
   {
     $URI = '/api/onetimepassword/{0}' -f $PasswordID
-    
+
     Get-PasswordStateResource -URI $URI
   }
 }

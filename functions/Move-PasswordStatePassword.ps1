@@ -7,7 +7,7 @@
     [ValidateNotNullOrEmpty()]
     [int32]
     $PasswordID,
-    
+
     [Parameter(Mandatory = $true, Position = 1)]
     [Alias('DestinationPasswordListID')]
     [ValidateNotNullOrEmpty()]
@@ -21,7 +21,7 @@
       PasswordID = $PasswordID
       DestinationPasswordListID = $PasswordListID
     } | ConvertTo-Json
-    
+
     Set-PasswordStateResource -URI '/api/passwords/move' -Body $Body
   }
 }
