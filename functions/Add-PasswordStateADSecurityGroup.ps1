@@ -25,23 +25,18 @@
     $PreventAuditing
   )
 
-  Begin
-  {
-    Add-Type -AssemblyName System.Web
-  }
-
   Process
   {
     $Auditing = @('', '?PreventAuditing=true')[[bool]($PreventAuditing.IsPresent)]
 
     $Body = [PSCustomObject]@{
-      SecurityGroupName = [System.Web.HttpUtility]::UrlEncode($SecurityGroupName)
-      ADDomainNetBIOS   = [System.Web.HttpUtility]::UrlEncode($ADDomainNetBIOS)
+      SecurityGroupName = $SecurityGroupName
+      ADDomainNetBIOS   = $ADDomainNetBIOS
     }
 
     If (-not ([string]::IsNullOrEmpty($Description)) -and -not ([string]::IsNullOrWhiteSpace($Description)))
     {
-      $Body | Add-Member -MemberType NoteProperty -Name 'Description' -Value ([System.Web.HttpUtility]::UrlEncode($Description))
+      $Body | Add-Member -MemberType NoteProperty -Name 'Description' -Value $Description
     }
 
     If ($PSCmdlet.ShouldProcess("SecurityGroupName:$SecurityGroupName ADDomainNetBIOS:$ADDomainNetBIOS Description:$Description"))
