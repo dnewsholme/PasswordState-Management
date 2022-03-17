@@ -22,6 +22,9 @@
       DestinationPasswordListID = $PasswordListID
     } | ConvertTo-Json
 
-    Set-PasswordStateResource -URI '/api/passwords/move' -Body $Body
+    If ($PSCmdlet.ShouldProcess("Move PasswordId:$PasswordID to PasswordListId:$PasswordListID"))
+    {
+      Set-PasswordStateResource -URI '/api/passwords/move' -Body $Body
+    }
   }
 }

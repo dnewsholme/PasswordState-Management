@@ -27,6 +27,9 @@
       Link = @('False', 'True')[[bool]($Link.IsPresent)]
     } | ConvertTo-Json
 
-    New-PasswordStateResource -URI '/api/passwords/copy' -Body $Body
+    If ($PSCmdlet.ShouldProcess("Copy PasswordId:$PasswordID to PasswordListId:$PasswordListID"))
+    {
+      New-PasswordStateResource -URI '/api/passwords/copy' -Body $Body
+    }
   }
 }

@@ -44,6 +44,9 @@
       $Body | Add-Member -MemberType NoteProperty -Name 'Description' -Value ([System.Web.HttpUtility]::UrlEncode($Description))
     }
 
-    New-PasswordStateResource -URI ('/api/securitygroup/{0}' -f $Auditing) -Body ($Body | ConvertTo-Json)
+    If ($PSCmdlet.ShouldProcess("SecurityGroupName:$SecurityGroupName ADDomainNetBIOS:$ADDomainNetBIOS Description:$Description"))
+    {
+      New-PasswordStateResource -URI ('/api/securitygroup/{0}' -f $Auditing) -Body ($Body | ConvertTo-Json)
+    }
   }
 }

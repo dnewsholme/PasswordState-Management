@@ -1,6 +1,5 @@
 ﻿Function Get-PasswordStateOneTimePassword
 {
-  [CmdletBinding(SupportsShouldProcess = $true)]
   Param
   (
     [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, Position = 0)]

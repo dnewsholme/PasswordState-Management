@@ -1,6 +1,5 @@
 ﻿Function Get-PasswordStatePasswordPolicy
 {
-  [CmdletBinding(SupportsShouldProcess = $true)]
   Param
   (
     [Parameter(Mandatory = $true, Position = 0)]

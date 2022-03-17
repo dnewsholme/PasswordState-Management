@@ -1,6 +1,5 @@
 ﻿Function Get-PasswordStateADSecurityGroup
 {
-  [CmdletBinding(SupportsShouldProcess = $true)]
   Param
   (
     [Parameter(ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Position = 0)]
