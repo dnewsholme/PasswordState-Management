@@ -100,9 +100,7 @@ function New-PasswordStateResource {
                 }
             }
             catch [System.Net.WebException] {
-                Write-PSFMessage -Level Verbose -Message "The request to Passwordstate timed out after $($PasswordStateEnvironment.TimeoutSeconds)"
-                Write-Error -Exception $_.Exception -Message "The request to Passwordstate timed out after $($PasswordStateEnvironment.TimeoutSeconds)"
-                throw "Passwordstate did not respond within the allotted time of $($PasswordStateEnvironment.TimeoutSeconds) seconds"
+                throw $_.Exception
             }
 
         }

@@ -66,6 +66,9 @@
             throw "The following properties are not implemented yet to the PasswordState (Win)API, please remove these parameters: 'AllowExport', 'PreventBadPasswordUse', 'PasswordResetEnabled', 'PasswordGeneratorID', 'PasswordStrengthPolicyID'. `
             If you would like to change these properties, please copy the settings from an existing password list (-CopySettingsFromPasswordListID) or create a password list template and copy the settings from the template (-CopySettingsFromTemplateID)"
         }
+        if (-not($PSBoundParameters.Keys | Where-Object {$_ -like "*Permission*"})){
+            throw "Permissions must be granted for a password list to be able to create it"
+        }
     }
     process {
         # Build the Custom object to convert to json and send to the api.
