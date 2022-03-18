@@ -5,7 +5,6 @@
         [parameter(ValueFromPipeline, Mandatory = $true, Position = 0)][Alias("Password")][String]$Value
     )
     begin {
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
         class pwnpasswd {
             [string]$password
             [string]$hash
