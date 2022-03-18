@@ -5,7 +5,7 @@
   [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'General')]
   Param (
     [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 0)][int32]$length = 12,
-    [Parameter(ParameterSetName = 'PolicyID', Mandatory = $true, ValueFromPipelineByPropertyName, Position = 0)][int32]$PolicyID,
+    [Parameter(ParameterSetName = 'PolicyID', Mandatory = $true, ValueFromPipelineByPropertyName, Position = 0)][Alias('PolicyID')][int32]$PasswordGeneratorID,
     [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][switch]$includebrackets,
     [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 2)][switch]$includespecialcharacters,
     [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 3)][switch]$includenumbers,
@@ -54,7 +54,7 @@
       }
       # Generate a password using an existing Password Generator ID
       'PolicyID' {
-        $uri = "/api/generatepassword/?PasswordGeneratorID=$PolicyID&Qty=$Quantity"
+        $uri = "/api/generatepassword/?PasswordGeneratorID=$PasswordGeneratorID&Qty=$Quantity"
       }
     }
     Write-Verbose "[$(Get-Date -format G)] [GET] $uri"
