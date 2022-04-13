@@ -97,7 +97,6 @@ function Set-PasswordStateResource {
     }
 
     end {
-        [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }
