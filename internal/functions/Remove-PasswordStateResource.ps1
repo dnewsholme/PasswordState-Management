@@ -99,7 +99,6 @@ function Remove-PasswordStateResource {
     }
 
     end {
-        [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol
         return $result
     }
 }
