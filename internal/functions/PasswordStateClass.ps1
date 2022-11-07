@@ -88,7 +88,20 @@ class PasswordResult {
     [string]$ExpiryDate
     [System.Boolean]$AllowExport
     [string]$AccountType
-    [System.Array]$OTP
+    [string]$OTP
+    [String]$WebUser_ID
+    [String]$WebPassword_ID
+    [String]$WebOTP_ID
+    [String]$WebGenericField1_ID
+    [String]$WebGenericField2_ID
+    [String]$WebGenericField3_ID
+    [String]$WebGenericField4_ID
+    [String]$WebGenericField5_ID
+    [String]$WebGenericField6_ID
+    [String]$WebGenericField7_ID
+    [String]$WebGenericField8_ID
+    [String]$WebGenericField9_ID
+    [String]$WebGenericField10_ID
     # Constructor used to initiate the default property set.
     PasswordResult() {
         [string[]]$DefaultProperties = 'PasswordID', 'Title', 'Username', 'Password', 'Description', 'Domain'
