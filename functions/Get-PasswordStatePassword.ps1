@@ -58,7 +58,20 @@
         [Parameter(ParameterSetName = 'General', ValueFromPipelineByPropertyName, Position = 1)][Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 25)][Nullable[System.Int32]]$PasswordListID,
         [parameter(ValueFromPipelineByPropertyName, Position = 26)][string]$Reason,
         [parameter(ValueFromPipelineByPropertyName, Position = 27)][switch]$PreventAuditing,
-        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 28)][ValidateLength(1, 50)][Alias('Domain')][string]$ADDomainNetBIOS
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 28)][ValidateLength(1, 50)][Alias('Domain')][string]$ADDomainNetBIOS,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 29)][ValidateLength(1, 200)][string]$WebGenericField1_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 30)][ValidateLength(1, 200)][string]$WebGenericField2_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 31)][ValidateLength(1, 200)][string]$WebGenericField3_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 32)][ValidateLength(1, 200)][string]$WebGenericField4_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 33)][ValidateLength(1, 200)][string]$WebGenericField5_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 34)][ValidateLength(1, 200)][string]$WebGenericField6_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 35)][ValidateLength(1, 200)][string]$WebGenericField7_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 36)][ValidateLength(1, 200)][string]$WebGenericField8_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 37)][ValidateLength(1, 200)][string]$WebGenericField9_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 38)][ValidateLength(1, 200)][string]$WebGenericField10_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 39)][ValidateLength(1, 200)][string]$WebUser_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 40)][ValidateLength(1, 200)][string]$WebPassword_ID,
+        [Parameter(ParameterSetName = 'Specific', ValueFromPipelineByPropertyName, Position = 41)][ValidateLength(1, 200)][string]$WebOTP_ID
     )
 
     Begin {
@@ -66,8 +79,8 @@
         $PWSProfile = Get-PasswordStateEnvironment
         # Add a reason to the audit log if specified
         If ($Reason) {
-            $headerreason = @{"Reason" = "$Reason" }
-            $parms = @{ExtraParams = @{"Headers" = $headerreason } }
+            $headerreason = @{'Reason' = "$Reason" }
+            $parms = @{ExtraParams = @{'Headers' = $headerreason } }
         }
         else { $parms = @{ } }
     }
@@ -88,7 +101,7 @@
                     }
                     # Return all Passwords that the user/APIKey has access to
                     else {
-                        $uri = "/api/passwords/?QueryAll"
+                        $uri = '/api/passwords/?QueryAll'
                     }
                 }
                 Else {
@@ -127,13 +140,26 @@
                 If ($GenericField8) { $BuildURL += "GenericField8=$([System.Web.HttpUtility]::UrlEncode($GenericField8))&" }
                 If ($GenericField9) { $BuildURL += "GenericField9=$([System.Web.HttpUtility]::UrlEncode($GenericField9))&" }
                 If ($GenericField10) { $BuildURL += "GenericField10=$([System.Web.HttpUtility]::UrlEncode($GenericField10))&" }
+                If ($WebGenericField1_ID) { $BuildURL += "WebGenericField1_ID=$([System.Web.HttpUtility]::UrlEncode($WebGenericField1_ID))&" }
+                If ($WebGenericField2_ID) { $BuildURL += "WebGenericField2_ID=$([System.Web.HttpUtility]::UrlEncode($WebGenericField2_ID))&" }
+                If ($WebGenericField3_ID) { $BuildURL += "WebGenericField3_ID=$([System.Web.HttpUtility]::UrlEncode($WebGenericField3_ID))&" }
+                If ($WebGenericField4_ID) { $BuildURL += "WebGenericField4_ID=$([System.Web.HttpUtility]::UrlEncode($WebGenericField4_ID))&" }
+                If ($WebGenericField5_ID) { $BuildURL += "WebGenericField5_ID=$([System.Web.HttpUtility]::UrlEncode($WebGenericField5_ID))&" }
+                If ($WebGenericField6_ID) { $BuildURL += "WebGenericField6_ID=$([System.Web.HttpUtility]::UrlEncode($WebGenericField6_ID))&" }
+                If ($WebGenericField7_ID) { $BuildURL += "WebGenericField7_ID=$([System.Web.HttpUtility]::UrlEncode($WebGenericField7_ID))&" }
+                If ($WebGenericField8_ID) { $BuildURL += "WebGenericField8_ID=$([System.Web.HttpUtility]::UrlEncode($WebGenericField8_ID))&" }
+                If ($WebGenericField9_ID) { $BuildURL += "WebGenericField9_ID=$([System.Web.HttpUtility]::UrlEncode($WebGenericField9_ID))&" }
+                If ($WebGenericField10_ID) { $BuildURL += "WebGenericField10_ID=$([System.Web.HttpUtility]::UrlEncode($WebGenericField10_ID))&" }
+                If ($WebUser_ID) { $BuildURL += "WebUser_ID=$([System.Web.HttpUtility]::UrlEncode($WebUser_ID))&" }
+                If ($WebPassword_ID) { $BuildURL += "WebPassword_ID=$([System.Web.HttpUtility]::UrlEncode($WebPassword_ID))&" }
+                If ($WebOTP_ID) { $BuildURL += "WebOTP_ID=$([System.Web.HttpUtility]::UrlEncode($WebOTP_ID))&" }
                 If ($AccountTypeID) { $BuildURL += "AccountTypeID=$([System.Web.HttpUtility]::UrlEncode($AccountTypeID))&" }
                 If ($PasswordResetEnabled.IsPresent) { $BuildURL += "PasswordResetEnabled=$([System.Web.HttpUtility]::UrlEncode('true'))&" }
                 If ($ExpiryDateRange) { $BuildURL += "ExpiryDateRange=$([System.Web.HttpUtility]::UrlEncode($ExpiryDateRange))&" }
                 If ($ExpiryDate) { $BuildURL += "ExpiryDate=$([System.Web.HttpUtility]::UrlEncode($ExpiryDate))&" }
                 If ($AndOr) { $BuildURL += "AndOr=$([System.Web.HttpUtility]::UrlEncode($AndOr))&" }
 
-                $BuildURL = $BuildURL -Replace ".$"
+                $BuildURL = $BuildURL -Replace '.$'
 
                 if ($PasswordListID) {
                     $uri = "/api/searchpasswords/$($PasswordListID)$($BuildURL)"
@@ -145,7 +171,7 @@
         }
         Switch ($PreventAuditing) {
             $True {
-                $uri += "&PreventAuditing=true"
+                $uri += '&PreventAuditing=true'
             }
             Default {
 

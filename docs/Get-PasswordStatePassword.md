@@ -27,13 +27,17 @@ Get-PasswordStatePassword [-PasswordID] <Int32> [[-Reason] <String>] [-PreventAu
 ### Specific
 ```
 Get-PasswordStatePassword [[-Title] <String>] [[-UserName] <String>] [[-HostName] <String>]
- [[-ADDomainNetBIOS] <String>] [[-AccountType] <String>] [[-Description] <String>] [[-Notes] <String>] [[-URL] <String>]
- [[-SiteID] <String>] [[-SiteLocation] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>]
- [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
- [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
- [[-GenericField9] <String>] [[-GenericField10] <String>] [[-AccountTypeID] <String>] [-PasswordResetEnabled]
- [[-ExpiryDate] <String>] [[-ExpiryDateRange] <String>] [[-AndOr] <String>] [[-PasswordListID] <Int32>]
- [[-Reason] <String>] [-PreventAuditing] [<CommonParameters>]
+ [[-AccountType] <String>] [[-Description] <String>] [[-Notes] <String>] [[-URL] <String>] [[-SiteID] <String>]
+ [[-SiteLocation] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
+ [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
+ [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
+ [[-GenericField10] <String>] [[-AccountTypeID] <String>] [-PasswordResetEnabled] [[-ExpiryDate] <String>]
+ [[-ExpiryDateRange] <String>] [[-AndOr] <String>] [[-PasswordListID] <Int32>] [[-Reason] <String>]
+ [-PreventAuditing] [[-ADDomainNetBIOS] <String>] [-WebGenericField1_ID <String>]
+ [-WebGenericField2_ID <String>] [-WebGenericField3_ID <String>] [-WebGenericField4_ID <String>]
+ [-WebGenericField5_ID <String>] [-WebGenericField6_ID <String>] [-WebGenericField7_ID <String>]
+ [-WebGenericField8_ID <String>] [-WebGenericField9_ID <String>] [-WebGenericField10_ID <String>]
+ [-WebUser_ID <String>] [-WebPassword_ID <String>] [-WebOTP_ID <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -251,7 +255,7 @@ If you want to search for a record that relates to an Active Directory account, 
 ```yaml
 Type: String
 Parameter Sets: Specific
-Aliases:
+Aliases: Domain
 
 Required: False
 Position: 28
@@ -714,6 +718,201 @@ Aliases:
 
 Required: False
 Position: 1
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebGenericField1_ID
+This field is only used in conjunction with the Browser Extensions, and represents any generic fields, in additional to Username and Password, they you may need to use for a web site
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebGenericField10_ID
+This field is only used in conjunction with the Browser Extensions, and represents any generic fields, in additional to Username and Password, they you may need to use for a web site
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebGenericField2_ID
+This field is only used in conjunction with the Browser Extensions, and represents any generic fields, in additional to Username and Password, they you may need to use for a web site
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebGenericField3_ID
+This field is only used in conjunction with the Browser Extensions, and represents any generic fields, in additional to Username and Password, they you may need to use for a web site
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebGenericField4_ID
+This field is only used in conjunction with the Browser Extensions, and represents any generic fields, in additional to Username and Password, they you may need to use for a web site
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebGenericField5_ID
+This field is only used in conjunction with the Browser Extensions, and represents any generic fields, in additional to Username and Password, they you may need to use for a web site
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebGenericField6_ID
+This field is only used in conjunction with the Browser Extensions, and represents any generic fields, in additional to Username and Password, they you may need to use for a web site
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebGenericField7_ID
+This field is only used in conjunction with the Browser Extensions, and represents any generic fields, in additional to Username and Password, they you may need to use for a web site
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebGenericField8_ID
+This field is only used in conjunction with the Browser Extensions, and represents any generic fields, in additional to Username and Password, they you may need to use for a web site
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebGenericField9_ID
+This field is only used in conjunction with the Browser Extensions, and represents any generic fields, in additional to Username and Password, they you may need to use for a web site
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebOTP_ID
+This field is only used in conjunction with the Browser Extensions, and represents the OTP field for login pages i.e. the tag name of the Input HTML field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebPassword_ID
+This field is only used in conjunction with the Browser Extensions, and represents the Password field for login pages i.e. the tag name of the Input HTML field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WebUser_ID
+This field is only used in conjunction with the Browser Extensions, and represents the Username field for login pages i.e. the tag name of the Input HTML field.
+
+```yaml
+Type: String
+Parameter Sets: Specific
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
