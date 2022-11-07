@@ -27,13 +27,13 @@ Get-PasswordStatePassword [-PasswordID] <Int32> [[-Reason] <String>] [-PreventAu
 ### Specific
 ```
 Get-PasswordStatePassword [[-Title] <String>] [[-UserName] <String>] [[-HostName] <String>]
- [[-ADDomainNetBIOS] <String>] [[-AccountType] <String>] [[-Description] <String>] [[-Notes] <String>] [[-URL] <String>]
- [[-SiteID] <String>] [[-SiteLocation] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>]
- [[-GenericField3] <String>] [[-GenericField4] <String>] [[-GenericField5] <String>]
- [[-GenericField6] <String>] [[-GenericField7] <String>] [[-GenericField8] <String>]
- [[-GenericField9] <String>] [[-GenericField10] <String>] [[-AccountTypeID] <String>] [-PasswordResetEnabled]
- [[-ExpiryDate] <String>] [[-ExpiryDateRange] <String>] [[-AndOr] <String>] [[-PasswordListID] <Int32>]
- [[-Reason] <String>] [-PreventAuditing] [<CommonParameters>]
+ [[-AccountType] <String>] [[-Description] <String>] [[-Notes] <String>] [[-URL] <String>] [[-SiteID] <String>]
+ [[-SiteLocation] <String>] [[-GenericField1] <String>] [[-GenericField2] <String>] [[-GenericField3] <String>]
+ [[-GenericField4] <String>] [[-GenericField5] <String>] [[-GenericField6] <String>]
+ [[-GenericField7] <String>] [[-GenericField8] <String>] [[-GenericField9] <String>]
+ [[-GenericField10] <String>] [[-AccountTypeID] <String>] [-PasswordResetEnabled] [[-ExpiryDate] <String>]
+ [[-ExpiryDateRange] <String>] [[-AndOr] <String>] [[-PasswordListID] <Int32>] [[-Reason] <String>]
+ [-PreventAuditing] [[-ADDomainNetBIOS] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -251,7 +251,7 @@ If you want to search for a record that relates to an Active Directory account, 
 ```yaml
 Type: String
 Parameter Sets: Specific
-Aliases:
+Aliases: Domain
 
 Required: False
 Position: 28
