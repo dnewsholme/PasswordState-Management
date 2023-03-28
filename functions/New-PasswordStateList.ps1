@@ -58,10 +58,9 @@
         [parameter(ValueFromPipelineByPropertyName, Position = 19, Mandatory = $false, HelpMessage = "PasswordStrengthPolicyID 1 = 'Default Password Strength Policy'")]
         [int32]$PasswordStrengthPolicyID = 1,
         [parameter(ValueFromPipelineByPropertyName, Position = 20, Mandatory = $false)]
-        [switch]$Sort,        
+        [switch]$Sort,
         [parameter(ValueFromPipelineByPropertyName, Position = 21, Mandatory = $false)]
         [switch]$AdvancedFolder
-
     )
 
     begin {
