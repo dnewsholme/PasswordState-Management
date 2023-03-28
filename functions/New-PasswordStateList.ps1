@@ -58,7 +58,9 @@
         [parameter(ValueFromPipelineByPropertyName, Position = 19, Mandatory = $false, HelpMessage = "PasswordStrengthPolicyID 1 = 'Default Password Strength Policy'")]
         [int32]$PasswordStrengthPolicyID = 1,
         [parameter(ValueFromPipelineByPropertyName, Position = 20, Mandatory = $false)]
-        [switch]$Sort
+        [switch]$Sort,
+        [parameter(ValueFromPipelineByPropertyName, Position = 21, Mandatory = $false)]
+        [switch]$AdvancedFolder
     )
 
     begin {
@@ -66,8 +68,8 @@
             throw "The following properties are not implemented yet to the PasswordState (Win)API, please remove these parameters: 'AllowExport', 'PreventBadPasswordUse', 'PasswordResetEnabled', 'PasswordGeneratorID', 'PasswordStrengthPolicyID'. `
             If you would like to change these properties, please copy the settings from an existing password list (-CopySettingsFromPasswordListID) or create a password list template and copy the settings from the template (-CopySettingsFromTemplateID)"
         }
-        if (-not($PSBoundParameters.Keys | Where-Object {$_ -like "*Permission*"})){
-            throw "Permissions must be granted for a password list to be able to create it"
+        if (-not($PSBoundParameters.Keys | Where-Object { $_ -like "*Permission*" }) -and -not $AdvancedFolder.IsPresent) {
+            throw "Permissions must be granted for a password list to be able to create it. If you try to create a password list in an advanced permissions model folder, use the -AdvancedFolder switch."
         }
     }
     process {
