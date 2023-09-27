@@ -89,6 +89,7 @@ class PasswordResult {
     [System.Boolean]$AllowExport
     [string]$AccountType
     [string]$OTP
+    [string]$OTPUri
     [String]$WebUser_ID
     [String]$WebPassword_ID
     [String]$WebOTP_ID
