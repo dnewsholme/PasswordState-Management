@@ -51,7 +51,7 @@ jobs:
     name: build-and-publish
     runs-on: windows-latest
     needs: [windows-tests,linux-tests]
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' && github.repository == 'dnewsholme/PasswordState-Management'
     steps:
       - uses: actions/checkout@v2
       - name: Install from PSGallery
