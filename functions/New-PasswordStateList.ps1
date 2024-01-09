@@ -21,6 +21,7 @@
         [parameter(parameterSetName = 'Permission', ValueFromPipelineByPropertyName, Position = 5, Mandatory = $false)]
         [string]$CopySettingsFromTemplateID = $null,
         [parameter(parameterSetName = 'Permission', ValueFromPipelineByPropertyName, Position = 6, Mandatory = $false)]
+        [parameter(parameterSetName = 'TemplatePermission', ValueFromPipelineByPropertyName, Position = 4, Mandatory = $true)]
         [string]$CopyPermissionsFromTemplateID = $null,
         [parameter(parameterSetName = 'Permission', ValueFromPipelineByPropertyName, Position = 6, Mandatory = $false)]
         [parameter(parameterSetName = 'Template', ValueFromPipelineByPropertyName, Position = 4, Mandatory = $true)]
@@ -36,6 +37,7 @@
         [parameter(parameterSetName = 'Permission', Position = 11, ValueFromPipelineByPropertyName, Mandatory = $false)]
         [string]$ApplyPermissionsForSecurityGroupName = $null,
         [parameter(parameterSetName = 'Private', ValueFromPipelineByPropertyName, Position = 6, Mandatory = $false)]
+        [parameter(parameterSetName = 'TemplatePermission', ValueFromPipelineByPropertyName, Position = 4, Mandatory = $false)]
         [parameter(ParameterSetName = 'Permission', Position = 12, ValueFromPipelineByPropertyName, Mandatory = $true)]
         [ValidateSet('A', 'M', 'V')]
         [string]$Permission,
