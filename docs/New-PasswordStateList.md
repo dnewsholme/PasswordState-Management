@@ -66,6 +66,14 @@ New-PasswordStateList [-Name] <String> [-Description] <String> [[-FolderID] <Int
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
+### TemplatePermission
+```
+New-PasswordStateList [-Name] <String> [-Description] <String> [[-FolderID] <Int32>]
+ [-CopyPermissionsFromTemplateID] <String> [[-ImageFileName] <String>] [[-SiteID] <Int32>] [-AllowExport]
+ [[-Guide] <String>] [-PreventBadPasswordUse] [-PasswordResetEnabled] [[-PasswordGeneratorID] <Int32>]
+ [[-PasswordStrengthPolicyID] <Int32>] [-Sort] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
 ## DESCRIPTION
 Creates a passwordstate List.  
 Adding a new Password List object can be achieved by making a POST request on the URL, with appropriate fields forming the HTTP message body. To create Password Lists, you must have access to the 'Add Shared Password List' and/or 'Add Private Password List' menus within the Passwordstate UI.  
@@ -96,6 +104,13 @@ New-PasswordStateList -Name "TestPrivateList" -PrivatePasswordList -description 
 ```
 
 Creates a private password list under folder with ID 4. Applying administrator permissions to the given user.
+
+### EXAMPLE 4
+```
+New-PasswordStateList -Name "TestSharedList" -Description "Test shared password list" -FolderID 4 -CopySettingsFromTemplateID 1 -CopyPermissionsFromTemplateID 1 -LinkToTemplate "true"
+```
+
+Creates an advanced shared password list under folder with ID 4. The settings and permissions will be copied from an existing password list template with ID 1 and the list will be linked to the password list template.
 
 ## PARAMETERS
 
@@ -181,6 +196,18 @@ To copy permissions to the Password List from an existing Password List Template
 
 ```yaml
 Type: String
+Parameter Sets: TemplatePermission
+Aliases:
+
+Required: True
+Position: 4
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+```yaml
+Type: String
 Parameter Sets: Permission
 Aliases:
 
@@ -229,7 +256,7 @@ Parameter Sets: Permission, Template
 Aliases:
 
 Required: False
-Position: 5
+Position: 3, 5
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -314,16 +341,16 @@ Accept wildcard characters: False
 
 ### -LinkToTemplate
 Link template to an existing password list template.  
-If you want to Link the new Password List to an existing Password List Template, then you can specify the TemplateID here.  
+If you want to Link the new Password List to an existing Password List Template, set this to "true".  
 
 **Note**: When doing this, you must also specify a value for the field CopySettingsFromTemplateID, and not use the field CopySettingsFromPasswordListID.  
 
 ```yaml
 Type: String
-Parameter Sets: Permission
+Parameter Sets: TemplatePermission
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
@@ -332,11 +359,11 @@ Accept wildcard characters: False
 
 ```yaml
 Type: String
-Parameter Sets: Template
+Parameter Sets: Permission
 Aliases:
 
-Required: True
-Position: 4
+Required: False
+Position: 12
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
