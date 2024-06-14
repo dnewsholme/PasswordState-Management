@@ -17,7 +17,7 @@
     process {
         try {
             $output += Get-PasswordStateResource `
-                -uri "/api/document/$($resourcetype)/$($ID)/$documentID" `
+                -uri "/api/document/$($resourcetype)/$documentID" `
                 -extraparams @{"OutFile" = "$Path"} `
                 -contenttype 'multipart/form-data' `
                 -ErrorAction stop
