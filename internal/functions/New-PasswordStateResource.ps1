@@ -71,7 +71,7 @@ function New-PasswordStateResource {
             $params += @{"headers" = $headers }
             $skipheaders = $true
         }
-        if ($extraparams -and $null -eq $extraparams.Headers) {
+        if ($extraparams -and $null -ne $extraparams) {
             Write-PSFMessage -Level Verbose -Message "Adding extra parameter $($extraparams.keys) $($extraparams.values)"
             $params += $extraparams
         }
