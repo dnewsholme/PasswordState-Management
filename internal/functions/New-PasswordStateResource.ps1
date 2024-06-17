@@ -71,11 +71,11 @@ function New-PasswordStateResource {
             $params += @{"headers" = $headers }
             $skipheaders = $true
         }
-        if ($extraparams -and $null -ne $extraparams) {
-            Write-PSFMessage -Level Verbose -Message "Adding extra parameter $($extraparams.keys) $($extraparams.values)"
+        if ($extraparams) {
+            $extraparams.remove("headers") # headers already added dont try and add them again.
+            Write-Verbose "[$(Get-Date -format G)] Adding extra parameter $($extraparams.keys) $($extraparams.values)"
             $params += $extraparams
         }
-
         if ($headers -and $skipheaders -ne $true) {
             Write-PSFMessage -Level Verbose -Message "Adding API Headers only"
             $params += @{"headers" = $headers }

@@ -7,7 +7,9 @@
             "folder"
         )][string]$resourcetype = "password",
         [parameter(ValueFromPipelineByPropertyName, Position = 2)][int32]$DocumentID,
-        [parameter(ValueFromPipelineByPropertyName, Position = 4)][string]$Path
+        [parameter(ValueFromPipelineByPropertyName, Position = 4)][string]$Path,
+        [parameter(ValueFromPipelineByPropertyName, Position = 5)][string]$Reason
+
     )
 
     begin {
@@ -15,10 +17,14 @@
     }
 
     process {
+        $headerreason = @{'Reason' = "$Reason" }
         try {
             $output += Get-PasswordStateResource `
                 -uri "/api/document/$($resourcetype)/$documentID" `
-                -extraparams @{"OutFile" = "$Path"} `
+                -extraparams @{
+                    "OutFile" = "$Path"
+                    "Headers" = $headerreason
+                } `
                 -contenttype 'multipart/form-data' `
                 -ErrorAction stop
         }
