@@ -21,7 +21,6 @@
         try {
             $output += Get-PasswordStateResource `
                 -uri "/api/document/$($resourcetype)/$documentID" `
-
                 -extraparams @{
                     "OutFile" = "$Path"
                     "Headers" = $headerreason
