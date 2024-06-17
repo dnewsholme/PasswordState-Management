@@ -69,7 +69,9 @@ function Get-PasswordStateResource {
             $params += @{"headers" = $headers }
             $skipheaders = $true
         }
-        if ($extraparams -and $null -ne $extraparams -and $skipheaders -ne $true) {
+        if ($extraparams) {
+            $extraparams.remove("headers") # headers already added dont try and add them again.
+
             Write-Verbose "[$(Get-Date -format G)] Adding extra parameter $($extraparams.keys) $($extraparams.values)"
             $params += $extraparams
         }
