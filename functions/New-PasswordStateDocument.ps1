@@ -19,11 +19,13 @@
     process {
         try {
             if ($PSCmdlet.ShouldProcess($path, "upload $DocumentName on $resourcetype with id $ID")) {
-                $output += New-PasswordStateResource `
-                    -uri "/api/document/$($resourcetype)/$($ID)?DocumentName=$($documentname)&DocumentDescription=$($documentdescription)" `
-                    -extraparams @{"InFile" = "$Path"} `
-                    -contenttype 'multipart/form-data' `
-                    -ErrorAction stop
+                $splatparams = @{
+                    "uri" = "/api/document/$($resourcetype)/$($ID)?DocumentName=$($documentname)&DocumentDescription=$($documentdescription)"
+                    "extraparams" = @{"InFile" = "$Path"}
+                    "contentype" = 'multipart/form-data'
+                    "ErrorAction" = "stop"
+                }
+                $output += New-PasswordStateResource @splatparams
             }
         }
         Catch {
