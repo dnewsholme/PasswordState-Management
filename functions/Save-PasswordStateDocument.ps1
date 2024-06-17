@@ -19,14 +19,16 @@
     process {
         $headerreason = @{'Reason' = "$Reason" }
         try {
-            $output += Get-PasswordStateResource `
-                -uri "/api/document/$($resourcetype)/$documentID" `
-                -extraparams @{
+            $splatparams = @{
+                "uri" = "/api/document/$($resourcetype)/$documentID"
+                "extraparams" = @{
                     "OutFile" = "$Path"
                     "Headers" = $headerreason
-                } `
-                -contenttype 'multipart/form-data' `
-                -ErrorAction stop
+                }
+                "contenttype" = 'multipart/form-data'
+                "ErrorAction" = "stop"
+            }
+            $output += Get-PasswordStateResource @splatparams
         }
         Catch {
             $_.Exception
