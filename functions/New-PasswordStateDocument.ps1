@@ -22,7 +22,7 @@
                 $splatparams = @{
                     "uri" = "/api/document/$($resourcetype)/$($ID)?DocumentName=$($documentname)&DocumentDescription=$($documentdescription)"
                     "extraparams" = @{"InFile" = "$Path"}
-                    "contentype" = 'multipart/form-data'
+                    "contenttype" = 'multipart/form-data'
                     "ErrorAction" = "stop"
                 }
                 $output += New-PasswordStateResource @splatparams
