@@ -1,4 +1,4 @@
-﻿[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'Script is converting to secure string.')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'Script is converting to secure string.')]
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Justification = 'Script is converting to secure string.')]
 # Create Class
 param()
@@ -103,8 +103,22 @@ class PasswordResult {
     [String]$WebGenericField8_ID
     [String]$WebGenericField9_ID
     [String]$WebGenericField10_ID
+    [String]$LastUpdated
     # Constructor used to initiate the default property set.
     PasswordResult() {
+        $this.InitDefaultProperties()
+    }
+    # Constructor used when casting a PSCustomObject (e.g. API JSON response) to [PasswordResult].
+    # Only copies properties that exist on this class so new/unknown API fields don't break the cast.
+    PasswordResult([PSCustomObject]$InputObject) {
+        $this.InitDefaultProperties()
+        foreach ($prop in $InputObject.PSObject.Properties) {
+            if ($null -ne $this.PSObject.Properties[$prop.Name]) {
+                $this.$($prop.Name) = $prop.Value
+            }
+        }
+    }
+    hidden InitDefaultProperties() {
         [string[]]$DefaultProperties = 'PasswordID', 'Title', 'Username', 'Password', 'Description', 'Domain'
 
         #Create a propertyset name DefaultDisplayPropertySet, with properties we care about

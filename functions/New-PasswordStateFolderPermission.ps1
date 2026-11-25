@@ -10,9 +10,9 @@
         [ValidateLength(0, 100)]
         [string]$ApplyPermissionsForUserID = $null,
         [parameter(parameterSetName = 'PermissionID', Position = 3, ValueFromPipelineByPropertyName, Mandatory = $true)]
-        [string]$ApplyPermissionsForSecurityGroupID = $null,
+        [string]$ApplyPermissionsForSecurityGroupID,
         [parameter(parameterSetName = 'PermissionName', Position = 3, ValueFromPipelineByPropertyName, Mandatory = $true)]
-        [string]$ApplyPermissionsForSecurityGroupName = $null
+        [string]$ApplyPermissionsForSecurityGroupName
     )
 
     begin {

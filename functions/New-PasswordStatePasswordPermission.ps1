@@ -11,9 +11,9 @@
         [ValidateLength(0, 100)]
         [string]$ApplyPermissionsForUserID = $null,
         [parameter(parameterSetName = 'PermissionID', Position = 3, ValueFromPipelineByPropertyName, Mandatory = $true)]
-        [Nullable[System.Int32]]$ApplyPermissionsForSecurityGroupID = $null,
+        [Nullable[System.Int32]]$ApplyPermissionsForSecurityGroupID,
         [parameter(parameterSetName = 'PermissionName', Position = 3, ValueFromPipelineByPropertyName, Mandatory = $true)]
-        [string]$ApplyPermissionsForSecurityGroupName = $null
+        [string]$ApplyPermissionsForSecurityGroupName
     )
 
     begin {
