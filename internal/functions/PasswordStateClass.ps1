@@ -103,6 +103,7 @@ class PasswordResult {
     [String]$WebGenericField8_ID
     [String]$WebGenericField9_ID
     [String]$WebGenericField10_ID
+    [String]$LastUpdated
     # Constructor used to initiate the default property set.
     PasswordResult() {
         [string[]]$DefaultProperties = 'PasswordID', 'Title', 'Username', 'Password', 'Description', 'Domain'

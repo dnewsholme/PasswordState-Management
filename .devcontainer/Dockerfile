@@ -1,27 +1,21 @@
-FROM mcr.microsoft.com/powershell:ubuntu-18.04
+FROM mcr.microsoft.com/powershell:lts-ubuntu-22.04
 
-# [Option] Install zsh
-ARG INSTALL_ZSH="true"
-# [Option] Upgrade OS packages to their latest versions
-ARG UPGRADE_PACKAGES="false"
-
-# Install needed packages and setup non-root user. Use a separate RUN statement to add your own dependencies.
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-COPY library-scripts/*.sh /tmp/library-scripts/
+
 RUN apt-get update \
-    && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
-    && chsh "${USERNAME}" -s "$(which pwsh)" \
-    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
+    && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+        git procps lsb-release ca-certificates curl wget jq sudo zsh openssh-client \
+    && groupadd --gid "${USER_GID}" "${USERNAME}" \
+    && useradd --uid "${USER_UID}" --gid "${USER_GID}" -m -s "$(which pwsh)" "${USERNAME}" \
+    && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > "/etc/sudoers.d/${USERNAME}" \
+    && chmod 0440 "/etc/sudoers.d/${USERNAME}" \
+    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-# [Optional] Uncomment this section to install additional packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
-RUN apt-get -y install git procps lsb-release
-
-SHELL [ "pwsh", "-command" ]
-RUN Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-COPY certs/*.pem /etc/ssl/certs/
-RUN update-ca-certificates
-RUN pwsh -noprofile -noninteractive -c 'Install-Module PowershellGet -Scope AllUsers -Force; Install-Module Pester -Scope AllUsers -Verbose; Install-Module PSFramework -Scope AllUsers'
+RUN pwsh -NoProfile -NonInteractive -Command "\
+    Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; \
+    Install-Module PowerShellGet -Scope AllUsers -Force; \
+    Install-Module Pester -MaximumVersion 4.99.99 -Scope AllUsers -Force -SkipPublisherCheck; \
+    Install-Module PSFramework -Scope AllUsers -Force"
